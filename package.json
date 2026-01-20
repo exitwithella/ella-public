@@ -31,13 +31,17 @@
     "@payloadcms/richtext-lexical": "3.70.0",
     "@payloadcms/storage-r2": "3.70.0",
     "@payloadcms/ui": "3.70.0",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindplus/elements": "^1.0.22",
+    "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
     "graphql": "^16.8.1",
     "next": "15.4.10",
     "payload": "3.70.0",
     "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react-dom": "19.2.1",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",
