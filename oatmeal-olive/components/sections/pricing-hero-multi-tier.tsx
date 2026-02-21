@@ -1,4 +1,3 @@
-import { ElTabGroup, ElTabList, ElTabPanels } from '@tailwindplus/elements/react'
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
 import { Container } from '../elements/container'
@@ -33,17 +32,17 @@ export function Plan({
     >
       <div className="self-stretch">
         <div className="flex items-center justify-between">
-          {badge && (
+          {badge ? (
             <div className="order-last inline-flex rounded-full bg-olive-950/10 px-2 text-xs/6 font-medium text-olive-950 dark:bg-white/10 dark:text-white">
               {badge}
             </div>
-          )}
+          ) : null}
 
           <h3 className="text-2xl/8 tracking-tight text-olive-950 dark:text-white">{name}</h3>
         </div>
         <p className="mt-1 inline-flex gap-1 text-base/7">
           <span className="text-olive-950 dark:text-white">{price}</span>
-          {period && <span className="text-olive-500 dark:text-olive-500">{period}</span>}
+          {period ? <span className="text-olive-500 dark:text-olive-500">{period}</span> : null}
         </p>
         <div className="mt-4 flex flex-col gap-4 text-sm/6 text-olive-700 dark:text-olive-400">{subheadline}</div>
         <ul className="mt-4 space-y-2 text-sm/6 text-olive-700 dark:text-olive-400">
@@ -60,6 +59,11 @@ export function Plan({
   )
 }
 
+// ElTabGroup (from @tailwindplus/elements/react) replaced with a stacked layout.
+// Each billing option (e.g. Monthly / Annually) gets its own labeled section.
+// This keeps the component server-renderable with zero client JS.
+// If a billing toggle is needed, this is a candidate for client-side enhancement
+// as a focused "use client" island — the rest of the pricing page stays server.
 export function PricingHeroMultiTier<T extends string>({
   eyebrow,
   headline,
@@ -79,39 +83,26 @@ export function PricingHeroMultiTier<T extends string>({
 } & ComponentProps<'section'>) {
   return (
     <section className={clsx('py-16', className)} {...props}>
-      <ElTabGroup>
-        <Container className="flex flex-col gap-16">
-          <div className="flex flex-col items-center gap-6">
-            {eyebrow}
-            <Heading>{headline}</Heading>
-            <Text size="lg" className="flex max-w-xl flex-col gap-4 text-center">
-              {subheadline}
-            </Text>
-            <ElTabList className="flex items-center gap-1 rounded-full bg-olive-950/5 p-1 dark:bg-white/5">
-              {options.map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  className="rounded-full px-4 py-1 text-sm/7 font-medium text-olive-950 aria-selected:bg-olive-950 aria-selected:text-white dark:text-white dark:aria-selected:bg-white/10 dark:aria-selected:text-white"
-                >
-                  {option}
-                </button>
-              ))}
-            </ElTabList>
+      <Container className="flex flex-col gap-16">
+        <div className="flex flex-col items-center gap-6">
+          {eyebrow}
+          <Heading>{headline}</Heading>
+          <Text size="lg" className="flex max-w-xl flex-col gap-4 text-center">
+            {subheadline}
+          </Text>
+        </div>
+        {options.map((option) => (
+          <div key={option} className="flex flex-col gap-6">
+            {options.length > 1 ? (
+              <h3 className="text-center text-sm/7 font-semibold text-olive-950 dark:text-white">{option}</h3>
+            ) : null}
+            <div className="grid grid-cols-1 gap-2 sm:has-[>:nth-child(5)]:grid-cols-2 sm:max-lg:has-[>:last-child:nth-child(even)]:grid-cols-2 lg:auto-cols-fr lg:grid-flow-col lg:grid-cols-none lg:has-[>:nth-child(5)]:grid-flow-row lg:has-[>:nth-child(5)]:grid-cols-3">
+              {plans[option]}
+            </div>
           </div>
-          <ElTabPanels>
-            {options.map((option) => (
-              <div
-                key={option}
-                className="grid grid-cols-1 gap-2 sm:has-[>:nth-child(5)]:grid-cols-2 sm:max-lg:has-[>:last-child:nth-child(even)]:grid-cols-2 lg:auto-cols-fr lg:grid-flow-col lg:grid-cols-none lg:has-[>:nth-child(5)]:grid-flow-row lg:has-[>:nth-child(5)]:grid-cols-3"
-              >
-                {plans[option]}
-              </div>
-            ))}
-          </ElTabPanels>
-          {footer}
-        </Container>
-      </ElTabGroup>
+        ))}
+        {footer}
+      </Container>
     </section>
   )
 }

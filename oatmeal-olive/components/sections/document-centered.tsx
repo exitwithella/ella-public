@@ -20,11 +20,11 @@ export function DocumentCentered({
       <Container className="flex flex-col gap-10 sm:gap-16">
         <div className="flex flex-col items-center gap-6">
           <Heading className="max-w-5xl text-center">{headline}</Heading>
-          {subheadline && (
+          {subheadline ? (
             <Text size="lg" className="flex max-w-xl flex-col gap-4 text-center">
               {subheadline}
             </Text>
-          )}
+          ) : null}
         </div>
         <Document className="mx-auto max-w-2xl">{children}</Document>
       </Container>

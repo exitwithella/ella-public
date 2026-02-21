@@ -49,7 +49,7 @@ export function FooterWithLinksAndSocialIcons({
             <nav>
               <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-2">{links}</ul>
             </nav>
-            {socialLinks && <div className="flex items-center justify-center gap-10">{socialLinks}</div>}
+            {socialLinks ? <div className="flex items-center justify-center gap-10">{socialLinks}</div> : null}
           </div>
           <div className="text-olive-600 dark:text-olive-500">{fineprint}</div>
         </Container>

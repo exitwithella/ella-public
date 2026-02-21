@@ -23,10 +23,10 @@ export function CallToActionSimple({
       <Container className="flex flex-col gap-10">
         <div className="flex flex-col gap-6">
           <div className="flex max-w-4xl flex-col gap-2">
-            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+            {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
             <Subheading>{headline}</Subheading>
           </div>
-          {subheadline && <Text className="flex max-w-3xl flex-col gap-4 text-pretty">{subheadline}</Text>}
+          {subheadline ? <Text className="flex max-w-3xl flex-col gap-4 text-pretty">{subheadline}</Text> : null}
         </div>
         {cta}
       </Container>
