@@ -10,6 +10,10 @@
       "headers": {
         "Authorization": "Bearer d1186213-d4a8-43d1-a332-a0e69549084f"
       }
+    },
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
     }
   }
 }
