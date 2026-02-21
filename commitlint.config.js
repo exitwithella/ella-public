@@ -1,0 +1,37 @@
+export default {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore',
+        'ci',
+        'build',
+        'revert',
+        'content',
+      ],
+    ],
+    'type-case': [2, 'always', 'lower-case'],
+    'subject-case': [0],
+    'subject-empty': [2, 'never'],
+    'subject-max-length': [0],
+    'header-max-length': [0],
+    'body-leading-blank': [2, 'always'],
+    'footer-leading-blank': [2, 'always'],
+    'body-max-line-length': [2, 'always', Infinity],
+    'footer-max-line-length': [0],
+    'scope-case': [2, 'always', 'lower-case'],
+    'scope-empty': [0],
+  },
+  parserPreset: {
+    parserOpts: { issuePrefixes: ['MKT-'] },
+  },
+}
