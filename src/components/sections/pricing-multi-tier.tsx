@@ -24,29 +24,29 @@ export function Plan({
   return (
     <div
       className={clsx(
-        'flex flex-col justify-between gap-6 rounded-xl bg-olive-950/2.5 p-6 sm:items-start dark:bg-white/5',
+        'flex flex-col justify-between gap-6 rounded-xl bg-ash-950/2.5 p-6 sm:items-start',
         className,
       )}
     >
       <div className="self-stretch">
         <div className="flex items-center justify-between">
           {badge && (
-            <div className="order-last inline-flex rounded-full bg-olive-950/10 px-2 text-xs/6 font-medium text-olive-950 dark:bg-white/10 dark:text-white">
+            <div className="order-last inline-flex rounded-full bg-ash-950/10 px-2 text-xs/6 font-medium text-ash-950">
               {badge}
             </div>
           )}
 
-          <h3 className="text-2xl/8 tracking-tight text-olive-950 dark:text-white">{name}</h3>
+          <h3 className="text-2xl/8 tracking-tight text-ash-950">{name}</h3>
         </div>
         <p className="mt-1 inline-flex gap-1 text-base/7">
-          <span className="text-olive-950 dark:text-white">{price}</span>
-          {period && <span className="text-olive-500 dark:text-olive-500">{period}</span>}
+          <span className="text-ash-950">{price}</span>
+          {period && <span className="text-ash-500">{period}</span>}
         </p>
-        <div className="mt-4 flex flex-col gap-4 text-sm/6 text-olive-700 dark:text-olive-400">{subheadline}</div>
-        <ul className="mt-4 space-y-2 text-sm/6 text-olive-700 dark:text-olive-400">
+        <div className="mt-4 flex flex-col gap-4 text-sm/6 text-ash-700">{subheadline}</div>
+        <ul className="mt-4 space-y-2 text-sm/6 text-ash-700">
           {features.map((feature, index) => (
             <li key={index} className="flex gap-4">
-              <CheckmarkIcon className="h-lh shrink-0 stroke-olive-950 dark:stroke-white" />
+              <CheckmarkIcon className="h-lh shrink-0 stroke-ash-950" />
               <p>{feature}</p>
             </li>
           ))}

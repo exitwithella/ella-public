@@ -1,9 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
-import { Main } from '@/components/elements/main'
-import { Navbar } from '../_components/navbar'
-import { Footer } from '../_components/footer'
 import { BlockRenderer } from '../_components/block-renderer'
 
 interface PageProps {
@@ -47,13 +44,9 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <>
-      <Navbar />
-      <Main>
-        {page.layout?.map((block, index) => (
-          <BlockRenderer key={block.id || index} block={block} />
-        ))}
-      </Main>
-      <Footer />
+      {page.layout?.map((block, index) => (
+        <BlockRenderer key={block.id || index} block={block} />
+      ))}
     </>
   )
 }

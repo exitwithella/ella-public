@@ -17,18 +17,18 @@ export function Feature({
   return (
     <div
       className={clsx(
-        'group grid grid-flow-dense grid-cols-1 gap-2 rounded-lg bg-olive-950/2.5 p-2 lg:grid-cols-2 dark:bg-white/5',
+        'group grid grid-flow-dense grid-cols-1 gap-2 rounded-lg bg-ash-950/2.5 p-2 lg:grid-cols-2',
         className,
       )}
     >
       <div className="flex flex-col justify-between gap-6 p-6 sm:gap-10 sm:p-10 lg:p-6 lg:group-even:col-start-2">
         <div className="text-xl/8 sm:text-2xl/9">
-          <h3 className="text-olive-950 dark:text-white">{headline}</h3>
-          <div className="flex flex-col gap-4 text-olive-500">{subheadline}</div>
+          <h3 className="text-ash-950">{headline}</h3>
+          <div className="flex flex-col gap-4 text-ash-500">{subheadline}</div>
         </div>
         {cta}
       </div>
-      <div className="relative overflow-hidden rounded-sm lg:group-even:col-start-1 dark:after:absolute dark:after:inset-0 dark:after:rounded-sm dark:after:outline-1 dark:after:-outline-offset-1 dark:after:outline-white/10">
+      <div className="relative overflow-hidden rounded-sm lg:group-even:col-start-1">
         {demo}
       </div>
     </div>

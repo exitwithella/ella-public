@@ -1,40 +1,95 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'DM Sans', sans-serif;
-  --font-sans: 'DM Sans', 'Inter', system-ui, sans-serif;
+  /* Font families */
+  --font-display: 'Instrument Serif', serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
 
-  --color-olive-50: oklch(98.8% 0.003 106.5);
-  --color-olive-100: oklch(96.6% 0.005 106.5);
-  --color-olive-200: oklch(93% 0.007 106.5);
-  --color-olive-300: oklch(88% 0.011 106.6);
-  --color-olive-400: oklch(73.7% 0.021 106.9);
-  --color-olive-500: oklch(58% 0.031 107.3);
-  --color-olive-600: oklch(46.6% 0.025 107.3);
-  --color-olive-700: oklch(39.4% 0.023 107.4);
-  --color-olive-800: oklch(28.6% 0.016 107.4);
-  --color-olive-900: oklch(22.8% 0.013 107.4);
-  --color-olive-950: oklch(15.3% 0.006 107.1);
+  /* Moss — Core brand green */
+  --color-moss-50: oklch(0.97 0.02 124.97);
+  --color-moss-100: oklch(0.93 0.03 124.97);
+  --color-moss-200: oklch(0.86 0.04 124.97);
+  --color-moss-300: oklch(0.78 0.05 124.97);
+  --color-moss-400: oklch(0.69 0.055 124.97);
+  --color-moss-500: oklch(0.6 0.06 124.97);
+  --color-moss-600: oklch(0.51 0.055 124.97);
+  --color-moss-700: oklch(0.412 0.03 124.97);
+  --color-moss-800: oklch(0.33 0.035 124.97);
+  --color-moss-900: oklch(0.24 0.025 124.97);
+  --color-moss-950: oklch(0.18 0.02 124.97);
 
-  /* ELLA Brand Colors */
-  --color-ella-green: rgb(63, 72, 57);
-  --color-ella-gold: rgb(174, 132, 30);
-  --color-ella-cream: rgb(251, 249, 244);
-  --color-ella-leather: rgb(98, 79, 37);
-  --color-ella-green-50: rgb(237, 239, 235);
-  --color-ella-slate: rgb(54, 58, 54);
+  /* Ash — Neutral with green tint */
+  --color-ash-50: oklch(0.969 0.002 144.36);
+  --color-ash-100: oklch(0.932 0.003 144.97);
+  --color-ash-200: oklch(0.87 0.005 145.18);
+  --color-ash-300: oklch(0.799 0.009 145.31);
+  --color-ash-400: oklch(0.728 0.011 145.33);
+  --color-ash-500: oklch(0.661 0.015 145.32);
+  --color-ash-600: oklch(0.586 0.017 145.28);
+  --color-ash-700: oklch(0.505 0.014 145.29);
+  --color-ash-800: oklch(0.431 0.012 145.29);
+  --color-ash-900: oklch(0.343 0.009 145.3);
+  --color-ash-950: oklch(0.228 0.005 145.32);
+
+  /* Goldenrod — Warm accent */
+  --color-goldenrod-50: oklch(0.9827 0.0126 86.83);
+  --color-goldenrod-100: oklch(0.955 0.03 75);
+  --color-goldenrod-200: oklch(0.89 0.04 75);
+  --color-goldenrod-300: oklch(0.82 0.08 75);
+  --color-goldenrod-400: oklch(0.74 0.1 75);
+  --color-goldenrod-500: oklch(0.65 0.12 75);
+  --color-goldenrod-600: oklch(0.57 0.1 75);
+  --color-goldenrod-700: oklch(0.49 0.08 75);
+  --color-goldenrod-800: oklch(0.41 0.06 75);
+  --color-goldenrod-900: oklch(0.33 0.04 75);
+  --color-goldenrod-950: oklch(0.25 0.02 75);
+
+  /* Coral — Warning accent */
+  --color-coral-50: oklch(0.97 0.015 25);
+  --color-coral-100: oklch(0.94 0.03 25);
+  --color-coral-200: oklch(0.89 0.055 25);
+  --color-coral-300: oklch(0.82 0.08 25);
+  --color-coral-400: oklch(0.74 0.11 25);
+  --color-coral-500: oklch(0.65 0.14 25);
+  --color-coral-600: oklch(0.57 0.13 25);
+  --color-coral-700: oklch(0.49 0.11 25);
+  --color-coral-800: oklch(0.41 0.09 25);
+  --color-coral-900: oklch(0.33 0.07 25);
+  --color-coral-950: oklch(0.25 0.05 25);
+
+  /* Ocean — Informational accent */
+  --color-ocean-50: oklch(0.97 0.008 245);
+  --color-ocean-100: oklch(0.94 0.015 245);
+  --color-ocean-200: oklch(0.89 0.025 245);
+  --color-ocean-300: oklch(0.82 0.035 245);
+  --color-ocean-400: oklch(0.74 0.045 245);
+  --color-ocean-500: oklch(0.65 0.055 245);
+  --color-ocean-600: oklch(0.57 0.05 245);
+  --color-ocean-700: oklch(0.49 0.045 245);
+  --color-ocean-800: oklch(0.41 0.04 245);
+  --color-ocean-900: oklch(0.33 0.035 245);
+  --color-ocean-950: oklch(0.25 0.03 245);
+
+  /* Emerald — Success green */
+  --color-emerald-50: oklch(0.97 0.034 137.02);
+  --color-emerald-100: oklch(0.94 0.071 136.36);
+  --color-emerald-200: oklch(0.886 0.128 135.91);
+  --color-emerald-300: oklch(0.792 0.114 135.67);
+  --color-emerald-400: oklch(0.697 0.101 135.83);
+  --color-emerald-500: oklch(0.603 0.086 135.47);
+  --color-emerald-600: oklch(0.511 0.073 135.9);
+  --color-emerald-700: oklch(0.417 0.061 135.98);
+  --color-emerald-800: oklch(0.323 0.046 135.65);
+  --color-emerald-900: oklch(0.229 0.031 135.61);
+  --color-emerald-950: oklch(0.187 0.029 136.45);
 }
 
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--color-ella-cream);
+    background-color: var(--color-ash-50);
     --scroll-padding-top: 0;
     scroll-padding-top: var(--scroll-padding-top);
-
-    @variant dark {
-      background-color: var(--color-olive-950);
-    }
   }
 }

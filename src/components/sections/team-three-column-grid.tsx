@@ -15,12 +15,12 @@ export function TeamMember({
 } & ComponentProps<'li'>) {
   return (
     <li className={clsx('flex flex-col gap-4 text-sm/7', className)} {...props}>
-      <div className="aspect-3/4 w-full overflow-hidden rounded-sm outline -outline-offset-1 outline-black/5 *:size-full *:object-cover dark:outline-white/5">
+      <div className="aspect-3/4 w-full overflow-hidden rounded-sm outline -outline-offset-1 outline-black/5 *:size-full *:object-cover">
         {img}
       </div>
       <div>
-        <p className="font-semibold text-olive-950 dark:text-white">{name}</p>
-        <p className="text-olive-700 dark:text-olive-400">{byline}</p>
+        <p className="font-semibold text-ash-950">{name}</p>
+        <p className="text-ash-700">{byline}</p>
       </div>
     </li>
   )

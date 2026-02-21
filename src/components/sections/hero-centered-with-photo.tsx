@@ -33,7 +33,7 @@ export function HeroCenteredWithPhoto({
             </Text>
             {cta}
           </div>
-          <div className="overflow-hidden rounded-xl outline -outline-offset-1 outline-black/5 dark:outline-white/5">
+          <div className="overflow-hidden rounded-xl outline -outline-offset-1 outline-black/5">
             {photo}
           </div>
         </div>

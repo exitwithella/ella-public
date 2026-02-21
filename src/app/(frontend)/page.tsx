@@ -1,36 +1,74 @@
-import { Main } from '@/components/elements/main'
-import { Navbar } from './_components/navbar'
+import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
+import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
+import { Feature, FeaturesThreeColumn } from '@/components/sections/features-three-column'
+import { CallToActionSimpleCentered } from '@/components/sections/call-to-action-simple-centered'
 import { Hero } from './_components/hero'
-import { IntroTextReveal } from './_components/intro-text-reveal'
-import { FeaturesGrid } from './_components/features-grid'
-import { HorizontalScroll } from './_components/horizontal-scroll'
-import { SectionHeader } from './_components/section-header'
-import { Testimonials } from './_components/testimonials'
-import { AlternatingFeatures } from './_components/alternating-features'
-import { PrinciplesGrid } from './_components/principles-grid'
-import { SecuritySection } from './_components/security-section'
-import { AiCta } from './_components/ai-cta'
-import { FinalCta } from './_components/final-cta'
-import { Footer } from './_components/footer'
+import { CredibilityStrip } from './_components/credibility-strip'
+import { pillarCards, trustSecurity, closerCta } from './_lib/content'
 
 export default function HomePage() {
   return (
     <>
-      <Navbar />
-      <Main>
-        <Hero />
-        <IntroTextReveal />
-        <FeaturesGrid />
-        <HorizontalScroll />
-        <SectionHeader />
-        <Testimonials />
-        <AlternatingFeatures />
-        <PrinciplesGrid />
-        <SecuritySection />
-        <AiCta />
-        <FinalCta />
-      </Main>
-      <Footer />
+      <Hero />
+
+      <CredibilityStrip />
+
+      {/* Pillar Cards */}
+      <FeaturesThreeColumn
+        eyebrow={pillarCards.eyebrow}
+        headline={pillarCards.headline}
+        subheadline={<p>{pillarCards.description}</p>}
+        features={
+          <>
+            {pillarCards.pillars.map((pillar) => (
+              <Feature
+                key={pillar.tag}
+                headline={pillar.tag}
+                subheadline={
+                  <>
+                    <p className="font-semibold text-ash-950">{pillar.headline}</p>
+                    <p>{pillar.description}</p>
+                  </>
+                }
+              />
+            ))}
+          </>
+        }
+      />
+
+      {/* Trust & Security */}
+      <FeaturesThreeColumn
+        eyebrow="Security & trust"
+        headline={trustSecurity.headline}
+        subheadline={<p>{trustSecurity.description}</p>}
+        features={
+          <>
+            {trustSecurity.features.map((feature) => (
+              <Feature
+                key={feature.title}
+                headline={feature.title}
+                subheadline={<p>{feature.description}</p>}
+              />
+            ))}
+          </>
+        }
+      />
+
+      {/* Closer CTA */}
+      <CallToActionSimpleCentered
+        headline={closerCta.headline}
+        subheadline={<p>{closerCta.description}</p>}
+        cta={
+          <div className="flex items-center gap-4">
+            <ButtonLink href={closerCta.primaryCta.href} size="lg" target="_blank">
+              {closerCta.primaryCta.label}
+            </ButtonLink>
+            <PlainButtonLink href={closerCta.secondaryCta.href} size="lg" target="_blank">
+              {closerCta.secondaryCta.label} <ArrowNarrowRightIcon />
+            </PlainButtonLink>
+          </div>
+        }
+      />
     </>
   )
 }

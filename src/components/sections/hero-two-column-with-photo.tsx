@@ -30,7 +30,7 @@ export function HeroTwoColumnWithPhoto({
           </Text>
           {cta}
         </div>
-        <div className="flex flex-1 overflow-hidden rounded-xl outline -outline-offset-1 outline-black/5 *:object-cover dark:outline-white/5">
+        <div className="flex flex-1 overflow-hidden rounded-xl outline -outline-offset-1 outline-black/5 *:object-cover">
           {photo}
         </div>
       </Container>

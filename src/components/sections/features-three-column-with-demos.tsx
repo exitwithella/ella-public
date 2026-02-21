@@ -14,13 +14,13 @@ export function FeatureThreeColumnWithDemos({
   subheadline: ReactNode
 } & ComponentProps<'div'>) {
   return (
-    <div className={clsx('rounded-lg bg-olive-950/2.5 p-2 dark:bg-white/5', className)} {...props}>
-      <div className="relative overflow-hidden rounded-sm dark:after:absolute dark:after:inset-0 dark:after:rounded-sm dark:after:outline-1 dark:after:-outline-offset-1 dark:after:outline-white/10">
+    <div className={clsx('rounded-lg bg-ash-950/2.5 p-2', className)} {...props}>
+      <div className="relative overflow-hidden rounded-sm">
         {demo}
       </div>
       <div className="p-6 sm:p-10 lg:p-6">
-        <h3 className="text-base/8 font-medium text-olive-950 dark:text-white">{headline}</h3>
-        <div className="mt-2 flex flex-col gap-4 text-sm/7 text-olive-700 dark:text-olive-400">{subheadline}</div>
+        <h3 className="text-base/8 font-medium text-ash-950">{headline}</h3>
+        <div className="mt-2 flex flex-col gap-4 text-sm/7 text-ash-700">{subheadline}</div>
       </div>
     </div>
   )
