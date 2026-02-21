@@ -5,6 +5,7 @@ import { Button } from './button'
 
 export function EmailSignupForm({
   label = 'Email address',
+  inputId,
   placeholder = 'Enter your email',
   cta,
   variant = 'normal',
@@ -12,6 +13,7 @@ export function EmailSignupForm({
   ...props
 }: {
   label?: string
+  inputId?: string
   placeholder?: string
   cta: ReactNode
   variant?: 'normal' | 'overlay'
@@ -26,14 +28,20 @@ export function EmailSignupForm({
       )}
       {...props}
     >
+      {inputId ? (
+        <label htmlFor={inputId} className="sr-only">
+          {label}
+        </label>
+      ) : null}
       <input
+        id={inputId}
         className={clsx(
           'min-w-0 flex-1 px-3 text-sm/7 focus:outline-hidden',
           variant === 'normal' && 'text-ash-950',
           variant === 'overlay' && 'text-white placeholder:text-white/60',
         )}
         type="email"
-        aria-label={label}
+        aria-label={inputId ? undefined : label}
         placeholder={placeholder}
       />
       <Button color={variant === 'normal' ? 'dark/light' : 'light'} type="submit">

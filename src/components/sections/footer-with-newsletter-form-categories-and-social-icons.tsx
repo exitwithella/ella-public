@@ -11,7 +11,7 @@ export function FooterCategory({
 }: { title: ReactNode } & ComponentProps<'div'>) {
   return (
     <div {...props}>
-      <h3>{title}</h3>
+      <h3 className="text-ash-950 text-sm/7 font-semibold">{title}</h3>
       <ul role="list" className="mt-2 flex flex-col gap-2">
         {children}
       </ul>
