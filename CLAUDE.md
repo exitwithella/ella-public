@@ -226,7 +226,9 @@ type(scope): subject
 body (optional — explain *why*, not *what*)
 ```
 
-**Types:** `feat`, `fix`, `style`, `refactor`, `perf`, `chore`, `content`, `docs`
+**Types:** `feat`, `fix`, `style`, `refactor`, `perf`, `chore`, `content`, `docs`, `ci`, `build`, `test`, `revert`
+
+The `content` type is marketing-site specific — use it for copy, text, or content-only changes with no structural code change.
 
 **Scope** is the page or component: `homepage`, `platform`, `exit-planning`, `pricing`, `about`, `blog`, `resources`, `nav`, `footer`, `cms`, `config`
 
@@ -278,6 +280,46 @@ These are drawn from the design brief and are non-negotiable:
 8. **No visual clutter.** If it doesn't earn its place, it doesn't appear.
 9. **No AI visual clichés.** No glowing neural networks, brain imagery, circuit boards, or gradient blobs. Visual identity comes from natural materials — moss, stone, leather, earth.
 10. **No `npm` or `yarn`.** Use `pnpm` exclusively.
+11. **No `eslint` or `prettier`.** Use `oxlint` and `oxfmt` exclusively. Run `pnpm lint` and `pnpm format:check` to verify.
+
+## Development Workflow
+
+### Quality Gates
+
+Every commit goes through automated quality checks:
+
+| Gate | Tool | Command |
+|------|------|---------|
+| Lint | oxlint | `pnpm lint` |
+| Format | oxfmt | `pnpm format:check` |
+| Types | TypeScript | `pnpm type-check` |
+| Commit message | commitlint | enforced via husky |
+| Pre-commit | lint-staged | auto-runs on staged files |
+
+The pre-commit hook (lint-staged) automatically runs `oxlint --fix` and `oxfmt --write` on staged files before every commit. The commit-msg hook validates the message against commitlint.
+
+### CI Workflows
+
+GitHub Actions runs on every push and PR:
+
+- **quality.yml** — format check, lint, type check (on push to non-main branches and PRs to main)
+- **build.yml** — full `pnpm build` validation (on PRs to main only)
+
+Cloudflare Pages handles deployment separately via its own integration — no deployment step in CI.
+
+### Linting and Formatting
+
+```bash
+pnpm lint          # oxlint — check for errors
+pnpm lint:fix      # oxlint --fix — auto-fix where possible
+pnpm format        # oxfmt --write — format all files
+pnpm format:check  # oxfmt --check — verify formatting
+pnpm type-check    # tsc --noEmit — TypeScript type check
+```
+
+oxfmt config (`.oxfmtrc.json`): single quotes, no semi, trailing commas, Tailwind class sorting, import sorting. Matches previous Prettier style.
+
+oxlint config (`.oxlintrc.json`): correctness (errors), suspicious (warnings), perf (warnings). React, JSX-A11y, Next.js, Import, Unicorn, Promise plugins. No opinionated style rules.
 
 ## Linear Project Tracking (Mandatory)
 

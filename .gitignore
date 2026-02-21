@@ -55,3 +55,6 @@ node_modules/
 
 # Tailwind CSS Theme files
 /oatmeal-olive-familjen/
+
+# Claude Code local settings (user-specific MCP tokens, permissions)
+.claude/settings.local.json
