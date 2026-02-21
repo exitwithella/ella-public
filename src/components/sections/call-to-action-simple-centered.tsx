@@ -21,11 +21,11 @@ export function CallToActionSimpleCentered({
       <Container className="flex flex-col items-center gap-10">
         <div className="flex flex-col gap-6">
           <Subheading className="max-w-4xl text-center">{headline}</Subheading>
-          {subheadline && (
+          {subheadline ? (
             <Text className="flex max-w-3xl flex-col gap-4 text-center text-pretty">
               {subheadline}
             </Text>
-          )}
+          ) : null}
         </div>
         {cta}
       </Container>

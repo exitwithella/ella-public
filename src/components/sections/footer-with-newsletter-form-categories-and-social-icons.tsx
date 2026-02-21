@@ -108,7 +108,9 @@ export function FooterWithNewsletterFormCategoriesAndSocialIcons({
           </div>
           <div className="flex items-center justify-between gap-10 text-sm/7">
             <div className="text-ash-600">{fineprint}</div>
-            {socialLinks && <div className="flex items-center gap-4 sm:gap-10">{socialLinks}</div>}
+            {socialLinks ? (
+              <div className="flex items-center gap-4 sm:gap-10">{socialLinks}</div>
+            ) : null}
           </div>
         </Container>
       </div>

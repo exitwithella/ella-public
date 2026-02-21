@@ -92,7 +92,7 @@ function TestimonialsBlock({ block }: { block: Extract<Block, { blockType: 'test
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {block.testimonials?.map((testimonial, index) => (
             <div key={testimonial.id || index} className="flex flex-col gap-4 text-sm/7">
-              <p className="font-display text-ash-950">"{testimonial.quote}"</p>
+              <p className="font-serif text-ash-950">"{testimonial.quote}"</p>
               <div>
                 <p className="text-ash-950 font-semibold">{testimonial.author}</p>
                 {testimonial.company && <p className="text-ash-700">{testimonial.company}</p>}
@@ -135,7 +135,8 @@ function FormEmbedBlock({ block }: { block: Extract<Block, { blockType: 'formEmb
             title="Contact form"
             width="100%"
             height="500"
-            frameBorder="0"
+            className="border-0"
+            loading="lazy"
             allow="camera; microphone; autoplay; encrypted-media;"
           />
         </Container>

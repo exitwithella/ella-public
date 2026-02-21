@@ -1,9 +1,29 @@
 @import 'tailwindcss';
 
+@font-face {
+  font-family: 'Termina';
+  src:
+    url('/fonts/termina/Termina-Demi.woff2') format('woff2'),
+    url('/fonts/termina/Termina-Demi.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope/ManropeV5VF.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Font families */
-  --font-display: 'Instrument Serif', serif;
+  --font-display: 'Termina', Impact, 'Arial Narrow Bold', sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-data: 'Manrope', 'DM Sans', system-ui, sans-serif;
 
   /* Moss — Core brand green */
   --color-moss-50: oklch(0.97 0.02 124.97);

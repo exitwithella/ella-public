@@ -288,13 +288,13 @@ These are drawn from the design brief and are non-negotiable:
 
 Every commit goes through automated quality checks:
 
-| Gate | Tool | Command |
-|------|------|---------|
-| Lint | oxlint | `pnpm lint` |
-| Format | oxfmt | `pnpm format:check` |
-| Types | TypeScript | `pnpm type-check` |
-| Commit message | commitlint | enforced via husky |
-| Pre-commit | lint-staged | auto-runs on staged files |
+| Gate           | Tool        | Command                   |
+| -------------- | ----------- | ------------------------- |
+| Lint           | oxlint      | `pnpm lint`               |
+| Format         | oxfmt       | `pnpm format:check`       |
+| Types          | TypeScript  | `pnpm type-check`         |
+| Commit message | commitlint  | enforced via husky        |
+| Pre-commit     | lint-staged | auto-runs on staged files |
 
 The pre-commit hook (lint-staged) automatically runs `oxlint --fix` and `oxfmt --write` on staged files before every commit. The commit-msg hook validates the message against commitlint.
 
@@ -352,15 +352,49 @@ All planning and implementation work is tracked in **Linear** using the **MKT** 
 
 `Bug`, `Feature`, `Improvement`
 
+## Claude Code Skills
+
+The following skills are available and should be actively invoked when relevant. Use the `/skill-name` shorthand or `Skill` tool.
+
+### Frontend & Next.js Skills (use proactively)
+
+| Skill | Invoke | When to Use |
+|-------|--------|-------------|
+| **vercel-react-best-practices** | `/vercel-react-best-practices` | When writing or reviewing any React component, Next.js page, data fetching pattern, or bundle optimization. Invoke before shipping any server/client component work. |
+| **frontend-design** | `/frontend-design` | When building new UI sections, components, or page layouts. Provides production-grade design quality guidance and avoids generic AI-aesthetic patterns. |
+| **rams** | `/rams` | Before marking any page "done" — runs accessibility and visual design review. Required for every page ship per the self-review checklist. |
+
+### Project Management Skills
+
+| Skill | Invoke | When to Use |
+|-------|--------|-------------|
+| **Notion:tasks:plan** | `/Notion:tasks:plan` | When given a Notion page URL with feature/task description to plan. |
+| **Notion:tasks:build** | `/Notion:tasks:build` | When given a Notion page URL to start implementation. |
+
+### Commit & Review Skills
+
+| Skill | Invoke | When to Use |
+|-------|--------|-------------|
+| **clean-comments** | `/clean-comments` | Before committing — removes redundant comments while preserving meaningful ones. |
+
+### Usage Rules
+
+- **`vercel-react-best-practices`** is mandatory context for any component work. If you're about to write a new server or client component, invoke it first. The site targets Cloudflare Workers runtime — this skill's async/bundle guidance is directly applicable.
+- **`frontend-design`** replaces "build from scratch with generic patterns." When a new block or section is needed, invoke this skill alongside checking the Oatmeal kit.
+- **`rams`** is part of the self-review checklist — run it before pushing any page-level work.
+
 ## Before Starting Work
 
 1. **Read the relevant planning doc.** Every page has a section in the implementation plan with content status tags. Check what exists (✅), what's partial (🟡), and what needs writing (🔴).
 2. **Check the design brief.** Especially §9 (anti-patterns) and the component direction for whatever you're building.
 3. **Check existing patterns.** How do similar components work in this codebase? Don't reinvent unless there's a reason.
-4. **If requirements conflict, flag it.** The planning docs were written at different points. The homepage spec supersedes the implementation plan where they conflict. The design brief supersedes both on visual decisions.
-5. **Think mobile-first.** Build the mobile layout, then enhance for larger viewports. The site's audience includes advisors checking it on their phones between meetings.
-6. **When in doubt about copy, use what exists.** The homepage spec provides multiple copy options per block. Pick the one marked as recommended. If no recommendation exists, pick the most specific and concrete option — advisors trust specificity over abstraction.
-7. **Create Linear tracking.** Before starting implementation, create the project, plan document, and issues in Linear. Track progress as you work.
+4. **Invoke the `vercel-react-best-practices` skill** for any component or page work before writing code.
+5. **Invoke the `frontend-design` skill** when building new sections or layouts.
+6. **If requirements conflict, flag it.** The planning docs were written at different points. The homepage spec supersedes the implementation plan where they conflict. The design brief supersedes both on visual decisions.
+7. **Think mobile-first.** Build the mobile layout, then enhance for larger viewports. The site's audience includes advisors checking it on their phones between meetings.
+8. **When in doubt about copy, use what exists.** The homepage spec provides multiple copy options per block. Pick the one marked as recommended. If no recommendation exists, pick the most specific and concrete option — advisors trust specificity over abstraction.
+9. **Create Linear tracking.** Before starting implementation, create the project, plan document, and issues in Linear. Track progress as you work.
+10. **Run `/rams`** before marking any page complete.
 
 ## Document Precedence
 

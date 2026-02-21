@@ -154,7 +154,7 @@ export const principles = {
 }
 
 export const footer = {
-  copyright: '© ELLA 2025',
+  copyright: `© ELLA ${new Date().getFullYear()}`,
   links: [
     { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },

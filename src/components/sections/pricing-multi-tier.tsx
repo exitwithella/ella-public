@@ -31,17 +31,17 @@ export function Plan({
     >
       <div className="self-stretch">
         <div className="flex items-center justify-between">
-          {badge && (
+          {badge ? (
             <div className="bg-ash-950/10 text-ash-950 order-last inline-flex rounded-full px-2 text-xs/6 font-medium">
               {badge}
             </div>
-          )}
+          ) : null}
 
           <h3 className="text-ash-950 text-2xl/8 tracking-tight">{name}</h3>
         </div>
         <p className="mt-1 inline-flex gap-1 text-base/7">
           <span className="text-ash-950">{price}</span>
-          {period && <span className="text-ash-500">{period}</span>}
+          {period ? <span className="text-ash-500">{period}</span> : null}
         </p>
         <div className="text-ash-700 mt-4 flex flex-col gap-4 text-sm/6">{subheadline}</div>
         <ul className="text-ash-700 mt-4 space-y-2 text-sm/6">

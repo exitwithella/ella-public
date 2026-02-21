@@ -3,6 +3,7 @@ import React from 'react'
 import { Main } from '@/components/elements/main'
 
 import { Footer } from './_components/footer'
+import { MotionProvider } from './_components/motion-provider'
 import { Navbar } from './_components/navbar'
 
 import './styles.css'
@@ -27,9 +28,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         />
       </head>
       <body>
-        <Navbar />
-        <Main>{children}</Main>
-        <Footer />
+        <MotionProvider>
+          <Navbar />
+          <Main>{children}</Main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   )

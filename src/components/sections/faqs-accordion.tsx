@@ -17,11 +17,9 @@ export function Faq({
       <summary className="text-ash-950 flex w-full cursor-pointer list-none items-start justify-between gap-6 py-4 text-left text-base/7 [&::-webkit-details-marker]:hidden">
         {question}
         <PlusIcon className="h-lh group-open:hidden" />
-        <MinusIcon className="h-lh hidden group-open:block" />
+        <MinusIcon className="hidden h-lh group-open:block" />
       </summary>
-      <div className="text-ash-700 -mt-2 flex flex-col gap-2 pr-12 pb-4 text-sm/7">
-        {answer}
-      </div>
+      <div className="text-ash-700 -mt-2 flex flex-col gap-2 pr-12 pb-4 text-sm/7">{answer}</div>
     </details>
   )
 }
@@ -41,7 +39,9 @@ export function FAQsAccordion({
       <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 lg:max-w-5xl lg:px-10">
         <div className="flex flex-col gap-6">
           <Subheading>{headline}</Subheading>
-          {subheadline ? <Text className="flex flex-col gap-4 text-pretty">{subheadline}</Text> : null}
+          {subheadline ? (
+            <Text className="flex flex-col gap-4 text-pretty">{subheadline}</Text>
+          ) : null}
         </div>
         <div className="divide-ash-950/10 border-ash-950/10 divide-y border-y">{children}</div>
       </div>

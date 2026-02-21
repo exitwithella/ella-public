@@ -1,7 +1,7 @@
 'use client'
 
 import type { MotionValue } from 'motion/react'
-import { useScroll, useTransform, useMotionValueEvent } from 'motion/react'
+import { useScroll, useTransform } from 'motion/react'
 import { useRef, useState, useEffect } from 'react'
 
 /**
@@ -44,7 +44,7 @@ export function useWordOpacity(
  */
 export function useSlideOutNavbar() {
   const [isVisible, setIsVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
+  const lastScrollYRef = useRef(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,18 +53,18 @@ export function useSlideOutNavbar() {
 
       if (currentScrollY < scrollThreshold) {
         setIsVisible(true)
-      } else if (currentScrollY > lastScrollY) {
+      } else if (currentScrollY > lastScrollYRef.current) {
         setIsVisible(false)
       } else {
         setIsVisible(true)
       }
 
-      setLastScrollY(currentScrollY)
+      lastScrollYRef.current = currentScrollY
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
+  }, [])
 
   return isVisible
 }
