@@ -6,7 +6,7 @@ import { ArrowNarrowRightIcon } from '../icons/arrow-narrow-right-icon'
 export function FooterCategory({ title, children, ...props }: { title: ReactNode } & ComponentProps<'div'>) {
   return (
     <div {...props}>
-      <h3>{title}</h3>
+      <h3 className="text-sm/7 font-semibold text-olive-950 dark:text-white">{title}</h3>
       <ul role="list" className="mt-2 flex flex-col gap-2">
         {children}
       </ul>
