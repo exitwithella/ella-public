@@ -9,7 +9,7 @@ export function CloudArrowUpIcon({ className, ...props }: ComponentProps<'svg'>)
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -19,7 +19,12 @@ export function CloudArrowUpIcon({ className, ...props }: ComponentProps<'svg'>)
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M6.50977 12.5L6.50977 5.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M6.50977 12.5L6.50977 5.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path
         d="M8.50488 7.49512L6.50488 5.49512L4.50488 7.49512"
         stroke="currentColor"

@@ -12,20 +12,27 @@ interface BlockRendererProps {
 
 export function BlockRenderer({ block }: BlockRendererProps) {
   switch (block.blockType) {
-    case 'hero':
+    case 'hero': {
       return <HeroBlock block={block} />
-    case 'content':
+    }
+    case 'content': {
       return <ContentBlock block={block} />
-    case 'featureGrid':
+    }
+    case 'featureGrid': {
       return <FeatureGridBlock block={block} />
-    case 'testimonials':
+    }
+    case 'testimonials': {
       return <TestimonialsBlock block={block} />
-    case 'cta':
+    }
+    case 'cta': {
       return <CTABlock block={block} />
-    case 'formEmbed':
+    }
+    case 'formEmbed': {
       return <FormEmbedBlock block={block} />
-    default:
+    }
+    default: {
       return null
+    }
   }
 }
 
@@ -68,7 +75,7 @@ function FeatureGridBlock({ block }: { block: Extract<Block, { blockType: 'featu
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {block.features?.map((feature, index) => (
             <div key={feature.id || index} className="flex flex-col gap-2 text-sm/7">
-              <h3 className="font-semibold text-ash-950">{feature.title}</h3>
+              <h3 className="text-ash-950 font-semibold">{feature.title}</h3>
               {feature.description && <p className="text-ash-700">{feature.description}</p>}
             </div>
           ))}
@@ -87,7 +94,7 @@ function TestimonialsBlock({ block }: { block: Extract<Block, { blockType: 'test
             <div key={testimonial.id || index} className="flex flex-col gap-4 text-sm/7">
               <p className="font-display text-ash-950">"{testimonial.quote}"</p>
               <div>
-                <p className="font-semibold text-ash-950">{testimonial.author}</p>
+                <p className="text-ash-950 font-semibold">{testimonial.author}</p>
                 {testimonial.company && <p className="text-ash-700">{testimonial.company}</p>}
               </div>
             </div>
@@ -125,6 +132,7 @@ function FormEmbedBlock({ block }: { block: Extract<Block, { blockType: 'formEmb
         <Container className="max-w-3xl">
           <iframe
             src={`https://form.typeform.com/to/${block.formId}`}
+            title="Contact form"
             width="100%"
             height="500"
             frameBorder="0"
@@ -148,10 +156,7 @@ function FormEmbedBlock({ block }: { block: Extract<Block, { blockType: 'formEmb
   if (block.embedType === 'custom' && block.embedCode) {
     return (
       <section className="py-16">
-        <Container
-          className="max-w-3xl"
-          dangerouslySetInnerHTML={{ __html: block.embedCode }}
-        />
+        <Container className="max-w-3xl" dangerouslySetInnerHTML={{ __html: block.embedCode }} />
       </section>
     )
   }

@@ -23,21 +23,21 @@ The schema below is organized by these four concepts, with field-level detail fo
 
 The primary content collection. Every marketing page (Homepage, Platform, About, Community, Pricing) is a Page with a flexible block-based layout.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `title` | text (required) | Page title, used in nav and browser tab |
-| `slug` | text (unique, required) | URL path. Auto-generated from title, editable. |
-| `meta.title` | text | SEO title override (falls back to `title`) |
-| `meta.description` | text | SEO meta description |
-| `meta.image` | relationship → Media | OG image for social sharing |
-| `hero` | group | Dedicated hero fields (see Hero Block below) — separated from layout blocks because every page needs one and the structure is consistent |
-| `layout` | blocks field | Array of reusable content blocks (see Part 3). This is the page builder. |
-| `status` | select: draft / published | Content workflow |
-| `publishedDate` | date | Controls display ordering where relevant |
-| `parent` | relationship → Pages (self) | For nested pages (e.g., Platform > Security & Trust) |
-| `showInNav` | boolean | Whether this page appears in the primary navigation |
-| `navLabel` | text | Optional override for how it displays in nav (shorter than full title) |
-| `navOrder` | number | Sort position in navigation |
+| Field              | Type                        | Notes                                                                                                                                    |
+| ------------------ | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`            | text (required)             | Page title, used in nav and browser tab                                                                                                  |
+| `slug`             | text (unique, required)     | URL path. Auto-generated from title, editable.                                                                                           |
+| `meta.title`       | text                        | SEO title override (falls back to `title`)                                                                                               |
+| `meta.description` | text                        | SEO meta description                                                                                                                     |
+| `meta.image`       | relationship → Media        | OG image for social sharing                                                                                                              |
+| `hero`             | group                       | Dedicated hero fields (see Hero Block below) — separated from layout blocks because every page needs one and the structure is consistent |
+| `layout`           | blocks field                | Array of reusable content blocks (see Part 3). This is the page builder.                                                                 |
+| `status`           | select: draft / published   | Content workflow                                                                                                                         |
+| `publishedDate`    | date                        | Controls display ordering where relevant                                                                                                 |
+| `parent`           | relationship → Pages (self) | For nested pages (e.g., Platform > Security & Trust)                                                                                     |
+| `showInNav`        | boolean                     | Whether this page appears in the primary navigation                                                                                      |
+| `navLabel`         | text                        | Optional override for how it displays in nav (shorter than full title)                                                                   |
+| `navOrder`         | number                      | Sort position in navigation                                                                                                              |
 
 **Seed pages at launch:** Homepage, Platform, Security & Trust, Pricing, About, Community, Resources (landing)
 
@@ -47,24 +47,24 @@ The primary content collection. Every marketing page (Homepage, Platform, About,
 
 Advisory discipline pages. Structurally similar to Pages but with discipline-specific fields that support the "Solutions as Verticals" architecture.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `title` | text (required) | e.g., "Exit Planning" |
-| `slug` | text (unique) | URL: `/solutions/{slug}` |
-| `discipline` | relationship → Disciplines | Links to the taxonomy |
-| `status` | select: draft / published / waitlist | Waitlist status for future disciplines |
-| `isBeachhead` | boolean | Flags the primary solution (Exit Planning). Controls how prominently it appears site-wide. |
-| `hero` | group | Headline, subhead, hero visual |
-| `problemSection` | group | Header, body (rich text), embedded quote (relationship → Testimonials) |
-| `solutionSteps` | array | Numbered walkthrough. Each entry: `stepNumber` (auto), `title`, `description`, `icon` or `image` |
-| `opportunitySection` | group | Header, body — the "engaging earlier" or aspirational framing |
-| `personas` | array | Each: `personaLabel`, `personaDescription`, `icon`. For the "Who It's For" blocks. |
-| `macroContext` | group | Header, body, stat callout — Silver Tsunami or equivalent macro framing |
-| `socialProof` | group | Testimonials (relationship → Testimonials[]), partnership badges (relationship → Partners[]) |
-| `layout` | blocks field | Additional flexible blocks below the structured sections |
-| `meta` | group | SEO fields (title, description, image) |
-| `painPoints` | array of text | For lightweight/waitlist solution pages: 3-4 bullet pain points |
-| `waitlistCTA` | group | Headline, description, button label, email capture toggle |
+| Field                | Type                                 | Notes                                                                                            |
+| -------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `title`              | text (required)                      | e.g., "Exit Planning"                                                                            |
+| `slug`               | text (unique)                        | URL: `/solutions/{slug}`                                                                         |
+| `discipline`         | relationship → Disciplines           | Links to the taxonomy                                                                            |
+| `status`             | select: draft / published / waitlist | Waitlist status for future disciplines                                                           |
+| `isBeachhead`        | boolean                              | Flags the primary solution (Exit Planning). Controls how prominently it appears site-wide.       |
+| `hero`               | group                                | Headline, subhead, hero visual                                                                   |
+| `problemSection`     | group                                | Header, body (rich text), embedded quote (relationship → Testimonials)                           |
+| `solutionSteps`      | array                                | Numbered walkthrough. Each entry: `stepNumber` (auto), `title`, `description`, `icon` or `image` |
+| `opportunitySection` | group                                | Header, body — the "engaging earlier" or aspirational framing                                    |
+| `personas`           | array                                | Each: `personaLabel`, `personaDescription`, `icon`. For the "Who It's For" blocks.               |
+| `macroContext`       | group                                | Header, body, stat callout — Silver Tsunami or equivalent macro framing                          |
+| `socialProof`        | group                                | Testimonials (relationship → Testimonials[]), partnership badges (relationship → Partners[])     |
+| `layout`             | blocks field                         | Additional flexible blocks below the structured sections                                         |
+| `meta`               | group                                | SEO fields (title, description, image)                                                           |
+| `painPoints`         | array of text                        | For lightweight/waitlist solution pages: 3-4 bullet pain points                                  |
+| `waitlistCTA`        | group                                | Headline, description, button label, email capture toggle                                        |
 
 **Seed entries:** Exit Planning (full), Wealth Advisory (waitlist), Accounting & Tax Advisory (waitlist), Legal Advisory (waitlist)
 
@@ -72,59 +72,59 @@ Advisory discipline pages. Structurally similar to Pages but with discipline-spe
 
 ### 1.3 Blog Posts
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `title` | text (required) | |
-| `slug` | text (unique) | URL: `/resources/blog/{slug}` |
-| `author` | relationship → Team Members | |
-| `publishedDate` | date (required) | |
-| `category` | relationship → Blog Categories | Primary category (one of five pillars) |
-| `disciplines` | relationship → Disciplines (hasMany) | Cross-reference: which advisory disciplines does this post relate to? |
-| `excerpt` | textarea | Used in cards, RSS, social sharing |
-| `featuredImage` | relationship → Media | |
-| `content` | rich text | Full post body. Payload's Lexical editor with custom blocks for callouts, embedded quotes, CTAs. |
-| `tier` | select: hero / editors-pick / standard | Controls placement in the Ramp Velocity 3-tier blog layout |
-| `status` | select: draft / published | |
-| `meta` | group | SEO fields |
-| `relatedPosts` | relationship → Blog Posts (hasMany) | Manual curation of related content |
-| `legacySlug` | text | For migrated posts: the old exitwithella.io path, used to generate 301 redirects |
-| `showNewsletterCTA` | boolean (default: true) | Toggle mid-post email capture |
+| Field               | Type                                   | Notes                                                                                            |
+| ------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `title`             | text (required)                        |                                                                                                  |
+| `slug`              | text (unique)                          | URL: `/resources/blog/{slug}`                                                                    |
+| `author`            | relationship → Team Members            |                                                                                                  |
+| `publishedDate`     | date (required)                        |                                                                                                  |
+| `category`          | relationship → Blog Categories         | Primary category (one of five pillars)                                                           |
+| `disciplines`       | relationship → Disciplines (hasMany)   | Cross-reference: which advisory disciplines does this post relate to?                            |
+| `excerpt`           | textarea                               | Used in cards, RSS, social sharing                                                               |
+| `featuredImage`     | relationship → Media                   |                                                                                                  |
+| `content`           | rich text                              | Full post body. Payload's Lexical editor with custom blocks for callouts, embedded quotes, CTAs. |
+| `tier`              | select: hero / editors-pick / standard | Controls placement in the Ramp Velocity 3-tier blog layout                                       |
+| `status`            | select: draft / published              |                                                                                                  |
+| `meta`              | group                                  | SEO fields                                                                                       |
+| `relatedPosts`      | relationship → Blog Posts (hasMany)    | Manual curation of related content                                                               |
+| `legacySlug`        | text                                   | For migrated posts: the old exitwithella.io path, used to generate 301 redirects                 |
+| `showNewsletterCTA` | boolean (default: true)                | Toggle mid-post email capture                                                                    |
 
 ---
 
 ### 1.4 Case Studies
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `title` | text (required) | |
-| `slug` | text (unique) | URL: `/resources/case-studies/{slug}` |
-| `advisor` | group | `name`, `title`, `firm`, `photo` (relationship → Media), `anonymous` (boolean — if true, show role descriptor only) |
-| `discipline` | relationship → Disciplines | Which advisory discipline |
-| `challenge` | rich text | What the advisor was dealing with |
-| `approach` | rich text | How ELLA was used |
-| `result` | rich text | The outcome |
-| `metrics` | array | Each: `label` (e.g., "Time to first conversation"), `before`, `after`. Quantified proof points. |
-| `pullQuote` | text | The single strongest quote from this advisor |
-| `featuredImage` | relationship → Media | |
-| `status` | select: draft / published | |
-| `publishedDate` | date | |
-| `meta` | group | SEO fields |
+| Field           | Type                       | Notes                                                                                                               |
+| --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `title`         | text (required)            |                                                                                                                     |
+| `slug`          | text (unique)              | URL: `/resources/case-studies/{slug}`                                                                               |
+| `advisor`       | group                      | `name`, `title`, `firm`, `photo` (relationship → Media), `anonymous` (boolean — if true, show role descriptor only) |
+| `discipline`    | relationship → Disciplines | Which advisory discipline                                                                                           |
+| `challenge`     | rich text                  | What the advisor was dealing with                                                                                   |
+| `approach`      | rich text                  | How ELLA was used                                                                                                   |
+| `result`        | rich text                  | The outcome                                                                                                         |
+| `metrics`       | array                      | Each: `label` (e.g., "Time to first conversation"), `before`, `after`. Quantified proof points.                     |
+| `pullQuote`     | text                       | The single strongest quote from this advisor                                                                        |
+| `featuredImage` | relationship → Media       |                                                                                                                     |
+| `status`        | select: draft / published  |                                                                                                                     |
+| `publishedDate` | date                       |                                                                                                                     |
+| `meta`          | group                      | SEO fields                                                                                                          |
 
 ---
 
 ### 1.5 Team Members
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `name` | text (required) | |
-| `role` | text | Job title |
-| `bio` | textarea | 3-4 sentences per the implementation plan |
-| `photo` | relationship → Media | Headshot |
-| `linkedIn` | text | URL |
-| `twitter` | text | URL |
-| `email` | email | |
-| `isAuthor` | boolean | Can this person be assigned as a blog post author? |
-| `sortOrder` | number | Display ordering on About page |
+| Field       | Type                 | Notes                                              |
+| ----------- | -------------------- | -------------------------------------------------- |
+| `name`      | text (required)      |                                                    |
+| `role`      | text                 | Job title                                          |
+| `bio`       | textarea             | 3-4 sentences per the implementation plan          |
+| `photo`     | relationship → Media | Headshot                                           |
+| `linkedIn`  | text                 | URL                                                |
+| `twitter`   | text                 | URL                                                |
+| `email`     | email                |                                                    |
+| `isAuthor`  | boolean              | Can this person be assigned as a blog post author? |
+| `sortOrder` | number               | Display ordering on About page                     |
 
 ---
 
@@ -132,20 +132,20 @@ Advisory discipline pages. Structurally similar to Pages but with discipline-spe
 
 A dedicated collection because testimonials are reused across multiple pages (homepage, solutions, platform, pricing). Centralizing them prevents duplication and makes it easy to manage attribution approvals.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `quote` | textarea (required) | The testimonial text |
-| `attribution` | group | `name`, `title`, `firm`, `photo` (relationship → Media) |
-| `isAnonymous` | boolean | If true, show role descriptor instead of name/firm |
-| `anonymousDescriptor` | text | e.g., "Exit planning advisor, 20+ years experience" |
-| `discipline` | relationship → Disciplines | Which advisory discipline this person represents |
-| `persona` | select: advisor / firm-leader / cpa / attorney / wealth-manager / broker | Rough categorization for filtering |
-| `hasQuantifiedOutcome` | boolean | Flag for testimonials that include a specific metric |
-| `metric` | group (conditional on hasQuantifiedOutcome) | `label`, `value`, `timeframe` |
-| `switchedFrom` | text | What they migrated from, if applicable (e.g., "Manual intake workflow," "Spreadsheet tracking") |
-| `source` | select: conversation / interview / survey / existing-site | Where the quote originated — for internal tracking |
-| `approved` | boolean | Has the person given permission to use this on the site? |
-| `usedOn` | relationship → Pages + Solutions (hasMany, read-only/informational) | Track where this testimonial appears |
+| Field                  | Type                                                                     | Notes                                                                                           |
+| ---------------------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `quote`                | textarea (required)                                                      | The testimonial text                                                                            |
+| `attribution`          | group                                                                    | `name`, `title`, `firm`, `photo` (relationship → Media)                                         |
+| `isAnonymous`          | boolean                                                                  | If true, show role descriptor instead of name/firm                                              |
+| `anonymousDescriptor`  | text                                                                     | e.g., "Exit planning advisor, 20+ years experience"                                             |
+| `discipline`           | relationship → Disciplines                                               | Which advisory discipline this person represents                                                |
+| `persona`              | select: advisor / firm-leader / cpa / attorney / wealth-manager / broker | Rough categorization for filtering                                                              |
+| `hasQuantifiedOutcome` | boolean                                                                  | Flag for testimonials that include a specific metric                                            |
+| `metric`               | group (conditional on hasQuantifiedOutcome)                              | `label`, `value`, `timeframe`                                                                   |
+| `switchedFrom`         | text                                                                     | What they migrated from, if applicable (e.g., "Manual intake workflow," "Spreadsheet tracking") |
+| `source`               | select: conversation / interview / survey / existing-site                | Where the quote originated — for internal tracking                                              |
+| `approved`             | boolean                                                                  | Has the person given permission to use this on the site?                                        |
+| `usedOn`               | relationship → Pages + Solutions (hasMany, read-only/informational)      | Track where this testimonial appears                                                            |
 
 **Seed entries:** Kevin (VFM) quote, Lisa (Small Business Alternatives) quote, "one-size-fits-all" anonymous advisor quote
 
@@ -155,16 +155,16 @@ A dedicated collection because testimonials are reused across multiple pages (ho
 
 Logos, badges, and organizational partnerships displayed as social proof.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `name` | text (required) | e.g., "Exit Planning Institute" |
-| `type` | select: partnership / certification / backer / client-firm | |
-| `logo` | relationship → Media | |
-| `url` | text | Link to partner's site |
-| `description` | text | Brief context line (e.g., "Erie Insurance's venture studio") |
-| `sortOrder` | number | Display ordering |
-| `showOnHomepage` | boolean | |
-| `showOnSolutions` | relationship → Solutions (hasMany) | Which solution pages should display this partner |
+| Field             | Type                                                       | Notes                                                        |
+| ----------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| `name`            | text (required)                                            | e.g., "Exit Planning Institute"                              |
+| `type`            | select: partnership / certification / backer / client-firm |                                                              |
+| `logo`            | relationship → Media                                       |                                                              |
+| `url`             | text                                                       | Link to partner's site                                       |
+| `description`     | text                                                       | Brief context line (e.g., "Erie Insurance's venture studio") |
+| `sortOrder`       | number                                                     | Display ordering                                             |
+| `showOnHomepage`  | boolean                                                    |                                                              |
+| `showOnSolutions` | relationship → Solutions (hasMany)                         | Which solution pages should display this partner             |
 
 **Seed entries:** EPI, CEPA community, ei Innovations / Erie Insurance
 
@@ -172,21 +172,21 @@ Logos, badges, and organizational partnerships displayed as social proof.
 
 ### 1.8 Vanguard Events
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `title` | text (required) | e.g., "Vanguard Spring 2026" |
-| `slug` | text | URL: `/vanguard/{slug}` or displayed on the main Vanguard page |
-| `dates` | group | `startDate`, `endDate` |
-| `location` | group | `venue`, `city`, `state` |
-| `price` | number | |
-| `capacity` | number | e.g., 15-20 |
-| `status` | select: upcoming / applications-open / sold-out / completed | |
-| `applicationUrl` | text | Link to application form |
-| `description` | rich text | Event-specific copy |
-| `whatYouLeaveWith` | array of text | Bullet list of outcomes |
-| `whoItsFor` | array of text | Audience descriptors |
-| `photos` | relationship → Media (hasMany) | Post-event gallery |
-| `testimonials` | relationship → Testimonials (hasMany) | Participant feedback |
+| Field              | Type                                                        | Notes                                                          |
+| ------------------ | ----------------------------------------------------------- | -------------------------------------------------------------- |
+| `title`            | text (required)                                             | e.g., "Vanguard Spring 2026"                                   |
+| `slug`             | text                                                        | URL: `/vanguard/{slug}` or displayed on the main Vanguard page |
+| `dates`            | group                                                       | `startDate`, `endDate`                                         |
+| `location`         | group                                                       | `venue`, `city`, `state`                                       |
+| `price`            | number                                                      |                                                                |
+| `capacity`         | number                                                      | e.g., 15-20                                                    |
+| `status`           | select: upcoming / applications-open / sold-out / completed |                                                                |
+| `applicationUrl`   | text                                                        | Link to application form                                       |
+| `description`      | rich text                                                   | Event-specific copy                                            |
+| `whatYouLeaveWith` | array of text                                               | Bullet list of outcomes                                        |
+| `whoItsFor`        | array of text                                               | Audience descriptors                                           |
+| `photos`           | relationship → Media (hasMany)                              | Post-event gallery                                             |
+| `testimonials`     | relationship → Testimonials (hasMany)                       | Participant feedback                                           |
 
 ---
 
@@ -194,18 +194,18 @@ Logos, badges, and organizational partnerships displayed as social proof.
 
 Directory entries for standalone tools (SOP Assessment, Valuation Communication Tool, future tools).
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `title` | text (required) | e.g., "SOP Assessment" |
-| `slug` | text | URL: `/resources/tools/{slug}` (landing page) |
-| `description` | textarea | What the tool does and who it's for |
-| `toolUrl` | text | Link to the standalone app experience |
-| `icon` | relationship → Media | |
-| `discipline` | relationship → Disciplines (hasMany) | Which disciplines benefit |
-| `pricingTier` | select: free / paid / included-with-workbench | How it relates to the pricing journey |
-| `capturesEmail` | boolean | Whether the tool has an email gate |
-| `sortOrder` | number | |
-| `status` | select: active / coming-soon | |
+| Field           | Type                                          | Notes                                         |
+| --------------- | --------------------------------------------- | --------------------------------------------- |
+| `title`         | text (required)                               | e.g., "SOP Assessment"                        |
+| `slug`          | text                                          | URL: `/resources/tools/{slug}` (landing page) |
+| `description`   | textarea                                      | What the tool does and who it's for           |
+| `toolUrl`       | text                                          | Link to the standalone app experience         |
+| `icon`          | relationship → Media                          |                                               |
+| `discipline`    | relationship → Disciplines (hasMany)          | Which disciplines benefit                     |
+| `pricingTier`   | select: free / paid / included-with-workbench | How it relates to the pricing journey         |
+| `capturesEmail` | boolean                                       | Whether the tool has an email gate            |
+| `sortOrder`     | number                                        |                                               |
+| `status`        | select: active / coming-soon                  |                                               |
 
 **Seed entries:** SOP Assessment, Valuation Communication Tool
 
@@ -213,21 +213,21 @@ Directory entries for standalone tools (SOP Assessment, Valuation Communication 
 
 ### 1.10 Pricing Tiers
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `name` | text (required) | e.g., "Workbench" |
-| `slug` | text | Anchor ID on pricing page |
-| `tagline` | text | Short descriptor (e.g., "The accelerator") |
-| `price` | text | Display string — text not number, because "Free," "$5,000," "$1,000/mo," "Contact Us" all need to work |
-| `priceNote` | text | e.g., "per month," "one-time," "custom" |
-| `description` | rich text | What's included |
-| `features` | array of text | Bullet list of included capabilities |
-| `ctaLabel` | text | Button text (e.g., "Try It Free," "Apply," "Contact Us") |
-| `ctaUrl` | text | Button destination |
-| `highlighted` | boolean | Visual emphasis (the recommended tier) |
-| `sortOrder` | number | Journey sequence: Free → Workbench → Vanguard → Community → Consulting |
-| `relatedTool` | relationship → Tools | If this tier maps to a free tool |
-| `relatedEvent` | relationship → Vanguard Events | If this tier maps to an event |
+| Field          | Type                           | Notes                                                                                                  |
+| -------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `name`         | text (required)                | e.g., "Workbench"                                                                                      |
+| `slug`         | text                           | Anchor ID on pricing page                                                                              |
+| `tagline`      | text                           | Short descriptor (e.g., "The accelerator")                                                             |
+| `price`        | text                           | Display string — text not number, because "Free," "$5,000," "$1,000/mo," "Contact Us" all need to work |
+| `priceNote`    | text                           | e.g., "per month," "one-time," "custom"                                                                |
+| `description`  | rich text                      | What's included                                                                                        |
+| `features`     | array of text                  | Bullet list of included capabilities                                                                   |
+| `ctaLabel`     | text                           | Button text (e.g., "Try It Free," "Apply," "Contact Us")                                               |
+| `ctaUrl`       | text                           | Button destination                                                                                     |
+| `highlighted`  | boolean                        | Visual emphasis (the recommended tier)                                                                 |
+| `sortOrder`    | number                         | Journey sequence: Free → Workbench → Vanguard → Community → Consulting                                 |
+| `relatedTool`  | relationship → Tools           | If this tier maps to a free tool                                                                       |
+| `relatedEvent` | relationship → Vanguard Events | If this tier maps to an event                                                                          |
 
 **Seed entries:** Start Free, Workbench, Vanguard, Community, Consulting
 
@@ -235,13 +235,13 @@ Directory entries for standalone tools (SOP Assessment, Valuation Communication 
 
 ### 1.11 FAQ Items
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `question` | text (required) | |
-| `answer` | rich text | |
-| `category` | select: general / security / pricing / onboarding / product | For grouping on the pricing page or a future FAQ page |
-| `showOnPricing` | boolean | |
-| `sortOrder` | number | |
+| Field           | Type                                                        | Notes                                                 |
+| --------------- | ----------------------------------------------------------- | ----------------------------------------------------- |
+| `question`      | text (required)                                             |                                                       |
+| `answer`        | rich text                                                   |                                                       |
+| `category`      | select: general / security / pricing / onboarding / product | For grouping on the pricing page or a future FAQ page |
+| `showOnPricing` | boolean                                                     |                                                       |
+| `sortOrder`     | number                                                      |                                                       |
 
 ---
 
@@ -249,13 +249,13 @@ Directory entries for standalone tools (SOP Assessment, Valuation Communication 
 
 For managing the exitwithella.io → withella.io migration and future URL changes.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `from` | text (required) | Source path (e.g., `/blog/old-post-slug`) |
-| `to` | text (required) | Destination path or full URL |
-| `type` | select: 301 / 302 | Permanent vs. temporary |
-| `sourceDomain` | select: exitwithella.io / withella.io | Which domain this redirect applies to |
-| `active` | boolean | |
+| Field          | Type                                  | Notes                                     |
+| -------------- | ------------------------------------- | ----------------------------------------- |
+| `from`         | text (required)                       | Source path (e.g., `/blog/old-post-slug`) |
+| `to`           | text (required)                       | Destination path or full URL              |
+| `type`         | select: 301 / 302                     | Permanent vs. temporary                   |
+| `sourceDomain` | select: exitwithella.io / withella.io | Which domain this redirect applies to     |
+| `active`       | boolean                               |                                           |
 
 ---
 
@@ -263,11 +263,11 @@ For managing the exitwithella.io → withella.io migration and future URL change
 
 Payload's built-in media collection, extended with custom fields.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `alt` | text (required) | Accessibility text |
-| `caption` | text | Optional display caption |
-| `credit` | text | Photographer or source |
+| Field      | Type                                                                                                  | Notes                                    |
+| ---------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| `alt`      | text (required)                                                                                       | Accessibility text                       |
+| `caption`  | text                                                                                                  | Optional display caption                 |
+| `credit`   | text                                                                                                  | Photographer or source                   |
 | `category` | select: headshot / product-screenshot / icon / partner-logo / blog-image / event-photo / illustration | For filtering in the admin media library |
 
 ---
@@ -276,40 +276,40 @@ Payload's built-in media collection, extended with custom fields.
 
 ### 2.1 Site Settings
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `siteName` | text | "ELLA" |
-| `siteDescription` | textarea | Default meta description |
-| `logo` | relationship → Media | Primary logo |
-| `logoLight` | relationship → Media | Light variant for dark backgrounds |
-| `favicon` | relationship → Media | |
-| `ogImage` | relationship → Media | Default social sharing image |
-| `socialLinks` | array | Each: `platform` (select: twitter / linkedin / other), `url` |
-| `announcementBar` | group | `enabled` (boolean), `text`, `linkLabel`, `linkUrl`, `bgColor`. For site-wide banners (e.g., "Vanguard applications now open") |
-| `analyticsId` | text | GA4 or analytics tracking ID |
+| Field             | Type                 | Notes                                                                                                                          |
+| ----------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `siteName`        | text                 | "ELLA"                                                                                                                         |
+| `siteDescription` | textarea             | Default meta description                                                                                                       |
+| `logo`            | relationship → Media | Primary logo                                                                                                                   |
+| `logoLight`       | relationship → Media | Light variant for dark backgrounds                                                                                             |
+| `favicon`         | relationship → Media |                                                                                                                                |
+| `ogImage`         | relationship → Media | Default social sharing image                                                                                                   |
+| `socialLinks`     | array                | Each: `platform` (select: twitter / linkedin / other), `url`                                                                   |
+| `announcementBar` | group                | `enabled` (boolean), `text`, `linkLabel`, `linkUrl`, `bgColor`. For site-wide banners (e.g., "Vanguard applications now open") |
+| `analyticsId`     | text                 | GA4 or analytics tracking ID                                                                                                   |
 
 ---
 
 ### 2.2 Navigation
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `primaryNav` | array | Each: `label`, `type` (select: link / dropdown), `url` (conditional), `children` (array of `label` + `url` + `badge` text, conditional on dropdown). Supports the Solutions ▾ and Resources ▾ dropdowns. |
-| `primaryCTA` | group | `label` (e.g., "Get Started"), `url`, `style` (select: primary / secondary) |
-| `secondaryCTA` | group | `label` (e.g., "Login"), `url`, `style` |
-| `mobileNav` | group | `showCTAInHeader` (boolean), same structure as primaryNav |
+| Field          | Type  | Notes                                                                                                                                                                                                    |
+| -------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `primaryNav`   | array | Each: `label`, `type` (select: link / dropdown), `url` (conditional), `children` (array of `label` + `url` + `badge` text, conditional on dropdown). Supports the Solutions ▾ and Resources ▾ dropdowns. |
+| `primaryCTA`   | group | `label` (e.g., "Get Started"), `url`, `style` (select: primary / secondary)                                                                                                                              |
+| `secondaryCTA` | group | `label` (e.g., "Login"), `url`, `style`                                                                                                                                                                  |
+| `mobileNav`    | group | `showCTAInHeader` (boolean), same structure as primaryNav                                                                                                                                                |
 
 ---
 
 ### 2.3 Footer
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `columns` | array | Each column: `heading`, `links` array (`label`, `url`) |
-| `newsletterSection` | group | `heading`, `description`, `placeholderText`, `buttonLabel`, `integrationEndpoint` |
-| `legalLinks` | array | `label`, `url` (Privacy, Terms) |
-| `copyrightText` | text | e.g., "Built by ei Innovations" |
-| `socialLinks` | boolean | Whether to pull from Site Settings socialLinks (avoids duplication) |
+| Field               | Type    | Notes                                                                             |
+| ------------------- | ------- | --------------------------------------------------------------------------------- |
+| `columns`           | array   | Each column: `heading`, `links` array (`label`, `url`)                            |
+| `newsletterSection` | group   | `heading`, `description`, `placeholderText`, `buttonLabel`, `integrationEndpoint` |
+| `legalLinks`        | array   | `label`, `url` (Privacy, Terms)                                                   |
+| `copyrightText`     | text    | e.g., "Built by ei Innovations"                                                   |
+| `socialLinks`       | boolean | Whether to pull from Site Settings socialLinks (avoids duplication)               |
 
 ---
 
@@ -317,14 +317,14 @@ Payload's built-in media collection, extended with custom fields.
 
 Global defaults that individual blocks can override. Keeps CTA language consistent without hardcoding.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `primaryLabel` | text | e.g., "Get Started" |
-| `primaryUrl` | text | e.g., app signup URL |
+| Field              | Type | Notes                                   |
+| ------------------ | ---- | --------------------------------------- |
+| `primaryLabel`     | text | e.g., "Get Started"                     |
+| `primaryUrl`       | text | e.g., app signup URL                    |
 | `primaryMicrocopy` | text | e.g., "Your first 3 clients are on us." |
-| `secondaryLabel` | text | e.g., "Book a Demo" |
-| `secondaryUrl` | text | e.g., cal.com scheduling URL |
-| `waitlistLabel` | text | e.g., "Join the Waitlist" |
+| `secondaryLabel`   | text | e.g., "Book a Demo"                     |
+| `secondaryUrl`     | text | e.g., cal.com scheduling URL            |
+| `waitlistLabel`    | text | e.g., "Join the Waitlist"               |
 
 ---
 
@@ -336,14 +336,14 @@ These are the composable content blocks available in the `layout` field on Pages
 
 Used as the dedicated `hero` field on Pages and Solutions, not as a layout block (every page gets exactly one).
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text (required) | |
-| `subheadline` | textarea | 1-2 sentences |
-| `primaryCTA` | group | `label`, `url`, `microcopy` (optional, e.g., "Your first 3 clients are on us") |
-| `secondaryCTA` | group | `label`, `url` |
-| `visual` | group | `type` (select: image / video-loop / none), `media` (relationship → Media) |
-| `style` | select: default / dark / warm | Background treatment |
+| Field          | Type                          | Notes                                                                          |
+| -------------- | ----------------------------- | ------------------------------------------------------------------------------ |
+| `headline`     | text (required)               |                                                                                |
+| `subheadline`  | textarea                      | 1-2 sentences                                                                  |
+| `primaryCTA`   | group                         | `label`, `url`, `microcopy` (optional, e.g., "Your first 3 clients are on us") |
+| `secondaryCTA` | group                         | `label`, `url`                                                                 |
+| `visual`       | group                         | `type` (select: image / video-loop / none), `media` (relationship → Media)     |
+| `style`        | select: default / dark / warm | Background treatment                                                           |
 
 ---
 
@@ -351,13 +351,13 @@ Used as the dedicated `hero` field on Pages and Solutions, not as a layout block
 
 Horizontal banner for social proof or builder credibility statement.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `variant` | select: logos / statement / stats | |
-| `statement` | textarea (conditional on variant=statement) | e.g., "We spent a year talking to advisors before we wrote a line of code." |
-| `logos` | relationship → Partners (hasMany, conditional on variant=logos) | |
-| `stats` | array (conditional on variant=stats) | Each: `value`, `label` |
-| `bgStyle` | select: warm / neutral / brand | |
+| Field       | Type                                                            | Notes                                                                       |
+| ----------- | --------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `variant`   | select: logos / statement / stats                               |                                                                             |
+| `statement` | textarea (conditional on variant=statement)                     | e.g., "We spent a year talking to advisors before we wrote a line of code." |
+| `logos`     | relationship → Partners (hasMany, conditional on variant=logos) |                                                                             |
+| `stats`     | array (conditional on variant=stats)                            | Each: `value`, `label`                                                      |
+| `bgStyle`   | select: warm / neutral / brand                                  |                                                                             |
 
 ---
 
@@ -365,13 +365,13 @@ Horizontal banner for social proof or builder credibility statement.
 
 General-purpose rich text section with optional header and visual.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `sectionLabel` | text | Optional small-caps label above the headline |
-| `headline` | text | |
-| `body` | rich text | |
-| `media` | group | `type` (select: image / illustration / none), `image` (relationship → Media), `position` (select: right / left / below) |
-| `bgStyle` | select: default / warm / dark | |
+| Field          | Type                          | Notes                                                                                                                   |
+| -------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `sectionLabel` | text                          | Optional small-caps label above the headline                                                                            |
+| `headline`     | text                          |                                                                                                                         |
+| `body`         | rich text                     |                                                                                                                         |
+| `media`        | group                         | `type` (select: image / illustration / none), `image` (relationship → Media), `position` (select: right / left / below) |
+| `bgStyle`      | select: default / warm / dark |                                                                                                                         |
 
 ---
 
@@ -379,12 +379,12 @@ General-purpose rich text section with optional header and visual.
 
 The 3-pillar pattern from WithCoverage. Cards can anchor-link to deeper sections below.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `sectionLabel` | text | Optional small-caps label |
-| `headline` | text | Optional section headline |
-| `columns` | select: 2 / 3 / 4 | |
-| `cards` | array | Each: `icon` (relationship → Media), `label` (text), `description` (textarea), `anchorTarget` (text — ID of the section this card links to), `linkUrl` (text — for cards that link to a different page) |
+| Field          | Type              | Notes                                                                                                                                                                                                   |
+| -------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sectionLabel` | text              | Optional small-caps label                                                                                                                                                                               |
+| `headline`     | text              | Optional section headline                                                                                                                                                                               |
+| `columns`      | select: 2 / 3 / 4 |                                                                                                                                                                                                         |
+| `cards`        | array             | Each: `icon` (relationship → Media), `label` (text), `description` (textarea), `anchorTarget` (text — ID of the section this card links to), `linkUrl` (text — for cards that link to a different page) |
 
 ---
 
@@ -392,17 +392,17 @@ The 3-pillar pattern from WithCoverage. Cards can anchor-link to deeper sections
 
 Alternating text + visual sections used for pillar expansions. Maps to the Oatmeal alternating layout component.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `sectionId` | text | Anchor ID (for card grid linking) |
-| `sectionLabel` | text | Small-caps label (e.g., "Fact Finding") |
-| `headline` | text | |
-| `body` | rich text | |
-| `capabilities` | array | Each: `text` (the capability described in one sentence) |
-| `principleHighlight` | group | `label` (e.g., "Malleability at every layer"), `description` (textarea) |
-| `testimonial` | relationship → Testimonials | Embedded quote for this section |
-| `media` | group | `type` (select: screenshot / illustration / declarative-statement), `image` (relationship → Media), `declarativeText` (text, conditional — e.g., "Intake to insight. Hours, not weeks.") |
-| `layout` | select: text-left / text-right | Alternating direction |
+| Field                | Type                           | Notes                                                                                                                                                                                    |
+| -------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sectionId`          | text                           | Anchor ID (for card grid linking)                                                                                                                                                        |
+| `sectionLabel`       | text                           | Small-caps label (e.g., "Fact Finding")                                                                                                                                                  |
+| `headline`           | text                           |                                                                                                                                                                                          |
+| `body`               | rich text                      |                                                                                                                                                                                          |
+| `capabilities`       | array                          | Each: `text` (the capability described in one sentence)                                                                                                                                  |
+| `principleHighlight` | group                          | `label` (e.g., "Malleability at every layer"), `description` (textarea)                                                                                                                  |
+| `testimonial`        | relationship → Testimonials    | Embedded quote for this section                                                                                                                                                          |
+| `media`              | group                          | `type` (select: screenshot / illustration / declarative-statement), `image` (relationship → Media), `declarativeText` (text, conditional — e.g., "Intake to insight. Hours, not weeks.") |
+| `layout`             | select: text-left / text-right | Alternating direction                                                                                                                                                                    |
 
 ---
 
@@ -410,13 +410,13 @@ Alternating text + visual sections used for pillar expansions. Maps to the Oatme
 
 The three-column "Old Way → Patchwork → With ELLA" generational framing.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | e.g., "A Better Way to Work" |
-| `subheadline` | textarea | |
-| `columnLabels` | group | `col1` (text, e.g., "The Old Way"), `col2` (text), `col3` (text) |
-| `columnStyles` | group | `col1Color` (text — hex or token), `col2Color`, `col3Color` |
-| `rows` | array | Each: `dimension` (text, e.g., "Client intake"), `col1` (text), `col2` (text), `col3` (text), `icon` (relationship → Media, optional) |
+| Field          | Type     | Notes                                                                                                                                 |
+| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `headline`     | text     | e.g., "A Better Way to Work"                                                                                                          |
+| `subheadline`  | textarea |                                                                                                                                       |
+| `columnLabels` | group    | `col1` (text, e.g., "The Old Way"), `col2` (text), `col3` (text)                                                                      |
+| `columnStyles` | group    | `col1Color` (text — hex or token), `col2Color`, `col3Color`                                                                           |
+| `rows`         | array    | Each: `dimension` (text, e.g., "Client intake"), `col1` (text), `col2` (text), `col3` (text), `icon` (relationship → Media, optional) |
 
 ---
 
@@ -424,14 +424,14 @@ The three-column "Old Way → Patchwork → With ELLA" generational framing.
 
 Single featured testimonial, or carousel of multiple.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `variant` | select: single / carousel | |
-| `testimonials` | relationship → Testimonials (hasMany) | |
-| `showPhoto` | boolean | |
-| `showMetric` | boolean | Show the quantified outcome if available |
-| `showSwitchedFrom` | boolean | Show the "switched from" badge |
-| `bgStyle` | select: default / warm / dark | |
+| Field              | Type                                  | Notes                                    |
+| ------------------ | ------------------------------------- | ---------------------------------------- |
+| `variant`          | select: single / carousel             |                                          |
+| `testimonials`     | relationship → Testimonials (hasMany) |                                          |
+| `showPhoto`        | boolean                               |                                          |
+| `showMetric`       | boolean                               | Show the quantified outcome if available |
+| `showSwitchedFrom` | boolean                               | Show the "switched from" badge           |
+| `bgStyle`          | select: default / warm / dark         |                                          |
 
 ---
 
@@ -439,14 +439,14 @@ Single featured testimonial, or carousel of multiple.
 
 Final conversion block. Used as page closers.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | |
-| `body` | rich text | The "divide forming" narrative or similar framing |
-| `closingLine` | text | The single punchy closer (e.g., "Your methodology is your moat.") |
-| `primaryCTA` | group | `label`, `url`, `microcopy` |
-| `secondaryCTA` | group | `label`, `url` |
-| `bgStyle` | select: warm / dark / default | |
+| Field          | Type                          | Notes                                                             |
+| -------------- | ----------------------------- | ----------------------------------------------------------------- |
+| `headline`     | text                          |                                                                   |
+| `body`         | rich text                     | The "divide forming" narrative or similar framing                 |
+| `closingLine`  | text                          | The single punchy closer (e.g., "Your methodology is your moat.") |
+| `primaryCTA`   | group                         | `label`, `url`, `microcopy`                                       |
+| `secondaryCTA` | group                         | `label`, `url`                                                    |
+| `bgStyle`      | select: warm / dark / default |                                                                   |
 
 ---
 
@@ -454,13 +454,13 @@ Final conversion block. Used as page closers.
 
 Dedicated block for the security messaging that appears on Homepage and Platform.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | e.g., "Secure, because both of our reputations are on the line." |
-| `body` | rich text | The ChatGPT contrast narrative + architectural explanation |
-| `capabilities` | array | Each: `icon` (relationship → Media), `text` (e.g., "Full data encryption in transit and at rest") |
-| `closingLine` | text | |
-| `detailPageLink` | group | `label`, `url` — link to the full Security & Trust page |
+| Field            | Type      | Notes                                                                                             |
+| ---------------- | --------- | ------------------------------------------------------------------------------------------------- |
+| `headline`       | text      | e.g., "Secure, because both of our reputations are on the line."                                  |
+| `body`           | rich text | The ChatGPT contrast narrative + architectural explanation                                        |
+| `capabilities`   | array     | Each: `icon` (relationship → Media), `text` (e.g., "Full data encryption in transit and at rest") |
+| `closingLine`    | text      |                                                                                                   |
+| `detailPageLink` | group     | `label`, `url` — link to the full Security & Trust page                                           |
 
 ---
 
@@ -468,13 +468,13 @@ Dedicated block for the security messaging that appears on Homepage and Platform
 
 The interactive proof moment. Deferred from launch but schema should exist.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | |
-| `beforeLabel` | text | e.g., "The Current Workflow" |
-| `afterLabel` | text | e.g., "With ELLA" |
-| `steps` | array | Each: `beforeText`, `afterText`, `icon` (relationship → Media, optional) |
-| `animation` | select: static / scroll-triggered / interactive | Build complexity toggle |
+| Field         | Type                                            | Notes                                                                    |
+| ------------- | ----------------------------------------------- | ------------------------------------------------------------------------ |
+| `headline`    | text                                            |                                                                          |
+| `beforeLabel` | text                                            | e.g., "The Current Workflow"                                             |
+| `afterLabel`  | text                                            | e.g., "With ELLA"                                                        |
+| `steps`       | array                                           | Each: `beforeText`, `afterText`, `icon` (relationship → Media, optional) |
+| `animation`   | select: static / scroll-triggered / interactive | Build complexity toggle                                                  |
 
 ---
 
@@ -482,11 +482,11 @@ The interactive proof moment. Deferred from launch but schema should exist.
 
 The 7Analytics-style numbered walkthrough used on the Exit Planning solution page.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | |
-| `subheadline` | textarea | |
-| `steps` | array | Each: `number` (auto-incremented for display), `title`, `description` (textarea), `icon` or `image` (relationship → Media) |
+| Field         | Type     | Notes                                                                                                                      |
+| ------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `headline`    | text     |                                                                                                                            |
+| `subheadline` | textarea |                                                                                                                            |
+| `steps`       | array    | Each: `number` (auto-incremented for display), `title`, `description` (textarea), `icon` or `image` (relationship → Media) |
 
 ---
 
@@ -494,9 +494,9 @@ The 7Analytics-style numbered walkthrough used on the Exit Planning solution pag
 
 The "Who It's For" blocks on solution pages and potentially the homepage.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | |
+| Field      | Type  | Notes                                                                                                                                                                               |
+| ---------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `headline` | text  |                                                                                                                                                                                     |
 | `personas` | array | Each: `label` (e.g., "CEPAs and dedicated exit planning advisors"), `description` (textarea), `icon` (relationship → Media), `ctaLabel` (text, optional), `ctaUrl` (text, optional) |
 
 ---
@@ -505,12 +505,12 @@ The "Who It's For" blocks on solution pages and potentially the homepage.
 
 The "We started with conversations" narrative. Could be a Content Section, but giving it its own block type provides structured fields for the specific pattern.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | |
-| `body` | rich text | The origin narrative |
-| `manifestoLink` | group | `label`, `url` |
-| `backingBadge` | group | `text` (e.g., "Built by ei Innovations, Erie Insurance's venture studio."), `logo` (relationship → Partners) |
+| Field           | Type      | Notes                                                                                                        |
+| --------------- | --------- | ------------------------------------------------------------------------------------------------------------ |
+| `headline`      | text      |                                                                                                              |
+| `body`          | rich text | The origin narrative                                                                                         |
+| `manifestoLink` | group     | `label`, `url`                                                                                               |
+| `backingBadge`  | group     | `text` (e.g., "Built by ei Innovations, Erie Insurance's venture studio."), `logo` (relationship → Partners) |
 
 ---
 
@@ -518,11 +518,11 @@ The "We started with conversations" narrative. Could be a Content Section, but g
 
 Card-based layout for choosing an advisory discipline. Used on homepage (future) and Resources landing.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | |
-| `solutions` | relationship → Solutions (hasMany) | Pulls title, discipline, status, and short description from Solution entries |
-| `showWaitlistBadge` | boolean | Show "Coming Soon" on waitlist-status solutions |
+| Field               | Type                               | Notes                                                                        |
+| ------------------- | ---------------------------------- | ---------------------------------------------------------------------------- |
+| `headline`          | text                               |                                                                              |
+| `solutions`         | relationship → Solutions (hasMany) | Pulls title, discipline, status, and short description from Solution entries |
+| `showWaitlistBadge` | boolean                            | Show "Coming Soon" on waitlist-status solutions                              |
 
 ---
 
@@ -530,20 +530,20 @@ Card-based layout for choosing an advisory discipline. Used on homepage (future)
 
 Horizontal row of key metrics.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `stats` | array | Each: `value` (text, e.g., "100+"), `label` (text, e.g., "advisor conversations"), `animateOnScroll` (boolean) |
-| `bgStyle` | select: default / warm / dark | |
+| Field     | Type                          | Notes                                                                                                          |
+| --------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `stats`   | array                         | Each: `value` (text, e.g., "100+"), `label` (text, e.g., "advisor conversations"), `animateOnScroll` (boolean) |
+| `bgStyle` | select: default / warm / dark |                                                                                                                |
 
 ---
 
 ### 3.16 FAQ Accordion
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | |
-| `items` | relationship → FAQ Items (hasMany) | Or inline array if you prefer: each with `question`, `answer` |
-| `filterByCategory` | select (from FAQ category options) | Optional: only show FAQs from one category |
+| Field              | Type                               | Notes                                                         |
+| ------------------ | ---------------------------------- | ------------------------------------------------------------- |
+| `headline`         | text                               |                                                               |
+| `items`            | relationship → FAQ Items (hasMany) | Or inline array if you prefer: each with `question`, `answer` |
+| `filterByCategory` | select (from FAQ category options) | Optional: only show FAQs from one category                    |
 
 ---
 
@@ -551,11 +551,11 @@ Horizontal row of key metrics.
 
 The non-standard pricing layout — a journey visualization rather than a tier comparison grid.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | |
-| `introBody` | rich text | The "here's the path" framing |
-| `tiers` | relationship → Pricing Tiers (hasMany, ordered) | Pulls from the Pricing Tiers collection in journey order |
+| Field       | Type                                            | Notes                                                    |
+| ----------- | ----------------------------------------------- | -------------------------------------------------------- |
+| `headline`  | text                                            |                                                          |
+| `introBody` | rich text                                       | The "here's the path" framing                            |
+| `tiers`     | relationship → Pricing Tiers (hasMany, ordered) | Pulls from the Pricing Tiers collection in journey order |
 
 ---
 
@@ -563,13 +563,13 @@ The non-standard pricing layout — a journey visualization rather than a tier c
 
 Standalone email capture block for mid-page or end-of-page placement.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `headline` | text | |
-| `description` | textarea | |
-| `placeholderText` | text | |
-| `buttonLabel` | text | |
-| `bgStyle` | select: default / warm / dark | |
+| Field             | Type                          | Notes |
+| ----------------- | ----------------------------- | ----- |
+| `headline`        | text                          |       |
+| `description`     | textarea                      |       |
+| `placeholderText` | text                          |       |
+| `buttonLabel`     | text                          |       |
+| `bgStyle`         | select: default / warm / dark |       |
 
 ---
 
@@ -579,13 +579,13 @@ Standalone email capture block for mid-page or end-of-page placement.
 
 The core taxonomy that connects Solutions, Blog Posts, Case Studies, Testimonials, Tools, and Partners.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `name` | text (required) | e.g., "Exit Planning" |
-| `slug` | text (unique) | |
-| `description` | textarea | One-sentence summary of the discipline |
-| `status` | select: active / coming-soon | |
-| `sortOrder` | number | |
+| Field         | Type                         | Notes                                  |
+| ------------- | ---------------------------- | -------------------------------------- |
+| `name`        | text (required)              | e.g., "Exit Planning"                  |
+| `slug`        | text (unique)                |                                        |
+| `description` | textarea                     | One-sentence summary of the discipline |
+| `status`      | select: active / coming-soon |                                        |
+| `sortOrder`   | number                       |                                        |
 
 **Seed entries:** Exit Planning, Wealth Advisory, Accounting & Tax Advisory, Legal Advisory
 
@@ -595,23 +595,23 @@ The core taxonomy that connects Solutions, Blog Posts, Case Studies, Testimonial
 
 The five content pillars from the architecture doc, mapped to user-friendly display labels from the implementation plan.
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `name` | text (required) | Display label |
-| `slug` | text (unique) | |
-| `internalLabel` | text | The manifesto pillar name, for internal reference |
-| `description` | textarea | |
-| `sortOrder` | number | |
+| Field           | Type            | Notes                                             |
+| --------------- | --------------- | ------------------------------------------------- |
+| `name`          | text (required) | Display label                                     |
+| `slug`          | text (unique)   |                                                   |
+| `internalLabel` | text            | The manifesto pillar name, for internal reference |
+| `description`   | textarea        |                                                   |
+| `sortOrder`     | number          |                                                   |
 
 **Seed entries:**
 
-| Display Name | Internal Pillar |
-|-------------|----------------|
-| Product Updates | Building ELLA in Public |
-| Trust & Security | Trust Infrastructure |
+| Display Name        | Internal Pillar               |
+| ------------------- | ----------------------------- |
+| Product Updates     | Building ELLA in Public       |
+| Trust & Security    | Trust Infrastructure          |
 | Practice Management | Advisor Patterns / Frameworks |
-| Industry Insights | Silver Tsunami Thesis |
-| Perspectives | Challenger Takes |
+| Industry Insights   | Silver Tsunami Thesis         |
+| Perspectives        | Challenger Takes              |
 
 ---
 
@@ -667,11 +667,11 @@ Pricing Tiers
 
 Payload supports role-based access. Recommended roles for launch:
 
-| Role | Can Do |
-|------|--------|
-| **Admin** | Full access to everything. Drew + engineering. |
-| **Editor** | Create/edit/publish Pages, Solutions, Blog Posts, Case Studies. Cannot modify Globals or schema. |
-| **Contributor** | Create/edit Blog Posts (draft only). Cannot publish. For guest authors or future team members. |
+| Role            | Can Do                                                                                           |
+| --------------- | ------------------------------------------------------------------------------------------------ |
+| **Admin**       | Full access to everything. Drew + engineering.                                                   |
+| **Editor**      | Create/edit/publish Pages, Solutions, Blog Posts, Case Studies. Cannot modify Globals or schema. |
+| **Contributor** | Create/edit Blog Posts (draft only). Cannot publish. For guest authors or future team members.   |
 
 ---
 

@@ -1,5 +1,6 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
+
 import { Section } from '../elements/section'
 
 export function TeamMember({
@@ -19,7 +20,7 @@ export function TeamMember({
         {img}
       </div>
       <div>
-        <p className="font-semibold text-ash-950">{name}</p>
+        <p className="text-ash-950 font-semibold">{name}</p>
         <p className="text-ash-700">{byline}</p>
       </div>
     </li>

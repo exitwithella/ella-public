@@ -1,9 +1,10 @@
 import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
-import { Feature, FeaturesThreeColumn } from '@/components/sections/features-three-column'
 import { CallToActionSimpleCentered } from '@/components/sections/call-to-action-simple-centered'
-import { Hero } from './_components/hero'
+import { Feature, FeaturesThreeColumn } from '@/components/sections/features-three-column'
+
 import { CredibilityStrip } from './_components/credibility-strip'
+import { Hero } from './_components/hero'
 import { pillarCards, trustSecurity, closerCta } from './_lib/content'
 
 export default function HomePage() {
@@ -26,7 +27,7 @@ export default function HomePage() {
                 headline={pillar.tag}
                 subheadline={
                   <>
-                    <p className="font-semibold text-ash-950">{pillar.headline}</p>
+                    <p className="text-ash-950 font-semibold">{pillar.headline}</p>
                     <p>{pillar.description}</p>
                   </>
                 }

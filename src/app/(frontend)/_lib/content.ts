@@ -1,15 +1,11 @@
 export const siteConfig = {
-  name: 'ELLA',
-  description: 'ELLA turns trust into action with tools built for advisor-led transitions.',
-  url: 'https://withella.io',
   appUrl: 'https://app.exitwithella.io',
+  description: 'ELLA turns trust into action with tools built for advisor-led transitions.',
+  name: 'ELLA',
+  url: 'https://withella.io',
 }
 
 export const navigation = {
-  links: [
-    { label: 'About', href: '/about' },
-    { label: 'Blog', href: '/blog' },
-  ],
   actions: {
     bookDemo: {
       label: 'Book a Demo',
@@ -24,6 +20,10 @@ export const navigation = {
       href: 'https://app.exitwithella.io/sign-up',
     },
   },
+  links: [
+    { label: 'About', href: '/about' },
+    { label: 'Blog', href: '/blog' },
+  ],
 }
 
 export const hero = {
@@ -32,8 +32,6 @@ export const hero = {
     href: '/blog/why-we-re-building-ella',
     cta: 'Read more',
   },
-  headline: ['GO FROM INTAKE TO INSIGHT', 'IN A FRACTION OF THE TIME'],
-  subheadline: 'ELLA turns trust into action with tools built for advisor-led transitions.',
   cta: {
     label: 'Get Started Free',
     href: 'https://app.exitwithella.io/sign-up',
@@ -43,10 +41,12 @@ export const hero = {
     href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
   },
   footnote: 'Your first 3 clients are on us.',
+  headline: ['GO FROM INTAKE TO INSIGHT', 'IN A FRACTION OF THE TIME'],
   image: {
     src: '/images/ella-dashboard.avif',
     alt: 'ELLA product screenshot',
   },
+  subheadline: 'ELLA turns trust into action with tools built for advisor-led transitions.',
 }
 
 export const credibilityStrip = {
@@ -54,10 +54,10 @@ export const credibilityStrip = {
 }
 
 export const pillarCards = {
-  eyebrow: "Advising can be chaos. We've lived it.",
-  headline: 'Three pillars. One workbench.',
   description:
     'ELLA organizes the entire advisory workflow into three connected pillars — so nothing falls through the cracks.',
+  eyebrow: "Advising can be chaos. We've lived it.",
+  headline: 'Three pillars. One workbench.',
   pillars: [
     {
       tag: 'Fact Finding',
@@ -81,7 +81,14 @@ export const pillarCards = {
 }
 
 export const trustSecurity = {
-  headline: 'Secure, because both of our reputations are on the line.',
+  badges: [
+    'Full data encryption',
+    'Modern U.S.-based infrastructure',
+    'GDPR & CCPA adherence',
+    'Granular access control (RBAC)',
+    'Multi-factor auth by default',
+    'Enterprise SSO / SAML',
+  ],
   description:
     "We know trust is earned — and essential when you're the steward of your clients' most valuable asset.",
   features: [
@@ -98,23 +105,16 @@ export const trustSecurity = {
     {
       title: 'Privacy Built-In',
       description:
-        "We follow U.S. state privacy laws and align with GDPR. Export or delete your data at any time. ELLA never sells your data.",
+        'We follow U.S. state privacy laws and align with GDPR. Export or delete your data at any time. ELLA never sells your data.',
     },
   ],
-  badges: [
-    'Full data encryption',
-    'Modern U.S.-based infrastructure',
-    'GDPR & CCPA adherence',
-    'Granular access control (RBAC)',
-    'Multi-factor auth by default',
-    'Enterprise SSO / SAML',
-  ],
+  headline: 'Secure, because both of our reputations are on the line.',
 }
 
 export const closerCta = {
-  headline: 'Simple. Flexible. Made for impact.',
   description:
     'From onboarding to final deliverables, ELLA provides a place for all the moving parts and the tools to put them together.',
+  headline: 'Simple. Flexible. Made for impact.',
   primaryCta: {
     label: 'Get Started Free',
     href: 'https://app.exitwithella.io/sign-up',
@@ -126,9 +126,9 @@ export const closerCta = {
 }
 
 export const principles = {
-  headline: "The Principles We're Built On",
   description:
     "We're different for many reasons, but the biggest reason are the principles that serve as the bedrock of our experience.",
+  headline: "The Principles We're Built On",
   items: [
     {
       title: 'Actionable Illumination',
@@ -156,8 +156,8 @@ export const principles = {
 export const footer = {
   copyright: '© ELLA 2025',
   links: [
-    { label: 'About', href: '/about' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Pricing', href: '/pricing' },
+    { href: '/about', label: 'About' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/pricing', label: 'Pricing' },
   ],
 }

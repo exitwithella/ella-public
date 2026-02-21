@@ -1,13 +1,16 @@
 import React from 'react'
+
 import { Main } from '@/components/elements/main'
-import { Navbar } from './_components/navbar'
+
 import { Footer } from './_components/footer'
+import { Navbar } from './_components/navbar'
+
 import './styles.css'
 
 export const metadata = {
-  title: 'ELLA | Practice Systematization for Trusted Advisors',
   description:
     'ELLA turns trust into action with tools built for advisor-led transitions. Go from intake to insight in a fraction of the time.',
+  title: 'ELLA | Practice Systematization for Trusted Advisors',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {

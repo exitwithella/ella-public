@@ -1,8 +1,13 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
+
 import { Container } from '../elements/container'
 
-export function FooterCategory({ title, children, ...props }: { title: ReactNode } & ComponentProps<'div'>) {
+export function FooterCategory({
+  title,
+  children,
+  ...props
+}: { title: ReactNode } & ComponentProps<'div'>) {
   return (
     <div {...props}>
       <h3>{title}</h3>
@@ -13,7 +18,11 @@ export function FooterCategory({ title, children, ...props }: { title: ReactNode
   )
 }
 
-export function FooterLink({ href, className, ...props }: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
+export function FooterLink({
+  href,
+  className,
+  ...props
+}: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
   return (
     <li className={clsx('text-ash-700', className)}>
       <a href={href} {...props} />
@@ -32,12 +41,12 @@ export function FooterWithLinkCategories({
 } & ComponentProps<'footer'>) {
   return (
     <footer className={clsx('pt-16', className)} {...props}>
-      <div className="bg-ash-950/2.5 py-16 text-ash-950">
+      <div className="bg-ash-950/2.5 text-ash-950 py-16">
         <Container className="flex flex-col gap-16">
           <nav className="grid grid-cols-2 gap-6 text-sm/7 sm:has-[>:last-child:nth-child(3)]:grid-cols-3 sm:has-[>:nth-child(5)]:grid-cols-3 md:has-[>:last-child:nth-child(4)]:grid-cols-4 lg:has-[>:nth-child(5)]:grid-cols-5">
             {links}
           </nav>
-          <div className="text-sm/7 text-ash-600">{fineprint}</div>
+          <div className="text-ash-600 text-sm/7">{fineprint}</div>
         </Container>
       </div>
     </footer>

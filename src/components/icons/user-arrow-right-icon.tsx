@@ -9,7 +9,7 @@ export function UserArrowRightIcon({ className, ...props }: ComponentProps<'svg'
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -28,7 +28,12 @@ export function UserArrowRightIcon({ className, ...props }: ComponentProps<'svg'
         strokeLinejoin="round"
       />
       <path d="M12.5 11H7.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M11 12.5L12.5 11L11 9.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M11 12.5L12.5 11L11 9.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

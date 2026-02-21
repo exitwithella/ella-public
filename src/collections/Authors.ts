@@ -1,12 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
 export const Authors: CollectionConfig = {
-  slug: 'authors',
-  admin: {
-    useAsTitle: 'name',
-  },
   access: {
     read: () => true,
+  },
+  admin: {
+    useAsTitle: 'name',
   },
   fields: [
     {
@@ -30,4 +29,5 @@ export const Authors: CollectionConfig = {
       relationTo: 'media',
     },
   ],
+  slug: 'authors',
 }

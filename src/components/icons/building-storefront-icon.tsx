@@ -9,7 +9,7 @@ export function BuildingStorefrontIcon({ className, ...props }: ComponentProps<'
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -21,9 +21,24 @@ export function BuildingStorefrontIcon({ className, ...props }: ComponentProps<'
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M11.5 5.00029V12.5H1.5V5.00029" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M7.5 12.5V7.5H9.5V12.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M3.5 7.5V9.5H5.5V7.5H3.5Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M11.5 5.00029V12.5H1.5V5.00029"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7.5 12.5V7.5H9.5V12.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3.5 7.5V9.5H5.5V7.5H3.5Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

@@ -1,5 +1,6 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
+
 import { ChevronIcon } from '../icons/chevron-icon'
 
 export function AnnouncementBadge({
@@ -22,10 +23,8 @@ export function AnnouncementBadge({
       data-variant={variant}
       className={clsx(
         'group relative inline-flex max-w-full gap-x-3 overflow-hidden rounded-md px-3.5 py-2 text-sm/6 max-sm:flex-col sm:items-center sm:rounded-full sm:px-3 sm:py-0.5',
-        variant === 'normal' &&
-          'bg-ash-950/5 text-ash-950 hover:bg-ash-950/10',
-        variant === 'overlay' &&
-          'bg-ash-950/15 text-white hover:bg-ash-950/20',
+        variant === 'normal' && 'bg-ash-950/5 text-ash-950 hover:bg-ash-950/10',
+        variant === 'overlay' && 'bg-ash-950/15 text-white hover:bg-ash-950/20',
         className,
       )}
     >

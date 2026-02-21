@@ -1,9 +1,14 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
+
 import { Container } from '../elements/container'
 import { ArrowNarrowRightIcon } from '../icons/arrow-narrow-right-icon'
 
-export function FooterCategory({ title, children, ...props }: { title: ReactNode } & ComponentProps<'div'>) {
+export function FooterCategory({
+  title,
+  children,
+  ...props
+}: { title: ReactNode } & ComponentProps<'div'>) {
   return (
     <div {...props}>
       <h3>{title}</h3>
@@ -14,7 +19,11 @@ export function FooterCategory({ title, children, ...props }: { title: ReactNode
   )
 }
 
-export function FooterLink({ href, className, ...props }: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
+export function FooterLink({
+  href,
+  className,
+  ...props
+}: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
   return (
     <li className={clsx('text-ash-700', className)}>
       <a href={href} {...props} />
@@ -54,18 +63,18 @@ export function NewsletterForm({
   return (
     <form className={clsx('flex max-w-sm flex-col gap-2', className)} {...props}>
       <p>{headline}</p>
-      <div className="flex flex-col gap-4 text-ash-700">{subheadline}</div>
-      <div className="flex items-center border-b border-ash-950/20 py-2 has-[input:focus]:border-ash-950[input:focus]:border-white">
+      <div className="text-ash-700 flex flex-col gap-4">{subheadline}</div>
+      <div className="border-ash-950/20 has-[input:focus]:border-ash-950[input:focus]:border-white flex items-center border-b py-2">
         <input
           type="email"
           placeholder="Email"
           aria-label="Email"
-          className="flex-1 text-ash-950 focus:outline-hidden"
+          className="text-ash-950 flex-1 focus:outline-hidden"
         />
         <button
           type="submit"
           aria-label="Subscribe"
-          className="relative inline-flex size-7 items-center justify-center rounded-full after:absolute after:-inset-2 hover:bg-ash-950/10 after:pointer-fine:hidden"
+          className="hover:bg-ash-950/10 relative inline-flex size-7 items-center justify-center rounded-full after:absolute after:-inset-2 after:pointer-fine:hidden"
         >
           <ArrowNarrowRightIcon />
         </button>
@@ -89,7 +98,7 @@ export function FooterWithNewsletterFormCategoriesAndSocialIcons({
 } & ComponentProps<'footer'>) {
   return (
     <footer className={clsx('pt-16', className)} {...props}>
-      <div className="bg-ash-950/2.5 py-16 text-ash-950">
+      <div className="bg-ash-950/2.5 text-ash-950 py-16">
         <Container className="flex flex-col gap-16">
           <div className="grid grid-cols-1 gap-x-6 gap-y-16 text-sm/7 lg:grid-cols-2">
             {cta}

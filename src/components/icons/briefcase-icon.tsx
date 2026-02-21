@@ -9,7 +9,7 @@ export function BriefcaseIcon({ className, ...props }: ComponentProps<'svg'>) {
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -33,7 +33,12 @@ export function BriefcaseIcon({ className, ...props }: ComponentProps<'svg'>) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M5.5 8.5V9.5H7.5V8.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M5.5 8.5V9.5H7.5V8.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

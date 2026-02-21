@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
+
 import config from '@/payload.config'
+
 import { BlockRenderer } from '../_components/block-renderer'
 
 interface PageProps {
@@ -12,10 +14,10 @@ async function getPage(slug: string) {
 
   const pages = await payload.find({
     collection: 'pages',
+    limit: 1,
     where: {
       slug: { equals: slug },
     },
-    limit: 1,
   })
 
   return pages.docs[0] || null

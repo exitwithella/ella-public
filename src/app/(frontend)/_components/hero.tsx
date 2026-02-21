@@ -1,12 +1,14 @@
 'use client'
 
-import Image from 'next/image'
 import { motion } from 'motion/react'
+import Image from 'next/image'
+
 import { AnnouncementBadge } from '@/components/elements/announcement-badge'
 import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
 import { Container } from '@/components/elements/container'
 import { Text } from '@/components/elements/text'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
+
 import { hero } from '../_lib/content'
 
 // Word-by-word animated headline
@@ -14,18 +16,18 @@ function AnimatedHeadline({ text, baseDelay = 0 }: { text: string; baseDelay?: n
   const words = text.split(' ')
 
   return (
-    <h1 className="flex flex-wrap justify-center gap-x-3 text-center font-display text-5xl/12 tracking-tight text-balance text-ash-950 sm:text-[5rem]/20">
+    <h1 className="font-display text-ash-950 flex flex-wrap justify-center gap-x-3 text-center text-5xl/12 tracking-tight text-balance sm:text-[5rem]/20">
       {words.map((word, index) => (
         <motion.span
           key={index}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
-            type: 'spring',
-            stiffness: 69,
             damping: 31,
-            mass: 10.3,
             delay: baseDelay + index * 0.075,
+            mass: 10.3,
+            stiffness: 69,
+            type: 'spring',
           }}
         >
           {word}
@@ -39,22 +41,22 @@ function AnimatedHeadline({ text, baseDelay = 0 }: { text: string; baseDelay?: n
 function AnimatedSecondHeadline({ text }: { text: string }) {
   return (
     <motion.h1
-      className="text-center font-display text-5xl/12 tracking-tight text-balance text-ash-950 sm:text-[5rem]/20"
+      className="font-display text-ash-950 text-center text-5xl/12 tracking-tight text-balance sm:text-[5rem]/20"
       initial={{
+        filter: 'blur(10px)',
         opacity: 0,
         y: 10,
-        filter: 'blur(10px)',
       }}
       animate={{
+        filter: 'blur(0px)',
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
       }}
       transition={{
-        type: 'spring',
-        duration: 0.6,
         bounce: 0,
         delay: 1.2 + 0.05,
+        duration: 0.6,
+        type: 'spring',
       }}
     >
       {text}
@@ -71,18 +73,14 @@ export function Hero() {
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            type: 'spring',
-            stiffness: 378,
             damping: 29,
-            mass: 8.8,
             delay: 2.7,
+            mass: 8.8,
+            stiffness: 378,
+            type: 'spring',
           }}
         >
-          <AnnouncementBadge
-            href={hero.badge.href}
-            text={hero.badge.text}
-            cta={hero.badge.cta}
-          />
+          <AnnouncementBadge href={hero.badge.href} text={hero.badge.text} cta={hero.badge.cta} />
         </motion.div>
 
         {/* Headlines */}
@@ -96,11 +94,11 @@ export function Hero() {
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            type: 'spring',
-            stiffness: 378,
             damping: 29,
-            mass: 8.8,
             delay: 2.3,
+            mass: 8.8,
+            stiffness: 378,
+            type: 'spring',
           }}
         >
           <Text className="max-w-md text-center text-pretty">{hero.subheadline}</Text>
@@ -112,10 +110,10 @@ export function Hero() {
           initial={{ opacity: 0, y: 150 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            type: 'spring',
-            duration: 0.4,
             bounce: 0.2,
             delay: 2.5,
+            duration: 0.4,
+            type: 'spring',
           }}
         >
           <ButtonLink href={hero.cta.href} size="lg" target="_blank">
@@ -127,7 +125,7 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          className="text-sm/7 text-ash-700"
+          className="text-ash-700 text-sm/7"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.8, duration: 0.4 }}
@@ -141,10 +139,10 @@ export function Hero() {
           initial={{ opacity: 0, y: 150 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            type: 'spring',
-            duration: 0.4,
             bounce: 0.2,
             delay: 2.7,
+            duration: 0.4,
+            type: 'spring',
           }}
         >
           <Image

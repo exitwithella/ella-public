@@ -1,9 +1,10 @@
+import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
 import {
   NavbarWithLinksActionsAndCenteredLogo,
   NavbarLink,
   NavbarLogo,
 } from '@/components/sections/navbar-with-links-actions-and-centered-logo'
-import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
+
 import { EllaLogo } from '../_assets/logo'
 import { navigation } from '../_lib/content'
 
@@ -29,10 +30,18 @@ export function Navbar() {
       }
       actions={
         <>
-          <PlainButtonLink href={navigation.actions.bookDemo.href} target="_blank" className="max-sm:hidden">
+          <PlainButtonLink
+            href={navigation.actions.bookDemo.href}
+            target="_blank"
+            className="max-sm:hidden"
+          >
             {navigation.actions.bookDemo.label}
           </PlainButtonLink>
-          <PlainButtonLink href={navigation.actions.login.href} target="_blank" className="max-sm:hidden">
+          <PlainButtonLink
+            href={navigation.actions.login.href}
+            target="_blank"
+            className="max-sm:hidden"
+          >
             {navigation.actions.login.label}
           </PlainButtonLink>
           <ButtonLink href={navigation.actions.signUp.href} target="_blank">

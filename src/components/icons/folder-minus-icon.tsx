@@ -9,7 +9,7 @@ export function FolderMinusIcon({ className, ...props }: ComponentProps<'svg'>) 
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -30,7 +30,12 @@ export function FolderMinusIcon({ className, ...props }: ComponentProps<'svg'>) 
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M12.505 10.495L8.505 10.495" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M12.505 10.495L8.505 10.495"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

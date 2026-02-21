@@ -1,5 +1,6 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
+
 import { Container } from '../elements/container'
 import { Heading } from '../elements/heading'
 import { Wallpaper } from '../elements/wallpaper'
@@ -32,7 +33,9 @@ export function HeroWithDemoOnBackground({
                 <Heading className="max-w-5xl" color="light">
                   {headline}
                 </Heading>
-                <div className="flex max-w-3xl flex-col gap-4 text-lg/8 text-white/70">{subheadline}</div>
+                <div className="flex max-w-3xl flex-col gap-4 text-lg/8 text-white/70">
+                  {subheadline}
+                </div>
                 {cta}
               </div>
               <div className="lg:pt-24">

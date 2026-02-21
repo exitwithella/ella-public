@@ -1,12 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
 export const Categories: CollectionConfig = {
-  slug: 'categories',
-  admin: {
-    useAsTitle: 'title',
-  },
   access: {
     read: () => true,
+  },
+  admin: {
+    useAsTitle: 'title',
   },
   fields: [
     {
@@ -21,4 +20,5 @@ export const Categories: CollectionConfig = {
       unique: true,
     },
   ],
+  slug: 'categories',
 }

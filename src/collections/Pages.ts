@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+
 import {
   HeroBlock,
   ContentBlock,
@@ -9,12 +10,11 @@ import {
 } from '../blocks'
 
 export const Pages: CollectionConfig = {
-  slug: 'pages',
-  admin: {
-    useAsTitle: 'title',
-  },
   access: {
     read: () => true,
+  },
+  admin: {
+    useAsTitle: 'title',
   },
   fields: [
     {
@@ -45,4 +45,5 @@ export const Pages: CollectionConfig = {
       ],
     },
   ],
+  slug: 'pages',
 }

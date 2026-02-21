@@ -1,6 +1,8 @@
 import { ElDisclosure } from '@tailwindplus/elements/react'
 import { clsx } from 'clsx/lite'
-import { type ComponentProps, type ReactNode, useId } from 'react'
+import { useId } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
+
 import { Container } from '../elements/container'
 import { Subheading } from '../elements/subheading'
 import { Text } from '../elements/text'
@@ -13,7 +15,7 @@ export function Faq({
   answer,
   ...props
 }: { question: ReactNode; answer: ReactNode } & ComponentProps<'div'>) {
-  let autoId = useId()
+  const autoId = useId()
   id = id || autoId
 
   return (
@@ -23,7 +25,7 @@ export function Faq({
         id={`${id}-question`}
         command="--toggle"
         commandfor={`${id}-answer`}
-        className="flex w-full items-start justify-between gap-6 py-4 text-left text-base/7 text-ash-950"
+        className="text-ash-950 flex w-full items-start justify-between gap-6 py-4 text-left text-base/7"
       >
         {question}
         <PlusIcon className="h-lh in-aria-expanded:hidden" />
@@ -32,7 +34,7 @@ export function Faq({
       <ElDisclosure
         id={`${id}-answer`}
         hidden
-        className="-mt-2 flex flex-col gap-2 pr-12 pb-4 text-sm/7 text-ash-700"
+        className="text-ash-700 -mt-2 flex flex-col gap-2 pr-12 pb-4 text-sm/7"
       >
         {answer}
       </ElDisclosure>
@@ -57,9 +59,7 @@ export function FAQsTwoColumnAccordion({
           <Subheading>{headline}</Subheading>
           {subheadline && <Text className="flex flex-col gap-4 text-pretty">{subheadline}</Text>}
         </div>
-        <div className="divide-y divide-ash-950/10 border-y border-ash-950/10">
-          {children}
-        </div>
+        <div className="divide-ash-950/10 border-ash-950/10 divide-y border-y">{children}</div>
       </Container>
     </section>
   )

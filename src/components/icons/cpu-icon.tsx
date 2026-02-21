@@ -9,7 +9,7 @@ export function CpuIcon({ className, ...props }: ComponentProps<'svg'>) {
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -28,17 +28,47 @@ export function CpuIcon({ className, ...props }: ComponentProps<'svg'>) {
         strokeLinejoin="round"
       />
       <path d="M6.5 0.5V1.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M12.5 6.5L11.5 6.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M12.5 6.5L11.5 6.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path d="M6.5 11.5V12.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M1.5 6.5L0.5 6.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M1.5 6.5L0.5 6.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path d="M8.5 0.5V1.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M12.5 8.5L11.5 8.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M12.5 8.5L11.5 8.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path d="M8.5 11.5V12.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M1.5 8.5L0.5 8.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M1.5 8.5L0.5 8.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path d="M4.5 0.5V1.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M12.5 4.5L11.5 4.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M12.5 4.5L11.5 4.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path d="M4.5 11.5V12.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M1.5 4.5L0.5 4.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M1.5 4.5L0.5 4.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

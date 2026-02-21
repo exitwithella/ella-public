@@ -9,11 +9,16 @@ export function BanknotesIcon({ className, ...props }: ComponentProps<'svg'>) {
       viewBox="0 0 13 11"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
-      <path d="M0.5 0.5H12.5V7.5H0.5V0.5Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M0.5 0.5H12.5V7.5H0.5V0.5Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path
         d="M8 4C8 4.82843 7.32843 5.5 6.5 5.5C5.67157 5.5 5 4.82843 5 4C5 3.17157 5.67157 2.5 6.5 2.5C7.32843 2.5 8 3.17157 8 4Z"
         fill="currentColor"
@@ -52,8 +57,18 @@ export function BanknotesIcon({ className, ...props }: ComponentProps<'svg'>) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M10 3.99978L10 4.00978" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M3 3.99977L3 4.00977" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M10 3.99978L10 4.00978"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3 3.99977L3 4.00977"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

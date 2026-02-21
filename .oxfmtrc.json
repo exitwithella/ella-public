@@ -4,8 +4,8 @@
   "semi": false,
   "printWidth": 100,
   "trailingComma": "all",
-  "experimentalSortImports": true,
-  "experimentalTailwindcss": true,
+  "experimentalSortImports": {},
+  "experimentalTailwindcss": {},
   "ignorePatterns": [
     "oatmeal-olive/**",
     "oatmeal-olive-familjen/**",

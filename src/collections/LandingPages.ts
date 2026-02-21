@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+
 import {
   HeroBlock,
   ContentBlock,
@@ -9,12 +10,11 @@ import {
 } from '../blocks'
 
 export const LandingPages: CollectionConfig = {
-  slug: 'landing-pages',
-  admin: {
-    useAsTitle: 'title',
-  },
   access: {
     read: () => true,
+  },
+  admin: {
+    useAsTitle: 'title',
   },
   fields: [
     {
@@ -36,7 +36,8 @@ export const LandingPages: CollectionConfig = {
       name: 'campaign',
       type: 'text',
       admin: {
-        description: 'Campaign or event this landing page is associated with (e.g., "EPI Summit 2025")',
+        description:
+          'Campaign or event this landing page is associated with (e.g., "EPI Summit 2025")',
       },
     },
     {
@@ -52,4 +53,5 @@ export const LandingPages: CollectionConfig = {
       ],
     },
   ],
+  slug: 'landing-pages',
 }

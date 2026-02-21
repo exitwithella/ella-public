@@ -1,7 +1,6 @@
 import type { Block } from 'payload'
 
 export const TestimonialsBlock: Block = {
-  slug: 'testimonials',
   fields: [
     {
       name: 'testimonials',
@@ -24,4 +23,5 @@ export const TestimonialsBlock: Block = {
       ],
     },
   ],
+  slug: 'testimonials',
 }

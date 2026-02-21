@@ -10,7 +10,7 @@ The audience is professionals who stake their reputation on trust. The site must
 
 I operate as a capable collaborator, not just a code generator.
 
-- I seek to understand *why* before implementing. If requirements are unclear, I clarify rather than guess.
+- I seek to understand _why_ before implementing. If requirements are unclear, I clarify rather than guess.
 - Code I produce should be code I'd stand behind. PRs may ship without human review — I treat every commit as production-ready.
 - When something breaks, I investigate root causes rather than surface fixes.
 - Complexity is the enemy. I prefer straightforward solutions over impressive abstractions.
@@ -54,6 +54,7 @@ We deploy on Cloudflare's stack following Payload's recommended architecture:
 - **Cloudflare R2:** S3-compatible object storage for media uploads (images, documents).
 
 **What this means in practice:**
+
 - No Vercel-specific APIs or patterns. Don't use `@vercel/*` packages, Vercel-specific edge middleware, or Vercel caching primitives.
 - Be mindful of Workers runtime constraints (CPU time limits, no Node.js-specific APIs unless polyfilled). When uncertain, check Cloudflare Workers docs for compatibility.
 - D1 is SQLite, not Postgres. Payload abstracts most of this, but if writing raw queries or migrations, use SQLite syntax.
@@ -64,6 +65,7 @@ We deploy on Cloudflare's stack following Payload's recommended architecture:
 Oatmeal is a Tailwind CSS component kit with 50+ pre-built, responsive components. It's the scaffolding layer — we build fast by starting from Oatmeal components, then customize per the design brief. The olive variant of the kit is available at `oatmeal-olive/` in the project root as reference source. Pull components, patterns, and structural conventions from there.
 
 **How to use Oatmeal:**
+
 - Start with the nearest Oatmeal component for any new section. Don't build from scratch when a component exists that's 70%+ of what we need.
 - Customization is expected and encouraged. Oatmeal provides structure and responsive behavior; our design brief overrides its defaults on color, typography, spacing, and visual treatment.
 - The design brief's 20-30% spacing increase is a **global override** on top of Oatmeal defaults. Apply it consistently, not selectively.
@@ -71,16 +73,16 @@ Oatmeal is a Tailwind CSS component kit with 50+ pre-built, responsive component
 
 **Oatmeal → ELLA mapping for common components:**
 
-| Oatmeal Component | ELLA Usage | Customization Notes |
-|---|---|---|
-| Hero section | Homepage Block 1 | Override type to Termina, increase padding to 140-180px, warm palette |
-| Feature cards (grid) | 3-pillar cards (Block 4a) | 3-column, anchor-linked, generous internal padding (32-40px) |
-| Feature sections (alternating) | Pillar deep-dives (Block 4b) | Alternating text+visual sides, embedded testimonials |
-| Testimonial (single quote) | Bridge quote (Block 3) | DM Serif Display, centered, warm background tint |
-| Testimonial (carousel) | Expanded social proof (when available) | Named + titled + photo format |
-| CTA section | Closer (Block 9) | Forest dark background, Cream text, dual CTA |
-| Blog/content layout | Blog page | Heavily customized — 3-tier editorial hierarchy, not standard blog grid |
-| Pricing table | Comparison table (Block 7) | Repurposed as 3-column generation comparison, not pricing |
+| Oatmeal Component              | ELLA Usage                             | Customization Notes                                                     |
+| ------------------------------ | -------------------------------------- | ----------------------------------------------------------------------- |
+| Hero section                   | Homepage Block 1                       | Override type to Termina, increase padding to 140-180px, warm palette   |
+| Feature cards (grid)           | 3-pillar cards (Block 4a)              | 3-column, anchor-linked, generous internal padding (32-40px)            |
+| Feature sections (alternating) | Pillar deep-dives (Block 4b)           | Alternating text+visual sides, embedded testimonials                    |
+| Testimonial (single quote)     | Bridge quote (Block 3)                 | DM Serif Display, centered, warm background tint                        |
+| Testimonial (carousel)         | Expanded social proof (when available) | Named + titled + photo format                                           |
+| CTA section                    | Closer (Block 9)                       | Forest dark background, Cream text, dual CTA                            |
+| Blog/content layout            | Blog page                              | Heavily customized — 3-tier editorial hierarchy, not standard blog grid |
+| Pricing table                  | Comparison table (Block 7)             | Repurposed as 3-column generation comparison, not pricing               |
 
 **When Oatmeal falls short:** If a design brief requirement can't be met by customizing an Oatmeal component, build a custom component that follows Oatmeal's structural conventions (responsive breakpoints, spacing scale, class naming). This keeps the codebase consistent even when individual components are bespoke.
 
@@ -109,11 +111,11 @@ The full color system is defined as CSS custom properties using oklch color spac
 
 Three-font system with strict usage boundaries:
 
-| Font | Role | Where It Appears |
-|------|------|-----------------|
-| **Termina** | Authority, confidence | Hero headlines, section headlines, sub-headlines, pillar card labels, navigation |
-| **DM Sans** | Clarity, readability | Body text, descriptions, CTAs, labels, captions, all UI elements |
-| **DM Serif Display** | Warmth, human voice | Testimonial quotes, final CTA/closer headline, blog post titles, manifesto excerpts |
+| Font                 | Role                  | Where It Appears                                                                    |
+| -------------------- | --------------------- | ----------------------------------------------------------------------------------- |
+| **Termina**          | Authority, confidence | Hero headlines, section headlines, sub-headlines, pillar card labels, navigation    |
+| **DM Sans**          | Clarity, readability  | Body text, descriptions, CTAs, labels, captions, all UI elements                    |
+| **DM Serif Display** | Warmth, human voice   | Testimonial quotes, final CTA/closer headline, blog post titles, manifesto excerpts |
 
 **DM Serif Display appears in 3-4 specific contexts only.** If it leaks into product sections or UI elements, it competes with Termina instead of complementing it. When unsure whether a moment is "product" or "human," default to Termina.
 
@@ -131,6 +133,7 @@ The `_planning/` folder contains the strategic source of truth for this build. T
 6. **Payload schema plan** (`payload-schema-update-plan.md`) — CMS content modeling. Read before any schema work.
 
 **Key planning decisions already made:**
+
 - ELLA is NOT a compliance product. Security is a trust requirement, not the value proposition.
 - Calm trust aesthetic (Function Health is the primary visual reference). No dark-mode default.
 - 3-pillar card architecture (WithCoverage model) as the homepage backbone.
@@ -179,11 +182,11 @@ These are hard targets, not aspirational:
 
 ### Responsive Design
 
-| Breakpoint | Viewport | Key Changes |
-|-----------|----------|-------------|
-| Desktop | ≥1200px | Full layout, 3-column grids, side-by-side text+visual |
-| Tablet | 768–1199px | 2-column grids, stacked hero, maintained spacing |
-| Mobile | <768px | Single column, stacked everything, reduced (but still generous) spacing, hamburger nav |
+| Breakpoint | Viewport   | Key Changes                                                                            |
+| ---------- | ---------- | -------------------------------------------------------------------------------------- |
+| Desktop    | ≥1200px    | Full layout, 3-column grids, side-by-side text+visual                                  |
+| Tablet     | 768–1199px | 2-column grids, stacked hero, maintained spacing                                       |
+| Mobile     | <768px     | Single column, stacked everything, reduced (but still generous) spacing, hamburger nav |
 
 - Hero headline drops to 32-40px on mobile but retains Termina.
 - Comparison table converts to card-per-row (swipe or accordion) on mobile.
@@ -228,6 +231,7 @@ body (optional — explain *why*, not *what*)
 **Scope** is the page or component: `homepage`, `platform`, `exit-planning`, `pricing`, `about`, `blog`, `resources`, `nav`, `footer`, `cms`, `config`
 
 **Examples:**
+
 ```
 feat(homepage): add 3-pillar card grid with anchor links
 style(homepage): increase section padding to match design brief spacing
@@ -289,14 +293,14 @@ All planning and implementation work is tracked in **Linear** using the **MKT** 
 
 ### Quick Reference
 
-| Action | Linear Tool | Key Parameters |
-|--------|-------------|----------------|
-| Create project | `mcp__claude_ai_Linear__save_project` | `name`, `team: "MKT"`, `description` |
-| Attach plan doc | `mcp__claude_ai_Linear__create_document` | `title`, `project: [id]`, `content` |
-| Create issue | `mcp__claude_ai_Linear__create_issue` | `title`, `team: "MKT"`, `project`, `description`, `state`, `labels`, `priority` |
-| Update issue status | `mcp__claude_ai_Linear__update_issue` | `id`, `state: "In Progress"/"Done"` |
-| Add decision comment | `mcp__claude_ai_Linear__create_comment` | `issueId`, `body` |
-| Project status update | `mcp__claude_ai_Linear__save_status_update` | `type: "project"`, `id`, `body`, `status` |
+| Action                | Linear Tool                                 | Key Parameters                                                                  |
+| --------------------- | ------------------------------------------- | ------------------------------------------------------------------------------- |
+| Create project        | `mcp__claude_ai_Linear__save_project`       | `name`, `team: "MKT"`, `description`                                            |
+| Attach plan doc       | `mcp__claude_ai_Linear__create_document`    | `title`, `project: [id]`, `content`                                             |
+| Create issue          | `mcp__claude_ai_Linear__create_issue`       | `title`, `team: "MKT"`, `project`, `description`, `state`, `labels`, `priority` |
+| Update issue status   | `mcp__claude_ai_Linear__update_issue`       | `id`, `state: "In Progress"/"Done"`                                             |
+| Add decision comment  | `mcp__claude_ai_Linear__create_comment`     | `issueId`, `body`                                                               |
+| Project status update | `mcp__claude_ai_Linear__save_status_update` | `type: "project"`, `id`, `body`, `status`                                       |
 
 ### Statuses
 

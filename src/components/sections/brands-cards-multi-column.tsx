@@ -1,5 +1,6 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
+
 import { Section } from '../elements/section'
 
 export function BrandCard({
@@ -15,14 +16,17 @@ export function BrandCard({
 } & ComponentProps<'div'>) {
   return (
     <div
-      className={clsx('flex flex-col justify-between gap-6 rounded-xl bg-ash-950/2.5 p-6', className)}
+      className={clsx(
+        'flex flex-col justify-between gap-6 rounded-xl bg-ash-950/2.5 p-6',
+        className,
+      )}
       {...props}
     >
       <div className="flex flex-col items-start gap-2">
         <div className="flex h-8 shrink-0">{logo}</div>
-        <p className="text-sm/7 text-ash-700">{text}</p>
+        <p className="text-ash-700 text-sm/7">{text}</p>
       </div>
-      <p className="text-xs/6 text-ash-700">{footnote}</p>
+      <p className="text-ash-700 text-xs/6">{footnote}</p>
     </div>
   )
 }

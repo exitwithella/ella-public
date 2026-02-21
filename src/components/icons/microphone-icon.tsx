@@ -9,7 +9,7 @@ export function MicrophoneIcon({ className, ...props }: ComponentProps<'svg'>) {
       viewBox="0 0 9 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -27,7 +27,12 @@ export function MicrophoneIcon({ className, ...props }: ComponentProps<'svg'>) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M6.50488 12.5L2.50488 12.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M6.50488 12.5L2.50488 12.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path d="M4.5 10.5V12.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )

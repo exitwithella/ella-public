@@ -1,6 +1,7 @@
 import { ElTabGroup, ElTabList, ElTabPanels } from '@tailwindplus/elements/react'
 import { clsx } from 'clsx/lite'
-import { type ComponentProps, type ReactNode } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
+
 import { Container } from '../elements/container'
 import { CheckmarkIcon } from '../icons/checkmark-icon'
 import { MinusIcon } from '../icons/minus-icon'
@@ -21,7 +22,7 @@ function FeatureGroup<Plan extends string>({
         <th
           colSpan={plans.length + 1}
           scope="colgroup"
-          className="border-t border-b border-t-ash-950/5 border-b-ash-950/10 pt-14 pb-4 font-semibold text-ash-950"
+          className="border-t-ash-950/5 border-b-ash-950/10 text-ash-950 border-t border-b pt-14 pb-4 font-semibold"
         >
           {group.title}
         </th>
@@ -30,7 +31,7 @@ function FeatureGroup<Plan extends string>({
         <tr key={String(feature.name)} className="group">
           <th
             scope="row"
-            className="border-t border-ash-950/5 py-4 pr-3 font-normal text-ash-700 group-first:border-ash-950/10"
+            className="border-ash-950/5 text-ash-700 group-first:border-ash-950/10 border-t py-4 pr-3 font-normal"
           >
             {feature.name}
           </th>
@@ -43,7 +44,7 @@ function FeatureGroup<Plan extends string>({
             return (
               <td
                 key={plan}
-                className="border-t border-ash-950/5 px-3 py-4 text-center text-ash-700 group-first:border-ash-950/10"
+                className="border-ash-950/5 text-ash-700 group-first:border-ash-950/10 border-t px-3 py-4 text-center"
               >
                 {value === true ? (
                   <CheckmarkIcon aria-label="Included" className="stroke-ash-950" />
@@ -85,13 +86,13 @@ export function PlanComparisonTable<const Plan extends string>({
           </colgroup>
           <thead>
             <tr>
-              <th className="sticky top-(--scroll-padding-top) bg-ash-100 py-5 pr-3 text-base/7 font-medium text-ash-950">
+              <th className="bg-ash-100 text-ash-950 sticky top-(--scroll-padding-top) py-5 pr-3 text-base/7 font-medium">
                 Compare features
               </th>
               {plans.map((plan, index) => (
                 <th
                   key={index}
-                  className="sticky top-(--scroll-padding-top) bg-ash-100 p-3 text-center font-semibold text-ash-950"
+                  className="bg-ash-100 text-ash-950 sticky top-(--scroll-padding-top) p-3 text-center font-semibold"
                 >
                   {plan}
                 </th>
@@ -110,7 +111,7 @@ export function PlanComparisonTable<const Plan extends string>({
                 <button
                   key={plan}
                   type="button"
-                  className="relative -mb-px flex-1 border-b border-b-transparent px-2 py-6 text-sm/5 font-medium text-ash-500 aria-selected:border-ash-950 aria-selected:text-ash-950"
+                  className="text-ash-500 aria-selected:border-ash-950 aria-selected:text-ash-950 relative -mb-px flex-1 border-b border-b-transparent px-2 py-6 text-sm/5 font-medium"
                 >
                   {plan}
                 </button>

@@ -30,23 +30,23 @@ ELLA's palette is derived from natural materials: moss, stone, leather, earth. T
 
 ### Primary Colors
 
-| Token | CSS Variable | Role | Hex Approx | Usage |
-|-------|-------------|------|------------|-------|
-| **Forest** | `--color-moss-700` | Core brand color | `#5A6B4A` | Primary buttons, headings accent, brand moments |
-| **Mint** | `--color-moss-400` | Lighter brand accent | `#8BAA6E` | Secondary accents, hover states, highlights |
-| **Ash** | `--color-ash-900` | Text, dark backgrounds | `#2A2E26` | Body text, dark sections, near-black |
-| **Cream** | `--color-ash-50` | Light backgrounds | `#F5F5F0` | Page backgrounds, card backgrounds |
-| **Goldenrod** | `--color-goldenrod-300` | Warm accent | `#C5A240` | Highlights, accent moments, "gold leaf" touches |
+| Token         | CSS Variable            | Role                   | Hex Approx | Usage                                           |
+| ------------- | ----------------------- | ---------------------- | ---------- | ----------------------------------------------- |
+| **Forest**    | `--color-moss-700`      | Core brand color       | `#5A6B4A`  | Primary buttons, headings accent, brand moments |
+| **Mint**      | `--color-moss-400`      | Lighter brand accent   | `#8BAA6E`  | Secondary accents, hover states, highlights     |
+| **Ash**       | `--color-ash-900`       | Text, dark backgrounds | `#2A2E26`  | Body text, dark sections, near-black            |
+| **Cream**     | `--color-ash-50`        | Light backgrounds      | `#F5F5F0`  | Page backgrounds, card backgrounds              |
+| **Goldenrod** | `--color-goldenrod-300` | Warm accent            | `#C5A240`  | Highlights, accent moments, "gold leaf" touches |
 
 ### Supporting Colors
 
-| Token | CSS Variable | Role | Hex Approx | Usage |
-|-------|-------------|------|------------|-------|
-| **Tannery** | `--color-goldenrod-700` | Secondary warm | `#6B5A2E` | Tertiary text, warm borders |
-| **Leather** | `--color-goldenrod-900` | Deep warm | `#3E3520` | Dark warm sections |
-| **Ocean** | `--color-ocean-600` | Informational | `#6B7FA0` | Links, informational callouts |
-| **Coral** | `--color-coral-500` | Warning/energy | `#C06040` | Sparingly — alerts, important callouts |
-| **Emerald** | `--color-emerald-400` | Success | `#6BA060` | Success states, positive indicators |
+| Token       | CSS Variable            | Role           | Hex Approx | Usage                                  |
+| ----------- | ----------------------- | -------------- | ---------- | -------------------------------------- |
+| **Tannery** | `--color-goldenrod-700` | Secondary warm | `#6B5A2E`  | Tertiary text, warm borders            |
+| **Leather** | `--color-goldenrod-900` | Deep warm      | `#3E3520`  | Dark warm sections                     |
+| **Ocean**   | `--color-ocean-600`     | Informational  | `#6B7FA0`  | Links, informational callouts          |
+| **Coral**   | `--color-coral-500`     | Warning/energy | `#C06040`  | Sparingly — alerts, important callouts |
+| **Emerald** | `--color-emerald-400`   | Success        | `#6BA060`  | Success states, positive indicators    |
 
 ### Color Rules
 
@@ -77,15 +77,15 @@ The complete color system is defined in the attached `brand_colors.css` file usi
 
 ELLA uses a three-font system that creates intentional tonal shifts across the page. Each font has a distinct role and strict usage boundaries.
 
-| Font | Role | Where It Appears |
-|------|------|-----------------|
-| **Termina** (display sans) | Authority, confidence, product identity | Hero headlines, section headlines, sub-headlines, pillar card labels, navigation |
-| **DM Sans** (body sans) | Clarity, readability, utility | Body text, intro paragraphs, card descriptions, CTAs, labels, captions, all UI elements |
-| **DM Serif Display** (serif accent) | Warmth, humanity, editorial voice | Testimonial quotes, final CTA/closer headline, blog post titles, manifesto excerpts |
+| Font                                | Role                                    | Where It Appears                                                                        |
+| ----------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Termina** (display sans)          | Authority, confidence, product identity | Hero headlines, section headlines, sub-headlines, pillar card labels, navigation        |
+| **DM Sans** (body sans)             | Clarity, readability, utility           | Body text, intro paragraphs, card descriptions, CTAs, labels, captions, all UI elements |
+| **DM Serif Display** (serif accent) | Warmth, humanity, editorial voice       | Testimonial quotes, final CTA/closer headline, blog post titles, manifesto excerpts     |
 
 ### Why Three Fonts
 
-The site needs more than one emotional register. Termina carries confident, modern authority — it's the product voice. But testimonials, the closer, and blog content are *human* moments that need a different quality. DM Serif Display introduces warmth and intimacy in exactly those contexts, creating contrast that makes both fonts stronger.
+The site needs more than one emotional register. Termina carries confident, modern authority — it's the product voice. But testimonials, the closer, and blog content are _human_ moments that need a different quality. DM Serif Display introduces warmth and intimacy in exactly those contexts, creating contrast that makes both fonts stronger.
 
 The critical discipline: **the serif appears in 3-4 specific contexts only.** If it leaks into product sections or UI elements, it competes with Termina instead of complementing it.
 
@@ -112,7 +112,7 @@ DM Sans is the workhorse. It handles all running text, interface elements, and s
 
 ### DM Serif Display — Serif Accent
 
-DM Serif Display appears *only* where the content shifts from product voice to human voice. It signals: "this is a person talking" or "this is a reflective moment." Its usage is strictly limited:
+DM Serif Display appears _only_ where the content shifts from product voice to human voice. It signals: "this is a person talking" or "this is a reflective moment." Its usage is strictly limited:
 
 - **Testimonial / advisor quotes:** 22-26px, Normal (400), normal tracking
 - **Final CTA / closer headline:** 36-42px, Normal (400), -0.01em tracking
@@ -123,21 +123,21 @@ DM Serif Display appears *only* where the content shifts from product voice to h
 
 ### Type Scale (Complete)
 
-| Element | Size (desktop) | Weight | Font | Tracking |
-|---------|---------------|--------|------|----------|
-| Hero headline | 48-56px | Bold (700) | Termina | -0.02em |
-| Section headline | 32-36px | Bold (700) | Termina | -0.01em |
-| Sub-headline | 20-24px | Medium (500) | Termina | Normal |
-| Testimonial quotes | 22-26px | Normal (400) | DM Serif Display | Normal |
-| Closer headline | 36-42px | Normal (400) | DM Serif Display | -0.01em |
-| Blog post titles | 28-32px | Normal (400) | DM Serif Display | Normal |
-| Body large | 20px | Normal (400) | DM Sans | Normal |
-| Body | 17-18px | Normal (400) | DM Sans | Normal |
-| Pillar card labels | 18px | Bold (700) | Termina | Normal |
-| Card descriptions | 15px | Normal (400) | DM Sans | Normal |
-| CTA buttons | 15-16px | Semibold (600) | DM Sans | 0.01em |
-| Labels / meta | 11-14px | Medium-Semibold (500-600) | DM Sans | 0.06-0.1em (uppercase) |
-| Captions | 14px | Normal (400) | DM Sans | 0.01em |
+| Element            | Size (desktop) | Weight                    | Font             | Tracking               |
+| ------------------ | -------------- | ------------------------- | ---------------- | ---------------------- |
+| Hero headline      | 48-56px        | Bold (700)                | Termina          | -0.02em                |
+| Section headline   | 32-36px        | Bold (700)                | Termina          | -0.01em                |
+| Sub-headline       | 20-24px        | Medium (500)              | Termina          | Normal                 |
+| Testimonial quotes | 22-26px        | Normal (400)              | DM Serif Display | Normal                 |
+| Closer headline    | 36-42px        | Normal (400)              | DM Serif Display | -0.01em                |
+| Blog post titles   | 28-32px        | Normal (400)              | DM Serif Display | Normal                 |
+| Body large         | 20px           | Normal (400)              | DM Sans          | Normal                 |
+| Body               | 17-18px        | Normal (400)              | DM Sans          | Normal                 |
+| Pillar card labels | 18px           | Bold (700)                | Termina          | Normal                 |
+| Card descriptions  | 15px           | Normal (400)              | DM Sans          | Normal                 |
+| CTA buttons        | 15-16px        | Semibold (600)            | DM Sans          | 0.01em                 |
+| Labels / meta      | 11-14px        | Medium-Semibold (500-600) | DM Sans          | 0.06-0.1em (uppercase) |
+| Captions           | 14px           | Normal (400)              | DM Sans          | 0.01em                 |
 
 ### Typography Rules
 
@@ -167,14 +167,14 @@ ELLA's whitespace strategy is the primary trust signal. The site should feel lik
 
 **Increase all Oatmeal default spacing by 20-30%.** This is a global adjustment, not selective. Specific overrides:
 
-| Element | Oatmeal Default | ELLA Override |
-|---------|----------------|---------------|
-| Section vertical padding | ~80px | 100-120px |
-| Between content blocks within a section | ~40px | 56-64px |
-| Card internal padding | ~24px | 32-40px |
-| Grid gap (card grids) | ~24px | 32-40px |
-| Hero top/bottom padding | ~100px | 140-180px |
-| Nav height | ~64px | 72-80px |
+| Element                                 | Oatmeal Default | ELLA Override |
+| --------------------------------------- | --------------- | ------------- |
+| Section vertical padding                | ~80px           | 100-120px     |
+| Between content blocks within a section | ~40px           | 56-64px       |
+| Card internal padding                   | ~24px           | 32-40px       |
+| Grid gap (card grids)                   | ~24px           | 32-40px       |
+| Hero top/bottom padding                 | ~100px          | 140-180px     |
+| Nav height                              | ~64px           | 72-80px       |
 
 ### Layout Grid
 
@@ -188,6 +188,7 @@ ELLA's whitespace strategy is the primary trust signal. The site should feel lik
 Alternate between full-width warm-background sections and contained white/cream sections. This creates visual rhythm without needing decorative elements.
 
 Pattern for the homepage:
+
 ```
 [Cream bg]  Hero
 [Cream bg]  Credibility Strip (subtle warm tint or border separation)
@@ -208,11 +209,11 @@ Pattern for the homepage:
 
 ### Buttons
 
-| Type | Style | Color | Usage |
-|------|-------|-------|-------|
-| Primary CTA | Solid, rounded corners (8px), generous padding (16px 32px) | Forest bg, Cream text | "Get Started", "See ELLA in Action" |
-| Secondary CTA | Outlined, same border-radius | Forest border, Forest text | "Book a Demo", "Talk to Our Team" |
-| Tertiary / text link | Underline on hover, no background | Forest text | In-line actions, "Learn more →" |
+| Type                 | Style                                                      | Color                      | Usage                               |
+| -------------------- | ---------------------------------------------------------- | -------------------------- | ----------------------------------- |
+| Primary CTA          | Solid, rounded corners (8px), generous padding (16px 32px) | Forest bg, Cream text      | "Get Started", "See ELLA in Action" |
+| Secondary CTA        | Outlined, same border-radius                               | Forest border, Forest text | "Book a Demo", "Talk to Our Team"   |
+| Tertiary / text link | Underline on hover, no background                          | Forest text                | In-line actions, "Learn more →"     |
 
 **Button behavior:** Subtle scale transform on hover (1.02x). No aggressive color shifts or bouncing animations. The calm of the button matches the calm of the site.
 
@@ -238,6 +239,7 @@ Pattern for the homepage:
 - **Solutions and Resources:** Dropdown on hover/click with clean, card-based mega-menu
 
 **Structure:**
+
 ```
 [ELLA Logo]   Platform   Solutions ▾   Resources ▾   Pricing   About   [Login]  [Get Started]
 ```
@@ -299,12 +301,14 @@ For sections where product screenshots aren't available or appropriate, use:
 **Only where it serves comprehension.** This is a hard rule.
 
 Approved animations:
+
 - **Scroll-triggered reveals:** Content blocks fade-up gently as they enter the viewport. Subtle (200-300ms, ease-out). Nothing bounces.
 - **Number counters:** If/when metrics become available. Animated count-up triggers on scroll into view.
 - **Comparison table column highlighting:** Subtle color shift as columns become active/hovered
 - **CTA hover states:** Gentle scale transform
 
 Not approved:
+
 - Decorative particle effects
 - Auto-playing video backgrounds
 - Parallax scrolling on text
@@ -421,30 +425,30 @@ The homepage is the flagship. Everything else cascades from its design. Full con
 
 ### Tier 1: Primary References (Study Closely)
 
-| Site | What to Study | URL |
-|------|---------------|-----|
+| Site                | What to Study                                                                                                                                                                                                                                                                             | URL                |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | **Function Health** | Overall aesthetic, cream background warmth, comparison table pattern, calm confidence, generous spacing. Note: Function Health uses PT Serif + Open Sans; ELLA adapts this principle with Termina + DM Serif Display + DM Sans for a more modern/confident take on the same trust signal. | functionhealth.com |
-| **WithCoverage** | 3-pillar card architecture, information hierarchy (scan → dive deeper), anchor-linked sections, clean grid layouts | withcoverage.com |
-| **Interloom** | Problem-first storytelling flow, testimonial placement before features, earth-tone warmth, topographic visual metaphors, clean enterprise feel | interloom.com/en |
+| **WithCoverage**    | 3-pillar card architecture, information hierarchy (scan → dive deeper), anchor-linked sections, clean grid layouts                                                                                                                                                                        | withcoverage.com   |
+| **Interloom**       | Problem-first storytelling flow, testimonial placement before features, earth-tone warmth, topographic visual metaphors, clean enterprise feel                                                                                                                                            | interloom.com/en   |
 
 ### Tier 2: Pattern References (Study Specific Elements)
 
-| Site | What to Study | URL |
-|------|---------------|-----|
-| **Canopy Servicing** | Modular platform breakdown, scroll-lock animated sections, sticky sidebar navigation, named case studies | canopyservicing.com |
-| **Poolside AI** | Hero headline energy, declarative confidence at scale, typography as a design element | poolside.ai |
-| **Dope Security** | Generation framing (Gen 1 → 2 → 3), competitor comparison carousel, visual storytelling for complex products | dope.security |
-| **Ramp Velocity** | Blog layout (3-tier content hierarchy), content-as-conversion editorial approach | ramp.com/velocity |
-| **7Analytics** | Numbered sequential sections (01-03), parallel structure, scannable product breakdown | 7analytics.ai |
+| Site                 | What to Study                                                                                                | URL                 |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------- |
+| **Canopy Servicing** | Modular platform breakdown, scroll-lock animated sections, sticky sidebar navigation, named case studies     | canopyservicing.com |
+| **Poolside AI**      | Hero headline energy, declarative confidence at scale, typography as a design element                        | poolside.ai         |
+| **Dope Security**    | Generation framing (Gen 1 → 2 → 3), competitor comparison carousel, visual storytelling for complex products | dope.security       |
+| **Ramp Velocity**    | Blog layout (3-tier content hierarchy), content-as-conversion editorial approach                             | ramp.com/velocity   |
+| **7Analytics**       | Numbered sequential sections (01-03), parallel structure, scannable product breakdown                        | 7analytics.ai       |
 
 ### Tier 3: Selective Inspiration
 
-| Site | What to Study | URL |
-|------|---------------|-----|
-| **Hebbia** | Logo wall + stat pairing, use-case matrix table, two-column interactive scroll | hebbia.com |
-| **Wispr Flow** | Before/after transformation in hero, scroll-triggered animations, persona tabs | wisprflow.ai |
-| **HelloPatient** | Live demo as CTA, state-aware buttons, animated waveforms as visual identity | hellopatient.com |
-| **Moonfire** | Story-first About page, "build together" relationship CTA, category-reframing headline | moonfire.com |
+| Site             | What to Study                                                                          | URL              |
+| ---------------- | -------------------------------------------------------------------------------------- | ---------------- |
+| **Hebbia**       | Logo wall + stat pairing, use-case matrix table, two-column interactive scroll         | hebbia.com       |
+| **Wispr Flow**   | Before/after transformation in hero, scroll-triggered animations, persona tabs         | wisprflow.ai     |
+| **HelloPatient** | Live demo as CTA, state-aware buttons, animated waveforms as visual identity           | hellopatient.com |
+| **Moonfire**     | Story-first About page, "build together" relationship CTA, category-reframing headline | moonfire.com     |
 
 ---
 
@@ -472,13 +476,14 @@ The homepage is the flagship. Everything else cascades from its design. Full con
 
 ## 10. Responsive Breakpoints
 
-| Breakpoint | Viewport | Layout Changes |
-|-----------|----------|----------------|
-| Desktop | ≥1200px | Full layout, 3-column grids, side-by-side text+visual |
-| Tablet | 768-1199px | 2-column grids, stacked hero, maintained spacing |
-| Mobile | <768px | Single column, stacked everything, reduced spacing (but still generous), hamburger nav |
+| Breakpoint | Viewport   | Layout Changes                                                                         |
+| ---------- | ---------- | -------------------------------------------------------------------------------------- |
+| Desktop    | ≥1200px    | Full layout, 3-column grids, side-by-side text+visual                                  |
+| Tablet     | 768-1199px | 2-column grids, stacked hero, maintained spacing                                       |
+| Mobile     | <768px     | Single column, stacked everything, reduced spacing (but still generous), hamburger nav |
 
 **Mobile-specific notes:**
+
 - Hero headline drops to 32-40px but retains Termina
 - Product screenshots scale to full-width with rounded corners
 - Comparison table converts to card-per-row (swipe or accordion)
@@ -514,15 +519,15 @@ The homepage is the flagship. Everything else cascades from its design. Full con
 
 ## 13. Attached Assets & Reference Documents
 
-| Document | Purpose |
-|----------|---------|
-| `brand_colors.css` | Complete color system in oklch for Tailwind v4 |
-| `ella-brand-visual SKILL.md` | Brand visual identity system — compositional principles, palette rules, mood language, subject guidelines |
-| `withella-homepage-spec-v2.md` | Implementation-ready homepage spec with all copy options and block-by-block content |
-| `withella-site-architecture.md` | Full site map, page-by-page content structure, messaging framework |
-| `withella-implementation-plan.md` | Build order, content status, timeline, cross-page content gaps |
-| `Website Inspiration — Thematic Analysis.md` | Cross-site analysis of 26 inspiration sites with ELLA-specific principles |
-| Notion: "Inspiring Websites" database | Per-site notes on visual style, CTA strategy, tone, ELLA relevance |
+| Document                                     | Purpose                                                                                                   |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `brand_colors.css`                           | Complete color system in oklch for Tailwind v4                                                            |
+| `ella-brand-visual SKILL.md`                 | Brand visual identity system — compositional principles, palette rules, mood language, subject guidelines |
+| `withella-homepage-spec-v2.md`               | Implementation-ready homepage spec with all copy options and block-by-block content                       |
+| `withella-site-architecture.md`              | Full site map, page-by-page content structure, messaging framework                                        |
+| `withella-implementation-plan.md`            | Build order, content status, timeline, cross-page content gaps                                            |
+| `Website Inspiration — Thematic Analysis.md` | Cross-site analysis of 26 inspiration sites with ELLA-specific principles                                 |
+| Notion: "Inspiring Websites" database        | Per-site notes on visual style, CTA strategy, tone, ELLA relevance                                        |
 
 ---
 

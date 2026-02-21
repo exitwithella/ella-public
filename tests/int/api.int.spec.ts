@@ -1,11 +1,11 @@
-import { getPayload, Payload } from 'payload'
-import config from '@/payload.config'
+import type { Payload } from 'payload'
+import { getPayload } from 'payload'
 
-import { describe, it, beforeAll, expect } from 'vitest'
+import config from '@/payload.config'
 
 let payload: Payload
 
-describe('API', () => {
+describe('aPI', () => {
   beforeAll(async () => {
     const payloadConfig = await config
     payload = await getPayload({ config: payloadConfig })

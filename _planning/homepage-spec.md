@@ -26,26 +26,31 @@
 The headline should reframe the category, not describe the product. Two directions the user has flagged as strong:
 
 **Option A — Outcome-forward:**
+
 > **Go from intake to insight in a fraction of the time.**
 
 Why it works: This is ELLA's most proven proof point from demos and conversations. It names a specific transformation advisors recognize. It's concrete, not abstract. The existing site uses this and it lands.
 
 **Option B — Identity-forward:**
+
 > **Your methodology deserves a system.**
 
 Why it works: It speaks to the advisor's identity and craft. It implies ELLA is the system without saying so. It positions the advisor as the expert and ELLA as the infrastructure. Feels like a manifesto line, which matches the challenger voice.
 
 **Option C — Tension-forward (new):**
+
 > **Built for how exit planning actually works.**
 
-Why it works: Directly challenges the legacy tools that force advisors into someone else's methodology. The word "actually" does a lot of work, implying that existing tools were built for how someone *imagined* it works. Practitioner-credible.
+Why it works: Directly challenges the legacy tools that force advisors into someone else's methodology. The word "actually" does a lot of work, implying that existing tools were built for how someone _imagined_ it works. Practitioner-credible.
 
 **Option D — Compression of the manifesto's core tension (new):**
+
 > **The workbench for advisors who want their time back.**
 
 Why it works: Names the core emotional pain (time) and frames ELLA as the answer. "Workbench" is concrete and carries the malleability positioning. Speaks to both the experimenters and the overwhelmed.
 
 **Option E — Category-reframing (new):**
+
 > **Stop stitching. Start advising.**
 
 Why it works: Two-word contrast that names the specific daily frustration (stitching together six tools, cobbling deliverables from email and ChatGPT). The shortest option and the most "challenger." Risk: might feel too punchy without supporting copy doing the work.
@@ -55,12 +60,15 @@ Why it works: Two-word contrast that names the specific daily frustration (stitc
 ### Supporting Copy
 
 **Primary option (from existing site, lightly refined):**
+
 > ELLA turns trust into action with tools built for advisor-led transitions. From document intake through sensemaking to client-ready deliverables, one workspace holds everything your engagement needs.
 
 **Alternative — Manifesto compression:**
+
 > Your client list is growing. The complexity of each engagement is increasing. You need tools that hold context, accelerate your thinking, and produce deliverables that reflect the actual owner and business you're working with.
 
 **Alternative — Problem-first:**
+
 > Exit planning advisors spend days on document intake, manual analysis, and report drafting before the first real conversation even happens. We built ELLA to compress that arc, so you show up already informed and ready to guide.
 
 ### CTA
@@ -89,14 +97,17 @@ We have no firm logos, no usage metrics, and no switching stories. A traditional
 Instead of a logo wall, lead with the strongest credibility asset we have: depth of practitioner research.
 
 **Option A — Single declarative line:**
+
 > Built through 100+ conversations with CEPAs, CPAs, wealth managers, M&A brokers, and attorneys.
 
 **Option B — With design principle framing (from existing site):**
+
 > Crafted for trusted advisors. From the ground up.
 >
 > While others start with their own templates and playbooks, we started with conversations. Where do advisors get stuck? What overwhelms owners? We stripped everything back and approached the problem with one goal: make uncovering insights easier.
 
 **Option C — Compressed with texture:**
+
 > We spent a year talking to advisors before we wrote a line of code. 100+ conversations with CEPAs, CPAs, wealth managers, and M&A brokers shaped every decision in this product.
 
 **Recommendation:** Option C as a strip, styled as a horizontal banner with warm background. It's honest, it's specific, and it signals practitioner credibility without faking proof-by-numbers. The list of roles (CEPAs, CPAs, wealth managers, M&A brokers) does the work that logos would do: it tells the visitor "people like you shaped this."
@@ -117,6 +128,7 @@ Before we pitch the product, name the pain. This block earns the right to descri
 ### Copy
 
 **Section header:**
+
 > Advisors are stuck in AI's messy middle.
 
 **Body (adapted from manifesto, compressed for web):**
@@ -159,11 +171,11 @@ The pillars map to ELLA's core capabilities with the four product principles wov
 
 ### Card Grid (Scannable Overview)
 
-| Card | Label | One-Line Benefit |
-|------|-------|-----------------|
-| 1 | **Fact Finding** | Structured discovery that adapts to your process, your industry, and your client. |
-| 2 | **Sensemaking** | Ask questions against the full context of an engagement. Surface what matters. |
-| 3 | **Deliverables** | Client-ready documents that reflect the actual owner and business, not a template. |
+| Card | Label            | One-Line Benefit                                                                   |
+| ---- | ---------------- | ---------------------------------------------------------------------------------- |
+| 1    | **Fact Finding** | Structured discovery that adapts to your process, your industry, and your client.  |
+| 2    | **Sensemaking**  | Ask questions against the full context of an engagement. Surface what matters.     |
+| 3    | **Deliverables** | Client-ready documents that reflect the actual owner and business, not a template. |
 
 **Design note:** Each card is anchor-linked to its deep-dive section below. Cards should have a warm accent icon (not generic SaaS icons), the short label, and the one-line benefit. Generous padding.
 
@@ -175,16 +187,17 @@ Each section expands on the card with 2-3 specific capabilities, written in advi
 
 **Section 1: Fact Finding — "Structured discovery, your way."**
 
-*Adapted from existing site + architecture doc*
+_Adapted from existing site + architecture doc_
 
 ELLA's Fact Finder isn't one-size-fits-all. Use lightweight templates or deep-dive discovery. Customize to your process, your industry, or your client. Invite the entire exit team to participate in the discovery gate, so the CPA, attorney, and financial advisor are all contributing to the same fact base from day one.
 
 **Key capabilities:**
+
 - Malleable templates that adapt to your methodology, not the other way around
 - Owner collaboration built in: clients upload financials, answer intake questions, and provide the context only they have
 - Everything connected to sensemaking and deliverables, so nothing gets lost between steps
 
-**Product principle highlight:** *Malleability at every layer.* As one advisor told us: "No one's been able to come up with the perfect one-size-fits-all solution." We stopped trying. Instead, we built a system that adapts to yours.
+**Product principle highlight:** _Malleability at every layer._ As one advisor told us: "No one's been able to come up with the perfect one-size-fits-all solution." We stopped trying. Instead, we built a system that adapts to yours.
 
 **Visual:** Screenshot of ELLA's fact finding interface showing a customized template. Carry existing product screenshots from exitwithella.io.
 
@@ -192,18 +205,19 @@ ELLA's Fact Finder isn't one-size-fits-all. Use lightweight templates or deep-di
 
 **Section 2: Sensemaking — "From data to direction."**
 
-*Adapted from existing site + manifesto*
+_Adapted from existing site + manifesto_
 
 Sensemaking is our take on AI. Secure, private, and connected to all the context from fact finding. Ask a question against the full context of a client engagement and get insight that's grounded in the actual data, not a generic summary.
 
 This is where ELLA changes the daily workflow: instead of spending days manually extracting data points, cross-referencing benchmarks, and synthesizing findings, the advisor asks questions and the system draws from everything that's been uploaded and discussed.
 
 **Key capabilities:**
+
 - AI that operates within a sandboxed client workspace: no memory bleed, no cross-contamination between clients
 - Questions and answers that build on each other, creating a growing context layer across the engagement
 - Connected to fact finding on one side and deliverables on the other, so insight flows in both directions
 
-**Product principle highlight:** *Fluidity between thinking and doing.* Ask a question, get insight, pull that insight into a document, refine it, share it. No friction between thinking and producing.
+**Product principle highlight:** _Fluidity between thinking and doing._ Ask a question, get insight, pull that insight into a document, refine it, share it. No friction between thinking and producing.
 
 **Visual:** Screenshot showing a sensemaking conversation with contextual citations from uploaded documents. Or the workflow diagram: question → insight → deliverable.
 
@@ -211,21 +225,23 @@ This is where ELLA changes the daily workflow: instead of spending days manually
 
 **Section 3: Deliverables — "Documents that earn trust."**
 
-*Adapted from existing site + manifesto*
+_Adapted from existing site + manifesto_
 
 We don't offer a 90-page report template, and we don't plan to. We built deliverables so that the documents you produce actually reflect the owner you're working with and the business they've built. Not a generic output that confuses both of you.
 
 Deliverables pull directly from fact finding and sensemaking. The value acceleration plan references the actual financials. The gap analysis cites the actual assessment responses. Every document is grounded in the client's reality, which means the advisor walks into the room with materials that demonstrate real preparation and specific knowledge.
 
 **Key capabilities:**
+
 - Deliverables that incorporate context from across the engagement, not standalone templates
 - Modular structure: build the output that serves this specific conversation, not the output a process demands
 - Collaborate with exit team members on shared deliverables in one workspace
 
 **Embedded quote (Lisa, Small Business Alternatives):**
+
 > "Typically our deliverable would just be a standard EBITDA. ELLA is a value add and we can show that we aren't just pulling these numbers out of a hat."
 
-**Product principle highlight:** *Context that compounds.* Every document uploaded, every question answered, and every insight generated becomes part of a growing knowledge layer. The more you build in ELLA, the smarter each interaction becomes.
+**Product principle highlight:** _Context that compounds._ Every document uploaded, every question answered, and every insight generated becomes part of a growing knowledge layer. The more you build in ELLA, the smarter each interaction becomes.
 
 **Visual:** Screenshot of a deliverable being created with contextual references visible. Or: the valuation delivery interface from the existing site.
 
@@ -246,6 +262,7 @@ This isn't a standalone pillar but appears as a thread across all three sections
 > **The goal is to free advisors to spend more time preparing, researching, and being the trusted voice in the room.**
 
 **Embedded quote (Kevin, VFM):**
+
 > "ELLA allows me to create more revenue opportunities. I'm able to create more of a consulting relationship where it leads to more business."
 
 This pair, the philosophical line followed by a real advisor confirming it, closes the product section with both aspiration and proof.
@@ -265,7 +282,7 @@ This block answers the question that every advisor and firm leader silently asks
 
 > **Secure, because both of our reputations are on the line.**
 
-*(Carried directly from existing site. This is a strong line that frames security as a shared concern, not a compliance checkbox.)*
+_(Carried directly from existing site. This is a strong line that frames security as a shared concern, not a compliance checkbox.)_
 
 ### Copy
 
@@ -274,6 +291,7 @@ We know trust is earned, and essential when you're the steward of your clients' 
 Here's what ChatGPT can't do: guarantee that your last client's financials don't leak into your next client's analysis. We solve this at the architectural level. Every client engagement lives in a sandboxed workspace with customizable permissions for all team members. When you move from one client to the next, there's no cross-contamination.
 
 **Capability list (icon-driven):**
+
 - Full data encryption in transit and at rest
 - Modern U.S.-based infrastructure (SOC2/II compliant providers)
 - Granular role-based access control (RBAC)
@@ -283,6 +301,7 @@ Here's what ChatGPT can't do: guarantee that your last client's financials don't
 - Your data exportable and deletable at any time
 
 **Closing line:**
+
 > Only those you explicitly invite can access your workspace. We don't share your business information without your permission. ELLA never sells your data.
 
 **Design note:** This section should feel clean and confident. The existing exitwithella.io security section is well-designed. Carry the structure and refine the copy rather than rebuilding from scratch.
@@ -303,6 +322,7 @@ A visual before/after transformation panel showing the advisor's workflow with a
 ### Content (for when this block ships)
 
 **Left Panel — "The Current Workflow"**
+
 1. Receive documents via email from client, CPA, attorney
 2. Manually extract key data points into spreadsheets
 3. Cross-reference against industry benchmarks
@@ -310,6 +330,7 @@ A visual before/after transformation panel showing the advisor's workflow with a
 5. Weeks pass before the first real conversation
 
 **Right Panel — "With ELLA"**
+
 1. Owner uploads directly; exit team contributes in one workspace
 2. ELLA ingests, structures, and cross-references
 3. Advisor asks questions against the full context
@@ -335,43 +356,43 @@ Three-column comparison: The Old Way → The Current Patchwork → With ELLA. Th
 
 ### Column Copy — Option Set A (Clean and Scannable, ~8 words per cell)
 
-| Dimension | The Old Way | The Patchwork | With ELLA |
-|-----------|-------------|---------------|-----------|
-| **Client intake** | Paper forms and email back-and-forth | Scattered across CRM, email, shared drives | Owner uploads directly into a shared workspace |
-| **Analysis** | Manual extraction, advisor's memory | ChatGPT with no guardrails or context | AI grounded in the full engagement context |
-| **Deliverables** | 90-page template reports, generic jargon | Cobbled from Word docs, inconsistent quality | Documents that reflect the actual owner and business |
-| **Team coordination** | Email chains, version confusion | Shared drives, still no single source of truth | One workspace, role-based access, advisor in the driver's seat |
-| **Knowledge** | Lives in the advisor's head | Fragmented across tools, lost when people leave | Context compounds across every engagement |
+| Dimension             | The Old Way                              | The Patchwork                                   | With ELLA                                                      |
+| --------------------- | ---------------------------------------- | ----------------------------------------------- | -------------------------------------------------------------- |
+| **Client intake**     | Paper forms and email back-and-forth     | Scattered across CRM, email, shared drives      | Owner uploads directly into a shared workspace                 |
+| **Analysis**          | Manual extraction, advisor's memory      | ChatGPT with no guardrails or context           | AI grounded in the full engagement context                     |
+| **Deliverables**      | 90-page template reports, generic jargon | Cobbled from Word docs, inconsistent quality    | Documents that reflect the actual owner and business           |
+| **Team coordination** | Email chains, version confusion          | Shared drives, still no single source of truth  | One workspace, role-based access, advisor in the driver's seat |
+| **Knowledge**         | Lives in the advisor's head              | Fragmented across tools, lost when people leave | Context compounds across every engagement                      |
 
 ### Column Copy — Option Set B (Compressed, ~5 words per cell)
 
-| Dimension | The Old Way | The Patchwork | With ELLA |
-|-----------|-------------|---------------|-----------|
-| **Intake** | Paper. Email. Weeks. | Six tools, no connection | One workspace, day one |
-| **Analysis** | Manual and memory-based | ChatGPT without guardrails | Contextual and sandboxed |
-| **Deliverables** | 90-page templates | Cut-and-paste from Word | Built from the actual data |
-| **Coordination** | "Did you see my email?" | Shared drive chaos | Exit team, one workspace |
-| **Knowledge** | Walks out the door | Scattered and siloed | Compounds over time |
+| Dimension        | The Old Way             | The Patchwork              | With ELLA                  |
+| ---------------- | ----------------------- | -------------------------- | -------------------------- |
+| **Intake**       | Paper. Email. Weeks.    | Six tools, no connection   | One workspace, day one     |
+| **Analysis**     | Manual and memory-based | ChatGPT without guardrails | Contextual and sandboxed   |
+| **Deliverables** | 90-page templates       | Cut-and-paste from Word    | Built from the actual data |
+| **Coordination** | "Did you see my email?" | Shared drive chaos         | Exit team, one workspace   |
+| **Knowledge**    | Walks out the door      | Scattered and siloed       | Compounds over time        |
 
 ### Column Copy — Option Set C (Advisor-voice, conversational)
 
-| Dimension | The Old Way | The Patchwork | With ELLA |
-|-----------|-------------|---------------|-----------|
-| **Getting started** | "Just send me everything via email" | Docs in the CRM, notes in a spreadsheet, financials somewhere else | Owner uploads once; everyone works from the same facts |
-| **Making sense of it** | Days of reading, cross-referencing, synthesizing | "I asked ChatGPT to summarize it" (and hoped nothing leaked) | Ask questions against the full context, get grounded answers |
-| **Producing the work** | Standard EBITDA report, 90 pages, mostly jargon | Paste from three sources, hope the formatting holds | Deliverables pull directly from intake and sensemaking |
-| **Working with the team** | "Reply all" and hope everyone's current | A shared Google Drive that nobody organizes | Sandboxed workspace, advisor at the helm |
-| **What stays after** | The advisor remembers (until they don't) | It's in a folder somewhere, probably | Every engagement builds a knowledge layer for the next |
+| Dimension                 | The Old Way                                      | The Patchwork                                                      | With ELLA                                                    |
+| ------------------------- | ------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Getting started**       | "Just send me everything via email"              | Docs in the CRM, notes in a spreadsheet, financials somewhere else | Owner uploads once; everyone works from the same facts       |
+| **Making sense of it**    | Days of reading, cross-referencing, synthesizing | "I asked ChatGPT to summarize it" (and hoped nothing leaked)       | Ask questions against the full context, get grounded answers |
+| **Producing the work**    | Standard EBITDA report, 90 pages, mostly jargon  | Paste from three sources, hope the formatting holds                | Deliverables pull directly from intake and sensemaking       |
+| **Working with the team** | "Reply all" and hope everyone's current          | A shared Google Drive that nobody organizes                        | Sandboxed workspace, advisor at the helm                     |
+| **What stays after**      | The advisor remembers (until they don't)         | It's in a folder somewhere, probably                               | Every engagement builds a knowledge layer for the next       |
 
 ### Column Copy — Option Set D (Hybrid: Clean Structure, Conversational Patchwork)
 
-| Dimension | The Old Way | The Patchwork | With ELLA |
-|-----------|-------------|---------------|-----------|
-| **Client intake** | Paper forms, email back-and-forth | "It's in the CRM. Or the email. Or the shared drive." | Owner uploads directly; exit team contributes in one workspace |
-| **Analysis** | Manual extraction, memory-based | "I asked ChatGPT" (one prompt away from leaking client data) | Contextual AI within a sandboxed client workspace |
-| **Deliverables** | 90-page template reports | Cobbled from Word, inconsistent, "good enough" | Built from the actual financials, assessments, and conversation |
-| **Team coordination** | Email chains, version confusion | Shared drives that nobody maintains | One workspace, role-based access, advisor in the driver's seat |
-| **Knowledge retention** | Walks out the door when the advisor does | Scattered across six tools, never connected | Compounds over the lifecycle of every engagement |
+| Dimension               | The Old Way                              | The Patchwork                                                | With ELLA                                                       |
+| ----------------------- | ---------------------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------- |
+| **Client intake**       | Paper forms, email back-and-forth        | "It's in the CRM. Or the email. Or the shared drive."        | Owner uploads directly; exit team contributes in one workspace  |
+| **Analysis**            | Manual extraction, memory-based          | "I asked ChatGPT" (one prompt away from leaking client data) | Contextual AI within a sandboxed client workspace               |
+| **Deliverables**        | 90-page template reports                 | Cobbled from Word, inconsistent, "good enough"               | Built from the actual financials, assessments, and conversation |
+| **Team coordination**   | Email chains, version confusion          | Shared drives that nobody maintains                          | One workspace, role-based access, advisor in the driver's seat  |
+| **Knowledge retention** | Walks out the door when the advisor does | Scattered across six tools, never connected                  | Compounds over the lifecycle of every engagement                |
 
 ### Recommendation
 
@@ -391,6 +412,7 @@ Option D balances scannability with voice. The conversational Patchwork column (
 **The honest situation:** Zero public users, zero quantified metrics, zero switches, zero case studies. Traditional social proof would be an empty section or a dishonest one.
 
 **What we do have:**
+
 - 100+ real advisor conversations
 - A handful of early access users with qualitative feedback
 - Two real first-party quotes (Kevin and Lisa, now embedded in Block 4)
@@ -468,17 +490,17 @@ Warm background (slightly different from page default for visual separation). Ge
 
 ## Full Page Flow (Launch Version)
 
-| # | Block | Primary Content | Key Decision |
-|---|-------|----------------|--------------|
-| 1 | Hero | Headline + subhead + dual CTA + product screenshot | Pick headline A or B |
-| 2 | Credibility Strip | "100+ conversations" declarative line | Pick strip option |
-| 3 | Bridge | "Messy middle" problem framing + optional quote | Include/exclude advisor quote |
-| 4 | Product Pillars | Fact Finding → Sensemaking → Deliverables (cards + deep-dives) + Kevin/Lisa quotes embedded | Approve screenshots |
-| 5 | Trust & Security | Sandboxed workspaces, encryption, permissions | Carried from existing site |
-| 6 | ~~Before/After~~ | ~~Visual transformation panel~~ | **Deferred** |
-| 7 | Comparison Table | Old Way → Patchwork → With ELLA | Pick column copy option |
-| 8 | Builder Credibility | Origin story: "We started with conversations" | Approve copy |
-| 9 | Closer | "Divide forming" framing + dual CTA | Pick closing line |
+| #   | Block               | Primary Content                                                                             | Key Decision                  |
+| --- | ------------------- | ------------------------------------------------------------------------------------------- | ----------------------------- |
+| 1   | Hero                | Headline + subhead + dual CTA + product screenshot                                          | Pick headline A or B          |
+| 2   | Credibility Strip   | "100+ conversations" declarative line                                                       | Pick strip option             |
+| 3   | Bridge              | "Messy middle" problem framing + optional quote                                             | Include/exclude advisor quote |
+| 4   | Product Pillars     | Fact Finding → Sensemaking → Deliverables (cards + deep-dives) + Kevin/Lisa quotes embedded | Approve screenshots           |
+| 5   | Trust & Security    | Sandboxed workspaces, encryption, permissions                                               | Carried from existing site    |
+| 6   | ~~Before/After~~    | ~~Visual transformation panel~~                                                             | **Deferred**                  |
+| 7   | Comparison Table    | Old Way → Patchwork → With ELLA                                                             | Pick column copy option       |
+| 8   | Builder Credibility | Origin story: "We started with conversations"                                               | Approve copy                  |
+| 9   | Closer              | "Divide forming" framing + dual CTA                                                         | Pick closing line             |
 
 ---
 
@@ -498,15 +520,15 @@ Warm background (slightly different from page default for visual separation). Ge
 
 ## Content Assets Required for Launch
 
-| Asset | Block(s) | Status | Action |
-|-------|----------|--------|--------|
-| Headline selection | 1 | 5 options provided | Pick one, test with advisors |
-| Supporting copy selection | 1 | 3 options provided | Pick one |
-| Product screenshots (current) | 1, 4 | Existing on exitwithella.io | Carry forward |
-| Kevin quote approval | 4 | Quote exists on current site | Confirm for new site |
-| Lisa quote approval | 4 | Quote exists on current site | Confirm for new site |
-| "One-size-fits-all" attribution | 3 | Quote from manifesto | Confirm anonymous descriptor |
-| Comparison table copy | 7 | 4 option sets provided | Pick one |
-| Closing line | 9 | 3 options provided | Pick one |
-| Team bios + headshots | 8 (or About page) | Not yet written | Write for About, reference in footer |
-| Before/after visual | 6 | Concept documented | Deferred to fast-follow |
+| Asset                           | Block(s)          | Status                       | Action                               |
+| ------------------------------- | ----------------- | ---------------------------- | ------------------------------------ |
+| Headline selection              | 1                 | 5 options provided           | Pick one, test with advisors         |
+| Supporting copy selection       | 1                 | 3 options provided           | Pick one                             |
+| Product screenshots (current)   | 1, 4              | Existing on exitwithella.io  | Carry forward                        |
+| Kevin quote approval            | 4                 | Quote exists on current site | Confirm for new site                 |
+| Lisa quote approval             | 4                 | Quote exists on current site | Confirm for new site                 |
+| "One-size-fits-all" attribution | 3                 | Quote from manifesto         | Confirm anonymous descriptor         |
+| Comparison table copy           | 7                 | 4 option sets provided       | Pick one                             |
+| Closing line                    | 9                 | 3 options provided           | Pick one                             |
+| Team bios + headshots           | 8 (or About page) | Not yet written              | Write for About, reference in footer |
+| Before/after visual             | 6                 | Concept documented           | Deferred to fast-follow              |

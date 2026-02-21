@@ -7,7 +7,14 @@ const noisePattern = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent
   html`
     <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 100 100">
       <filter id="n">
-        <feTurbulence type="turbulence" baseFrequency="1.4" numOctaves="1" seed="2" stitchTiles="stitch" result="n" />
+        <feTurbulence
+          type="turbulence"
+          baseFrequency="1.4"
+          numOctaves="1"
+          seed="2"
+          stitchTiles="stitch"
+          result="n"
+        />
         <feComponentTransfer result="g">
           <feFuncR type="linear" slope="4" intercept="1" />
           <feFuncG type="linear" slope="4" intercept="1" />
@@ -17,7 +24,7 @@ const noisePattern = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent
       </filter>
       <rect width="100%" height="100%" filter="url(#n)" />
     </svg>
-  `.replace(/\s+/g, ' '),
+  `.replaceAll(/\s+/g, ' '),
 )}")`
 
 export function Wallpaper({
@@ -38,8 +45,8 @@ export function Wallpaper({
       <div
         className="absolute inset-0 opacity-30 mix-blend-overlay"
         style={{
-          backgroundPosition: 'center',
           backgroundImage: noisePattern,
+          backgroundPosition: 'center',
         }}
       />
       <div className="relative">{children}</div>

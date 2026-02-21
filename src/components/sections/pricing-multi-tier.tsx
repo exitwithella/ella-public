@@ -1,5 +1,6 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
+
 import { Section } from '../elements/section'
 import { CheckmarkIcon } from '../icons/checkmark-icon'
 
@@ -31,22 +32,22 @@ export function Plan({
       <div className="self-stretch">
         <div className="flex items-center justify-between">
           {badge && (
-            <div className="order-last inline-flex rounded-full bg-ash-950/10 px-2 text-xs/6 font-medium text-ash-950">
+            <div className="bg-ash-950/10 text-ash-950 order-last inline-flex rounded-full px-2 text-xs/6 font-medium">
               {badge}
             </div>
           )}
 
-          <h3 className="text-2xl/8 tracking-tight text-ash-950">{name}</h3>
+          <h3 className="text-ash-950 text-2xl/8 tracking-tight">{name}</h3>
         </div>
         <p className="mt-1 inline-flex gap-1 text-base/7">
           <span className="text-ash-950">{price}</span>
           {period && <span className="text-ash-500">{period}</span>}
         </p>
-        <div className="mt-4 flex flex-col gap-4 text-sm/6 text-ash-700">{subheadline}</div>
-        <ul className="mt-4 space-y-2 text-sm/6 text-ash-700">
+        <div className="text-ash-700 mt-4 flex flex-col gap-4 text-sm/6">{subheadline}</div>
+        <ul className="text-ash-700 mt-4 space-y-2 text-sm/6">
           {features.map((feature, index) => (
             <li key={index} className="flex gap-4">
-              <CheckmarkIcon className="h-lh shrink-0 stroke-ash-950" />
+              <CheckmarkIcon className="stroke-ash-950 h-lh shrink-0" />
               <p>{feature}</p>
             </li>
           ))}

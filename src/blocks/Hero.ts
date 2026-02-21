@@ -1,7 +1,6 @@
 import type { Block } from 'payload'
 
 export const HeroBlock: Block = {
-  slug: 'hero',
   fields: [
     {
       name: 'headline',
@@ -26,4 +25,5 @@ export const HeroBlock: Block = {
       relationTo: 'media',
     },
   ],
+  slug: 'hero',
 }

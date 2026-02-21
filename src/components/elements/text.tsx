@@ -1,7 +1,12 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps } from 'react'
 
-export function Text({ children, className, size = 'md', ...props }: ComponentProps<'div'> & { size?: 'md' | 'lg' }) {
+export function Text({
+  children,
+  className,
+  size = 'md',
+  ...props
+}: ComponentProps<'div'> & { size?: 'md' | 'lg' }) {
   return (
     <div
       className={clsx(

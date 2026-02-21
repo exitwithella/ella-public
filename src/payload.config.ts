@@ -1,21 +1,23 @@
-import fs from 'fs'
-import path from 'path'
-import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
-import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
-import { GetPlatformProxyOptions } from 'wrangler'
-import { r2Storage } from '@payloadcms/storage-r2'
-import { mcpPlugin } from '@payloadcms/plugin-mcp'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
-import { Posts } from './collections/Posts'
-import { Pages } from './collections/Pages'
-import { LandingPages } from './collections/LandingPages'
+import type { CloudflareContext } from '@opennextjs/cloudflare'
+import { getCloudflareContext } from '@opennextjs/cloudflare'
+import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
+import { mcpPlugin } from '@payloadcms/plugin-mcp'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { r2Storage } from '@payloadcms/storage-r2'
+import { buildConfig } from 'payload'
+import type { GetPlatformProxyOptions } from 'wrangler'
+
 import { Authors } from './collections/Authors'
 import { Categories } from './collections/Categories'
+import { LandingPages } from './collections/LandingPages'
+import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { Posts } from './collections/Posts'
+import { Users } from './collections/Users'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -37,12 +39,8 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts, Pages, LandingPages, Authors, Categories],
-  editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
-  typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
+  editor: lexicalEditor(),
   plugins: [
     r2Storage({
       bucket: cloudflare.env.R2,
@@ -68,6 +66,10 @@ export default buildConfig({
       },
     }),
   ],
+  secret: process.env.PAYLOAD_SECRET || '',
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
 })
 
 // Adapted from https://github.com/opennextjs/opennextjs-cloudflare/blob/d00b3a13e42e65aad76fba41774815726422cc39/packages/cloudflare/src/api/cloudflare-context.ts#L328C36-L328C46

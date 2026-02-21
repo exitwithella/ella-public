@@ -9,7 +9,7 @@ export function QuestionCircleIcon({ className, ...props }: ComponentProps<'svg'
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -25,7 +25,12 @@ export function QuestionCircleIcon({ className, ...props }: ComponentProps<'svg'
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M6.5 9.98977L6.5 9.99977" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M6.5 9.98977L6.5 9.99977"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

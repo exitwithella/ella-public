@@ -9,7 +9,7 @@ export function TargetIcon({ className, ...props }: ComponentProps<'svg'>) {
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -20,7 +20,12 @@ export function TargetIcon({ className, ...props }: ComponentProps<'svg'>) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M6.5 6.5L9.5 3.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M6.5 6.5L9.5 3.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path
         d="M6.37523 4.50383C5.32878 4.56824 4.5 5.43733 4.5 6.5C4.5 7.60457 5.39543 8.5 6.5 8.5C7.56255 8.5 8.43158 7.67139 8.49615 6.6251"
         stroke="currentColor"

@@ -8,7 +8,7 @@ export function YouTubeIcon({ className, ...props }: ComponentProps<'svg'>) {
       height={24}
       viewBox="0 0 24 24"
       fill="currentColor"
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >

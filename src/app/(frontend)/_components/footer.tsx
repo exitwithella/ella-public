@@ -2,6 +2,7 @@ import {
   FooterWithLinksAndSocialIcons,
   FooterLink,
 } from '@/components/sections/footer-with-links-and-social-icons'
+
 import { footer } from '../_lib/content'
 
 export function Footer() {

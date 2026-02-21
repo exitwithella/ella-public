@@ -1,6 +1,7 @@
 'use client'
 
-import { useScroll, useTransform, useMotionValueEvent, MotionValue } from 'motion/react'
+import type { MotionValue } from 'motion/react'
+import { useScroll, useTransform, useMotionValueEvent } from 'motion/react'
 import { useRef, useState, useEffect } from 'react'
 
 /**
@@ -12,14 +13,14 @@ export function useScrollRevealWords(text: string) {
   const words = text.split(' ')
 
   const { scrollYProgress } = useScroll({
-    target: containerRef,
     offset: ['start 0.8', 'end 0.2'],
+    target: containerRef,
   })
 
   return {
     containerRef,
-    words,
     scrollYProgress,
+    words,
   }
 }
 
@@ -29,7 +30,7 @@ export function useScrollRevealWords(text: string) {
 export function useWordOpacity(
   scrollYProgress: MotionValue<number>,
   wordIndex: number,
-  totalWords: number
+  totalWords: number,
 ) {
   const start = wordIndex / totalWords
   const end = (wordIndex + 1) / totalWords
@@ -77,8 +78,8 @@ export function useHorizontalScroll() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
-    target: containerRef,
     offset: ['start start', 'end end'],
+    target: containerRef,
   })
 
   return {
@@ -97,7 +98,7 @@ export function useHorizontalScroll() {
 export function useHorizontalTranslate(
   scrollYProgress: MotionValue<number>,
   totalWidth: number,
-  viewportWidth: number
+  viewportWidth: number,
 ) {
   const maxTranslate = Math.max(0, totalWidth - viewportWidth)
   return useTransform(scrollYProgress, [0, 1], [0, -maxTranslate])

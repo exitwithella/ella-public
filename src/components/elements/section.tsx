@@ -1,5 +1,6 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
+
 import { Container } from './container'
 import { Eyebrow } from './eyebrow'
 import { Subheading } from './subheading'

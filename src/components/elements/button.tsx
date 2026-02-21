@@ -2,8 +2,8 @@ import { clsx } from 'clsx/lite'
 import type { ComponentProps } from 'react'
 
 const sizes = {
-  md: 'px-3 py-1',
   lg: 'px-4 py-2',
+  md: 'px-3 py-1',
 }
 
 export function Button({
@@ -21,8 +21,7 @@ export function Button({
       type={type}
       className={clsx(
         'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium',
-        color === 'dark/light' &&
-          'bg-ash-950 text-white hover:bg-ash-800',
+        color === 'dark/light' && 'bg-ash-950 text-white hover:bg-ash-800',
         color === 'light' && 'hover bg-white text-ash-950 hover:bg-ash-100',
         sizes[size],
         className,
@@ -48,8 +47,7 @@ export function ButtonLink({
       href={href}
       className={clsx(
         'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium',
-        color === 'dark/light' &&
-          'bg-ash-950 text-white hover:bg-ash-800',
+        color === 'dark/light' && 'bg-ash-950 text-white hover:bg-ash-800',
         color === 'light' && 'hover bg-white text-ash-950 hover:bg-ash-100',
         sizes[size],
         className,

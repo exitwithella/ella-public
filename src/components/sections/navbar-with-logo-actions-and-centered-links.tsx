@@ -18,8 +18,17 @@ export function NavbarLink({
       {...props}
     >
       {children}
-      <span className="inline-flex p-1.5 opacity-0 group-hover:opacity-100 lg:hidden" aria-hidden="true">
-        <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+      <span
+        className="inline-flex p-1.5 opacity-0 group-hover:opacity-100 lg:hidden"
+        aria-hidden="true"
+      >
+        <svg
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-6"
+        >
           <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>
       </span>
@@ -27,7 +36,11 @@ export function NavbarLink({
   )
 }
 
-export function NavbarLogo({ className, href, ...props }: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
+export function NavbarLogo({
+  className,
+  href,
+  ...props
+}: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
   return <a href={href} {...props} className={clsx('inline-flex items-stretch', className)} />
 }
 
@@ -56,7 +69,7 @@ export function NavbarWithLogoActionsAndCenteredLinks({
               command="show-modal"
               commandfor="mobile-menu"
               aria-label="Toggle menu"
-              className="inline-flex rounded-full p-1.5 text-ash-950 hover:bg-ash-950/10 lg:hidden"
+              className="text-ash-950 hover:bg-ash-950/10 inline-flex rounded-full p-1.5 lg:hidden"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="size-6">
                 <path
@@ -71,13 +84,13 @@ export function NavbarWithLogoActionsAndCenteredLinks({
 
         <ElDialog className="lg:hidden">
           <dialog id="mobile-menu" className="backdrop:bg-transparent">
-            <ElDialogPanel className="fixed inset-0 bg-ash-100 px-6 py-6 lg:px-10">
+            <ElDialogPanel className="bg-ash-100 fixed inset-0 px-6 py-6 lg:px-10">
               <div className="flex justify-end">
                 <button
                   command="close"
                   commandfor="mobile-menu"
                   aria-label="Toggle menu"
-                  className="inline-flex rounded-full p-1.5 text-ash-950 hover:bg-ash-950/10"
+                  className="text-ash-950 hover:bg-ash-950/10 inline-flex rounded-full p-1.5"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

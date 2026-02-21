@@ -10,11 +10,16 @@ export function LightingBoltIcon({ className, ...props }: ComponentProps<'svg'>)
       fill="none"
       stroke="currentColor"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
-      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m.5 7.5 8-7-2 5h6l-8 7 2-5h-6Z" />
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m.5 7.5 8-7-2 5h6l-8 7 2-5h-6Z"
+      />
     </svg>
   )
 }

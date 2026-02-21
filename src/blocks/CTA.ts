@@ -1,7 +1,6 @@
 import type { Block } from 'payload'
 
 export const CTABlock: Block = {
-  slug: 'cta',
   fields: [
     {
       name: 'headline',
@@ -25,4 +24,5 @@ export const CTABlock: Block = {
       type: 'text',
     },
   ],
+  slug: 'cta',
 }

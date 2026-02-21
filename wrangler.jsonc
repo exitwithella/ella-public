@@ -33,7 +33,8 @@
   "r2_buckets": [
     {
       "binding": "R2",
-      "bucket_name": "ella-public-payload","preview_bucket_name": "ella-public-payload",
+      "bucket_name": "ella-public-payload",
+      "preview_bucket_name": "ella-public-payload",
     },
     // Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
     // {

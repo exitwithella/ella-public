@@ -21,7 +21,7 @@ The most effective pattern: client logos immediately followed by quantified resu
 
 Where testimonials appear matters as much as what they say:
 
-- **Interloom** places a customer quote *immediately after the problem statement* and *before features*. This builds credibility before the pitch even starts.
+- **Interloom** places a customer quote _immediately after the problem statement_ and _before features_. This builds credibility before the pitch even starts.
 - **WithCoverage** lets social proof do the selling — customer quotes carry more weight than marketing copy.
 - **Howie** embeds native Twitter/X posts for third-party validation with built-in social context.
 
@@ -29,8 +29,7 @@ Where testimonials appear matters as much as what they say:
 
 - **Amplemarket** shows "Migrated off [competitor]" cards, demonstrating switching momentum. This is a powerful pattern ELLA could use to show advisors leaving legacy compliance tools.
 
-> **ELLA Principle:** Layer logo walls with specific, quantified outcomes tied to named people. Place your strongest testimonial *before* the feature section, not after. Consider "switched from" proof if advisors are leaving competing tools.
-> 
+> **ELLA Principle:** Layer logo walls with specific, quantified outcomes tied to named people. Place your strongest testimonial _before_ the feature section, not after. Consider "switched from" proof if advisors are leaving competing tools.
 
 ---
 
@@ -41,8 +40,8 @@ Several sites solve the challenge of making abstract, technical products feel ta
 ## Show the Transformation, Not the Tool
 
 - **Wispr Flow** uses an animated before/after in the hero: messy speech-to-text on the left, polished output on the right. The value is immediately visible without explanation.
-- **HelloPatient** lets you *talk to the AI live on the page*. The "Try It" button morphs into "End Call" during the demo — state-aware CTA that proves the product by letting you use it.
-- **Cloudflare Workers** describes what the product does *without showing the product directly* — using interactive code editors, a multiplayer game demo, and a wall-clock vs. CPU-time visual to make abstract pricing tangible.
+- **HelloPatient** lets you _talk to the AI live on the page_. The "Try It" button morphs into "End Call" during the demo — state-aware CTA that proves the product by letting you use it.
+- **Cloudflare Workers** describes what the product does _without showing the product directly_ — using interactive code editors, a multiplayer game demo, and a wall-clock vs. CPU-time visual to make abstract pricing tangible.
 
 ## Analogy-Driven Positioning
 
@@ -55,8 +54,7 @@ Several sites solve the challenge of making abstract, technical products feel ta
 - **WithCoverage** uses anchor-linked cards at the top that expand into deeper sections below. Scan the 3-pillar summary, then dive into whichever matters.
 - **Hebbia** organizes 1,000+ use cases into a matrix table by industry vertical. Overwhelming breadth made navigable.
 
-> **ELLA Principle:** Lead with the transformation (before/after advisor workflows), not feature lists. Use physical metaphors to explain abstract capabilities. Give people a scannable overview that expands into depth. If possible, let them *experience the product* on the page.
-> 
+> **ELLA Principle:** Lead with the transformation (before/after advisor workflows), not feature lists. Use physical metaphors to explain abstract capabilities. Give people a scannable overview that expands into depth. If possible, let them _experience the product_ on the page.
 
 ---
 
@@ -81,7 +79,7 @@ One CTA, placed strategically, assuming a sophisticated buyer:
 
 ## Demo-First / Try-Before-You-Buy
 
-The product *is* the CTA:
+The product _is_ the CTA:
 
 - **HelloPatient**: Live demo on the page. "Try It" becomes "End Call."
 - **Dope Security**: OAuth login buttons (Google/Microsoft) reduce signup to one click. "Try now" not "sign up."
@@ -95,7 +93,6 @@ The content builds so much trust that the CTA feels natural:
 - **Moonfire**: "Build together" as a mailto — the entire site builds relationship before asking for anything.
 
 > **ELLA Principle:** Match CTA aggressiveness to your buyer's decision cycle. Financial advisors likely need the Dual-CTA approach (self-guided tour + scheduled demo) with content-as-conversion building trust over time. Consider a live demo moment if technically feasible.
-> 
 
 ---
 
@@ -119,7 +116,6 @@ Several sites face ELLA's exact challenge: speaking to multiple audiences from o
 - **Interloom** uses a 6-category horizontal platform section (IT Service Mgmt, Claims, Support, etc.).
 
 > **ELLA Principle:** ELLA serves advisors, firms, and compliance teams. A 3-pillar architecture (like WithCoverage) with persona-based entry points (like Wispr Flow) would solve the multi-audience challenge. Each audience gets a clear "this is for you" moment without separate landing pages.
-> 
 
 ---
 
@@ -155,7 +151,6 @@ Sites targeting professionals in high-stakes decisions use warmth:
 - **Dope Security**: Type-shuffle glitch + coordinate parallax = memorable and unreplicable
 
 > **ELLA Principle:** ELLA serves financial advisors making high-stakes decisions. The **Calm Trust Aesthetic** (cream/beige, serif + sans-serif, generous whitespace) is the right foundation — Function Health is the strongest model. Dark premium works for AI-positioning moments but shouldn't dominate. Motion should serve communication (like Wispr’s flow metaphor), not just decoration.
-> 
 
 ---
 
@@ -184,7 +179,6 @@ The dominant pattern across sites: 3-4 cards as scannable overview, each expandi
 - **Ramp Velocity**: 1 hero article (2-3x visual prominence) → 4 editor's picks → filtered stream with category tabs. Clear hierarchy without everything competing for attention.
 
 > **ELLA Principle:** Use the card-pillar pattern (3 pillars like WithCoverage) as the homepage backbone. Consider scroll-lock for a feature walkthrough. Number key steps to make the process feel finite and achievable. For the blog, adopt Ramp's featured/supporting hierarchy.
-> 
 
 ---
 
@@ -208,13 +202,12 @@ The dominant pattern across sites: 3-4 cards as scannable overview, each expandi
 - **Amplemarket**: "Migrated off" cards create switching momentum proof.
 
 > **ELLA Principle:** Frame ELLA as the generational shift from manual compliance and fragmented advisor tools. Use generation framing ("The old way" vs. "The ELLA way") rather than naming competitors. A comparison table vs. the status quo (like Function Health) could be very effective for advisors evaluating whether to change.
-> 
 
 ---
 
 # 8. Interactive Proof Patterns
 
-The most memorable sites let you *experience* the product, not just read about it.
+The most memorable sites let you _experience_ the product, not just read about it.
 
 ## Live Product Demos on the Page
 
@@ -237,7 +230,6 @@ For products that are hard to screenshot:
 - **Canopy Servicing**: Blur/reveal interaction on case study cards.
 
 > **ELLA Principle:** If ELLA can offer a live demo moment (even a simulated one), that's the highest-impact pattern in this entire analysis. If not, use the Cloudflare Workers approach: describe what the product does through metaphor, interactive examples, and visual storytelling rather than static screenshots.
-> 
 
 ---
 
@@ -245,14 +237,14 @@ For products that are hard to screenshot:
 
 Based on this analysis, the highest-impact patterns for ELLA's redesign:
 
-| **Priority** | **Pattern** | **Model Site(s)** | **Why It Matters for ELLA** |
-| --- | --- | --- | --- |
-| 1 | 3-pillar card architecture | WithCoverage, Canopy | Solves multi-audience problem (advisors, firms, compliance) |
-| 2 | Calm trust aesthetic | Function Health, Interloom | Cream/serif warmth builds trust for high-stakes advisor decisions |
-| 3 | Live demo or before/after | HelloPatient, Wispr Flow | Makes abstract AI capabilities tangible and experiential |
-| 4 | Quantified social proof | Amplemarket, Hebbia | Named advisors + specific outcomes builds credibility in finance |
-| 5 | Generation framing vs legacy | Dope Security, WithCoverage | Positions ELLA as the inevitable next step beyond manual compliance |
-| 6 | Blog with featured hierarchy | Ramp Velocity | Content-as-conversion builds trust over the advisor buying cycle |
-| 7 | Building on Oatmeal template | Tailwind Oatmeal | 50+ components as foundation; inspiration sites inform customization |
+| **Priority** | **Pattern**                  | **Model Site(s)**           | **Why It Matters for ELLA**                                          |
+| ------------ | ---------------------------- | --------------------------- | -------------------------------------------------------------------- |
+| 1            | 3-pillar card architecture   | WithCoverage, Canopy        | Solves multi-audience problem (advisors, firms, compliance)          |
+| 2            | Calm trust aesthetic         | Function Health, Interloom  | Cream/serif warmth builds trust for high-stakes advisor decisions    |
+| 3            | Live demo or before/after    | HelloPatient, Wispr Flow    | Makes abstract AI capabilities tangible and experiential             |
+| 4            | Quantified social proof      | Amplemarket, Hebbia         | Named advisors + specific outcomes builds credibility in finance     |
+| 5            | Generation framing vs legacy | Dope Security, WithCoverage | Positions ELLA as the inevitable next step beyond manual compliance  |
+| 6            | Blog with featured hierarchy | Ramp Velocity               | Content-as-conversion builds trust over the advisor buying cycle     |
+| 7            | Building on Oatmeal template | Tailwind Oatmeal            | 50+ components as foundation; inspiration sites inform customization |
 
 All of these patterns are achievable with the Oatmeal template as a foundation, customized with the specific design and content strategies identified above.

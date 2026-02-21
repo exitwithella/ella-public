@@ -9,11 +9,16 @@ export function ArrowNarrowLeftIcon({ className, ...props }: ComponentProps<'svg
       viewBox="0 0 13 7"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
-      <path d="M0.504883 3.50488L12.5049 3.50488" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M0.504883 3.50488L12.5049 3.50488"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <path
         d="M3.50977 0.5L0.509766 3.5L3.50977 6.5"
         stroke="currentColor"

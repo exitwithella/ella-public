@@ -1,7 +1,6 @@
 import type { Block } from 'payload'
 
 export const FeatureGridBlock: Block = {
-  slug: 'featureGrid',
   fields: [
     {
       name: 'headline',
@@ -32,4 +31,5 @@ export const FeatureGridBlock: Block = {
       ],
     },
   ],
+  slug: 'featureGrid',
 }

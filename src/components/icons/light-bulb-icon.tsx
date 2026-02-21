@@ -9,7 +9,7 @@ export function LightBulbIcon({ className, ...props }: ComponentProps<'svg'>) {
       viewBox="0 0 9 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -22,7 +22,12 @@ export function LightBulbIcon({ className, ...props }: ComponentProps<'svg'>) {
       <path d="M3.5 12.5H5.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M2.5 11H6.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M4.5 9.5V6.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M3.5 5.5L4.5 6.5L5.5 5.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M3.5 5.5L4.5 6.5L5.5 5.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

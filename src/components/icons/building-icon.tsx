@@ -9,7 +9,7 @@ export function BuildingIcon({ className, ...props }: ComponentProps<'svg'>) {
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -24,7 +24,12 @@ export function BuildingIcon({ className, ...props }: ComponentProps<'svg'>) {
       <path d="M7.5 4.5H8.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M7.5 6.5H8.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M1.5 12.5H11.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M5.5 12.5V8.5H7.5V12.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M5.5 12.5V8.5H7.5V12.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

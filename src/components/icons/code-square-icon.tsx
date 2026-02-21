@@ -9,7 +9,7 @@ export function CodeSquareIcon({ className, ...props }: ComponentProps<'svg'>) {
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -19,8 +19,18 @@ export function CodeSquareIcon({ className, ...props }: ComponentProps<'svg'>) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M5 5L3.5 6.5L5 8" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M8 5L9.5 6.49981L8 8" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M5 5L3.5 6.5L5 8"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8 5L9.5 6.49981L8 8"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

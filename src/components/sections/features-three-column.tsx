@@ -1,5 +1,6 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
+
 import { Section } from '../elements/section'
 
 export function Feature({
@@ -15,11 +16,11 @@ export function Feature({
 } & ComponentProps<'div'>) {
   return (
     <div className={clsx('flex flex-col gap-2 text-sm/7', className)} {...props}>
-      <div className="flex items-start gap-3 text-ash-950">
+      <div className="text-ash-950 flex items-start gap-3">
         {icon && <div className="flex size-3.25 h-lh items-center">{icon}</div>}
         <h3 className="font-semibold">{headline}</h3>
       </div>
-      <div className="flex flex-col gap-4 text-ash-700">{subheadline}</div>
+      <div className="text-ash-700 flex flex-col gap-4">{subheadline}</div>
     </div>
   )
 }

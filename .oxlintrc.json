@@ -1,10 +1,58 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "extends": [
-    "./node_modules/ultracite/config/oxlint/core/.oxlintrc.json",
-    "./node_modules/ultracite/config/oxlint/react/.oxlintrc.json",
-    "./node_modules/ultracite/config/oxlint/next/.oxlintrc.json"
+  "plugins": [
+    "eslint",
+    "typescript",
+    "react",
+    "react-perf",
+    "jsx-a11y",
+    "nextjs",
+    "import",
+    "unicorn",
+    "promise"
   ],
+  "env": {
+    "browser": true
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "rules": {
+    "no-console": "off",
+    "typescript/no-explicit-any": "warn",
+    "typescript/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^(_|ignore)"
+      }
+    ],
+
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-unknown-property": "off",
+
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "import/no-default-export": "off",
+    "import/no-named-export": "off",
+
+    "unicorn/filename-case": "off",
+    "unicorn/no-null": "off",
+    "unicorn/prefer-global-this": "off",
+    "unicorn/no-abusive-eslint-disable": "off",
+
+    // False positive: composable wrapper components pass children via spread props
+    "jsx-a11y/anchor-has-content": "off",
+
+    // False positive: no-page-custom-font targets pages/_document; App Router uses layout.tsx
+    "nextjs/no-page-custom-font": "off"
+  },
   "ignorePatterns": [
     ".next/**",
     ".open-next/**",

@@ -9,7 +9,7 @@ export function AlertTriangleIcon({ className, ...props }: ComponentProps<'svg'>
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -20,7 +20,12 @@ export function AlertTriangleIcon({ className, ...props }: ComponentProps<'svg'>
         strokeLinejoin="round"
       />
       <path d="M6.5 5.5V7.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M6.5 9.5L6.5 9.51" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M6.5 9.5L6.5 9.51"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

@@ -1,7 +1,6 @@
 import type { Block } from 'payload'
 
 export const FormEmbedBlock: Block = {
-  slug: 'formEmbed',
   fields: [
     {
       name: 'embedType',
@@ -21,4 +20,5 @@ export const FormEmbedBlock: Block = {
       type: 'code',
     },
   ],
+  slug: 'formEmbed',
 }

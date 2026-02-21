@@ -9,7 +9,7 @@ export function ShieldExclamationIcon({ className, ...props }: ComponentProps<'s
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
@@ -20,7 +20,12 @@ export function ShieldExclamationIcon({ className, ...props }: ComponentProps<'s
         strokeLinejoin="round"
       />
       <path d="M6.5 4.5V6.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M6.5 8.5L6.5 8.51" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M6.5 8.5L6.5 8.51"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

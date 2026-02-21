@@ -10,6 +10,7 @@ Ensures all planning and implementation work is tracked in the MKT team on Linea
 ## When This Skill Activates
 
 This skill is **mandatory** whenever:
+
 1. You create an implementation plan (entering plan mode)
 2. You begin working on a multi-step task
 3. The user explicitly invokes `/linear-track`
@@ -65,6 +66,7 @@ Set up issue dependencies using `blockedBy` and `blocks` when steps have orderin
 ### 4. Track Progress
 
 As you work on each issue:
+
 - Set status to **"In Progress"** when starting work (use `mcp__claude_ai_Linear__update_issue`)
 - Set status to **"Done"** when the step is complete
 - If blocked, add a comment explaining the blocker
@@ -84,6 +86,7 @@ Use mcp__claude_ai_Linear__create_comment:
 ```
 
 **Comment on decisions like:**
+
 - Choosing one Oatmeal component over another
 - Deviating from a planning doc (and why)
 - Performance tradeoffs
