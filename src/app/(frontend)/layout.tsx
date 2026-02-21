@@ -2,8 +2,9 @@ import React from 'react'
 import './styles.css'
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  title: 'ELLA | Exit Planning Tools for Trusted Advisors',
+  description:
+    'ELLA turns trust into action with tools built for advisor-led transitions. Go from intake to insight in a fraction of the time.',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
@@ -15,17 +16,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body>
-        <main>{children}</main>
-      </body>
+      <body className="font-sans">{children}</body>
     </html>
   )
 }

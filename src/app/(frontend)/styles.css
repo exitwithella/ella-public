@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Familjen Grotesk', sans-serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'DM Sans', sans-serif;
+  --font-sans: 'DM Sans', 'Inter', system-ui, sans-serif;
 
   --color-olive-50: oklch(98.8% 0.003 106.5);
   --color-olive-100: oklch(96.6% 0.005 106.5);
@@ -15,13 +15,21 @@
   --color-olive-800: oklch(28.6% 0.016 107.4);
   --color-olive-900: oklch(22.8% 0.013 107.4);
   --color-olive-950: oklch(15.3% 0.006 107.1);
+
+  /* ELLA Brand Colors */
+  --color-ella-green: rgb(63, 72, 57);
+  --color-ella-gold: rgb(174, 132, 30);
+  --color-ella-cream: rgb(251, 249, 244);
+  --color-ella-leather: rgb(98, 79, 37);
+  --color-ella-green-50: rgb(237, 239, 235);
+  --color-ella-slate: rgb(54, 58, 54);
 }
 
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--color-olive-100);
+    background-color: var(--color-ella-cream);
     --scroll-padding-top: 0;
     scroll-padding-top: var(--scroll-padding-top);
 

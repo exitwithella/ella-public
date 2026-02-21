@@ -2,7 +2,14 @@
   "mcpServers": {
     "framer": {
       "type": "sse",
-      "url": "https://mcp.unframer.co/sse?id=95bcc0f22bd935642d32428d0ac835570016c5c57b1897ec5712f1fb455a8873&secret=dzOpE7fT7Yrb7Q4Ncwl6lzWuT2zzQZ0m"
+      "url": "${FRAMER_MCP_URL}"
+    },
+    "Payload": {
+      "type": "http",
+      "url": "http://localhost:3000/api/mcp",
+      "headers": {
+        "Authorization": "Bearer d1186213-d4a8-43d1-a332-a0e69549084f"
+      }
     }
   }
 }

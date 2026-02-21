@@ -1,0 +1,97 @@
+@theme {
+  /* add mid color to zinc */
+  --color-zinc-150: oklch(0.94 0.002 286.32);
+  --color-zinc-750: oklch(30.4% 0.006 286.033);
+  --color-zinc-850: oklch(23.8% 0.006 286.033);
+
+  /* Core brand color */
+  --color-moss-50: oklch(0.97 0.02 124.97);
+  --color-moss-100: oklch(0.93 0.03 124.97);
+  --color-moss-200: oklch(0.86 0.04 124.97);
+  --color-moss-300: oklch(0.78 0.05 124.97);
+  --color-moss-400: oklch(0.69 0.055 124.97);
+  --color-moss-500: oklch(0.6 0.06 124.97);
+  --color-moss-600: oklch(0.51 0.055 124.97);
+  --color-moss-700: oklch(0.412 0.03 124.97);
+  --color-moss-800: oklch(0.33 0.035 124.97);
+  --color-moss-900: oklch(0.24 0.025 124.97);
+  --color-moss-950: oklch(0.18 0.02 124.97);
+
+  /* brighter green to use as a success variant */
+  --color-emerald-50: oklch(0.97 0.034 137.02);
+  --color-emerald-100: oklch(0.94 0.071 136.36);
+  --color-emerald-200: oklch(0.886 0.128 135.91);
+  --color-emerald-300: oklch(0.792 0.114 135.67);
+  --color-emerald-400: oklch(0.697 0.101 135.83);
+  --color-emerald-500: oklch(0.603 0.086 135.47);
+  --color-emerald-600: oklch(0.511 0.073 135.9);
+  --color-emerald-700: oklch(0.417 0.061 135.98);
+  --color-emerald-800: oklch(0.323 0.046 135.65);
+  --color-emerald-900: oklch(0.229 0.031 135.61);
+  --color-emerald-950: oklch(0.187 0.029 136.45);
+
+  /* neutral with slight green tint to reflect brand. Used for background, accents, and text against dark backgrounds */
+  --color-ash-50: oklch(0.969 0.002 144.36);
+  --color-ash-100: oklch(0.932 0.003 144.97);
+  --color-ash-200: oklch(0.87 0.005 145.18);
+  --color-ash-300: oklch(0.799 0.009 145.31);
+  --color-ash-400: oklch(0.728 0.011 145.33);
+  --color-ash-500: oklch(0.661 0.015 145.32);
+  --color-ash-600: oklch(0.586 0.017 145.28);
+  --color-ash-700: oklch(0.505 0.014 145.29);
+  --color-ash-800: oklch(0.431 0.012 145.29);
+  --color-ash-900: oklch(0.343 0.009 145.3);
+  --color-ash-950: oklch(0.228 0.005 145.32);
+
+  /* warm brown to use for warnings and accents */
+  --color-goldenrod-50: oklch(0.9827 0.0126 86.83);
+  --color-goldenrod-100: oklch(0.955 0.03 75);
+  --color-goldenrod-200: oklch(0.89 0.04 75);
+  --color-goldenrod-300: oklch(0.82 0.08 75);
+  --color-goldenrod-400: oklch(0.74 0.1 75);
+  --color-goldenrod-500: oklch(0.65 0.12 75);
+  --color-goldenrod-600: oklch(0.57 0.1 75);
+  --color-goldenrod-700: oklch(0.49 0.08 75);
+  --color-goldenrod-800: oklch(0.41 0.06 75);
+  --color-goldenrod-900: oklch(0.33 0.04 75);
+  --color-goldenrod-950: oklch(0.25 0.02 75);
+
+  /* coral is a brand-relevant warning scheme */
+  --color-coral-50: oklch(0.97 0.015 25);
+  --color-coral-100: oklch(0.94 0.03 25);
+  --color-coral-200: oklch(0.89 0.055 25);
+  --color-coral-300: oklch(0.82 0.08 25);
+  --color-coral-400: oklch(0.74 0.11 25);
+  --color-coral-500: oklch(0.65 0.14 25);
+  --color-coral-600: oklch(0.57 0.13 25);
+  --color-coral-700: oklch(0.49 0.11 25);
+  --color-coral-800: oklch(0.41 0.09 25);
+  --color-coral-900: oklch(0.33 0.07 25);
+  --color-coral-950: oklch(0.25 0.05 25);
+
+  /* ocean is a brand-relevant informational and accent scheme */
+  --color-ocean-50: oklch(0.97 0.008 245);
+  --color-ocean-100: oklch(0.94 0.015 245);
+  --color-ocean-200: oklch(0.89 0.025 245);
+  --color-ocean-300: oklch(0.82 0.035 245);
+  --color-ocean-400: oklch(0.74 0.045 245);
+  --color-ocean-500: oklch(0.65 0.055 245);
+  --color-ocean-600: oklch(0.57 0.05 245);
+  --color-ocean-700: oklch(0.49 0.045 245);
+  --color-ocean-800: oklch(0.41 0.04 245);
+  --color-ocean-900: oklch(0.33 0.035 245);
+  --color-ocean-950: oklch(0.25 0.03 245);
+}
+
+@brand-tokens {
+  --color-forest: var(--color-moss-700);
+  --color-mint: var(--color-moss-400);
+  --color-lichen: var(--color-lightGreen-300);
+  --color-ash: var(--color-ash-900);
+  --color-goldenrod: var(--color-goldenrod-300);
+  --color-tannery: var(--color-goldenrod-700);
+  --color-leather: var(--color-goldenrod-900);
+  --color-success: var(--color-emerald-400);
+  --color-ocean: var(--color-ocean-600);
+  --color-brand-black: var(--color-ash-900);
+}

@@ -7,9 +7,15 @@ import { fileURLToPath } from 'url'
 import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
 import { GetPlatformProxyOptions } from 'wrangler'
 import { r2Storage } from '@payloadcms/storage-r2'
+import { mcpPlugin } from '@payloadcms/plugin-mcp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Posts } from './collections/Posts'
+import { Pages } from './collections/Pages'
+import { LandingPages } from './collections/LandingPages'
+import { Authors } from './collections/Authors'
+import { Categories } from './collections/Categories'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -30,7 +36,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Posts, Pages, LandingPages, Authors, Categories],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -41,6 +47,25 @@ export default buildConfig({
     r2Storage({
       bucket: cloudflare.env.R2,
       collections: { media: true },
+    }),
+    mcpPlugin({
+      collections: {
+        posts: {
+          enabled: true,
+        },
+        pages: {
+          enabled: true,
+        },
+        'landing-pages': {
+          enabled: true,
+        },
+        authors: {
+          enabled: true,
+        },
+        categories: {
+          enabled: true,
+        },
+      },
     }),
   ],
 })
