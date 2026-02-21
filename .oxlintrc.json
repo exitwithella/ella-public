@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "extends": [
+    "./node_modules/ultracite/config/oxlint/core/.oxlintrc.json",
+    "./node_modules/ultracite/config/oxlint/react/.oxlintrc.json",
+    "./node_modules/ultracite/config/oxlint/next/.oxlintrc.json"
+  ],
+  "ignorePatterns": [
+    ".next/**",
+    ".open-next/**",
+    ".wrangler/**",
+    "node_modules/**",
+    "oatmeal-olive/**",
+    "oatmeal-olive-familjen/**",
+    "src/migrations/**",
+    "src/app/(payload)/admin/importMap.js"
+  ]
+}

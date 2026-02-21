@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "semi": false,
+  "printWidth": 100,
+  "trailingComma": "all",
+  "experimentalSortImports": true,
+  "experimentalTailwindcss": true,
+  "ignorePatterns": [
+    "oatmeal-olive/**",
+    "oatmeal-olive-familjen/**",
+    "src/migrations/**",
+    "src/app/(payload)/admin/importMap.js"
+  ]
+}
