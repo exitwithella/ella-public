@@ -1,4 +1,3 @@
-import { ElDialog, ElDialogPanel } from '@tailwindplus/elements/react'
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
 
@@ -84,32 +83,30 @@ export function NavbarWithLogoActionsAndLeftAlignedLinks({
           </div>
         </div>
 
-        <ElDialog className="lg:hidden">
-          <dialog id="mobile-menu" className="backdrop:bg-transparent">
-            <ElDialogPanel className="bg-ash-100 fixed inset-0 px-6 py-6 lg:px-10">
-              <div className="flex justify-end">
-                <button
-                  command="close"
-                  commandfor="mobile-menu"
-                  aria-label="Toggle menu"
-                  className="text-ash-950 hover:bg-ash-950/10 inline-flex rounded-full p-1.5"
+        <dialog id="mobile-menu" className="backdrop:bg-transparent">
+          <div className="bg-ash-100 fixed inset-0 px-6 py-6 lg:px-10">
+            <div className="flex justify-end">
+              <button
+                command="close"
+                commandfor="mobile-menu"
+                aria-label="Toggle menu"
+                className="text-ash-950 hover:bg-ash-950/10 inline-flex rounded-full p-1.5"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <div className="mt-6 flex flex-col gap-6">{links}</div>
-            </ElDialogPanel>
-          </dialog>
-        </ElDialog>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="mt-6 flex flex-col gap-6">{links}</div>
+          </div>
+        </dialog>
       </nav>
     </header>
   )

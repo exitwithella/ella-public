@@ -11,12 +11,12 @@ import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon
 
 import { hero } from '../_lib/content'
 
-// Word-by-word animated headline
-function AnimatedHeadline({ text, baseDelay = 0 }: { text: string; baseDelay?: number }) {
+// Word-by-word animated headline line
+function AnimatedHeadlineLine({ text, baseDelay = 0 }: { text: string; baseDelay?: number }) {
   const words = text.split(' ')
 
   return (
-    <h1 className="font-display text-ash-950 flex flex-wrap justify-center gap-x-3 text-center text-5xl/12 tracking-tight text-balance sm:text-[5rem]/20">
+    <span className="flex flex-wrap justify-center gap-x-3">
       {words.map((word, index) => (
         <motion.span
           key={index}
@@ -33,15 +33,15 @@ function AnimatedHeadline({ text, baseDelay = 0 }: { text: string; baseDelay?: n
           {word}
         </motion.span>
       ))}
-    </h1>
+    </span>
   )
 }
 
-// Second headline with blur and fade effect
-function AnimatedSecondHeadline({ text }: { text: string }) {
+// Second headline line with blur and fade effect
+function AnimatedSecondLine({ text }: { text: string }) {
   return (
-    <motion.h1
-      className="font-display text-ash-950 text-center text-5xl/12 tracking-tight text-balance sm:text-[5rem]/20"
+    <motion.span
+      className="block"
       initial={{
         filter: 'blur(10px)',
         opacity: 0,
@@ -60,7 +60,7 @@ function AnimatedSecondHeadline({ text }: { text: string }) {
       }}
     >
       {text}
-    </motion.h1>
+    </motion.span>
   )
 }
 
@@ -84,10 +84,10 @@ export function Hero() {
         </motion.div>
 
         {/* Headlines */}
-        <div className="flex flex-col items-center">
-          <AnimatedHeadline text={hero.headline[0]} baseDelay={0} />
-          <AnimatedSecondHeadline text={hero.headline[1]} />
-        </div>
+        <h1 className="font-display text-ash-950 flex flex-col items-center text-center text-5xl/12 tracking-tight text-balance sm:text-[5rem]/20">
+          <AnimatedHeadlineLine text={hero.headline[0]} baseDelay={0} />
+          <AnimatedSecondLine text={hero.headline[1]} />
+        </h1>
 
         {/* Subheadline - delay 2.3s */}
         <motion.div

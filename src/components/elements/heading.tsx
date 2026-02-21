@@ -1,14 +1,18 @@
 import { clsx } from 'clsx/lite'
-import type { ComponentProps } from 'react'
+import type { ComponentProps, ElementType } from 'react'
 
-export function Heading({
+type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
+export function Heading<T extends HeadingTag = 'h1'>({
+  as,
   children,
   color = 'dark/light',
   className,
   ...props
-}: { color?: 'dark/light' | 'light' } & ComponentProps<'h1'>) {
+}: { as?: T; color?: 'dark/light' | 'light' } & Omit<ComponentProps<T>, 'as'>) {
+  const Tag = (as ?? 'h1') as ElementType
   return (
-    <h1
+    <Tag
       className={clsx(
         'font-display text-5xl/12 tracking-tight text-balance sm:text-[5rem]/20',
         color === 'dark/light' && 'text-ash-950',
@@ -18,6 +22,6 @@ export function Heading({
       {...props}
     >
       {children}
-    </h1>
+    </Tag>
   )
 }
