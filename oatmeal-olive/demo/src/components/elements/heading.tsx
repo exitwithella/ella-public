@@ -10,7 +10,7 @@ export function Heading({
   return (
     <h1
       className={clsx(
-        'font-display text-5xl/12 tracking-[-0.04em] text-balance sm:text-[4rem]/16',
+        'font-display text-5xl/12 tracking-tight text-balance sm:text-[5rem]/20',
         color === 'dark/light' && 'text-olive-950 dark:text-white',
         color === 'light' && 'text-white',
         className,

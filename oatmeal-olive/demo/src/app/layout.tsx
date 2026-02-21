@@ -34,10 +34,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap"
-          rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet"
@@ -60,17 +57,17 @@ export default function RootLayout({
             logo={
               <NavbarLogo href="/">
                 <Image
-                  src="/img/logos/oatmeal-familjen-color-olive-950.svg"
+                  src="/img/logos/oatmeal-instrument-color-olive-950.svg"
                   alt="Oatmeal"
                   className="dark:hidden"
-                  width={96}
+                  width={85}
                   height={28}
                 />
                 <Image
-                  src="/img/logos/oatmeal-familjen-color-white.svg"
+                  src="/img/logos/oatmeal-instrument-color-white.svg"
                   alt="Oatmeal"
                   className="not-dark:hidden"
-                  width={96}
+                  width={85}
                   height={28}
                 />
               </NavbarLogo>

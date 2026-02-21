@@ -31,17 +31,17 @@ export default function Page() {
         logo={
           <NavbarLogo href="#">
             <img
-              src="https://assets.tailwindplus.com/logos/oatmeal-familjen.svg?color=olive-950"
+              src="https://assets.tailwindplus.com/logos/oatmeal-instrument.svg?color=olive-950"
               alt="Oatmeal"
               className="dark:hidden"
-              width={96}
+              width={85}
               height={28}
             />
             <img
-              src="https://assets.tailwindplus.com/logos/oatmeal-familjen.svg?color=white"
+              src="https://assets.tailwindplus.com/logos/oatmeal-instrument.svg?color=white"
               alt="Oatmeal"
               className="not-dark:hidden"
-              width={96}
+              width={85}
               height={28}
             />
           </NavbarLogo>

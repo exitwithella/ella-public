@@ -30,7 +30,7 @@ Add the following CSS to your global stylesheet:
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Familjen Grotesk', sans-serif;
+  --font-display: 'Instrument Serif', serif;
   --font-sans: 'Inter', system-ui, sans-serif;
 
   --color-olive-50: oklch(98.8% 0.003 106.5);
@@ -69,7 +69,7 @@ Add the following meta tags to the `<head>` tag in your project:
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
   rel="stylesheet"
 />
 <link

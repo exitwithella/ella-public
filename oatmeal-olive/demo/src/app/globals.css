@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Familjen Grotesk', sans-serif;
+  --font-display: 'Instrument Serif', serif;
   --font-sans: 'Inter', system-ui, sans-serif;
 
   --color-olive-50: oklch(98.8% 0.003 106.5);
