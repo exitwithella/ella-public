@@ -9,7 +9,7 @@ export function ChatBubbleCircleEllipsisIcon({ className, ...props }: ComponentP
       viewBox="0 0 13 13"
       fill="none"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >

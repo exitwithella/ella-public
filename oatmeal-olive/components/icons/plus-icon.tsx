@@ -10,7 +10,7 @@ export function PlusIcon({ className, ...props }: ComponentProps<'svg'>) {
       fill="none"
       stroke="currentColor"
       strokeWidth={1}
-      role="image"
+      role="img"
       className={clsx('inline-block', className)}
       {...props}
     >
