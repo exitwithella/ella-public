@@ -1,4 +1,3 @@
-import { ElDialog, ElDialogPanel } from '@tailwindplus/elements/react'
 import { clsx } from 'clsx/lite'
 import type { ComponentProps, ReactNode } from 'react'
 
@@ -52,6 +51,8 @@ export function NavbarWithLogoActionsAndCenteredLinks({
           <div className="flex flex-1 items-center justify-end gap-4">
             <div className="flex shrink-0 items-center gap-5">{actions}</div>
 
+            {/* Trigger uses native HTML Invoker Commands API (command="show-modal").
+                No JS needed — the browser handles showModal() natively. */}
             <button
               command="show-modal"
               commandfor="mobile-menu"
@@ -69,32 +70,33 @@ export function NavbarWithLogoActionsAndCenteredLinks({
           </div>
         </div>
 
-        <ElDialog className="lg:hidden">
-          <dialog id="mobile-menu" className="backdrop:bg-transparent">
-            <ElDialogPanel className="fixed inset-0 bg-olive-100 px-6 py-6 lg:px-10 dark:bg-olive-950">
-              <div className="flex justify-end">
-                <button
-                  command="close"
-                  commandfor="mobile-menu"
-                  aria-label="Toggle menu"
-                  className="inline-flex rounded-full p-1.5 text-olive-950 hover:bg-olive-950/10 dark:text-white dark:hover:bg-white/10"
+        {/* Native <dialog> — ElDialog/ElDialogPanel wrappers removed.
+            <dialog> is hidden by default (display:none) until showModal() is called.
+            The backdrop, focus trap, and Escape-to-close are all handled natively. */}
+        <dialog id="mobile-menu" className="backdrop:bg-transparent">
+          <div className="fixed inset-0 bg-olive-100 px-6 py-6 lg:px-10 dark:bg-olive-950">
+            <div className="flex justify-end">
+              <button
+                command="close"
+                commandfor="mobile-menu"
+                aria-label="Toggle menu"
+                className="inline-flex rounded-full p-1.5 text-olive-950 hover:bg-olive-950/10 dark:text-white dark:hover:bg-white/10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <div className="mt-6 flex flex-col gap-6">{links}</div>
-            </ElDialogPanel>
-          </dialog>
-        </ElDialog>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="mt-6 flex flex-col gap-6">{links}</div>
+          </div>
+        </dialog>
       </nav>
     </header>
   )

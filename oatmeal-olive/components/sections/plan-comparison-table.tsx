@@ -1,4 +1,3 @@
-import { ElTabGroup, ElTabList, ElTabPanels } from '@tailwindplus/elements/react'
 import { clsx } from 'clsx/lite'
 import { type ComponentProps, type ReactNode } from 'react'
 import { Container } from '../elements/container'
@@ -35,8 +34,11 @@ function FeatureGroup<Plan extends string>({
             {feature.name}
           </th>
           {plans.map((plan) => {
-            const value = ((value: any): value is Record<Plan, ReactNode> =>
-              typeof value === 'object' && value !== null && plan in value)(feature.value)
+            // Type guard narrows feature.value to a per-plan record when it's an
+            // object containing the current plan key. Cast through unknown first
+            // to avoid the any escape hatch.
+            const value = ((v: unknown): v is Record<Plan, ReactNode> =>
+              typeof v === 'object' && v !== null && plan in v)(feature.value)
               ? feature.value[plan]
               : feature.value
 
@@ -76,6 +78,7 @@ export function PlanComparisonTable<const Plan extends string>({
   return (
     <section className={clsx('py-16', className)} {...props}>
       <Container>
+        {/* Desktop: full multi-column comparison table */}
         <table className="w-full border-collapse text-left text-sm/5 max-sm:hidden">
           <colgroup>
             <col className="w-2/5" />
@@ -88,9 +91,9 @@ export function PlanComparisonTable<const Plan extends string>({
               <th className="sticky top-(--scroll-padding-top) bg-olive-100 py-5 pr-3 text-base/7 font-medium text-olive-950 dark:bg-olive-950 dark:text-white">
                 Compare features
               </th>
-              {plans.map((plan, index) => (
+              {plans.map((plan) => (
                 <th
-                  key={index}
+                  key={plan}
                   className="sticky top-(--scroll-padding-top) bg-olive-100 p-3 text-center font-semibold text-olive-950 dark:bg-olive-950 dark:text-white"
                 >
                   {plan}
@@ -98,38 +101,32 @@ export function PlanComparisonTable<const Plan extends string>({
               ))}
             </tr>
           </thead>
-          {features.map((group, index) => (
-            <FeatureGroup key={index} group={group} plans={plans} />
+          {features.map((group) => (
+            <FeatureGroup key={String(group.title)} group={group} plans={plans} />
           ))}
         </table>
 
+        {/* Mobile: stacked layout — one section per plan, all features visible.
+            Replaces ElTabGroup (which required client JS for tab state).
+            A stacked layout is better for a marketing comparison: readers can
+            scroll through all plans rather than only seeing one at a time. */}
         <div className="sm:hidden">
-          <ElTabGroup>
-            <ElTabList className="flex gap-6">
-              {plans.map((plan) => (
-                <button
-                  key={plan}
-                  type="button"
-                  className="relative -mb-px flex-1 border-b border-b-transparent px-2 py-6 text-sm/5 font-medium text-olive-500 aria-selected:border-olive-950 aria-selected:text-olive-950 dark:aria-selected:border-white dark:aria-selected:text-white"
-                >
-                  {plan}
-                </button>
-              ))}
-            </ElTabList>
-            <ElTabPanels>
-              {plans.map((plan) => (
-                <table key={plan} className="w-full border-collapse text-left text-sm/5">
-                  <colgroup>
-                    <col className="w-3/4" />
-                    <col className="w-1/4" />
-                  </colgroup>
-                  {features.map((group, index) => (
-                    <FeatureGroup key={index} group={group} plans={[plan]} />
-                  ))}
-                </table>
-              ))}
-            </ElTabPanels>
-          </ElTabGroup>
+          {plans.map((plan) => (
+            <div key={plan} className="mb-8">
+              <h3 className="border-b border-olive-950/10 px-2 py-4 text-sm/5 font-semibold text-olive-950 dark:border-white/10 dark:text-white">
+                {plan}
+              </h3>
+              <table className="w-full border-collapse text-left text-sm/5">
+                <colgroup>
+                  <col className="w-3/4" />
+                  <col className="w-1/4" />
+                </colgroup>
+                {features.map((group) => (
+                  <FeatureGroup key={String(group.title)} group={group} plans={[plan]} />
+                ))}
+              </table>
+            </div>
+          ))}
         </div>
       </Container>
     </section>
