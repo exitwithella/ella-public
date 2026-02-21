@@ -275,6 +275,37 @@ These are drawn from the design brief and are non-negotiable:
 9. **No AI visual clichés.** No glowing neural networks, brain imagery, circuit boards, or gradient blobs. Visual identity comes from natural materials — moss, stone, leather, earth.
 10. **No `npm` or `yarn`.** Use `pnpm` exclusively.
 
+## Linear Project Tracking (Mandatory)
+
+All planning and implementation work is tracked in **Linear** using the **MKT** team (Public Site). This is not optional — every plan and implementation task must be reflected in Linear.
+
+### Rules
+
+1. **Every plan = a Linear project.** When you create an implementation plan, create a corresponding Linear project in the MKT team. Attach the full plan as a Linear document on that project.
+2. **Every implementation step = a Linear issue.** Each discrete step gets its own issue with clear title, description, and acceptance criteria. Set up `blockedBy`/`blocks` dependencies between issues when ordering matters.
+3. **Track progress in real-time.** Move issues to "In Progress" when you start, "Done" when you finish. Don't leave stale statuses.
+4. **Decisions and tradeoffs = comments.** When you make a meaningful choice (component selection, design brief interpretation, deviation from a planning doc, performance tradeoff), add a comment on the relevant issue explaining what was decided and why.
+5. **Use the `/linear-track` skill** for the full workflow reference. It documents the exact tool calls, naming conventions, and example flows.
+
+### Quick Reference
+
+| Action | Linear Tool | Key Parameters |
+|--------|-------------|----------------|
+| Create project | `mcp__claude_ai_Linear__save_project` | `name`, `team: "MKT"`, `description` |
+| Attach plan doc | `mcp__claude_ai_Linear__create_document` | `title`, `project: [id]`, `content` |
+| Create issue | `mcp__claude_ai_Linear__create_issue` | `title`, `team: "MKT"`, `project`, `description`, `state`, `labels`, `priority` |
+| Update issue status | `mcp__claude_ai_Linear__update_issue` | `id`, `state: "In Progress"/"Done"` |
+| Add decision comment | `mcp__claude_ai_Linear__create_comment` | `issueId`, `body` |
+| Project status update | `mcp__claude_ai_Linear__save_status_update` | `type: "project"`, `id`, `body`, `status` |
+
+### Statuses
+
+`Backlog` → `Ready` → `In Progress` → `Done` (also: `Canceled`, `Duplicate`)
+
+### Labels
+
+`Bug`, `Feature`, `Improvement`
+
 ## Before Starting Work
 
 1. **Read the relevant planning doc.** Every page has a section in the implementation plan with content status tags. Check what exists (✅), what's partial (🟡), and what needs writing (🔴).
@@ -283,6 +314,7 @@ These are drawn from the design brief and are non-negotiable:
 4. **If requirements conflict, flag it.** The planning docs were written at different points. The homepage spec supersedes the implementation plan where they conflict. The design brief supersedes both on visual decisions.
 5. **Think mobile-first.** Build the mobile layout, then enhance for larger viewports. The site's audience includes advisors checking it on their phones between meetings.
 6. **When in doubt about copy, use what exists.** The homepage spec provides multiple copy options per block. Pick the one marked as recommended. If no recommendation exists, pick the most specific and concrete option — advisors trust specificity over abstraction.
+7. **Create Linear tracking.** Before starting implementation, create the project, plan document, and issues in Linear. Track progress as you work.
 
 ## Document Precedence
 
