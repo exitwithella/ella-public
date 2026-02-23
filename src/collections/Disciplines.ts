@@ -1,16 +1,16 @@
 import type { CollectionConfig } from 'payload'
 
-export const Categories: CollectionConfig = {
+export const Disciplines: CollectionConfig = {
   access: {
     read: () => true,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'sortOrder'],
-    useAsTitle: 'title',
+    defaultColumns: ['name', 'slug', 'sortOrder'],
+    useAsTitle: 'name',
   },
   fields: [
     {
-      name: 'title',
+      name: 'name',
       type: 'text',
       required: true,
     },
@@ -19,12 +19,8 @@ export const Categories: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
-    },
-    {
-      name: 'internalLabel',
-      type: 'text',
       admin: {
-        description: 'Internal name used in admin UI (optional, defaults to title)',
+        description: 'URL-safe identifier, e.g. "exit-planning"',
       },
     },
     {
@@ -40,5 +36,5 @@ export const Categories: CollectionConfig = {
       },
     },
   ],
-  slug: 'categories',
+  slug: 'disciplines',
 }

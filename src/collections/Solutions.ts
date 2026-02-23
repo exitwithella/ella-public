@@ -2,29 +2,22 @@ import type { CollectionConfig } from 'payload'
 
 import {
   CardGridBlock,
-  ComparisonTableBlock,
   ContentSectionBlock,
-  CredibilityStripBlock,
   CTASectionBlock,
-  FAQAccordionBlock,
   FeatureDeepDiveBlock,
   FormEmbedBlock,
-  NewsletterCaptureBlock,
-  NumberedStepsBlock,
-  PricingJourneyBlock,
-  SolutionsSelectorBlock,
   TestimonialBlock,
   TrustSecurityBlock,
 } from '../blocks'
 import { heroField } from '../fields/hero'
 import { metaField } from '../fields/meta'
 
-export const Pages: CollectionConfig = {
+export const Solutions: CollectionConfig = {
   access: {
     read: () => true,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'status', 'publishedDate'],
+    defaultColumns: ['title', 'discipline', 'status', 'isBeachhead'],
     useAsTitle: 'title',
   },
   fields: [
@@ -40,24 +33,34 @@ export const Pages: CollectionConfig = {
       unique: true,
     },
     {
+      name: 'discipline',
+      type: 'relationship',
+      relationTo: 'disciplines',
+      required: true,
+    },
+    {
+      name: 'tagline',
+      type: 'text',
+      admin: {
+        description: 'Short descriptor shown in solution cards',
+      },
+    },
+    {
       name: 'status',
       type: 'select',
-      defaultValue: 'draft',
+      defaultValue: 'waitlist',
       options: [
-        { label: 'Draft', value: 'draft' },
         { label: 'Published', value: 'published' },
+        { label: 'Waitlist', value: 'waitlist' },
+        { label: 'Coming Soon', value: 'coming-soon' },
       ],
     },
     {
-      name: 'publishedDate',
-      type: 'date',
-    },
-    {
-      name: 'parent',
-      type: 'relationship',
-      relationTo: 'pages',
+      name: 'isBeachhead',
+      type: 'checkbox',
+      defaultValue: false,
       admin: {
-        description: 'Parent page for breadcrumb and URL nesting',
+        description: 'Mark as the primary beachhead use case (Exit Planning)',
       },
     },
     heroField,
@@ -69,19 +72,12 @@ export const Pages: CollectionConfig = {
         CardGridBlock,
         TestimonialBlock,
         CTASectionBlock,
-        CredibilityStripBlock,
         FeatureDeepDiveBlock,
-        ComparisonTableBlock,
         TrustSecurityBlock,
-        NumberedStepsBlock,
-        SolutionsSelectorBlock,
-        FAQAccordionBlock,
-        PricingJourneyBlock,
-        NewsletterCaptureBlock,
         FormEmbedBlock,
       ],
     },
     metaField,
   ],
-  slug: 'pages',
+  slug: 'solutions',
 }

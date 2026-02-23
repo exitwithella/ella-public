@@ -1,19 +1,28 @@
 import type { CollectionConfig } from 'payload'
 
 import {
-  HeroBlock,
-  ContentBlock,
-  FeatureGridBlock,
-  TestimonialsBlock,
-  CTABlock,
+  CardGridBlock,
+  ContentSectionBlock,
+  CredibilityStripBlock,
+  CTASectionBlock,
+  FAQAccordionBlock,
+  FeatureDeepDiveBlock,
   FormEmbedBlock,
+  NewsletterCaptureBlock,
+  NumberedStepsBlock,
+  SolutionsSelectorBlock,
+  TestimonialBlock,
+  TrustSecurityBlock,
 } from '../blocks'
+import { heroField } from '../fields/hero'
+import { metaField } from '../fields/meta'
 
 export const LandingPages: CollectionConfig = {
   access: {
     read: () => true,
   },
   admin: {
+    defaultColumns: ['title', 'slug', 'campaign', 'status'],
     useAsTitle: 'title',
   },
   fields: [
@@ -29,10 +38,6 @@ export const LandingPages: CollectionConfig = {
       unique: true,
     },
     {
-      name: 'metaDescription',
-      type: 'textarea',
-    },
-    {
       name: 'campaign',
       type: 'text',
       admin: {
@@ -41,17 +46,34 @@ export const LandingPages: CollectionConfig = {
       },
     },
     {
+      name: 'status',
+      type: 'select',
+      defaultValue: 'draft',
+      options: [
+        { label: 'Draft', value: 'draft' },
+        { label: 'Published', value: 'published' },
+      ],
+    },
+    heroField,
+    {
       name: 'layout',
       type: 'blocks',
       blocks: [
-        HeroBlock,
-        ContentBlock,
-        FeatureGridBlock,
-        TestimonialsBlock,
-        CTABlock,
+        ContentSectionBlock,
+        CardGridBlock,
+        TestimonialBlock,
+        CTASectionBlock,
+        CredibilityStripBlock,
+        FeatureDeepDiveBlock,
+        TrustSecurityBlock,
+        NumberedStepsBlock,
+        SolutionsSelectorBlock,
+        FAQAccordionBlock,
+        NewsletterCaptureBlock,
         FormEmbedBlock,
       ],
     },
+    metaField,
   ],
   slug: 'landing-pages',
 }

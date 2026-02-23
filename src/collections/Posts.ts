@@ -1,10 +1,13 @@
 import type { CollectionConfig } from 'payload'
 
+import { metaField } from '../fields/meta'
+
 export const Posts: CollectionConfig = {
   access: {
     read: () => true,
   },
   admin: {
+    defaultColumns: ['title', 'publishedDate', 'tier', 'status'],
     useAsTitle: 'title',
   },
   fields: [
@@ -20,14 +23,33 @@ export const Posts: CollectionConfig = {
       unique: true,
     },
     {
+      name: 'excerpt',
+      type: 'textarea',
+      admin: {
+        description: 'Short summary used in blog cards and RSS feed (1-2 sentences)',
+      },
+    },
+    {
       name: 'publishedDate',
       type: 'date',
       required: true,
     },
     {
+      name: 'status',
+      type: 'select',
+      defaultValue: 'draft',
+      options: [
+        { label: 'Draft', value: 'draft' },
+        { label: 'Published', value: 'published' },
+      ],
+    },
+    {
       name: 'author',
       type: 'relationship',
-      relationTo: 'authors',
+      relationTo: 'team-members',
+      filterOptions: {
+        isAuthor: { equals: true },
+      },
     },
     {
       name: 'featuredImage',
@@ -41,17 +63,53 @@ export const Posts: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'metaDescription',
-      type: 'textarea',
+      name: 'disciplines',
+      type: 'relationship',
+      relationTo: 'disciplines',
+      hasMany: true,
     },
     {
-      name: 'videoEmbed',
+      name: 'tier',
+      type: 'select',
+      defaultValue: 'standard',
+      admin: {
+        description: 'Editorial tier for 3-tier blog layout (Ramp Velocity pattern)',
+      },
+      options: [
+        { label: 'Hero (featured/lead)', value: 'hero' },
+        { label: 'Featured', value: 'featured' },
+        { label: 'Standard', value: 'standard' },
+      ],
+    },
+    {
+      name: 'relatedPosts',
+      type: 'relationship',
+      relationTo: 'posts',
+      hasMany: true,
+      admin: {
+        description: 'Manually curated related posts',
+      },
+    },
+    {
+      name: 'legacySlug',
       type: 'text',
+      admin: {
+        description: 'Original slug from exitwithella.io (used to generate 301 redirect)',
+      },
+    },
+    {
+      name: 'showNewsletterCTA',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: {
+        description: 'Show newsletter signup CTA at the end of this post',
+      },
     },
     {
       name: 'content',
       type: 'richText',
     },
+    metaField,
   ],
   slug: 'posts',
 }

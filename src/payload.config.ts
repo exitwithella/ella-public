@@ -11,13 +11,24 @@ import { r2Storage } from '@payloadcms/storage-r2'
 import { buildConfig } from 'payload'
 import type { GetPlatformProxyOptions } from 'wrangler'
 
-import { Authors } from './collections/Authors'
 import { Categories } from './collections/Categories'
+import { Disciplines } from './collections/Disciplines'
+import { FAQItems } from './collections/FAQItems'
 import { LandingPages } from './collections/LandingPages'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
+import { Partners } from './collections/Partners'
 import { Posts } from './collections/Posts'
+import { PricingTiers } from './collections/PricingTiers'
+import { Redirects } from './collections/Redirects'
+import { Solutions } from './collections/Solutions'
+import { TeamMembers } from './collections/TeamMembers'
+import { Testimonials } from './collections/Testimonials'
+import { Tools } from './collections/Tools'
 import { Users } from './collections/Users'
+import { Footer } from './globals/Footer'
+import { Navigation } from './globals/Navigation'
+import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -38,7 +49,24 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Pages, LandingPages, Authors, Categories],
+  collections: [
+    Users,
+    Media,
+    Posts,
+    Pages,
+    LandingPages,
+    Categories,
+    Disciplines,
+    TeamMembers,
+    Testimonials,
+    Partners,
+    FAQItems,
+    PricingTiers,
+    Tools,
+    Redirects,
+    Solutions,
+  ],
+  globals: [SiteSettings, Navigation, Footer],
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   editor: lexicalEditor(),
   plugins: [
@@ -57,10 +85,16 @@ export default buildConfig({
         'landing-pages': {
           enabled: true,
         },
-        authors: {
+        'team-members': {
           enabled: true,
         },
         categories: {
+          enabled: true,
+        },
+        solutions: {
+          enabled: true,
+        },
+        testimonials: {
           enabled: true,
         },
       },

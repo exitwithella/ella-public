@@ -73,8 +73,16 @@ export interface Config {
     posts: Post;
     pages: Page;
     'landing-pages': LandingPage;
-    authors: Author;
     categories: Category;
+    disciplines: Discipline;
+    'team-members': TeamMember;
+    testimonials: Testimonial;
+    partners: Partner;
+    'faq-items': FaqItem;
+    'pricing-tiers': PricingTier;
+    tools: Tool;
+    redirects: Redirect;
+    solutions: Solution;
     'payload-mcp-api-keys': PayloadMcpApiKey;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -88,8 +96,16 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'landing-pages': LandingPagesSelect<false> | LandingPagesSelect<true>;
-    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    disciplines: DisciplinesSelect<false> | DisciplinesSelect<true>;
+    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
+    'faq-items': FaqItemsSelect<false> | FaqItemsSelect<true>;
+    'pricing-tiers': PricingTiersSelect<false> | PricingTiersSelect<true>;
+    tools: ToolsSelect<false> | ToolsSelect<true>;
+    redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    solutions: SolutionsSelect<false> | SolutionsSelect<true>;
     'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -100,8 +116,16 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSetting;
+    navigation: Navigation;
+    footer: Footer;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    navigation: NavigationSelect<false> | NavigationSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+  };
   locale: null;
   user:
     | (User & {
@@ -182,6 +206,12 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  caption?: string | null;
+  /**
+   * Photographer or source credit
+   */
+  credit?: string | null;
+  category?: ('product' | 'portrait' | 'logo' | 'icon' | 'illustration' | 'background' | 'document' | 'other') | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -200,12 +230,32 @@ export interface Post {
   id: number;
   title: string;
   slug: string;
+  /**
+   * Short summary used in blog cards and RSS feed (1-2 sentences)
+   */
+  excerpt?: string | null;
   publishedDate: string;
-  author?: (number | null) | Author;
+  status?: ('draft' | 'published') | null;
+  author?: (number | null) | TeamMember;
   featuredImage?: (number | null) | Media;
   categories?: (number | Category)[] | null;
-  metaDescription?: string | null;
-  videoEmbed?: string | null;
+  disciplines?: (number | Discipline)[] | null;
+  /**
+   * Editorial tier for 3-tier blog layout (Ramp Velocity pattern)
+   */
+  tier?: ('hero' | 'featured' | 'standard') | null;
+  /**
+   * Manually curated related posts
+   */
+  relatedPosts?: (number | Post)[] | null;
+  /**
+   * Original slug from exitwithella.io (used to generate 301 redirect)
+   */
+  legacySlug?: string | null;
+  /**
+   * Show newsletter signup CTA at the end of this post
+   */
+  showNewsletterCTA?: boolean | null;
   content?: {
     root: {
       type: string;
@@ -221,19 +271,58 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
+  meta?: {
+    /**
+     * Overrides page title in search results and browser tabs. 50–60 chars ideal.
+     */
+    title?: string | null;
+    /**
+     * Summary shown in search results. 150–160 chars ideal.
+     */
+    description?: string | null;
+    /**
+     * Open Graph image for social sharing. 1200×630px recommended.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors".
+ * via the `definition` "team-members".
  */
-export interface Author {
+export interface TeamMember {
   id: number;
   name: string;
   slug: string;
-  bio?: string | null;
-  avatar?: (number | null) | Media;
+  /**
+   * Job title or role, e.g. "Co-Founder & CEO"
+   */
+  role?: string | null;
+  photo?: (number | null) | Media;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Check to allow this team member to be assigned as a blog post author
+   */
+  isAuthor?: boolean | null;
+  linkedIn?: string | null;
+  twitter?: string | null;
+  sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -245,6 +334,34 @@ export interface Category {
   id: number;
   title: string;
   slug: string;
+  /**
+   * Internal name used in admin UI (optional, defaults to title)
+   */
+  internalLabel?: string | null;
+  description?: string | null;
+  /**
+   * Lower numbers appear first
+   */
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disciplines".
+ */
+export interface Discipline {
+  id: number;
+  name: string;
+  /**
+   * URL-safe identifier, e.g. "exit-planning"
+   */
+  slug: string;
+  description?: string | null;
+  /**
+   * Lower numbers appear first
+   */
+  sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -256,21 +373,35 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  metaDescription?: string | null;
+  status?: ('draft' | 'published') | null;
+  publishedDate?: string | null;
+  /**
+   * Parent page for breadcrumb and URL nesting
+   */
+  parent?: (number | null) | Page;
+  hero: {
+    headline: string;
+    subheadline?: string | null;
+    primaryCta?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    secondaryCta?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    visual?: (number | null) | Media;
+    style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+  };
   layout?:
     | (
         | {
-            headline: string;
-            subheadline?: string | null;
-            ctaText?: string | null;
-            ctaLink?: string | null;
-            backgroundImage?: (number | null) | Media;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'hero';
-          }
-        | {
-            content?: {
+            /**
+             * Small eyebrow label above the heading (optional)
+             */
+            sectionLabel?: string | null;
+            heading?: string | null;
+            body?: {
               root: {
                 type: string;
                 children: {
@@ -285,47 +416,292 @@ export interface Page {
               };
               [k: string]: unknown;
             } | null;
+            media?: (number | null) | Media;
+            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
+            link?: {
+              label?: string | null;
+              href?: string | null;
+              style?: ('button' | 'link') | null;
+            };
+            /**
+             * Small badge/tag to display near the heading
+             */
+            badge?: string | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'content';
+            blockType: 'content-section';
           }
         | {
-            headline?: string | null;
-            subheadline?: string | null;
-            features?:
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            variant?: ('feature' | 'icon' | 'minimal') | null;
+            columns?: ('2' | '3' | '4') | null;
+            cards?:
+              | {
+                  heading: string;
+                  body?: string | null;
+                  icon?: (number | null) | Media;
+                  link?: {
+                    label?: string | null;
+                    href?: string | null;
+                  };
+                  /**
+                   * ID of a section further down the page to link to (without #)
+                   */
+                  anchorTarget?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'card-grid';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            layout?: ('single' | 'grid' | 'carousel') | null;
+            testimonials?: (number | Testimonial)[] | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonial-block';
+          }
+        | {
+            headline: string;
+            body?: string | null;
+            primaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            secondaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            /**
+             * Small text below CTAs (e.g. "No credit card required")
+             */
+            closingLine?: string | null;
+            /**
+             * Trust signal near CTA (e.g. "Join 200+ advisors")
+             */
+            microcopy?: string | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta-section';
+          }
+        | {
+            variant?: ('logos' | 'stats' | 'combined') | null;
+            /**
+             * Small label above logos (e.g. "Trusted by advisors certified through")
+             */
+            label?: string | null;
+            partners?: (number | Partner)[] | null;
+            /**
+             * Shown in "stats" and "combined" variants
+             */
+            stats?:
+              | {
+                  /**
+                   * e.g. "200+"
+                   */
+                  value: string;
+                  /**
+                   * e.g. "advisors onboarded"
+                   */
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'credibility-strip';
+          }
+        | {
+            /**
+             * HTML id attribute for anchor links (e.g. "coverage")
+             */
+            sectionId?: string | null;
+            sectionLabel?: string | null;
+            /**
+             * Alternating text+visual rows
+             */
+            sections?:
+              | {
+                  heading: string;
+                  body?: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  } | null;
+                  visual?: (number | null) | Media;
+                  visualAlt?: string | null;
+                  /**
+                   * Optional embedded testimonial
+                   */
+                  testimonial?: (number | null) | Testimonial;
+                  link?: {
+                    label?: string | null;
+                    href?: string | null;
+                  };
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'feature-deep-dive';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            /**
+             * 3 columns: Old Way / Patchwork / With ELLA
+             */
+            columns?:
+              | {
+                  heading: string;
+                  subheading?: string | null;
+                  /**
+                   * Visually emphasize this column (the "With ELLA" column)
+                   */
+                  highlighted?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            rows?:
+              | {
+                  /**
+                   * Row label (the feature or criterion)
+                   */
+                  label: string;
+                  /**
+                   * One value per column (in order)
+                   */
+                  values?:
+                    | {
+                        text?: string | null;
+                        indicator?: ('text' | 'check' | 'cross' | 'partial') | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'comparison-table';
+          }
+        | {
+            heading?: string | null;
+            intro?: string | null;
+            items?:
               | {
                   title: string;
-                  description?: string | null;
+                  body?: string | null;
                   icon?: (number | null) | Media;
                   id?: string | null;
                 }[]
               | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'featureGrid';
+            blockType: 'trust-security';
           }
         | {
-            testimonials?:
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            steps?:
               | {
-                  quote: string;
-                  author: string;
-                  company?: string | null;
+                  heading: string;
+                  body?: string | null;
+                  /**
+                   * Screenshot or illustration for this step
+                   */
+                  image?: (number | null) | Media;
                   id?: string | null;
                 }[]
               | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'testimonials';
+            blockType: 'numbered-steps';
           }
         | {
-            headline: string;
-            description?: string | null;
-            buttonText?: string | null;
-            buttonLink?: string | null;
-            backgroundColor?: string | null;
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            solutions?: (number | Solution)[] | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'cta';
+            blockType: 'solutions-selector';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * Only show FAQs from this category (leave blank for all)
+             */
+            filterByCategory?:
+              | ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security')
+              | null;
+            /**
+             * Manually select FAQ items (overrides category filter)
+             */
+            items?: (number | FaqItem)[] | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq-accordion';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            /**
+             * Select pricing tiers in display order. Leave empty to show all tiers automatically.
+             */
+            tiers?: (number | PricingTier)[] | null;
+            /**
+             * Show monthly/annual billing toggle
+             */
+            showToggle?: boolean | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'pricing-journey';
+          }
+        | {
+            heading?: string | null;
+            subheading?: string | null;
+            placeholder?: string | null;
+            buttonLabel?: string | null;
+            successMessage?: string | null;
+            /**
+             * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
+             */
+            microcopy?: string | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'newsletter-capture';
           }
         | {
             embedType?: ('typeform' | 'loops' | 'custom') | null;
@@ -337,6 +713,520 @@ export interface Page {
           }
       )[]
     | null;
+  meta?: {
+    /**
+     * Overrides page title in search results and browser tabs. 50–60 chars ideal.
+     */
+    title?: string | null;
+    /**
+     * Summary shown in search results. 150–160 chars ideal.
+     */
+    description?: string | null;
+    /**
+     * Open Graph image for social sharing. 1200×630px recommended.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials".
+ */
+export interface Testimonial {
+  id: number;
+  quote: string;
+  /**
+   * Advisor's full name
+   */
+  name: string;
+  /**
+   * Job title, e.g. "Certified Exit Planning Advisor"
+   */
+  title?: string | null;
+  company?: string | null;
+  photo?: (number | null) | Media;
+  /**
+   * Optional quantitative result to highlight alongside the quote
+   */
+  metrics?: {
+    /**
+     * e.g. "3x" or "40%"
+     */
+    value?: string | null;
+    /**
+     * e.g. "more clients served"
+     */
+    label?: string | null;
+  };
+  /**
+   * Only approved testimonials appear on the site
+   */
+  approved?: boolean | null;
+  /**
+   * Tag by discipline to allow targeted display
+   */
+  disciplines?: (number | Discipline)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  name: string;
+  logo: number | Media;
+  type: 'association' | 'technology' | 'certification' | 'media' | 'integration';
+  url?: string | null;
+  showOnHomepage?: boolean | null;
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions".
+ */
+export interface Solution {
+  id: number;
+  title: string;
+  slug: string;
+  discipline: number | Discipline;
+  /**
+   * Short descriptor shown in solution cards
+   */
+  tagline?: string | null;
+  status?: ('published' | 'waitlist' | 'coming-soon') | null;
+  /**
+   * Mark as the primary beachhead use case (Exit Planning)
+   */
+  isBeachhead?: boolean | null;
+  hero: {
+    headline: string;
+    subheadline?: string | null;
+    primaryCta?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    secondaryCta?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    visual?: (number | null) | Media;
+    style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+  };
+  layout?:
+    | (
+        | {
+            /**
+             * Small eyebrow label above the heading (optional)
+             */
+            sectionLabel?: string | null;
+            heading?: string | null;
+            body?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            media?: (number | null) | Media;
+            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
+            link?: {
+              label?: string | null;
+              href?: string | null;
+              style?: ('button' | 'link') | null;
+            };
+            /**
+             * Small badge/tag to display near the heading
+             */
+            badge?: string | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'content-section';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            variant?: ('feature' | 'icon' | 'minimal') | null;
+            columns?: ('2' | '3' | '4') | null;
+            cards?:
+              | {
+                  heading: string;
+                  body?: string | null;
+                  icon?: (number | null) | Media;
+                  link?: {
+                    label?: string | null;
+                    href?: string | null;
+                  };
+                  /**
+                   * ID of a section further down the page to link to (without #)
+                   */
+                  anchorTarget?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'card-grid';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            layout?: ('single' | 'grid' | 'carousel') | null;
+            testimonials?: (number | Testimonial)[] | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonial-block';
+          }
+        | {
+            headline: string;
+            body?: string | null;
+            primaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            secondaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            /**
+             * Small text below CTAs (e.g. "No credit card required")
+             */
+            closingLine?: string | null;
+            /**
+             * Trust signal near CTA (e.g. "Join 200+ advisors")
+             */
+            microcopy?: string | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta-section';
+          }
+        | {
+            variant?: ('logos' | 'stats' | 'combined') | null;
+            /**
+             * Small label above logos (e.g. "Trusted by advisors certified through")
+             */
+            label?: string | null;
+            partners?: (number | Partner)[] | null;
+            /**
+             * Shown in "stats" and "combined" variants
+             */
+            stats?:
+              | {
+                  /**
+                   * e.g. "200+"
+                   */
+                  value: string;
+                  /**
+                   * e.g. "advisors onboarded"
+                   */
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'credibility-strip';
+          }
+        | {
+            /**
+             * HTML id attribute for anchor links (e.g. "coverage")
+             */
+            sectionId?: string | null;
+            sectionLabel?: string | null;
+            /**
+             * Alternating text+visual rows
+             */
+            sections?:
+              | {
+                  heading: string;
+                  body?: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  } | null;
+                  visual?: (number | null) | Media;
+                  visualAlt?: string | null;
+                  /**
+                   * Optional embedded testimonial
+                   */
+                  testimonial?: (number | null) | Testimonial;
+                  link?: {
+                    label?: string | null;
+                    href?: string | null;
+                  };
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'feature-deep-dive';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            /**
+             * 3 columns: Old Way / Patchwork / With ELLA
+             */
+            columns?:
+              | {
+                  heading: string;
+                  subheading?: string | null;
+                  /**
+                   * Visually emphasize this column (the "With ELLA" column)
+                   */
+                  highlighted?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            rows?:
+              | {
+                  /**
+                   * Row label (the feature or criterion)
+                   */
+                  label: string;
+                  /**
+                   * One value per column (in order)
+                   */
+                  values?:
+                    | {
+                        text?: string | null;
+                        indicator?: ('text' | 'check' | 'cross' | 'partial') | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'comparison-table';
+          }
+        | {
+            heading?: string | null;
+            intro?: string | null;
+            items?:
+              | {
+                  title: string;
+                  body?: string | null;
+                  icon?: (number | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'trust-security';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            steps?:
+              | {
+                  heading: string;
+                  body?: string | null;
+                  /**
+                   * Screenshot or illustration for this step
+                   */
+                  image?: (number | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'numbered-steps';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            solutions?: (number | Solution)[] | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'solutions-selector';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * Only show FAQs from this category (leave blank for all)
+             */
+            filterByCategory?:
+              | ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security')
+              | null;
+            /**
+             * Manually select FAQ items (overrides category filter)
+             */
+            items?: (number | FaqItem)[] | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq-accordion';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            /**
+             * Select pricing tiers in display order. Leave empty to show all tiers automatically.
+             */
+            tiers?: (number | PricingTier)[] | null;
+            /**
+             * Show monthly/annual billing toggle
+             */
+            showToggle?: boolean | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'pricing-journey';
+          }
+        | {
+            heading?: string | null;
+            subheading?: string | null;
+            placeholder?: string | null;
+            buttonLabel?: string | null;
+            successMessage?: string | null;
+            /**
+             * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
+             */
+            microcopy?: string | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'newsletter-capture';
+          }
+        | {
+            embedType?: ('typeform' | 'loops' | 'custom') | null;
+            formId?: string | null;
+            embedCode?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'formEmbed';
+          }
+      )[]
+    | null;
+  meta?: {
+    /**
+     * Overrides page title in search results and browser tabs. 50–60 chars ideal.
+     */
+    title?: string | null;
+    /**
+     * Summary shown in search results. 150–160 chars ideal.
+     */
+    description?: string | null;
+    /**
+     * Open Graph image for social sharing. 1200×630px recommended.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq-items".
+ */
+export interface FaqItem {
+  id: number;
+  question: string;
+  answer: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  category?: ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security') | null;
+  /**
+   * Include in the FAQ section on the Pricing page
+   */
+  showOnPricing?: boolean | null;
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-tiers".
+ */
+export interface PricingTier {
+  id: number;
+  /**
+   * e.g. "Free", "Practitioner", "Vanguard"
+   */
+  name: string;
+  price?: {
+    /**
+     * Monthly price in cents (e.g. 9900 = $99). 0 = Free.
+     */
+    amount?: number | null;
+    period?: ('month' | 'year' | 'one-time' | 'custom') | null;
+    /**
+     * Override price display (e.g. "Contact us")
+     */
+    customLabel?: string | null;
+  };
+  /**
+   * Short descriptor shown under the tier name
+   */
+  tagline?: string | null;
+  features?:
+    | {
+        feature: string;
+        included?: ('yes' | 'no' | 'limited' | 'addon') | null;
+        id?: string | null;
+      }[]
+    | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Show this tier as the recommended/featured option
+   */
+  highlighted?: boolean | null;
+  sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -348,25 +1238,34 @@ export interface LandingPage {
   id: number;
   title: string;
   slug: string;
-  metaDescription?: string | null;
   /**
    * Campaign or event this landing page is associated with (e.g., "EPI Summit 2025")
    */
   campaign?: string | null;
+  status?: ('draft' | 'published') | null;
+  hero: {
+    headline: string;
+    subheadline?: string | null;
+    primaryCta?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    secondaryCta?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    visual?: (number | null) | Media;
+    style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+  };
   layout?:
     | (
         | {
-            headline: string;
-            subheadline?: string | null;
-            ctaText?: string | null;
-            ctaLink?: string | null;
-            backgroundImage?: (number | null) | Media;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'hero';
-          }
-        | {
-            content?: {
+            /**
+             * Small eyebrow label above the heading (optional)
+             */
+            sectionLabel?: string | null;
+            heading?: string | null;
+            body?: {
               root: {
                 type: string;
                 children: {
@@ -381,47 +1280,292 @@ export interface LandingPage {
               };
               [k: string]: unknown;
             } | null;
+            media?: (number | null) | Media;
+            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
+            link?: {
+              label?: string | null;
+              href?: string | null;
+              style?: ('button' | 'link') | null;
+            };
+            /**
+             * Small badge/tag to display near the heading
+             */
+            badge?: string | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'content';
+            blockType: 'content-section';
           }
         | {
-            headline?: string | null;
-            subheadline?: string | null;
-            features?:
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            variant?: ('feature' | 'icon' | 'minimal') | null;
+            columns?: ('2' | '3' | '4') | null;
+            cards?:
+              | {
+                  heading: string;
+                  body?: string | null;
+                  icon?: (number | null) | Media;
+                  link?: {
+                    label?: string | null;
+                    href?: string | null;
+                  };
+                  /**
+                   * ID of a section further down the page to link to (without #)
+                   */
+                  anchorTarget?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'card-grid';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            layout?: ('single' | 'grid' | 'carousel') | null;
+            testimonials?: (number | Testimonial)[] | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonial-block';
+          }
+        | {
+            headline: string;
+            body?: string | null;
+            primaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            secondaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            /**
+             * Small text below CTAs (e.g. "No credit card required")
+             */
+            closingLine?: string | null;
+            /**
+             * Trust signal near CTA (e.g. "Join 200+ advisors")
+             */
+            microcopy?: string | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta-section';
+          }
+        | {
+            variant?: ('logos' | 'stats' | 'combined') | null;
+            /**
+             * Small label above logos (e.g. "Trusted by advisors certified through")
+             */
+            label?: string | null;
+            partners?: (number | Partner)[] | null;
+            /**
+             * Shown in "stats" and "combined" variants
+             */
+            stats?:
+              | {
+                  /**
+                   * e.g. "200+"
+                   */
+                  value: string;
+                  /**
+                   * e.g. "advisors onboarded"
+                   */
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'credibility-strip';
+          }
+        | {
+            /**
+             * HTML id attribute for anchor links (e.g. "coverage")
+             */
+            sectionId?: string | null;
+            sectionLabel?: string | null;
+            /**
+             * Alternating text+visual rows
+             */
+            sections?:
+              | {
+                  heading: string;
+                  body?: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  } | null;
+                  visual?: (number | null) | Media;
+                  visualAlt?: string | null;
+                  /**
+                   * Optional embedded testimonial
+                   */
+                  testimonial?: (number | null) | Testimonial;
+                  link?: {
+                    label?: string | null;
+                    href?: string | null;
+                  };
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'feature-deep-dive';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            /**
+             * 3 columns: Old Way / Patchwork / With ELLA
+             */
+            columns?:
+              | {
+                  heading: string;
+                  subheading?: string | null;
+                  /**
+                   * Visually emphasize this column (the "With ELLA" column)
+                   */
+                  highlighted?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            rows?:
+              | {
+                  /**
+                   * Row label (the feature or criterion)
+                   */
+                  label: string;
+                  /**
+                   * One value per column (in order)
+                   */
+                  values?:
+                    | {
+                        text?: string | null;
+                        indicator?: ('text' | 'check' | 'cross' | 'partial') | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'comparison-table';
+          }
+        | {
+            heading?: string | null;
+            intro?: string | null;
+            items?:
               | {
                   title: string;
-                  description?: string | null;
+                  body?: string | null;
                   icon?: (number | null) | Media;
                   id?: string | null;
                 }[]
               | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'featureGrid';
+            blockType: 'trust-security';
           }
         | {
-            testimonials?:
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            steps?:
               | {
-                  quote: string;
-                  author: string;
-                  company?: string | null;
+                  heading: string;
+                  body?: string | null;
+                  /**
+                   * Screenshot or illustration for this step
+                   */
+                  image?: (number | null) | Media;
                   id?: string | null;
                 }[]
               | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'testimonials';
+            blockType: 'numbered-steps';
           }
         | {
-            headline: string;
-            description?: string | null;
-            buttonText?: string | null;
-            buttonLink?: string | null;
-            backgroundColor?: string | null;
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            solutions?: (number | Solution)[] | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'cta';
+            blockType: 'solutions-selector';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * Only show FAQs from this category (leave blank for all)
+             */
+            filterByCategory?:
+              | ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security')
+              | null;
+            /**
+             * Manually select FAQ items (overrides category filter)
+             */
+            items?: (number | FaqItem)[] | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq-accordion';
+          }
+        | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            /**
+             * Select pricing tiers in display order. Leave empty to show all tiers automatically.
+             */
+            tiers?: (number | PricingTier)[] | null;
+            /**
+             * Show monthly/annual billing toggle
+             */
+            showToggle?: boolean | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'pricing-journey';
+          }
+        | {
+            heading?: string | null;
+            subheading?: string | null;
+            placeholder?: string | null;
+            buttonLabel?: string | null;
+            successMessage?: string | null;
+            /**
+             * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
+             */
+            microcopy?: string | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'newsletter-capture';
           }
         | {
             embedType?: ('typeform' | 'loops' | 'custom') | null;
@@ -433,6 +1577,66 @@ export interface LandingPage {
           }
       )[]
     | null;
+  meta?: {
+    /**
+     * Overrides page title in search results and browser tabs. 50–60 chars ideal.
+     */
+    title?: string | null;
+    /**
+     * Summary shown in search results. 150–160 chars ideal.
+     */
+    description?: string | null;
+    /**
+     * Open Graph image for social sharing. 1200×630px recommended.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tools".
+ */
+export interface Tool {
+  id: number;
+  title: string;
+  slug: string;
+  description?: string | null;
+  /**
+   * Deep link to this tool within the ELLA app
+   */
+  toolUrl?: string | null;
+  disciplines?: (number | Discipline)[] | null;
+  /**
+   * Minimum tier required to access this tool
+   */
+  pricingTier?: (number | null) | PricingTier;
+  status?: ('available' | 'coming-soon' | 'beta') | null;
+  icon?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
+export interface Redirect {
+  id: number;
+  /**
+   * Source path (e.g. "/old-page" or full URL from exitwithella.io)
+   */
+  from: string;
+  /**
+   * Destination path or URL
+   */
+  to: string;
+  type?: ('301' | '302') | null;
+  /**
+   * Which domain this redirect originates from
+   */
+  sourceDomain?: ('withella' | 'exitwithella') | null;
+  active?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -510,21 +1714,21 @@ export interface PayloadMcpApiKey {
      */
     delete?: boolean | null;
   };
-  authors?: {
+  teamMembers?: {
     /**
-     * Allow clients to find authors.
+     * Allow clients to find team-members.
      */
     find?: boolean | null;
     /**
-     * Allow clients to create authors.
+     * Allow clients to create team-members.
      */
     create?: boolean | null;
     /**
-     * Allow clients to update authors.
+     * Allow clients to update team-members.
      */
     update?: boolean | null;
     /**
-     * Allow clients to delete authors.
+     * Allow clients to delete team-members.
      */
     delete?: boolean | null;
   };
@@ -543,6 +1747,42 @@ export interface PayloadMcpApiKey {
     update?: boolean | null;
     /**
      * Allow clients to delete categories.
+     */
+    delete?: boolean | null;
+  };
+  solutions?: {
+    /**
+     * Allow clients to find solutions.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create solutions.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update solutions.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete solutions.
+     */
+    delete?: boolean | null;
+  };
+  testimonials?: {
+    /**
+     * Allow clients to find testimonials.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create testimonials.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update testimonials.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete testimonials.
      */
     delete?: boolean | null;
   };
@@ -597,12 +1837,44 @@ export interface PayloadLockedDocument {
         value: number | LandingPage;
       } | null)
     | ({
-        relationTo: 'authors';
-        value: number | Author;
-      } | null)
-    | ({
         relationTo: 'categories';
         value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'disciplines';
+        value: number | Discipline;
+      } | null)
+    | ({
+        relationTo: 'team-members';
+        value: number | TeamMember;
+      } | null)
+    | ({
+        relationTo: 'testimonials';
+        value: number | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: number | Partner;
+      } | null)
+    | ({
+        relationTo: 'faq-items';
+        value: number | FaqItem;
+      } | null)
+    | ({
+        relationTo: 'pricing-tiers';
+        value: number | PricingTier;
+      } | null)
+    | ({
+        relationTo: 'tools';
+        value: number | Tool;
+      } | null)
+    | ({
+        relationTo: 'redirects';
+        value: number | Redirect;
+      } | null)
+    | ({
+        relationTo: 'solutions';
+        value: number | Solution;
       } | null)
     | ({
         relationTo: 'payload-mcp-api-keys';
@@ -688,6 +1960,9 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  caption?: T;
+  credit?: T;
+  category?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -705,13 +1980,25 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  excerpt?: T;
   publishedDate?: T;
+  status?: T;
   author?: T;
   featuredImage?: T;
   categories?: T;
-  metaDescription?: T;
-  videoEmbed?: T;
+  disciplines?: T;
+  tier?: T;
+  relatedPosts?: T;
+  legacySlug?: T;
+  showNewsletterCTA?: T;
   content?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -722,66 +2009,264 @@ export interface PostsSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  metaDescription?: T;
+  status?: T;
+  publishedDate?: T;
+  parent?: T;
+  hero?:
+    | T
+    | {
+        headline?: T;
+        subheadline?: T;
+        primaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        visual?: T;
+        style?: T;
+      };
   layout?:
     | T
     | {
-        hero?:
+        'content-section'?:
           | T
           | {
-              headline?: T;
-              subheadline?: T;
-              ctaText?: T;
-              ctaLink?: T;
-              backgroundImage?: T;
+              sectionLabel?: T;
+              heading?: T;
+              body?: T;
+              media?: T;
+              mediaPosition?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    style?: T;
+                  };
+              badge?: T;
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
-        content?:
+        'card-grid'?:
           | T
           | {
-              content?: T;
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              variant?: T;
+              columns?: T;
+              cards?:
+                | T
+                | {
+                    heading?: T;
+                    body?: T;
+                    icon?: T;
+                    link?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                    anchorTarget?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
-        featureGrid?:
+        'testimonial-block'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              layout?: T;
+              testimonials?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'cta-section'?:
           | T
           | {
               headline?: T;
-              subheadline?: T;
-              features?:
+              body?: T;
+              primaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              secondaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              closingLine?: T;
+              microcopy?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'credibility-strip'?:
+          | T
+          | {
+              variant?: T;
+              label?: T;
+              partners?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'feature-deep-dive'?:
+          | T
+          | {
+              sectionId?: T;
+              sectionLabel?: T;
+              sections?:
+                | T
+                | {
+                    heading?: T;
+                    body?: T;
+                    visual?: T;
+                    visualAlt?: T;
+                    testimonial?: T;
+                    link?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'comparison-table'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              columns?:
+                | T
+                | {
+                    heading?: T;
+                    subheading?: T;
+                    highlighted?: T;
+                    id?: T;
+                  };
+              rows?:
+                | T
+                | {
+                    label?: T;
+                    values?:
+                      | T
+                      | {
+                          text?: T;
+                          indicator?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'trust-security'?:
+          | T
+          | {
+              heading?: T;
+              intro?: T;
+              items?:
                 | T
                 | {
                     title?: T;
-                    description?: T;
+                    body?: T;
                     icon?: T;
                     id?: T;
                   };
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
-        testimonials?:
+        'numbered-steps'?:
           | T
           | {
-              testimonials?:
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              steps?:
                 | T
                 | {
-                    quote?: T;
-                    author?: T;
-                    company?: T;
+                    heading?: T;
+                    body?: T;
+                    image?: T;
                     id?: T;
                   };
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
-        cta?:
+        'solutions-selector'?:
           | T
           | {
-              headline?: T;
-              description?: T;
-              buttonText?: T;
-              buttonLink?: T;
-              backgroundColor?: T;
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              solutions?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'faq-accordion'?:
+          | T
+          | {
+              heading?: T;
+              filterByCategory?: T;
+              items?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'pricing-journey'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              tiers?: T;
+              showToggle?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'newsletter-capture'?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              placeholder?: T;
+              buttonLabel?: T;
+              successMessage?: T;
+              microcopy?: T;
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
@@ -794,6 +2279,13 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -805,67 +2297,263 @@ export interface PagesSelect<T extends boolean = true> {
 export interface LandingPagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  metaDescription?: T;
   campaign?: T;
+  status?: T;
+  hero?:
+    | T
+    | {
+        headline?: T;
+        subheadline?: T;
+        primaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        visual?: T;
+        style?: T;
+      };
   layout?:
     | T
     | {
-        hero?:
+        'content-section'?:
           | T
           | {
-              headline?: T;
-              subheadline?: T;
-              ctaText?: T;
-              ctaLink?: T;
-              backgroundImage?: T;
+              sectionLabel?: T;
+              heading?: T;
+              body?: T;
+              media?: T;
+              mediaPosition?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    style?: T;
+                  };
+              badge?: T;
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
-        content?:
+        'card-grid'?:
           | T
           | {
-              content?: T;
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              variant?: T;
+              columns?: T;
+              cards?:
+                | T
+                | {
+                    heading?: T;
+                    body?: T;
+                    icon?: T;
+                    link?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                    anchorTarget?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
-        featureGrid?:
+        'testimonial-block'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              layout?: T;
+              testimonials?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'cta-section'?:
           | T
           | {
               headline?: T;
-              subheadline?: T;
-              features?:
+              body?: T;
+              primaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              secondaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              closingLine?: T;
+              microcopy?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'credibility-strip'?:
+          | T
+          | {
+              variant?: T;
+              label?: T;
+              partners?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'feature-deep-dive'?:
+          | T
+          | {
+              sectionId?: T;
+              sectionLabel?: T;
+              sections?:
+                | T
+                | {
+                    heading?: T;
+                    body?: T;
+                    visual?: T;
+                    visualAlt?: T;
+                    testimonial?: T;
+                    link?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'comparison-table'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              columns?:
+                | T
+                | {
+                    heading?: T;
+                    subheading?: T;
+                    highlighted?: T;
+                    id?: T;
+                  };
+              rows?:
+                | T
+                | {
+                    label?: T;
+                    values?:
+                      | T
+                      | {
+                          text?: T;
+                          indicator?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'trust-security'?:
+          | T
+          | {
+              heading?: T;
+              intro?: T;
+              items?:
                 | T
                 | {
                     title?: T;
-                    description?: T;
+                    body?: T;
                     icon?: T;
                     id?: T;
                   };
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
-        testimonials?:
+        'numbered-steps'?:
           | T
           | {
-              testimonials?:
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              steps?:
                 | T
                 | {
-                    quote?: T;
-                    author?: T;
-                    company?: T;
+                    heading?: T;
+                    body?: T;
+                    image?: T;
                     id?: T;
                   };
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
-        cta?:
+        'solutions-selector'?:
           | T
           | {
-              headline?: T;
-              description?: T;
-              buttonText?: T;
-              buttonLink?: T;
-              backgroundColor?: T;
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              solutions?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'faq-accordion'?:
+          | T
+          | {
+              heading?: T;
+              filterByCategory?: T;
+              items?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'pricing-journey'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              tiers?: T;
+              showToggle?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'newsletter-capture'?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              placeholder?: T;
+              buttonLabel?: T;
+              successMessage?: T;
+              microcopy?: T;
+              bgStyle?: T;
               id?: T;
               blockName?: T;
             };
@@ -879,18 +2567,13 @@ export interface LandingPagesSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors_select".
- */
-export interface AuthorsSelect<T extends boolean = true> {
-  name?: T;
-  slug?: T;
-  bio?: T;
-  avatar?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -901,6 +2584,436 @@ export interface AuthorsSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  internalLabel?: T;
+  description?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "disciplines_select".
+ */
+export interface DisciplinesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members_select".
+ */
+export interface TeamMembersSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  role?: T;
+  photo?: T;
+  bio?: T;
+  isAuthor?: T;
+  linkedIn?: T;
+  twitter?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  quote?: T;
+  name?: T;
+  title?: T;
+  company?: T;
+  photo?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+      };
+  approved?: T;
+  disciplines?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  type?: T;
+  url?: T;
+  showOnHomepage?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq-items_select".
+ */
+export interface FaqItemsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  category?: T;
+  showOnPricing?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-tiers_select".
+ */
+export interface PricingTiersSelect<T extends boolean = true> {
+  name?: T;
+  price?:
+    | T
+    | {
+        amount?: T;
+        period?: T;
+        customLabel?: T;
+      };
+  tagline?: T;
+  features?:
+    | T
+    | {
+        feature?: T;
+        included?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  highlighted?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tools_select".
+ */
+export interface ToolsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  toolUrl?: T;
+  disciplines?: T;
+  pricingTier?: T;
+  status?: T;
+  icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects_select".
+ */
+export interface RedirectsSelect<T extends boolean = true> {
+  from?: T;
+  to?: T;
+  type?: T;
+  sourceDomain?: T;
+  active?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions_select".
+ */
+export interface SolutionsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  discipline?: T;
+  tagline?: T;
+  status?: T;
+  isBeachhead?: T;
+  hero?:
+    | T
+    | {
+        headline?: T;
+        subheadline?: T;
+        primaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        visual?: T;
+        style?: T;
+      };
+  layout?:
+    | T
+    | {
+        'content-section'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              body?: T;
+              media?: T;
+              mediaPosition?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    style?: T;
+                  };
+              badge?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'card-grid'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              variant?: T;
+              columns?: T;
+              cards?:
+                | T
+                | {
+                    heading?: T;
+                    body?: T;
+                    icon?: T;
+                    link?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                    anchorTarget?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'testimonial-block'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              layout?: T;
+              testimonials?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'cta-section'?:
+          | T
+          | {
+              headline?: T;
+              body?: T;
+              primaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              secondaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              closingLine?: T;
+              microcopy?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'credibility-strip'?:
+          | T
+          | {
+              variant?: T;
+              label?: T;
+              partners?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'feature-deep-dive'?:
+          | T
+          | {
+              sectionId?: T;
+              sectionLabel?: T;
+              sections?:
+                | T
+                | {
+                    heading?: T;
+                    body?: T;
+                    visual?: T;
+                    visualAlt?: T;
+                    testimonial?: T;
+                    link?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'comparison-table'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              columns?:
+                | T
+                | {
+                    heading?: T;
+                    subheading?: T;
+                    highlighted?: T;
+                    id?: T;
+                  };
+              rows?:
+                | T
+                | {
+                    label?: T;
+                    values?:
+                      | T
+                      | {
+                          text?: T;
+                          indicator?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'trust-security'?:
+          | T
+          | {
+              heading?: T;
+              intro?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    body?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'numbered-steps'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              steps?:
+                | T
+                | {
+                    heading?: T;
+                    body?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'solutions-selector'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              solutions?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'faq-accordion'?:
+          | T
+          | {
+              heading?: T;
+              filterByCategory?: T;
+              items?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'pricing-journey'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              tiers?: T;
+              showToggle?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'newsletter-capture'?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              placeholder?: T;
+              buttonLabel?: T;
+              successMessage?: T;
+              microcopy?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        formEmbed?:
+          | T
+          | {
+              embedType?: T;
+              formId?: T;
+              embedCode?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -936,7 +3049,7 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         update?: T;
         delete?: T;
       };
-  authors?:
+  teamMembers?:
     | T
     | {
         find?: T;
@@ -945,6 +3058,22 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         delete?: T;
       };
   categories?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  solutions?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  testimonials?:
     | T
     | {
         find?: T;
@@ -997,6 +3126,224 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  siteName?: string | null;
+  logo?: (number | null) | Media;
+  /**
+   * Square/icon version of logo for favicon and mobile
+   */
+  logomark?: (number | null) | Media;
+  /**
+   * Default Open Graph image for pages without a custom og:image (1200×630px)
+   */
+  ogImage?: (number | null) | Media;
+  socialLinks?: {
+    linkedIn?: string | null;
+    twitter?: string | null;
+    youtube?: string | null;
+  };
+  announcementBar?: {
+    enabled?: boolean | null;
+    message?: string | null;
+    link?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    style?: ('forest' | 'goldenrod' | 'ash') | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation".
+ */
+export interface Navigation {
+  id: number;
+  primaryNav?:
+    | {
+        label: string;
+        href?: string | null;
+        type?: ('link' | 'dropdown') | null;
+        dropdownItems?:
+          | {
+              label: string;
+              href: string;
+              /**
+               * Short descriptor shown under label in mega-menu
+               */
+              description?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  primaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  secondaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  /**
+   * Footer link columns
+   */
+  columns?:
+    | {
+        heading: string;
+        links?:
+          | {
+              label: string;
+              href: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  newsletterSection?: {
+    enabled?: boolean | null;
+    heading?: string | null;
+    subheading?: string | null;
+    placeholder?: string | null;
+    buttonLabel?: string | null;
+  };
+  legalLinks?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  copyrightText?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  logo?: T;
+  logomark?: T;
+  ogImage?: T;
+  socialLinks?:
+    | T
+    | {
+        linkedIn?: T;
+        twitter?: T;
+        youtube?: T;
+      };
+  announcementBar?:
+    | T
+    | {
+        enabled?: T;
+        message?: T;
+        link?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        style?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation_select".
+ */
+export interface NavigationSelect<T extends boolean = true> {
+  primaryNav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        type?: T;
+        dropdownItems?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              description?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  primaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  secondaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  columns?:
+    | T
+    | {
+        heading?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  newsletterSection?:
+    | T
+    | {
+        enabled?: T;
+        heading?: T;
+        subheading?: T;
+        placeholder?: T;
+        buttonLabel?: T;
+      };
+  legalLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  copyrightText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
