@@ -1,5 +1,5 @@
 /**
- * Idempotent seed script for ELLA reference collections.
+ * Idempotent seed script for ELLA.
  *
  * Run after migration: pnpm seed
  *
@@ -10,12 +10,47 @@
  *   - 5 PricingTiers
  *   - 2 Tools
  *   - 4 Solutions (1 published / 3 waitlist)
- *   - Navigation global (initial structure)
- *   - SiteSettings global (initial values)
+ *   - Navigation global
+ *   - SiteSettings global
+ *   - 2 Testimonials (Kevin, Lisa)
+ *   - Homepage page document (full real content, upsert)
  */
 import 'dotenv/config'
 import config from './payload.config'
 import { getPayload } from 'payload'
+
+/** Build a Lexical rich-text document from plain paragraph strings. */
+function makeRichText(...paragraphs: string[]) {
+  return {
+    root: {
+      type: 'root',
+      direction: 'ltr' as const,
+      format: '' as const,
+      indent: 0,
+      version: 1,
+      children: paragraphs.map((text) => ({
+        type: 'paragraph',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
+        textFormat: 0,
+        textStyle: '',
+        children: [
+          {
+            type: 'text',
+            version: 1,
+            text,
+            format: 0,
+            detail: 0,
+            mode: 'normal' as const,
+            style: '',
+          },
+        ],
+      })),
+    },
+  }
+}
 
 async function seed() {
   const payload = await getPayload({ config })
@@ -127,10 +162,7 @@ async function seed() {
     })
 
     if (existing.docs.length === 0) {
-      await payload.create({
-        collection: 'partners',
-        data: partner,
-      })
+      await payload.create({ collection: 'partners', data: partner })
       console.log(`✓ Partner: ${partner.name} (logo needs upload)`)
     } else {
       console.log(`  Partner already exists: ${partner.name}`)
@@ -342,7 +374,6 @@ async function seed() {
     }
 
     const { disciplineSlug: _, ...solutionData } = sol
-    // Hero and layout are populated via admin UI after seeding
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await payload.create({
       collection: 'solutions',
@@ -416,20 +447,22 @@ async function seed() {
   console.log('✓ SiteSettings global')
 
   // ─────────────────────────────────────────────────────────
-  // Testimonials (placeholder — update via Payload admin or MCP)
+  // Testimonials
   // ─────────────────────────────────────────────────────────
   const testimonialDefs = [
     {
-      name: 'Advisor A',
+      name: 'Kevin',
       title: 'Certified Exit Planning Advisor',
-      quote: '[Testimonial A placeholder — edit via Payload admin or MCP.]',
-      approved: false,
+      quote:
+        'ELLA allows me to create more revenue opportunities. I\u2019m able to create more of a consulting relationship where it leads to more business.',
+      approved: true,
     },
     {
-      name: 'Advisor B',
-      title: 'M&A Advisor',
-      quote: '[Testimonial B placeholder — edit via Payload admin or MCP.]',
-      approved: false,
+      name: 'Lisa',
+      title: 'M&A Advisor, Small Business Alternatives',
+      quote:
+        'Typically our deliverable would just be a standard EBITDA. ELLA is a value add and we can show that we aren\u2019t just pulling these numbers out of a hat.',
+      approved: true,
     },
   ]
 
@@ -447,14 +480,259 @@ async function seed() {
       testimonialIds[t.name] = created.id
       console.log(`✓ Testimonial: ${t.name}`)
     } else {
+      // Update with real content in case a placeholder was previously seeded
+      await payload.update({ collection: 'testimonials', id: existing.docs[0].id, data: t })
       testimonialIds[t.name] = existing.docs[0].id
-      console.log(`  Testimonial already exists: ${t.name}`)
+      console.log(`  Testimonial updated: ${t.name}`)
     }
   }
 
   // ─────────────────────────────────────────────────────────
-  // Homepage Page document (placeholder — update via Payload admin or MCP)
+  // Homepage (upsert — create or update with full real content)
   // ─────────────────────────────────────────────────────────
+  const homepageLayout = [
+    // Block 2: Credibility Strip
+    {
+      blockType: 'credibility-strip',
+      variant: 'text',
+      statement:
+        'We spent a year talking to advisors before we wrote a line of code. 100+ conversations with CEPAs, CPAs, wealth managers, and M&A brokers shaped every decision in this product.',
+      bgStyle: 'cream',
+    },
+    // Block 3: Bridge — "Advisors are stuck in AI's messy middle"
+    {
+      blockType: 'bridge-section',
+      heading: "Advisors are stuck in AI\u2019s messy middle.",
+      body: makeRichText(
+        "Advisors are racing to prepare for client meetings, often pulling up ChatGPT to synthesize documents, draft agendas, or make sense of a fact pattern they haven\u2019t had time to fully digest. It\u2019s fast, it\u2019s convenient, and it\u2019s quietly creating regulatory and reputational risk.",
+        "When you open ChatGPT for one client and move to the next conversation, you\u2019re one careless prompt away from cross-pollinating confidential information. Most advisors we spoke with hadn\u2019t thought about this. The ones who had were worried but didn\u2019t have a better option.",
+        "Meanwhile, business owners are using the same tools. They\u2019re asking AI what their business is worth, what questions to ask their advisor, whether they even need an advisor at all. The information asymmetry that once justified advisory fees is eroding.",
+      ),
+      quotes: [
+        {
+          text: 'No one\u2019s been able to come up with the perfect one-size-fits-all solution. Everyone has pros and cons about all of them.',
+          attribution: 'Exit planning advisor, 20+ years experience',
+        },
+        {
+          text: "The minute they feel like they\u2019re in a box, they\u2019re like, \u2018wait, I was unique to you two minutes ago, and now I\u2019m in a box?\u2019",
+          attribution: 'CEPA, on client expectations',
+        },
+      ],
+      closer: "The squeeze is real. And the tools advisors have today weren\u2019t built for this reality.",
+      bgStyle: 'ash-light',
+    },
+    // Block 4a: Pillar Cards
+    {
+      blockType: 'card-grid',
+      sectionLabel: 'What We Built',
+      heading: 'Three pillars. One workbench.',
+      subheading:
+        'ELLA organizes the entire advisory workflow into three connected pillars \u2014 so nothing falls through the cracks.',
+      variant: 'feature',
+      columns: '3',
+      bgStyle: 'cream',
+      cards: [
+        {
+          heading: 'Fact Finding',
+          body: 'Structured discovery that adapts to your process, your industry, and your client.',
+          capabilities: [
+            { text: 'Lightweight or deep-dive templates' },
+            { text: 'Collaborative client workspace' },
+            { text: 'Customizable to your process' },
+          ],
+        },
+        {
+          heading: 'Sensemaking',
+          body: 'Ask questions against the full context of an engagement. Surface what matters.',
+          capabilities: [
+            { text: 'Sandboxed per client \u2014 no memory bleed' },
+            { text: 'Connected to fact finding data' },
+            { text: 'Builds context across the engagement' },
+          ],
+        },
+        {
+          heading: 'Deliverables',
+          body: 'Client-ready documents that reflect the actual owner and business, not a template.',
+          capabilities: [
+            { text: 'Insight flows directly from sensemaking' },
+            { text: 'Collaborative and contextual' },
+            { text: 'Branded and export-ready' },
+          ],
+        },
+      ],
+    },
+    // Block 4b: Sensemaking Deep-Dive
+    {
+      blockType: 'feature-deep-dive',
+      sectionLabel: 'Sensemaking',
+      sectionId: 'sensemaking',
+      bgStyle: 'ash-light',
+      sections: [
+        {
+          heading: 'From data to direction.',
+          body: makeRichText(
+            'Sensemaking is our take on AI. Secure, private, and connected to all the context from fact finding. Ask a question against the full context of a client engagement and get insight that\u2019s grounded in the actual data, not a generic summary.',
+            'This is where ELLA changes the daily workflow: instead of spending days manually extracting data points, cross-referencing benchmarks, and synthesizing findings, the advisor asks questions and the system draws from everything that\u2019s been uploaded and discussed.',
+          ),
+          testimonial: testimonialIds['Kevin'] ?? null,
+        },
+      ],
+    },
+    // Block 5: Trust & Security
+    {
+      blockType: 'trust-security',
+      heading: 'Secure, because both of our reputations are on the line.',
+      intro:
+        "We know trust is earned, and essential when you\u2019re the steward of your clients\u2019 most valuable asset. ELLA is built with a security-first architecture that solves a problem most advisors haven\u2019t fully considered yet.\n\nHere\u2019s what ChatGPT can\u2019t do: guarantee that your last client\u2019s financials don\u2019t leak into your next client\u2019s analysis. We solve this at the architectural level. Every client engagement lives in a sandboxed workspace with customizable permissions for all team members.",
+      items: [
+        { title: 'Full data encryption in transit and at rest' },
+        { title: 'Modern U.S.-based infrastructure (SOC2/II compliant providers)' },
+        { title: 'Granular role-based access control (RBAC)' },
+        { title: 'Multi-factor authentication by default' },
+        { title: 'Enterprise SSO / SAML' },
+        { title: 'GDPR and CCPA adherence' },
+        { title: 'Your data exportable and deletable at any time' },
+      ],
+      closingLine:
+        'Only those you explicitly invite can access your workspace. We don\u2019t share your business information without your permission. ELLA never sells your data.',
+      bgStyle: 'ash-light',
+    },
+    // Block 6: Before/After Panel
+    {
+      blockType: 'before-after-panel',
+      sectionLabel: 'The ELLA Difference',
+      heading: 'Hours, not weeks.',
+      subheading:
+        'See how ELLA transforms the advisory workflow from first contact to final deliverable.',
+      before: {
+        label: 'The Current Workflow',
+        points: [
+          { text: 'Receive documents via email from client, CPA, attorney' },
+          { text: 'Manually extract key data points into spreadsheets' },
+          { text: 'Cross-reference against industry benchmarks' },
+          { text: 'Draft deliverable in Word from a generic template' },
+          { text: 'Weeks pass before the first real conversation' },
+        ],
+      },
+      after: {
+        label: 'With ELLA',
+        points: [
+          { text: 'Owner uploads directly; exit team contributes in one workspace' },
+          { text: 'ELLA ingests, structures, and cross-references' },
+          { text: 'Advisor asks questions against the full context' },
+          { text: 'Insight flows directly into client-ready deliverables' },
+          { text: 'Hours to the first real conversation, not weeks' },
+        ],
+      },
+    },
+    // Block 7: Comparison Table — Old Way / Patchwork / With ELLA (Option D)
+    {
+      blockType: 'comparison-table',
+      sectionLabel: 'A Better Way to Work',
+      heading: 'The old way isn\u2019t working. Neither is the patchwork.',
+      subheading: 'See how ELLA compares to the workflows advisors are trying to leave behind.',
+      bgStyle: 'cream',
+      columns: [
+        { heading: 'The Old Way', subheading: 'Manual, memory-based', highlighted: false },
+        { heading: 'The Patchwork', subheading: 'Stitched together, leaky', highlighted: false },
+        { heading: 'With ELLA', subheading: 'Purpose-built for advisors', highlighted: true },
+      ],
+      rows: [
+        {
+          label: 'Client intake',
+          values: [
+            { text: 'Paper forms, email back-and-forth', indicator: 'cross' },
+            {
+              text: '\u201cIt\u2019s in the CRM. Or the email. Or the shared drive.\u201d',
+              indicator: 'partial',
+            },
+            {
+              text: 'Owner uploads directly; exit team contributes in one workspace',
+              indicator: 'check',
+            },
+          ],
+        },
+        {
+          label: 'Analysis',
+          values: [
+            { text: 'Manual extraction, memory-based', indicator: 'cross' },
+            {
+              text: '\u201cI asked ChatGPT\u201d (one prompt away from leaking client data)',
+              indicator: 'partial',
+            },
+            {
+              text: 'Contextual AI within a sandboxed client workspace',
+              indicator: 'check',
+            },
+          ],
+        },
+        {
+          label: 'Deliverables',
+          values: [
+            { text: '90-page template reports', indicator: 'cross' },
+            {
+              text: 'Cobbled from Word, inconsistent, \u201cgood enough\u201d',
+              indicator: 'partial',
+            },
+            {
+              text: 'Built from the actual financials, assessments, and conversation',
+              indicator: 'check',
+            },
+          ],
+        },
+        {
+          label: 'Team coordination',
+          values: [
+            { text: 'Email chains, version confusion', indicator: 'cross' },
+            { text: 'Shared drives that nobody maintains', indicator: 'partial' },
+            {
+              text: 'One workspace, role-based access, advisor in the driver\u2019s seat',
+              indicator: 'check',
+            },
+          ],
+        },
+        {
+          label: 'Knowledge retention',
+          values: [
+            { text: 'Walks out the door when the advisor does', indicator: 'cross' },
+            { text: 'Scattered across six tools, never connected', indicator: 'partial' },
+            {
+              text: 'Compounds over the lifecycle of every engagement',
+              indicator: 'check',
+            },
+          ],
+        },
+      ],
+    },
+    // Block 9: Closer CTA
+    {
+      blockType: 'cta-section',
+      body: "We\u2019ve noticed a divide forming among advisors.\n\nSome are actively experimenting with how to adapt their practice for the age of AI. They want to build durable systems around what makes them unique.\n\nMany more are stuck in the crunch. Running so hard to keep up with each engagement that they haven\u2019t had the bandwidth to step back and think about their practice as a system.\n\nThe advisors who figure out how to systematize without sacrificing the relationship are the ones who will thrive as AI reshapes the landscape.",
+      closingLine: 'Your methodology is your moat. Build the system around it.',
+      primaryCta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
+      secondaryCta: {
+        label: 'Book a Demo',
+        href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+      },
+      microcopy: 'Your first 3 clients are on us.',
+      bgStyle: 'forest-dark',
+    },
+  ]
+
+  const homepageHero = {
+    headline: 'GO FROM INTAKE TO INSIGHT\nIN A FRACTION OF THE TIME',
+    subheadline:
+      'ELLA turns trust into action with tools built for advisor-led transitions. From document intake through sensemaking to client-ready deliverables, one workspace holds everything your engagement needs.',
+    primaryCta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
+    secondaryCta: {
+      label: 'Book a Demo',
+      href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+    },
+    style: 'default' as const,
+    highlightText: 'INTAKE TO INSIGHT',
+    highlightColor: 'goldenrod' as const,
+  }
+
   const homepageExists = await payload.find({
     collection: 'pages',
     where: { slug: { equals: 'home' } },
@@ -462,354 +740,26 @@ async function seed() {
   })
 
   if (homepageExists.docs.length > 0) {
-    // Ensure the comparison table block exists — idempotent upsert for existing environments
-    const homepage = await payload.findByID({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await payload.update({
       collection: 'pages',
       id: homepageExists.docs[0].id,
-      depth: 0,
+      data: { hero: homepageHero, layout: homepageLayout } as any,
     })
-    const existingLayout = (homepage.layout ?? []) as any[]
-    const hasComparisonTable = existingLayout.some(
-      (b: any) => b.blockType === 'comparison-table',
-    )
-    if (hasComparisonTable) {
-      console.log('  Homepage already exists (comparison table present)')
-    } else {
-      const comparisonTableBlock = {
-        blockType: 'comparison-table',
-        sectionLabel: 'A Better Way to Work',
-        heading: 'The old way isn\u2019t working. Neither is the patchwork.',
-        subheading: 'See how ELLA compares to the workflows advisors are trying to leave behind.',
-        bgStyle: 'cream',
-        columns: [
-          { heading: 'The Old Way', subheading: 'Manual, memory-based', highlighted: false },
-          { heading: 'The Patchwork', subheading: 'Stitched together, leaky', highlighted: false },
-          { heading: 'With ELLA', subheading: 'Purpose-built for advisors', highlighted: true },
-        ],
-        rows: [
-          {
-            label: 'Client intake',
-            values: [
-              { text: 'Paper forms, email back-and-forth', indicator: 'cross' },
-              {
-                text: '\u201cIt\u2019s in the CRM. Or the email. Or the shared drive.\u201d',
-                indicator: 'partial',
-              },
-              {
-                text: 'Owner uploads directly; exit team contributes in one workspace',
-                indicator: 'check',
-              },
-            ],
-          },
-          {
-            label: 'Analysis',
-            values: [
-              { text: 'Manual extraction, memory-based', indicator: 'cross' },
-              {
-                text: '\u201cI asked ChatGPT\u201d (one prompt away from leaking client data)',
-                indicator: 'partial',
-              },
-              {
-                text: 'Contextual AI within a sandboxed client workspace',
-                indicator: 'check',
-              },
-            ],
-          },
-          {
-            label: 'Deliverables',
-            values: [
-              { text: '90-page template reports', indicator: 'cross' },
-              {
-                text: 'Cobbled from Word, inconsistent, \u201cgood enough\u201d',
-                indicator: 'partial',
-              },
-              {
-                text: 'Built from the actual financials, assessments, and conversation',
-                indicator: 'check',
-              },
-            ],
-          },
-          {
-            label: 'Team coordination',
-            values: [
-              { text: 'Email chains, version confusion', indicator: 'cross' },
-              { text: 'Shared drives that nobody maintains', indicator: 'partial' },
-              {
-                text: 'One workspace, role-based access, advisor in the driver\u2019s seat',
-                indicator: 'check',
-              },
-            ],
-          },
-          {
-            label: 'Knowledge retention',
-            values: [
-              { text: 'Walks out the door when the advisor does', indicator: 'cross' },
-              { text: 'Scattered across six tools, never connected', indicator: 'partial' },
-              {
-                text: 'Compounds over the lifecycle of every engagement',
-                indicator: 'check',
-              },
-            ],
-          },
-        ],
-      }
-      const ctaIdx = existingLayout.findIndex((b: any) => b.blockType === 'cta-section')
-      const insertAt = ctaIdx >= 0 ? ctaIdx : existingLayout.length
-      const newLayout = [
-        ...existingLayout.slice(0, insertAt),
-        comparisonTableBlock,
-        ...existingLayout.slice(insertAt),
-      ]
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await payload.update({ collection: 'pages', id: homepage.id, data: { layout: newLayout } as any })
-      console.log('✓ Homepage comparison table block inserted')
-    }
+    console.log('✓ Homepage updated')
   } else {
-    const placeholderRichText = {
-      root: {
-        type: 'root',
-        direction: 'ltr' as const,
-        format: '' as const,
-        indent: 0,
-        version: 1,
-        children: [
-          {
-            type: 'paragraph',
-            direction: 'ltr' as const,
-            format: '' as const,
-            indent: 0,
-            version: 1,
-            textFormat: 0,
-            textStyle: '',
-            children: [
-              {
-                type: 'text',
-                version: 1,
-                text: '[Placeholder body content — edit via Payload admin or MCP.]',
-                format: 0,
-                detail: 0,
-                mode: 'normal' as const,
-                style: '',
-              },
-            ],
-          },
-        ],
-      },
-    }
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await payload.create({
       collection: 'pages',
       data: {
         title: 'Home',
         slug: 'home',
         status: 'published',
-        hero: {
-          headline: '[HOMEPAGE HEADLINE]\n[SECOND LINE]',
-          subheadline: '[Subheadline placeholder — edit via Payload admin or MCP.]',
-          primaryCta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
-          secondaryCta: {
-            label: 'Book a Demo',
-            href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
-          },
-          style: 'default',
-          highlightText: 'HEADLINE',
-          highlightColor: 'goldenrod',
-        },
-        layout: [
-          // Block 2: Credibility Strip
-          {
-            blockType: 'credibility-strip',
-            variant: 'text',
-            statement: '[Credibility strip — line one.]\n[Line two.]',
-            bgStyle: 'cream',
-          },
-          // Block 3: Bridge
-          {
-            blockType: 'bridge-section',
-            heading: '[Bridge section heading — edit via Payload admin or MCP.]',
-            body: placeholderRichText,
-            quotes: [
-              {
-                text: '[Quote A — edit via Payload admin or MCP.]',
-                attribution: '[Attribution A]',
-              },
-              {
-                text: '[Quote B — edit via Payload admin or MCP.]',
-                attribution: '[Attribution B]',
-              },
-            ],
-            closer: '[Bridge closer line — edit via Payload admin or MCP.]',
-            bgStyle: 'ash-light',
-          },
-          // Block 4a: Pillar Cards
-          {
-            blockType: 'card-grid',
-            sectionLabel: '[Section label]',
-            heading: '[Card grid heading — edit via Payload admin or MCP.]',
-            subheading: '[Subheading placeholder.]',
-            variant: 'feature',
-            columns: '3',
-            bgStyle: 'cream',
-            cards: [
-              {
-                heading: 'Fact Finding',
-                body: '[Card 1 body — edit via Payload admin or MCP.]',
-                capabilities: [
-                  { text: '[Capability 1]' },
-                  { text: '[Capability 2]' },
-                  { text: '[Capability 3]' },
-                ],
-              },
-              {
-                heading: 'Sensemaking',
-                body: '[Card 2 body — edit via Payload admin or MCP.]',
-                capabilities: [
-                  { text: '[Capability 1]' },
-                  { text: '[Capability 2]' },
-                  { text: '[Capability 3]' },
-                ],
-              },
-              {
-                heading: 'Deliverables',
-                body: '[Card 3 body — edit via Payload admin or MCP.]',
-                capabilities: [
-                  { text: '[Capability 1]' },
-                  { text: '[Capability 2]' },
-                  { text: '[Capability 3]' },
-                ],
-              },
-            ],
-          },
-          // Block 4b: Sensemaking Deep-Dive
-          {
-            blockType: 'feature-deep-dive',
-            sectionLabel: 'Sensemaking',
-            sectionId: 'sensemaking',
-            bgStyle: 'ash-light',
-            sections: [
-              {
-                heading: '[Deep-dive heading — edit via Payload admin or MCP.]',
-                body: placeholderRichText,
-                testimonial: testimonialIds['Advisor A'] ?? null,
-              },
-            ],
-          },
-          // Block 5: Trust & Security
-          {
-            blockType: 'trust-security',
-            heading: '[Trust & security heading — edit via Payload admin or MCP.]',
-            intro: '[Trust & security intro — edit via Payload admin or MCP.]',
-            items: [
-              { title: '[Security item 1]' },
-              { title: '[Security item 2]' },
-              { title: '[Security item 3]' },
-              { title: '[Security item 4]' },
-              { title: '[Security item 5]' },
-              { title: '[Security item 6]' },
-              { title: '[Security item 7]' },
-            ],
-            closingLine: '[Trust closing line — edit via Payload admin or MCP.]',
-            bgStyle: 'ash-light',
-          },
-          // Block 6: Before/After Panel
-          {
-            blockType: 'before-after-panel',
-            sectionLabel: '[Section label]',
-            heading: '[Before/after heading — edit via Payload admin or MCP.]',
-            subheading: '[Subheading placeholder.]',
-            before: {
-              label: 'Without ELLA',
-              points: [
-                { text: '[Before point 1]' },
-                { text: '[Before point 2]' },
-                { text: '[Before point 3]' },
-                { text: '[Before point 4]' },
-                { text: '[Before point 5]' },
-              ],
-            },
-            after: {
-              label: 'With ELLA',
-              points: [
-                { text: '[After point 1]' },
-                { text: '[After point 2]' },
-                { text: '[After point 3]' },
-                { text: '[After point 4]' },
-                { text: '[After point 5]' },
-              ],
-            },
-          },
-          // Block 7: Comparison Table (Old Way / Patchwork / With ELLA)
-          {
-            blockType: 'comparison-table',
-            sectionLabel: '[Section label]',
-            heading: '[Comparison table heading — edit via Payload admin or MCP.]',
-            subheading: '[Subheading placeholder.]',
-            bgStyle: 'cream',
-            columns: [
-              { heading: 'The Old Way', subheading: '[Description]', highlighted: false },
-              { heading: 'Patchwork Tools', subheading: '[Description]', highlighted: false },
-              { heading: 'With ELLA', subheading: '[Description]', highlighted: true },
-            ],
-            rows: [
-              {
-                label: '[Row 1 label — edit via Payload admin or MCP.]',
-                values: [
-                  { text: '[Old Way value]', indicator: 'cross' },
-                  { text: '[Patchwork value]', indicator: 'partial' },
-                  { text: '[ELLA value]', indicator: 'check' },
-                ],
-              },
-              {
-                label: '[Row 2 label — edit via Payload admin or MCP.]',
-                values: [
-                  { text: '[Old Way value]', indicator: 'cross' },
-                  { text: '[Patchwork value]', indicator: 'partial' },
-                  { text: '[ELLA value]', indicator: 'check' },
-                ],
-              },
-              {
-                label: '[Row 3 label — edit via Payload admin or MCP.]',
-                values: [
-                  { text: '[Old Way value]', indicator: 'cross' },
-                  { text: '[Patchwork value]', indicator: 'partial' },
-                  { text: '[ELLA value]', indicator: 'check' },
-                ],
-              },
-              {
-                label: '[Row 4 label — edit via Payload admin or MCP.]',
-                values: [
-                  { text: '[Old Way value]', indicator: 'cross' },
-                  { text: '[Patchwork value]', indicator: 'partial' },
-                  { text: '[ELLA value]', indicator: 'check' },
-                ],
-              },
-              {
-                label: '[Row 5 label — edit via Payload admin or MCP.]',
-                values: [
-                  { text: '[Old Way value]', indicator: 'cross' },
-                  { text: '[Patchwork value]', indicator: 'partial' },
-                  { text: '[ELLA value]', indicator: 'check' },
-                ],
-              },
-            ],
-          },
-          // Block 9: Closer CTA
-          {
-            blockType: 'cta-section',
-            body: '[CTA body paragraph 1 — edit via Payload admin or MCP.]\n\n[Paragraph 2.]\n\n[Paragraph 3.]\n\n[Paragraph 4.]',
-            closingLine: '[Closing line — edit via Payload admin or MCP.]',
-            primaryCta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
-            secondaryCta: {
-              label: 'Book a Demo',
-              href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
-            },
-            microcopy: '[Microcopy — edit via Payload admin or MCP.]',
-            bgStyle: 'forest-dark',
-          },
-        ],
-      },
+        hero: homepageHero,
+        layout: homepageLayout,
+      } as any,
     })
-    console.log('✓ Homepage page document')
+    console.log('✓ Homepage created')
   }
 
   console.log('\nSeed complete.')
