@@ -1,7 +1,9 @@
 import type { Page } from '@/payload-types'
 
 import { BridgeSectionBlock } from './blocks/bridge-section-block'
+import { CardGridBlock } from './blocks/card-grid-block'
 import { CredibilityStripBlock } from './blocks/credibility-strip-block'
+import { FeatureDeepDiveBlock } from './blocks/feature-deep-dive-block'
 
 type Block = NonNullable<Page['layout']>[number]
 
@@ -16,7 +18,9 @@ export function BlockRenderer({ block }: BlockRendererProps) {
     case 'bridge-section':
       return <BridgeSectionBlock block={block} />
     case 'card-grid':
+      return <CardGridBlock block={block} />
     case 'feature-deep-dive':
+      return <FeatureDeepDiveBlock block={block} />
     case 'trust-security':
     case 'before-after-panel':
     case 'cta-section':
