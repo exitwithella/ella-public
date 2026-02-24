@@ -166,6 +166,13 @@
   --color-emerald-950: oklch(0.187 0.029 136.45);
 }
 
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
