@@ -15,17 +15,32 @@ import { hero } from "../_lib/content";
 function AnimatedHeadlineLine({
   text,
   baseDelay = 0,
+  highlight,
 }: {
   text: string;
   baseDelay?: number;
+  highlight?: string;
 }) {
   const words = text.split(" ");
+  const highlightWords = highlight ? highlight.split(" ") : [];
+  const highlightStart = highlight ? text.indexOf(highlight) : -1;
+  const highlightStartWord =
+    highlightStart >= 0
+      ? text.slice(0, highlightStart).split(" ").filter(Boolean).length
+      : -1;
 
   return (
     <span className="flex flex-wrap justify-center gap-x-3">
       {words.map((word, index) => (
         <motion.span
           key={index}
+          className={
+            highlightStartWord >= 0 &&
+            index >= highlightStartWord &&
+            index < highlightStartWord + highlightWords.length
+              ? "text-goldenrod-500"
+              : undefined
+          }
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
@@ -95,7 +110,7 @@ export function Hero() {
 
         {/* Headlines */}
         <h1 className="font-display text-ash-950 flex flex-col items-center text-center text-2xl font-bold text-balance md:text-4xl">
-          <AnimatedHeadlineLine text={hero.headline[0]} baseDelay={0} />
+          <AnimatedHeadlineLine text={hero.headline[0]} baseDelay={0} highlight="INTAKE TO INSIGHT" />
           <AnimatedSecondLine text={hero.headline[1]} />
         </h1>
 

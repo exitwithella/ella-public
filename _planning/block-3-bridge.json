@@ -1,0 +1,76 @@
+{
+  "block": 3,
+  "name": "Bridge",
+  "internalLabel": "Advising Can Be Chaos",
+  "purpose": "Name the squeeze before pitching the product. Earn the right to describe the solution by proving we understand the problem.",
+  "designReference": "Interloom (testimonial-before-features placement)",
+  "oatmealComponent": "Text section with embedded testimonial pair",
+  "header": {
+    "text": "Advisors are stuck in AI's messy middle.",
+    "font": "Termina",
+    "notes": "Section-level headline. Short, declarative. Names the pattern."
+  },
+  "body": {
+    "paragraphs": [
+      "Advisors are racing to prepare for client meetings, often pulling up ChatGPT to synthesize documents, draft agendas, or make sense of a fact pattern they haven't had time to fully digest. It's fast, it's convenient, and it's quietly creating regulatory and reputational risk.",
+      "When you open ChatGPT for one client and move to the next conversation, you're one careless prompt away from cross-pollinating confidential information. Most advisors we spoke with hadn't thought about this. The ones who had were worried but didn't have a better option.",
+      "Meanwhile, business owners are using the same tools. They're asking AI what their business is worth, what questions to ask their advisor, whether they even need an advisor at all. The information asymmetry that once justified advisory fees is eroding in real time."
+    ],
+    "font": "DM Sans",
+    "notes": "Three paragraphs, not four. Cut the original spec's fourth paragraph ('The squeeze is real. And the tools advisors have today weren't built for this reality.') — that line now lands as the reader's own conclusion after the quote pair. Each paragraph targets one jaw of the vice: AI risk, data bleed, and information asymmetry erosion."
+  },
+  "quotes": {
+    "presentation": "stacked",
+    "notes": "Two separate blockquotes, each with its own attribution. Placed after body copy, before closing line. The pair creates a one-two: the first names the advisor's desperation for any handhold, the second names why generic tools can't be that handhold. Together they set up Block 4's malleability positioning without ELLA needing to say it yet.",
+    "items": [
+      {
+        "text": "It's about building software that can help me look like an expert, or at least give me a process to help me look like an expert.",
+        "attribution": "Advisor, on what they need from technology",
+        "font": "DM Serif Display",
+        "attributionFont": "DM Sans",
+        "narrativeRole": "Names the squeeze from the advisor's side. The 'or at least' is the tell — they're negotiating downward from expertise to mere appearance of process. This is someone feeling the information asymmetry closing in."
+      },
+      {
+        "text": "The minute they feel like they're in a box, they're like, 'wait, I was unique to you two minutes ago, and now I'm in a box?'",
+        "attribution": "CEPA, on client expectations",
+        "font": "DM Serif Display",
+        "attributionFont": "DM Sans",
+        "narrativeRole": "Names the squeeze from the client's side. The advisor needs to systematize (quote 1), but the moment the business owner feels systematized, trust breaks. This is the tension ELLA's malleability resolves — and the reader arrives at that conclusion before Block 4 states it."
+      }
+    ]
+  },
+  "closer": {
+    "text": "The squeeze is real. And the tools advisors have today weren't built for this reality.",
+    "font": "DM Sans",
+    "weight": "medium",
+    "notes": "Moved from body to standalone closing line. After the two quotes, this lands as confirmation of what the reader already feels, not as a claim. One short sentence followed by one medium sentence — the pacing rule (Rule 10) permits the short punch here because it earned its brevity through the preceding buildup."
+  },
+  "transition": {
+    "to": "Block 4 — Product Pillars",
+    "mechanism": "The quote pair creates a gap (need process + can't feel like a box) that Block 4's three pillars fill. No explicit transition copy needed. The section break and Block 4's header ('What We Built' or equivalent) provides the pivot."
+  },
+  "designNotes": {
+    "background": "Subtle warm tint, slightly differentiated from page default cream. Not dark — this isn't the closer block.",
+    "spacing": "Generous padding above and below. The quotes need breathing room. Oatmeal defaults + 20-30% override applies.",
+    "quoteStyle": "DM Serif Display, slightly larger than body text. Left-aligned, not centered. Attribution in DM Sans, smaller, muted ash tone. No quotation mark decorations or oversized pull-quote styling — let the words carry the weight.",
+    "maxWidth": "Body copy and quotes should share the same max-width container. No full-bleed elements in this block."
+  },
+  "contentStatus": {
+    "header": "final",
+    "body": "final — trimmed from spec's four paragraphs to three",
+    "quotes": "final — pending confirmation of anonymous attribution format",
+    "closer": "final"
+  },
+  "decisions": {
+    "resolved": [
+      "Include quotes: yes, two quotes as a stacked pair",
+      "Attribution style: anonymous role descriptor, not named",
+      "Ship at launch: yes, this block is essential to the narrative arc",
+      "Quote placement: after body copy, before closing line"
+    ],
+    "open": [
+      "Confirm attribution descriptors are accurate to source transcripts",
+      "Confirm DM Serif Display for quotes vs. alternative treatment"
+    ]
+  }
+}

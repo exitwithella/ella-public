@@ -11,6 +11,7 @@ import { r2Storage } from '@payloadcms/storage-r2'
 import { buildConfig } from 'payload'
 import type { GetPlatformProxyOptions } from 'wrangler'
 
+import { CaseStudies } from './collections/CaseStudies'
 import { Categories } from './collections/Categories'
 import { Disciplines } from './collections/Disciplines'
 import { FAQItems } from './collections/FAQItems'
@@ -26,6 +27,7 @@ import { TeamMembers } from './collections/TeamMembers'
 import { Testimonials } from './collections/Testimonials'
 import { Tools } from './collections/Tools'
 import { Users } from './collections/Users'
+import { VanguardEvents } from './collections/VanguardEvents'
 import { Footer } from './globals/Footer'
 import { Navigation } from './globals/Navigation'
 import { SiteSettings } from './globals/SiteSettings'
@@ -65,6 +67,8 @@ export default buildConfig({
     Tools,
     Redirects,
     Solutions,
+    CaseStudies,
+    VanguardEvents,
   ],
   globals: [SiteSettings, Navigation, Footer],
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),

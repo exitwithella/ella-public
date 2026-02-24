@@ -83,6 +83,8 @@ export interface Config {
     tools: Tool;
     redirects: Redirect;
     solutions: Solution;
+    'case-studies': CaseStudy;
+    'vanguard-events': VanguardEvent;
     'payload-mcp-api-keys': PayloadMcpApiKey;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -106,6 +108,8 @@ export interface Config {
     tools: ToolsSelect<false> | ToolsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     solutions: SolutionsSelect<false> | SolutionsSelect<true>;
+    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
+    'vanguard-events': VanguardEventsSelect<false> | VanguardEventsSelect<true>;
     'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -1453,6 +1457,121 @@ export interface Redirect {
   createdAt: string;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies".
+ */
+export interface CaseStudy {
+  id: number;
+  /**
+   * Internal title — not shown publicly (client is anonymous)
+   */
+  title: string;
+  /**
+   * Public-facing headline, e.g. "How one advisor tripled engagement in 90 days"
+   */
+  headline?: string | null;
+  /**
+   * Short summary paragraph shown in card/list views
+   */
+  summary?: string | null;
+  /**
+   * Full case study narrative
+   */
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Anonymous client descriptor — no identifying information
+   */
+  client?: {
+    /**
+     * e.g. "Mid-size RIA, Southeast US" or "Solo CEPA practitioner"
+     */
+    descriptor?: string | null;
+    firmSize?: ('solo' | 'small' | 'mid' | 'large') | null;
+  };
+  /**
+   * Quantitative outcomes to highlight
+   */
+  metrics?:
+    | {
+        /**
+         * e.g. "3x" or "40%"
+         */
+        value: string;
+        /**
+         * e.g. "increase in client engagement"
+         */
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Primary discipline this case study belongs to
+   */
+  discipline?: (number | null) | Discipline;
+  /**
+   * Pin to featured placement on case studies index
+   */
+  featured?: boolean | null;
+  /**
+   * Only approved case studies appear on the site
+   */
+  approved?: boolean | null;
+  coverImage?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vanguard-events".
+ */
+export interface VanguardEvent {
+  id: number;
+  title: string;
+  description?: string | null;
+  date: string;
+  location?: {
+    type?: ('virtual' | 'in-person' | 'hybrid') | null;
+    /**
+     * Physical address for in-person or hybrid events
+     */
+    address?: string | null;
+    city?: string | null;
+    /**
+     * e.g. "Zoom" or "Hopin" for virtual events
+     */
+    platform?: string | null;
+  };
+  /**
+   * External registration link
+   */
+  registrationUrl?: string | null;
+  /**
+   * Maximum attendees (leave blank for unlimited)
+   */
+  capacity?: number | null;
+  status: 'upcoming' | 'registration-open' | 'sold-out' | 'completed' | 'canceled';
+  /**
+   * Restrict registration to Vanguard tier members
+   */
+  vanguardOnly?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * API keys control which collections, resources, tools, and prompts MCP clients can access
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1687,6 +1806,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'solutions';
         value: number | Solution;
+      } | null)
+    | ({
+        relationTo: 'case-studies';
+        value: number | CaseStudy;
+      } | null)
+    | ({
+        relationTo: 'vanguard-events';
+        value: number | VanguardEvent;
       } | null)
     | ({
         relationTo: 'payload-mcp-api-keys';
@@ -2689,6 +2816,58 @@ export interface SolutionsSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies_select".
+ */
+export interface CaseStudiesSelect<T extends boolean = true> {
+  title?: T;
+  headline?: T;
+  summary?: T;
+  body?: T;
+  client?:
+    | T
+    | {
+        descriptor?: T;
+        firmSize?: T;
+      };
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  discipline?: T;
+  featured?: T;
+  approved?: T;
+  coverImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vanguard-events_select".
+ */
+export interface VanguardEventsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  date?: T;
+  location?:
+    | T
+    | {
+        type?: T;
+        address?: T;
+        city?: T;
+        platform?: T;
+      };
+  registrationUrl?: T;
+  capacity?: T;
+  status?: T;
+  vanguardOnly?: T;
   updatedAt?: T;
   createdAt?: T;
 }

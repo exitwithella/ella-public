@@ -8,12 +8,15 @@
       "type": "http",
       "url": "http://localhost:3000/api/mcp",
       "headers": {
-        "Authorization": "Bearer d1186213-d4a8-43d1-a332-a0e69549084f"
+        "Authorization": "Bearer 1e26a4e7-8876-419c-881e-9ef1f6b1f34c"
       }
     },
     "next-devtools": {
       "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"]
+      "args": [
+        "-y",
+        "next-devtools-mcp@latest"
+      ]
     }
   }
 }
