@@ -88,7 +88,7 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
         )}
 
         {/* Desktop table */}
-        <div className="border-ash-200 hidden overflow-x-auto rounded-xl border md:block">
+        <div className="border-ash-200 hidden overflow-x-auto rounded-sm border md:block">
           <table className="w-full border-collapse text-sm">
             <colgroup>
               <col className="w-2/5" />
@@ -158,8 +158,8 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
           {columns.map((col, colIdx) => (
             <div
               key={col.id}
-              className={`rounded-xl border p-5 ${
-                col.highlighted ? 'border-moss-200 bg-moss-50' : 'border-ash-200 bg-white/60'
+              className={`rounded-sm border p-5 ${
+                col.highlighted ? 'border-moss-200 bg-moss-50' : 'border-ash-200 bg-ash-50'
               }`}
             >
               <h3

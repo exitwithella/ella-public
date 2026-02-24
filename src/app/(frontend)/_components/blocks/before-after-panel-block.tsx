@@ -41,7 +41,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
         {/* Two-panel layout */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
           {/* Before panel — fragmented, cluttered feel */}
-          <div className="border-ash-200 rounded-sm border bg-white/40 p-8">
+          <div className="border-ash-200 rounded-sm border bg-ash-100/60 p-8">
             <div className="mb-6 flex items-center gap-2">
               <span className="bg-ash-300 inline-block h-2 w-2 rounded-full" aria-hidden="true" />
               <h3 className="font-display text-ash-500 text-sm font-semibold tracking-wider uppercase">
@@ -49,7 +49,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
               </h3>
             </div>
             {beforePoints.length > 0 && (
-              <ol className="space-y-4" role="list">
+              <ol className="space-y-4">
                 {beforePoints.map((point, index) => (
                   <li key={point.id} className="flex items-start gap-3">
                     <span
@@ -74,7 +74,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
               </h3>
             </div>
             {afterPoints.length > 0 && (
-              <ol className="space-y-4" role="list">
+              <ol className="space-y-4">
                 {afterPoints.map((point, index) => (
                   <li key={point.id} className="flex items-start gap-3">
                     <span

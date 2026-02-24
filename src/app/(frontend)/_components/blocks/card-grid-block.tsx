@@ -62,7 +62,7 @@ export function CardGridBlock({ block }: CardGridBlockProps) {
               <div
                 key={card.id}
                 id={card.anchorTarget ?? undefined}
-                className={`rounded-sm p-8 md:p-10 ${isForestDark ? 'bg-moss-800' : 'bg-white/60'}`}
+                className={`rounded-sm border p-8 md:p-10 ${isForestDark ? 'border-moss-700 bg-moss-800' : 'border-ash-200 bg-ash-100'}`}
               >
                 {/* Card heading — Termina */}
                 <h3

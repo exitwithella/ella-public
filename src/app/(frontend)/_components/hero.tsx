@@ -170,7 +170,7 @@ export function Hero({ hero }: HeroProps) {
 
         {/* CTAs */}
         <motion.div
-          className="flex items-center gap-4"
+          className="flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row"
           initial={{ opacity: 0, y: 150 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -180,10 +180,15 @@ export function Hero({ hero }: HeroProps) {
             type: 'spring',
           }}
         >
-          <ButtonLink href={primaryHref} size="lg" target="_blank">
+          <ButtonLink href={primaryHref} size="lg" target="_blank" className="w-full sm:w-auto">
             {primaryLabel}
           </ButtonLink>
-          <PlainButtonLink href={secondaryHref} size="lg" target="_blank">
+          <PlainButtonLink
+            href={secondaryHref}
+            size="lg"
+            target="_blank"
+            className="w-full sm:w-auto"
+          >
             {secondaryLabel} <ArrowNarrowRightIcon />
           </PlainButtonLink>
         </motion.div>

@@ -41,11 +41,11 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
   return (
     <section id={block.sectionId ?? undefined} className={`py-20 md:py-28 ${bg}`}>
       <Container>
-        {/* Section label */}
+        {/* Section label — h2 for correct heading hierarchy (h1 hero → h2 section → h3 items) */}
         {block.sectionLabel && (
-          <p className="text-moss-600 mb-4 text-xs font-semibold tracking-widest uppercase">
+          <h2 className="text-moss-600 mb-4 text-xs font-semibold tracking-widest uppercase">
             {block.sectionLabel}
-          </p>
+          </h2>
         )}
 
         {/* Alternating sections */}
