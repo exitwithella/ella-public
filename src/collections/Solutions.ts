@@ -6,6 +6,7 @@ import {
   CTASectionBlock,
   FeatureDeepDiveBlock,
   FormEmbedBlock,
+  NumberedStepsBlock,
   TestimonialBlock,
   TrustSecurityBlock,
 } from '../blocks'
@@ -73,6 +74,7 @@ export const Solutions: CollectionConfig = {
         TestimonialBlock,
         CTASectionBlock,
         FeatureDeepDiveBlock,
+        NumberedStepsBlock,
         TrustSecurityBlock,
         FormEmbedBlock,
       ],

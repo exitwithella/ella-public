@@ -18,7 +18,6 @@ export const Partners: CollectionConfig = {
       name: 'logo',
       type: 'upload',
       relationTo: 'media',
-      required: true,
     },
     {
       name: 'type',

@@ -778,7 +778,7 @@ export interface Testimonial {
 export interface Partner {
   id: number;
   name: string;
-  logo: number | Media;
+  logo?: (number | null) | Media;
   type: 'association' | 'technology' | 'certification' | 'media' | 'integration';
   url?: string | null;
   showOnHomepage?: boolean | null;
@@ -919,34 +919,6 @@ export interface Solution {
             blockType: 'cta-section';
           }
         | {
-            variant?: ('logos' | 'stats' | 'combined') | null;
-            /**
-             * Small label above logos (e.g. "Trusted by advisors certified through")
-             */
-            label?: string | null;
-            partners?: (number | Partner)[] | null;
-            /**
-             * Shown in "stats" and "combined" variants
-             */
-            stats?:
-              | {
-                  /**
-                   * e.g. "200+"
-                   */
-                  value: string;
-                  /**
-                   * e.g. "advisors onboarded"
-                   */
-                  label: string;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'credibility-strip';
-          }
-        | {
             /**
              * HTML id attribute for anchor links (e.g. "coverage")
              */
@@ -992,48 +964,6 @@ export interface Solution {
             blockType: 'feature-deep-dive';
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            /**
-             * 3 columns: Old Way / Patchwork / With ELLA
-             */
-            columns?:
-              | {
-                  heading: string;
-                  subheading?: string | null;
-                  /**
-                   * Visually emphasize this column (the "With ELLA" column)
-                   */
-                  highlighted?: boolean | null;
-                  id?: string | null;
-                }[]
-              | null;
-            rows?:
-              | {
-                  /**
-                   * Row label (the feature or criterion)
-                   */
-                  label: string;
-                  /**
-                   * One value per column (in order)
-                   */
-                  values?:
-                    | {
-                        text?: string | null;
-                        indicator?: ('text' | 'check' | 'cross' | 'partial') | null;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'comparison-table';
-          }
-        | {
             heading?: string | null;
             intro?: string | null;
             items?:
@@ -1048,85 +978,6 @@ export interface Solution {
             id?: string | null;
             blockName?: string | null;
             blockType: 'trust-security';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            steps?:
-              | {
-                  heading: string;
-                  body?: string | null;
-                  /**
-                   * Screenshot or illustration for this step
-                   */
-                  image?: (number | null) | Media;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'numbered-steps';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            solutions?: (number | Solution)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'solutions-selector';
-          }
-        | {
-            heading?: string | null;
-            /**
-             * Only show FAQs from this category (leave blank for all)
-             */
-            filterByCategory?:
-              | ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security')
-              | null;
-            /**
-             * Manually select FAQ items (overrides category filter)
-             */
-            items?: (number | FaqItem)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'faq-accordion';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            /**
-             * Select pricing tiers in display order. Leave empty to show all tiers automatically.
-             */
-            tiers?: (number | PricingTier)[] | null;
-            /**
-             * Show monthly/annual billing toggle
-             */
-            showToggle?: boolean | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'pricing-journey';
-          }
-        | {
-            heading?: string | null;
-            subheading?: string | null;
-            placeholder?: string | null;
-            buttonLabel?: string | null;
-            successMessage?: string | null;
-            /**
-             * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
-             */
-            microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'newsletter-capture';
           }
         | {
             embedType?: ('typeform' | 'loops' | 'custom') | null;
@@ -1431,48 +1282,6 @@ export interface LandingPage {
             blockType: 'feature-deep-dive';
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            /**
-             * 3 columns: Old Way / Patchwork / With ELLA
-             */
-            columns?:
-              | {
-                  heading: string;
-                  subheading?: string | null;
-                  /**
-                   * Visually emphasize this column (the "With ELLA" column)
-                   */
-                  highlighted?: boolean | null;
-                  id?: string | null;
-                }[]
-              | null;
-            rows?:
-              | {
-                  /**
-                   * Row label (the feature or criterion)
-                   */
-                  label: string;
-                  /**
-                   * One value per column (in order)
-                   */
-                  values?:
-                    | {
-                        text?: string | null;
-                        indicator?: ('text' | 'check' | 'cross' | 'partial') | null;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'comparison-table';
-          }
-        | {
             heading?: string | null;
             intro?: string | null;
             items?:
@@ -1534,23 +1343,6 @@ export interface LandingPage {
             id?: string | null;
             blockName?: string | null;
             blockType: 'faq-accordion';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            /**
-             * Select pricing tiers in display order. Leave empty to show all tiers automatically.
-             */
-            tiers?: (number | PricingTier)[] | null;
-            /**
-             * Show monthly/annual billing toggle
-             */
-            showToggle?: boolean | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'pricing-journey';
           }
         | {
             heading?: string | null;
@@ -2445,37 +2237,6 @@ export interface LandingPagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        'comparison-table'?:
-          | T
-          | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              columns?:
-                | T
-                | {
-                    heading?: T;
-                    subheading?: T;
-                    highlighted?: T;
-                    id?: T;
-                  };
-              rows?:
-                | T
-                | {
-                    label?: T;
-                    values?:
-                      | T
-                      | {
-                          text?: T;
-                          indicator?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
         'trust-security'?:
           | T
           | {
@@ -2528,18 +2289,6 @@ export interface LandingPagesSelect<T extends boolean = true> {
               heading?: T;
               filterByCategory?: T;
               items?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
-        'pricing-journey'?:
-          | T
-          | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              tiers?: T;
-              showToggle?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -2843,23 +2592,6 @@ export interface SolutionsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        'credibility-strip'?:
-          | T
-          | {
-              variant?: T;
-              label?: T;
-              partners?: T;
-              stats?:
-                | T
-                | {
-                    value?: T;
-                    label?: T;
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
         'feature-deep-dive'?:
           | T
           | {
@@ -2885,37 +2617,6 @@ export interface SolutionsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        'comparison-table'?:
-          | T
-          | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              columns?:
-                | T
-                | {
-                    heading?: T;
-                    subheading?: T;
-                    highlighted?: T;
-                    id?: T;
-                  };
-              rows?:
-                | T
-                | {
-                    label?: T;
-                    values?:
-                      | T
-                      | {
-                          text?: T;
-                          indicator?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
         'trust-security'?:
           | T
           | {
@@ -2929,70 +2630,6 @@ export interface SolutionsSelect<T extends boolean = true> {
                     icon?: T;
                     id?: T;
                   };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
-        'numbered-steps'?:
-          | T
-          | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              steps?:
-                | T
-                | {
-                    heading?: T;
-                    body?: T;
-                    image?: T;
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
-        'solutions-selector'?:
-          | T
-          | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              solutions?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
-        'faq-accordion'?:
-          | T
-          | {
-              heading?: T;
-              filterByCategory?: T;
-              items?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
-        'pricing-journey'?:
-          | T
-          | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              tiers?: T;
-              showToggle?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
-        'newsletter-capture'?:
-          | T
-          | {
-              heading?: T;
-              subheading?: T;
-              placeholder?: T;
-              buttonLabel?: T;
-              successMessage?: T;
-              microcopy?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;

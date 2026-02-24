@@ -13,6 +13,7 @@
  *   - Navigation global (initial structure)
  *   - SiteSettings global (initial values)
  */
+import 'dotenv/config'
 import config from './payload.config'
 import { getPayload } from 'payload'
 
@@ -126,10 +127,9 @@ async function seed() {
     })
 
     if (existing.docs.length === 0) {
-      // Logo upload required separately — create placeholder record; logo will be added via admin UI
       await payload.create({
         collection: 'partners',
-        data: { ...partner, logo: undefined as unknown as number },
+        data: partner,
       })
       console.log(`✓ Partner: ${partner.name} (logo needs upload)`)
     } else {
@@ -353,6 +353,7 @@ async function seed() {
         status: solutionData.status,
         isBeachhead: solutionData.isBeachhead,
         discipline: disciplineResult.docs[0].id,
+        hero: { headline: solutionData.title },
       } as any,
     })
     console.log(`✓ Solution: ${sol.title}`)
