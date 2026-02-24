@@ -47,6 +47,13 @@ export const TrustSecurityBlock: Block = {
         },
       ],
     },
+    {
+      name: 'closingLine',
+      type: 'textarea',
+      admin: {
+        description: 'Standalone closing statement after the items list.',
+      },
+    },
     bgStyleField,
   ],
 }

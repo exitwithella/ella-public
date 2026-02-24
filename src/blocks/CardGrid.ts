@@ -90,6 +90,20 @@ export const CardGridBlock: Block = {
             description: 'ID of a section further down the page to link to (without #)',
           },
         },
+        {
+          name: 'capabilities',
+          type: 'array',
+          admin: {
+            description: 'Short capability bullets shown below the card description',
+          },
+          fields: [
+            {
+              name: 'text',
+              type: 'text',
+              required: true,
+            },
+          ],
+        },
       ],
     },
     bgStyleField,

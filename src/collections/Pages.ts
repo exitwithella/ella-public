@@ -1,6 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
 import {
+  BeforeAfterPanelBlock,
+  BridgeSectionBlock,
   CardGridBlock,
   ComparisonTableBlock,
   ContentSectionBlock,
@@ -79,6 +81,8 @@ export const Pages: CollectionConfig = {
         PricingJourneyBlock,
         NewsletterCaptureBlock,
         FormEmbedBlock,
+        BeforeAfterPanelBlock,
+        BridgeSectionBlock,
       ],
     },
     metaField,

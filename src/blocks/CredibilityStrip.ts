@@ -27,7 +27,16 @@ export const CredibilityStripBlock: Block = {
         { label: 'Partner logos', value: 'logos' },
         { label: 'Statement + stats', value: 'stats' },
         { label: 'Combined', value: 'combined' },
+        { label: 'Text statement', value: 'text' },
       ],
+    },
+    {
+      name: 'statement',
+      type: 'textarea',
+      admin: {
+        description: 'Centered text statement. Shown when variant is "Text statement".',
+        condition: (_, siblingData) => siblingData?.variant === 'text',
+      },
     },
     {
       name: 'label',

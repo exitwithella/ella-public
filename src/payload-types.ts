@@ -396,6 +396,14 @@ export interface Page {
     };
     visual?: (number | null) | Media;
     style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+    /**
+     * Substring of the headline to render in accent color. Leave empty for no highlight.
+     */
+    highlightText?: string | null;
+    /**
+     * Color applied to the highlighted headline substring.
+     */
+    highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null;
   };
   layout?:
     | (
@@ -455,6 +463,15 @@ export interface Page {
                    * ID of a section further down the page to link to (without #)
                    */
                   anchorTarget?: string | null;
+                  /**
+                   * Short capability bullets shown below the card description
+                   */
+                  capabilities?:
+                    | {
+                        text: string;
+                        id?: string | null;
+                      }[]
+                    | null;
                   id?: string | null;
                 }[]
               | null;
@@ -498,7 +515,11 @@ export interface Page {
             blockType: 'cta-section';
           }
         | {
-            variant?: ('logos' | 'stats' | 'combined') | null;
+            variant?: ('logos' | 'stats' | 'combined' | 'text') | null;
+            /**
+             * Centered text statement. Shown when variant is "Text statement".
+             */
+            statement?: string | null;
             /**
              * Small label above logos (e.g. "Trusted by advisors certified through")
              */
@@ -623,6 +644,10 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Standalone closing statement after the items list.
+             */
+            closingLine?: string | null;
             bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
@@ -714,6 +739,102 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'formEmbed';
+          }
+        | {
+            /**
+             * Eyebrow label above heading, e.g. "The ELLA Difference"
+             */
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            /**
+             * The "before" state — life without ELLA
+             */
+            before?: {
+              /**
+               * Tab/panel label
+               */
+              label?: string | null;
+              image?: (number | null) | Media;
+              caption?: string | null;
+              /**
+               * Pain points / friction items
+               */
+              points?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            /**
+             * The "after" state — life with ELLA
+             */
+            after?: {
+              /**
+               * Tab/panel label
+               */
+              label?: string | null;
+              image?: (number | null) | Media;
+              caption?: string | null;
+              /**
+               * Benefits / improvements
+               */
+              points?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'before-after-panel';
+          }
+        | {
+            /**
+             * Section headline. Rendered in Termina.
+             */
+            heading: string;
+            /**
+             * Body copy — 2–4 paragraphs in DM Sans.
+             */
+            body?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            /**
+             * Stacked blockquotes. Rendered in Instrument Serif.
+             */
+            quotes?:
+              | {
+                  text: string;
+                  /**
+                   * e.g. "Advisor, on what they need from technology"
+                   */
+                  attribution?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Standalone closing line after the quotes. DM Sans medium weight.
+             */
+            closer?: string | null;
+            bgStyle?: ('cream' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'bridge-section';
           }
       )[]
     | null;
@@ -821,6 +942,14 @@ export interface Solution {
     };
     visual?: (number | null) | Media;
     style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+    /**
+     * Substring of the headline to render in accent color. Leave empty for no highlight.
+     */
+    highlightText?: string | null;
+    /**
+     * Color applied to the highlighted headline substring.
+     */
+    highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null;
   };
   layout?:
     | (
@@ -880,6 +1009,15 @@ export interface Solution {
                    * ID of a section further down the page to link to (without #)
                    */
                   anchorTarget?: string | null;
+                  /**
+                   * Short capability bullets shown below the card description
+                   */
+                  capabilities?:
+                    | {
+                        text: string;
+                        id?: string | null;
+                      }[]
+                    | null;
                   id?: string | null;
                 }[]
               | null;
@@ -998,6 +1136,10 @@ export interface Solution {
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Standalone closing statement after the items list.
+             */
+            closingLine?: string | null;
             bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
@@ -1131,6 +1273,14 @@ export interface LandingPage {
     };
     visual?: (number | null) | Media;
     style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+    /**
+     * Substring of the headline to render in accent color. Leave empty for no highlight.
+     */
+    highlightText?: string | null;
+    /**
+     * Color applied to the highlighted headline substring.
+     */
+    highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null;
   };
   layout?:
     | (
@@ -1190,6 +1340,15 @@ export interface LandingPage {
                    * ID of a section further down the page to link to (without #)
                    */
                   anchorTarget?: string | null;
+                  /**
+                   * Short capability bullets shown below the card description
+                   */
+                  capabilities?:
+                    | {
+                        text: string;
+                        id?: string | null;
+                      }[]
+                    | null;
                   id?: string | null;
                 }[]
               | null;
@@ -1233,7 +1392,11 @@ export interface LandingPage {
             blockType: 'cta-section';
           }
         | {
-            variant?: ('logos' | 'stats' | 'combined') | null;
+            variant?: ('logos' | 'stats' | 'combined' | 'text') | null;
+            /**
+             * Centered text statement. Shown when variant is "Text statement".
+             */
+            statement?: string | null;
             /**
              * Small label above logos (e.g. "Trusted by advisors certified through")
              */
@@ -1316,6 +1479,10 @@ export interface LandingPage {
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Standalone closing statement after the items list.
+             */
+            closingLine?: string | null;
             bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
@@ -1970,6 +2137,8 @@ export interface PagesSelect<T extends boolean = true> {
             };
         visual?: T;
         style?: T;
+        highlightText?: T;
+        highlightColor?: T;
       };
   layout?:
     | T
@@ -2015,6 +2184,12 @@ export interface PagesSelect<T extends boolean = true> {
                           href?: T;
                         };
                     anchorTarget?: T;
+                    capabilities?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
                     id?: T;
                   };
               bgStyle?: T;
@@ -2059,6 +2234,7 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               variant?: T;
+              statement?: T;
               label?: T;
               partners?: T;
               stats?:
@@ -2141,6 +2317,7 @@ export interface PagesSelect<T extends boolean = true> {
                     icon?: T;
                     id?: T;
                   };
+              closingLine?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -2218,6 +2395,58 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        'before-after-panel'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              before?:
+                | T
+                | {
+                    label?: T;
+                    image?: T;
+                    caption?: T;
+                    points?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                  };
+              after?:
+                | T
+                | {
+                    label?: T;
+                    image?: T;
+                    caption?: T;
+                    points?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'bridge-section'?:
+          | T
+          | {
+              heading?: T;
+              body?: T;
+              quotes?:
+                | T
+                | {
+                    text?: T;
+                    attribution?: T;
+                    id?: T;
+                  };
+              closer?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T
@@ -2257,6 +2486,8 @@ export interface LandingPagesSelect<T extends boolean = true> {
             };
         visual?: T;
         style?: T;
+        highlightText?: T;
+        highlightColor?: T;
       };
   layout?:
     | T
@@ -2302,6 +2533,12 @@ export interface LandingPagesSelect<T extends boolean = true> {
                           href?: T;
                         };
                     anchorTarget?: T;
+                    capabilities?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
                     id?: T;
                   };
               bgStyle?: T;
@@ -2346,6 +2583,7 @@ export interface LandingPagesSelect<T extends boolean = true> {
           | T
           | {
               variant?: T;
+              statement?: T;
               label?: T;
               partners?: T;
               stats?:
@@ -2397,6 +2635,7 @@ export interface LandingPagesSelect<T extends boolean = true> {
                     icon?: T;
                     id?: T;
                   };
+              closingLine?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -2654,6 +2893,8 @@ export interface SolutionsSelect<T extends boolean = true> {
             };
         visual?: T;
         style?: T;
+        highlightText?: T;
+        highlightColor?: T;
       };
   layout?:
     | T
@@ -2699,6 +2940,12 @@ export interface SolutionsSelect<T extends boolean = true> {
                           href?: T;
                         };
                     anchorTarget?: T;
+                    capabilities?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
                     id?: T;
                   };
               bgStyle?: T;
@@ -2795,6 +3042,7 @@ export interface SolutionsSelect<T extends boolean = true> {
                     icon?: T;
                     id?: T;
                   };
+              closingLine?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;

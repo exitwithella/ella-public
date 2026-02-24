@@ -57,5 +57,26 @@ export const heroField: GroupField = {
         { label: 'Minimal', value: 'minimal' },
       ],
     },
+    {
+      name: 'highlightText',
+      type: 'text',
+      admin: {
+        description: 'Substring of the headline to render in accent color. Leave empty for no highlight.',
+      },
+    },
+    {
+      name: 'highlightColor',
+      type: 'select',
+      defaultValue: 'goldenrod',
+      admin: {
+        description: 'Color applied to the highlighted headline substring.',
+      },
+      options: [
+        { label: 'Goldenrod', value: 'goldenrod' },
+        { label: 'Moss', value: 'moss' },
+        { label: 'Coral', value: 'coral' },
+        { label: 'Ocean', value: 'ocean' },
+      ],
+    },
   ],
 }
