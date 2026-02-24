@@ -5,6 +5,7 @@ import { CardGridBlock } from './blocks/card-grid-block'
 import { CredibilityStripBlock } from './blocks/credibility-strip-block'
 import { FeatureDeepDiveBlock } from './blocks/feature-deep-dive-block'
 import { BeforeAfterPanelBlock } from './blocks/before-after-panel-block'
+import { ComparisonTableBlock } from './blocks/comparison-table-block'
 import { CTASectionBlock } from './blocks/cta-section-block'
 import { TrustSecurityBlock } from './blocks/trust-security-block'
 
@@ -30,9 +31,10 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       return <BeforeAfterPanelBlock block={block} />
     case 'cta-section':
       return <CTASectionBlock block={block} />
+    case 'comparison-table':
+      return <ComparisonTableBlock block={block} />
     case 'content-section':
     case 'testimonial-block':
-    case 'comparison-table':
     case 'numbered-steps':
     case 'solutions-selector':
     case 'faq-accordion':

@@ -637,6 +637,61 @@ async function seed() {
               ],
             },
           },
+          // Block 7: Comparison Table (Old Way / Patchwork / With ELLA)
+          {
+            blockType: 'comparison-table',
+            sectionLabel: '[Section label]',
+            heading: '[Comparison table heading — edit via Payload admin or MCP.]',
+            subheading: '[Subheading placeholder.]',
+            bgStyle: 'cream',
+            columns: [
+              { heading: 'The Old Way', subheading: '[Description]', highlighted: false },
+              { heading: 'Patchwork Tools', subheading: '[Description]', highlighted: false },
+              { heading: 'With ELLA', subheading: '[Description]', highlighted: true },
+            ],
+            rows: [
+              {
+                label: '[Row 1 label — edit via Payload admin or MCP.]',
+                values: [
+                  { text: '[Old Way value]', indicator: 'cross' },
+                  { text: '[Patchwork value]', indicator: 'partial' },
+                  { text: '[ELLA value]', indicator: 'check' },
+                ],
+              },
+              {
+                label: '[Row 2 label — edit via Payload admin or MCP.]',
+                values: [
+                  { text: '[Old Way value]', indicator: 'cross' },
+                  { text: '[Patchwork value]', indicator: 'partial' },
+                  { text: '[ELLA value]', indicator: 'check' },
+                ],
+              },
+              {
+                label: '[Row 3 label — edit via Payload admin or MCP.]',
+                values: [
+                  { text: '[Old Way value]', indicator: 'cross' },
+                  { text: '[Patchwork value]', indicator: 'partial' },
+                  { text: '[ELLA value]', indicator: 'check' },
+                ],
+              },
+              {
+                label: '[Row 4 label — edit via Payload admin or MCP.]',
+                values: [
+                  { text: '[Old Way value]', indicator: 'cross' },
+                  { text: '[Patchwork value]', indicator: 'partial' },
+                  { text: '[ELLA value]', indicator: 'check' },
+                ],
+              },
+              {
+                label: '[Row 5 label — edit via Payload admin or MCP.]',
+                values: [
+                  { text: '[Old Way value]', indicator: 'cross' },
+                  { text: '[Patchwork value]', indicator: 'partial' },
+                  { text: '[ELLA value]', indicator: 'check' },
+                ],
+              },
+            ],
+          },
           // Block 9: Closer CTA
           {
             blockType: 'cta-section',
