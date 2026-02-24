@@ -153,6 +153,60 @@ export const principles = {
   ],
 }
 
+export const aboutHero = {
+  headline: "We're building for advisors who believe practice is more than process.",
+  subheadline:
+    'ELLA was built from conversations, not assumptions. Over a year of listening before a line of code was written.',
+}
+
+export const originStory = {
+  headline: 'We started with conversations, not code.',
+  paragraphs: [
+    {
+      text: "Before we built anything, we spent a year in conversation with the advisors who would use it. CEPAs running solo practices. CPAs doing exit work alongside their tax practice. Wealth managers thinking ten years ahead. M&A brokers who've been through hundreds of deals.",
+      serif: false,
+    },
+    {
+      text: 'We asked the same question every time: where do you get stuck?',
+      serif: true,
+    },
+    {
+      text: 'The answer shifted. Twice.',
+      serif: false,
+    },
+    {
+      text: "First, we learned advisors didn't need another monolithic platform. They needed a system that could hold context across their entire practice while letting them work the way they already work.",
+      serif: false,
+    },
+    {
+      text: 'Second, we learned \u201cexit planning\u201d was the starting point, not the ceiling. The advisors we kept meeting were guiding business owners through consequential decisions across every stage of building a significant business. The common thread was trust as the foundation.',
+      serif: false,
+    },
+    {
+      text: 'We built ELLA around both of those lessons.',
+      serif: true,
+    },
+  ],
+  link: {
+    label: 'Read the full story',
+    href: '/blog/with-ella',
+  },
+}
+
+export const aboutCloser = {
+  headline: 'Believe what we believe?',
+  body: 'ELLA is for advisors who want to systematize what makes them unique — without sacrificing the relationships that make their practice worth building.',
+  primaryCta: {
+    label: 'Get Started',
+    href: 'https://app.exitwithella.io/sign-up',
+  },
+  secondaryCta: {
+    label: 'Book a Demo',
+    href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+  },
+  microcopy: 'Your first 3 clients are on us.',
+}
+
 export const footer = {
   copyright: `© ELLA ${new Date().getFullYear()}`,
   links: [

@@ -1,6 +1,5 @@
-import type { Page } from '@/payload-types'
-
 import { Container } from '@/components/elements/container'
+import type { Page } from '@/payload-types'
 
 type ComparisonTableData = Extract<
   NonNullable<Page['layout']>[number],
@@ -18,23 +17,11 @@ const BG_CLASS: Record<string, string> = {
   'forest-dark': 'bg-moss-900',
 }
 
-function CellValue({
-  text,
-  indicator,
-}: {
-  text?: string | null
-  indicator?: string | null
-}) {
+function CellValue({ text, indicator }: { text?: string | null; indicator?: string | null }) {
   if (indicator === 'check') {
     return (
-      <span className="inline-flex items-center justify-center gap-1.5 text-moss-600">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          aria-hidden="true"
-        >
+      <span className="text-moss-600 inline-flex items-center justify-center gap-1.5">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path
             d="M3 8l3.5 3.5L13 4.5"
             stroke="currentColor"
@@ -49,7 +36,7 @@ function CellValue({
   }
   if (indicator === 'cross') {
     return (
-      <span className="inline-flex items-center justify-center gap-1.5 text-ash-400">
+      <span className="text-ash-400 inline-flex items-center justify-center gap-1.5">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path
             d="M2 2l10 10M12 2L2 12"
@@ -64,7 +51,7 @@ function CellValue({
   }
   if (indicator === 'partial') {
     return (
-      <span className="inline-flex items-center justify-center gap-1.5 text-goldenrod-600">
+      <span className="text-goldenrod-600 inline-flex items-center justify-center gap-1.5">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path d="M3 7h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
@@ -87,7 +74,7 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
         {(block.sectionLabel || block.heading || block.subheading) && (
           <div className="mx-auto mb-14 max-w-3xl text-center">
             {block.sectionLabel && (
-              <p className="font-display text-moss-700 mb-3 text-sm font-semibold uppercase tracking-widest">
+              <p className="font-display text-moss-700 mb-3 text-sm font-semibold tracking-widest uppercase">
                 {block.sectionLabel}
               </p>
             )}
@@ -96,14 +83,12 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
                 {block.heading}
               </h2>
             )}
-            {block.subheading && (
-              <p className="text-ash-600 text-lg/relaxed">{block.subheading}</p>
-            )}
+            {block.subheading && <p className="text-ash-600 text-lg/relaxed">{block.subheading}</p>}
           </div>
         )}
 
         {/* Desktop table */}
-        <div className="hidden overflow-x-auto rounded-xl border border-ash-200 md:block">
+        <div className="border-ash-200 hidden overflow-x-auto rounded-xl border md:block">
           <table className="w-full border-collapse text-sm">
             <colgroup>
               <col className="w-2/5" />
@@ -118,7 +103,7 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
                   <th
                     key={col.id}
                     scope="col"
-                    className={`px-6 py-5 text-center font-display text-sm font-bold uppercase tracking-wide ${
+                    className={`font-display px-6 py-5 text-center text-sm font-bold tracking-wide uppercase ${
                       col.highlighted
                         ? 'bg-moss-50 text-moss-800'
                         : i === 0
@@ -128,7 +113,7 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
                   >
                     {col.heading}
                     {col.subheading && (
-                      <span className="mt-0.5 block text-xs font-normal normal-case tracking-normal opacity-75">
+                      <span className="mt-0.5 block text-xs font-normal tracking-normal normal-case opacity-75">
                         {col.subheading}
                       </span>
                     )}
@@ -141,7 +126,7 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
                 <tr key={row.id} className={rowIdx % 2 === 0 ? 'bg-white/60' : 'bg-ash-50/60'}>
                   <th
                     scope="row"
-                    className="border-t border-ash-100 px-6 py-4 text-left font-medium text-ash-800"
+                    className="border-ash-100 text-ash-800 border-t px-6 py-4 text-left font-medium"
                   >
                     {row.label}
                   </th>
@@ -150,11 +135,11 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
                     return (
                       <td
                         key={col.id}
-                        className={`border-t border-ash-100 px-6 py-4 text-center ${
+                        className={`border-ash-100 border-t px-6 py-4 text-center ${
                           col.highlighted
-                            ? 'bg-moss-50/40 font-medium text-moss-800'
+                            ? 'bg-moss-50/40 text-moss-800 font-medium'
                             : colIdx === 0
-                              ? 'italic text-ash-400'
+                              ? 'text-ash-400 italic'
                               : 'text-ash-600'
                         }`}
                       >
@@ -178,7 +163,7 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
               }`}
             >
               <h3
-                className={`font-display mb-4 border-b pb-3 text-sm font-bold uppercase tracking-wide ${
+                className={`font-display mb-4 border-b pb-3 text-sm font-bold tracking-wide uppercase ${
                   col.highlighted
                     ? 'border-moss-200 text-moss-800'
                     : colIdx === 0
@@ -193,13 +178,13 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
                   const val = row.values?.[colIdx]
                   return (
                     <div key={row.id} className="flex items-start justify-between gap-4">
-                      <dt className="text-sm text-ash-600">{row.label}</dt>
+                      <dt className="text-ash-600 text-sm">{row.label}</dt>
                       <dd
                         className={`text-right text-sm ${
                           col.highlighted
-                            ? 'font-medium text-moss-800'
+                            ? 'text-moss-800 font-medium'
                             : colIdx === 0
-                              ? 'italic text-ash-400'
+                              ? 'text-ash-400 italic'
                               : 'text-ash-700'
                         }`}
                       >

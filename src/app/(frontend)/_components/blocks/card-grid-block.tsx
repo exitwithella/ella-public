@@ -33,7 +33,7 @@ export function CardGridBlock({ block }: CardGridBlockProps) {
           <div className="mb-12 md:mb-16">
             {block.sectionLabel && (
               <p
-                className={`mb-3 text-xs font-semibold uppercase tracking-widest ${isForestDark ? 'text-moss-400' : 'text-moss-600'}`}
+                className={`mb-3 text-xs font-semibold tracking-widest uppercase ${isForestDark ? 'text-moss-400' : 'text-moss-600'}`}
               >
                 {block.sectionLabel}
               </p>
@@ -66,7 +66,7 @@ export function CardGridBlock({ block }: CardGridBlockProps) {
               >
                 {/* Card heading — Termina */}
                 <h3
-                  className={`font-display mb-3 text-sm font-semibold uppercase tracking-wider ${isForestDark ? 'text-moss-300' : 'text-moss-700'}`}
+                  className={`font-display mb-3 text-sm font-semibold tracking-wider uppercase ${isForestDark ? 'text-moss-300' : 'text-moss-700'}`}
                 >
                   {card.heading}
                 </h3>

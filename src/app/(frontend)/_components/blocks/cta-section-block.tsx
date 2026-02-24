@@ -1,5 +1,5 @@
-import { Container } from '@/components/elements/container'
 import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
+import { Container } from '@/components/elements/container'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Page } from '@/payload-types'
 
@@ -21,9 +21,7 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
   const isForestDark = block.bgStyle === 'forest-dark'
 
   // Body stored as textarea with \n\n paragraph separators
-  const paragraphs = block.body
-    ? block.body.split('\n\n').filter((p) => p.trim().length > 0)
-    : []
+  const paragraphs = block.body ? block.body.split('\n\n').filter((p) => p.trim().length > 0) : []
 
   const primaryHref = block.primaryCta?.href ?? 'https://app.exitwithella.io/sign-up'
   const primaryLabel = block.primaryCta?.label ?? 'Get Started'
@@ -61,7 +59,7 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
           {/* Closing line — Instrument Serif */}
           {block.closingLine && (
             <p
-              className={`font-serif mb-10 text-xl/relaxed md:text-2xl/relaxed ${isForestDark ? 'text-ash-100' : 'text-ash-800'}`}
+              className={`mb-10 font-serif text-xl/relaxed md:text-2xl/relaxed ${isForestDark ? 'text-ash-100' : 'text-ash-800'}`}
             >
               {block.closingLine}
             </p>
@@ -73,11 +71,7 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
               href={primaryHref}
               size="lg"
               target="_blank"
-              className={
-                isForestDark
-                  ? 'bg-ash-50 text-moss-900 hover:bg-ash-100'
-                  : undefined
-              }
+              className={isForestDark ? 'bg-ash-50 text-moss-900 hover:bg-ash-100' : undefined}
             >
               {primaryLabel}
             </ButtonLink>
@@ -93,9 +87,7 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
 
           {/* Microcopy */}
           {block.microcopy && (
-            <p
-              className={`mt-4 text-sm ${isForestDark ? 'text-ash-400' : 'text-ash-500'}`}
-            >
+            <p className={`mt-4 text-sm ${isForestDark ? 'text-ash-400' : 'text-ash-500'}`}>
               {block.microcopy}
             </p>
           )}

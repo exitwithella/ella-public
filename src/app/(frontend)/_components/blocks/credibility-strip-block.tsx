@@ -24,7 +24,7 @@ export function CredibilityStripBlock({ block }: CredibilityStripBlockProps) {
     return (
       <section className={`py-10 ${bg}`}>
         <Container>
-          <p className="font-serif text-ash-700 mx-auto max-w-2xl text-center text-lg/relaxed md:text-xl/relaxed">
+          <p className="text-ash-700 mx-auto max-w-2xl text-center font-serif text-lg/relaxed md:text-xl/relaxed">
             {block.statement}
           </p>
         </Container>
@@ -37,7 +37,7 @@ export function CredibilityStripBlock({ block }: CredibilityStripBlockProps) {
     <section className={`py-8 ${bg}`}>
       <Container>
         {block.label && (
-          <p className="text-ash-500 mb-4 text-center text-xs font-semibold uppercase tracking-widest">
+          <p className="text-ash-500 mb-4 text-center text-xs font-semibold tracking-widest uppercase">
             {block.label}
           </p>
         )}

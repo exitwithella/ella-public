@@ -59,472 +59,485 @@ export type SupportedTimezones =
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | 'Pacific/Fiji'
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
-    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations;
-  };
-  blocks: {};
+    users: UserAuthOperations
+    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations
+  }
+  blocks: {}
   collections: {
-    users: User;
-    media: Media;
-    posts: Post;
-    pages: Page;
-    'landing-pages': LandingPage;
-    categories: Category;
-    disciplines: Discipline;
-    'team-members': TeamMember;
-    testimonials: Testimonial;
-    partners: Partner;
-    'faq-items': FaqItem;
-    'pricing-tiers': PricingTier;
-    tools: Tool;
-    redirects: Redirect;
-    solutions: Solution;
-    'case-studies': CaseStudy;
-    'vanguard-events': VanguardEvent;
-    'payload-mcp-api-keys': PayloadMcpApiKey;
-    'payload-kv': PayloadKv;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  collectionsJoins: {};
+    users: User
+    media: Media
+    posts: Post
+    pages: Page
+    'landing-pages': LandingPage
+    categories: Category
+    disciplines: Discipline
+    'team-members': TeamMember
+    testimonials: Testimonial
+    partners: Partner
+    'faq-items': FaqItem
+    'pricing-tiers': PricingTier
+    tools: Tool
+    redirects: Redirect
+    solutions: Solution
+    'case-studies': CaseStudy
+    'vanguard-events': VanguardEvent
+    'payload-mcp-api-keys': PayloadMcpApiKey
+    'payload-kv': PayloadKv
+    'payload-locked-documents': PayloadLockedDocument
+    'payload-preferences': PayloadPreference
+    'payload-migrations': PayloadMigration
+  }
+  collectionsJoins: {}
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
-    pages: PagesSelect<false> | PagesSelect<true>;
-    'landing-pages': LandingPagesSelect<false> | LandingPagesSelect<true>;
-    categories: CategoriesSelect<false> | CategoriesSelect<true>;
-    disciplines: DisciplinesSelect<false> | DisciplinesSelect<true>;
-    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
-    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
-    partners: PartnersSelect<false> | PartnersSelect<true>;
-    'faq-items': FaqItemsSelect<false> | FaqItemsSelect<true>;
-    'pricing-tiers': PricingTiersSelect<false> | PricingTiersSelect<true>;
-    tools: ToolsSelect<false> | ToolsSelect<true>;
-    redirects: RedirectsSelect<false> | RedirectsSelect<true>;
-    solutions: SolutionsSelect<false> | SolutionsSelect<true>;
-    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
-    'vanguard-events': VanguardEventsSelect<false> | VanguardEventsSelect<true>;
-    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
+    users: UsersSelect<false> | UsersSelect<true>
+    media: MediaSelect<false> | MediaSelect<true>
+    posts: PostsSelect<false> | PostsSelect<true>
+    pages: PagesSelect<false> | PagesSelect<true>
+    'landing-pages': LandingPagesSelect<false> | LandingPagesSelect<true>
+    categories: CategoriesSelect<false> | CategoriesSelect<true>
+    disciplines: DisciplinesSelect<false> | DisciplinesSelect<true>
+    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>
+    partners: PartnersSelect<false> | PartnersSelect<true>
+    'faq-items': FaqItemsSelect<false> | FaqItemsSelect<true>
+    'pricing-tiers': PricingTiersSelect<false> | PricingTiersSelect<true>
+    tools: ToolsSelect<false> | ToolsSelect<true>
+    redirects: RedirectsSelect<false> | RedirectsSelect<true>
+    solutions: SolutionsSelect<false> | SolutionsSelect<true>
+    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>
+    'vanguard-events': VanguardEventsSelect<false> | VanguardEventsSelect<true>
+    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
+  }
   db: {
-    defaultIDType: number;
-  };
-  fallbackLocale: null;
+    defaultIDType: number
+  }
+  fallbackLocale: null
   globals: {
-    'site-settings': SiteSetting;
-    navigation: Navigation;
-    footer: Footer;
-  };
+    'site-settings': SiteSetting
+    navigation: Navigation
+    footer: Footer
+  }
   globalsSelect: {
-    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
-    navigation: NavigationSelect<false> | NavigationSelect<true>;
-    footer: FooterSelect<false> | FooterSelect<true>;
-  };
-  locale: null;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>
+    navigation: NavigationSelect<false> | NavigationSelect<true>
+    footer: FooterSelect<false> | FooterSelect<true>
+  }
+  locale: null
   user:
     | (User & {
-        collection: 'users';
+        collection: 'users'
       })
     | (PayloadMcpApiKey & {
-        collection: 'payload-mcp-api-keys';
-      });
+        collection: 'payload-mcp-api-keys'
+      })
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
-  };
+    tasks: unknown
+    workflows: unknown
+  }
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   login: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   registerFirstUser: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   unlock: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
 }
 export interface PayloadMcpApiKeyAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   login: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   registerFirstUser: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   unlock: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
+  id: number
+  updatedAt: string
+  createdAt: string
+  email: string
+  resetPasswordToken?: string | null
+  resetPasswordExpiration?: string | null
+  salt?: string | null
+  hash?: string | null
+  loginAttempts?: number | null
+  lockUntil?: string | null
   sessions?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
+        id: string
+        createdAt?: string | null
+        expiresAt: string
       }[]
-    | null;
-  password?: string | null;
+    | null
+  password?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
-  alt: string;
-  caption?: string | null;
+  id: number
+  alt: string
+  caption?: string | null
   /**
    * Photographer or source credit
    */
-  credit?: string | null;
-  category?: ('product' | 'portrait' | 'logo' | 'icon' | 'illustration' | 'background' | 'document' | 'other') | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
+  credit?: string | null
+  category?:
+    | (
+        | 'product'
+        | 'portrait'
+        | 'logo'
+        | 'icon'
+        | 'illustration'
+        | 'background'
+        | 'document'
+        | 'other'
+      )
+    | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
 export interface Post {
-  id: number;
-  title: string;
-  slug: string;
+  id: number
+  title: string
+  slug: string
   /**
    * Short summary used in blog cards and RSS feed (1-2 sentences)
    */
-  excerpt?: string | null;
-  publishedDate: string;
-  status?: ('draft' | 'published') | null;
-  author?: (number | null) | TeamMember;
-  featuredImage?: (number | null) | Media;
-  categories?: (number | Category)[] | null;
-  disciplines?: (number | Discipline)[] | null;
+  excerpt?: string | null
+  publishedDate: string
+  status?: ('draft' | 'published') | null
+  author?: (number | null) | TeamMember
+  featuredImage?: (number | null) | Media
+  categories?: (number | Category)[] | null
+  disciplines?: (number | Discipline)[] | null
   /**
    * Editorial tier for 3-tier blog layout (Ramp Velocity pattern)
    */
-  tier?: ('hero' | 'featured' | 'standard') | null;
+  tier?: ('hero' | 'featured' | 'standard') | null
   /**
    * Manually curated related posts
    */
-  relatedPosts?: (number | Post)[] | null;
+  relatedPosts?: (number | Post)[] | null
   /**
    * Original slug from exitwithella.io (used to generate 301 redirect)
    */
-  legacySlug?: string | null;
+  legacySlug?: string | null
   /**
    * Show newsletter signup CTA at the end of this post
    */
-  showNewsletterCTA?: boolean | null;
+  showNewsletterCTA?: boolean | null
   content?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   meta?: {
     /**
      * Overrides page title in search results and browser tabs. 50–60 chars ideal.
      */
-    title?: string | null;
+    title?: string | null
     /**
      * Summary shown in search results. 150–160 chars ideal.
      */
-    description?: string | null;
+    description?: string | null
     /**
      * Open Graph image for social sharing. 1200×630px recommended.
      */
-    image?: (number | null) | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
+    image?: (number | null) | Media
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members".
  */
 export interface TeamMember {
-  id: number;
-  name: string;
-  slug: string;
+  id: number
+  name: string
+  slug: string
   /**
    * Job title or role, e.g. "Co-Founder & CEO"
    */
-  role?: string | null;
-  photo?: (number | null) | Media;
+  role?: string | null
+  photo?: (number | null) | Media
   bio?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   /**
    * Check to allow this team member to be assigned as a blog post author
    */
-  isAuthor?: boolean | null;
-  linkedIn?: string | null;
-  twitter?: string | null;
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  isAuthor?: boolean | null
+  linkedIn?: string | null
+  twitter?: string | null
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
-  id: number;
-  title: string;
-  slug: string;
+  id: number
+  title: string
+  slug: string
   /**
    * Internal name used in admin UI (optional, defaults to title)
    */
-  internalLabel?: string | null;
-  description?: string | null;
+  internalLabel?: string | null
+  description?: string | null
   /**
    * Lower numbers appear first
    */
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "disciplines".
  */
 export interface Discipline {
-  id: number;
-  name: string;
+  id: number
+  name: string
   /**
    * URL-safe identifier, e.g. "exit-planning"
    */
-  slug: string;
-  description?: string | null;
+  slug: string
+  description?: string | null
   /**
    * Lower numbers appear first
    */
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
-  id: number;
-  title: string;
-  slug: string;
-  status?: ('draft' | 'published') | null;
-  publishedDate?: string | null;
+  id: number
+  title: string
+  slug: string
+  status?: ('draft' | 'published') | null
+  publishedDate?: string | null
   /**
    * Parent page for breadcrumb and URL nesting
    */
-  parent?: (number | null) | Page;
+  parent?: (number | null) | Page
   hero: {
-    headline: string;
-    subheadline?: string | null;
+    headline: string
+    subheadline?: string | null
     primaryCta?: {
-      label?: string | null;
-      href?: string | null;
-    };
+      label?: string | null
+      href?: string | null
+    }
     secondaryCta?: {
-      label?: string | null;
-      href?: string | null;
-    };
-    visual?: (number | null) | Media;
-    style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+      label?: string | null
+      href?: string | null
+    }
+    visual?: (number | null) | Media
+    style?: ('default' | 'centered' | 'split' | 'minimal') | null
     /**
      * Substring of the headline to render in accent color. Leave empty for no highlight.
      */
-    highlightText?: string | null;
+    highlightText?: string | null
     /**
      * Color applied to the highlighted headline substring.
      */
-    highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null;
-  };
+    highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null
+  }
   layout?:
     | (
         | {
             /**
              * Small eyebrow label above the heading (optional)
              */
-            sectionLabel?: string | null;
-            heading?: string | null;
+            sectionLabel?: string | null
+            heading?: string | null
             body?: {
               root: {
-                type: string;
+                type: string
                 children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            media?: (number | null) | Media;
-            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
+                  type: any
+                  version: number
+                  [k: string]: unknown
+                }[]
+                direction: ('ltr' | 'rtl') | null
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                indent: number
+                version: number
+              }
+              [k: string]: unknown
+            } | null
+            media?: (number | null) | Media
+            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null
             link?: {
-              label?: string | null;
-              href?: string | null;
-              style?: ('button' | 'link') | null;
-            };
+              label?: string | null
+              href?: string | null
+              style?: ('button' | 'link') | null
+            }
             /**
              * Small badge/tag to display near the heading
              */
-            badge?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content-section';
+            badge?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'content-section'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            variant?: ('feature' | 'icon' | 'minimal') | null;
-            columns?: ('2' | '3' | '4') | null;
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
+            variant?: ('feature' | 'icon' | 'minimal') | null
+            columns?: ('2' | '3' | '4') | null
             cards?:
               | {
-                  heading: string;
-                  body?: string | null;
-                  icon?: (number | null) | Media;
+                  heading: string
+                  body?: string | null
+                  icon?: (number | null) | Media
                   link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
+                    label?: string | null
+                    href?: string | null
+                  }
                   /**
                    * ID of a section further down the page to link to (without #)
                    */
-                  anchorTarget?: string | null;
+                  anchorTarget?: string | null
                   /**
                    * Short capability bullets shown below the card description
                    */
                   capabilities?:
                     | {
-                        text: string;
-                        id?: string | null;
+                        text: string
+                        id?: string | null
                       }[]
-                    | null;
-                  id?: string | null;
+                    | null
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'card-grid';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'card-grid'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            layout?: ('single' | 'grid' | 'carousel') | null;
-            testimonials?: (number | Testimonial)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'testimonial-block';
+            sectionLabel?: string | null
+            heading?: string | null
+            layout?: ('single' | 'grid' | 'carousel') | null
+            testimonials?: (number | Testimonial)[] | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'testimonial-block'
           }
         | {
-            headline?: string | null;
-            body?: string | null;
+            headline?: string | null
+            body?: string | null
             primaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
+              label?: string | null
+              href?: string | null
+            }
             secondaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
+              label?: string | null
+              href?: string | null
+            }
             /**
              * Small text below CTAs (e.g. "No credit card required")
              */
-            closingLine?: string | null;
+            closingLine?: string | null
             /**
              * Trust signal near CTA (e.g. "Join 200+ advisors")
              */
-            microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta-section';
+            microcopy?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'cta-section'
           }
         | {
-            variant?: ('logos' | 'stats' | 'combined' | 'text') | null;
+            variant?: ('logos' | 'stats' | 'combined' | 'text') | null
             /**
              * Centered text statement. Shown when variant is "Text statement".
              */
-            statement?: string | null;
+            statement?: string | null
             /**
              * Small label above logos (e.g. "Trusted by advisors certified through")
              */
-            label?: string | null;
-            partners?: (number | Partner)[] | null;
+            label?: string | null
+            partners?: (number | Partner)[] | null
             /**
              * Shown in "stats" and "combined" variants
              */
@@ -533,220 +546,220 @@ export interface Page {
                   /**
                    * e.g. "200+"
                    */
-                  value: string;
+                  value: string
                   /**
                    * e.g. "advisors onboarded"
                    */
-                  label: string;
-                  id?: string | null;
+                  label: string
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'credibility-strip';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'credibility-strip'
           }
         | {
             /**
              * HTML id attribute for anchor links (e.g. "coverage")
              */
-            sectionId?: string | null;
-            sectionLabel?: string | null;
+            sectionId?: string | null
+            sectionLabel?: string | null
             /**
              * Alternating text+visual rows
              */
             sections?:
               | {
-                  heading: string;
+                  heading: string
                   body?: {
                     root: {
-                      type: string;
+                      type: string
                       children: {
-                        type: any;
-                        version: number;
-                        [k: string]: unknown;
-                      }[];
-                      direction: ('ltr' | 'rtl') | null;
-                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                      indent: number;
-                      version: number;
-                    };
-                    [k: string]: unknown;
-                  } | null;
-                  visual?: (number | null) | Media;
-                  visualAlt?: string | null;
+                        type: any
+                        version: number
+                        [k: string]: unknown
+                      }[]
+                      direction: ('ltr' | 'rtl') | null
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                      indent: number
+                      version: number
+                    }
+                    [k: string]: unknown
+                  } | null
+                  visual?: (number | null) | Media
+                  visualAlt?: string | null
                   /**
                    * Optional embedded testimonial
                    */
-                  testimonial?: (number | null) | Testimonial;
+                  testimonial?: (number | null) | Testimonial
                   link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
-                  id?: string | null;
+                    label?: string | null
+                    href?: string | null
+                  }
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'feature-deep-dive';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'feature-deep-dive'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
             /**
              * 3 columns: Old Way / Patchwork / With ELLA
              */
             columns?:
               | {
-                  heading: string;
-                  subheading?: string | null;
+                  heading: string
+                  subheading?: string | null
                   /**
                    * Visually emphasize this column (the "With ELLA" column)
                    */
-                  highlighted?: boolean | null;
-                  id?: string | null;
+                  highlighted?: boolean | null
+                  id?: string | null
                 }[]
-              | null;
+              | null
             rows?:
               | {
                   /**
                    * Row label (the feature or criterion)
                    */
-                  label: string;
+                  label: string
                   /**
                    * One value per column (in order)
                    */
                   values?:
                     | {
-                        text?: string | null;
-                        indicator?: ('text' | 'check' | 'cross' | 'partial') | null;
-                        id?: string | null;
+                        text?: string | null
+                        indicator?: ('text' | 'check' | 'cross' | 'partial') | null
+                        id?: string | null
                       }[]
-                    | null;
-                  id?: string | null;
+                    | null
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'comparison-table';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'comparison-table'
           }
         | {
-            heading?: string | null;
-            intro?: string | null;
+            heading?: string | null
+            intro?: string | null
             items?:
               | {
-                  title: string;
-                  body?: string | null;
-                  icon?: (number | null) | Media;
-                  id?: string | null;
+                  title: string
+                  body?: string | null
+                  icon?: (number | null) | Media
+                  id?: string | null
                 }[]
-              | null;
+              | null
             /**
              * Standalone closing statement after the items list.
              */
-            closingLine?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'trust-security';
+            closingLine?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'trust-security'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
             steps?:
               | {
-                  heading: string;
-                  body?: string | null;
+                  heading: string
+                  body?: string | null
                   /**
                    * Screenshot or illustration for this step
                    */
-                  image?: (number | null) | Media;
-                  id?: string | null;
+                  image?: (number | null) | Media
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'numbered-steps';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'numbered-steps'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            solutions?: (number | Solution)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'solutions-selector';
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
+            solutions?: (number | Solution)[] | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'solutions-selector'
           }
         | {
-            heading?: string | null;
+            heading?: string | null
             /**
              * Only show FAQs from this category (leave blank for all)
              */
             filterByCategory?:
               | ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security')
-              | null;
+              | null
             /**
              * Manually select FAQ items (overrides category filter)
              */
-            items?: (number | FaqItem)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'faq-accordion';
+            items?: (number | FaqItem)[] | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'faq-accordion'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
             /**
              * Select pricing tiers in display order. Leave empty to show all tiers automatically.
              */
-            tiers?: (number | PricingTier)[] | null;
+            tiers?: (number | PricingTier)[] | null
             /**
              * Show monthly/annual billing toggle
              */
-            showToggle?: boolean | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'pricing-journey';
+            showToggle?: boolean | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'pricing-journey'
           }
         | {
-            heading?: string | null;
-            subheading?: string | null;
-            placeholder?: string | null;
-            buttonLabel?: string | null;
-            successMessage?: string | null;
+            heading?: string | null
+            subheading?: string | null
+            placeholder?: string | null
+            buttonLabel?: string | null
+            successMessage?: string | null
             /**
              * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
              */
-            microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'newsletter-capture';
+            microcopy?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'newsletter-capture'
           }
         | {
-            embedType?: ('typeform' | 'loops' | 'custom') | null;
-            formId?: string | null;
-            embedCode?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'formEmbed';
+            embedType?: ('typeform' | 'loops' | 'custom') | null
+            formId?: string | null
+            embedCode?: string | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'formEmbed'
           }
         | {
             /**
              * Eyebrow label above heading, e.g. "The ELLA Difference"
              */
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
             /**
              * The "before" state — life without ELLA
              */
@@ -754,19 +767,19 @@ export interface Page {
               /**
                * Tab/panel label
                */
-              label?: string | null;
-              image?: (number | null) | Media;
-              caption?: string | null;
+              label?: string | null
+              image?: (number | null) | Media
+              caption?: string | null
               /**
                * Pain points / friction items
                */
               points?:
                 | {
-                    text: string;
-                    id?: string | null;
+                    text: string
+                    id?: string | null
                   }[]
-                | null;
-            };
+                | null
+            }
             /**
              * The "after" state — life with ELLA
              */
@@ -774,104 +787,104 @@ export interface Page {
               /**
                * Tab/panel label
                */
-              label?: string | null;
-              image?: (number | null) | Media;
-              caption?: string | null;
+              label?: string | null
+              image?: (number | null) | Media
+              caption?: string | null
               /**
                * Benefits / improvements
                */
               points?:
                 | {
-                    text: string;
-                    id?: string | null;
+                    text: string
+                    id?: string | null
                   }[]
-                | null;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'before-after-panel';
+                | null
+            }
+            id?: string | null
+            blockName?: string | null
+            blockType: 'before-after-panel'
           }
         | {
             /**
              * Section headline. Rendered in Termina.
              */
-            heading: string;
+            heading: string
             /**
              * Body copy — 2–4 paragraphs in DM Sans.
              */
             body?: {
               root: {
-                type: string;
+                type: string
                 children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
+                  type: any
+                  version: number
+                  [k: string]: unknown
+                }[]
+                direction: ('ltr' | 'rtl') | null
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                indent: number
+                version: number
+              }
+              [k: string]: unknown
+            } | null
             /**
              * Stacked blockquotes. Rendered in Instrument Serif.
              */
             quotes?:
               | {
-                  text: string;
+                  text: string
                   /**
                    * e.g. "Advisor, on what they need from technology"
                    */
-                  attribution?: string | null;
-                  id?: string | null;
+                  attribution?: string | null
+                  id?: string | null
                 }[]
-              | null;
+              | null
             /**
              * Standalone closing line after the quotes. DM Sans medium weight.
              */
-            closer?: string | null;
-            bgStyle?: ('cream' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'bridge-section';
+            closer?: string | null
+            bgStyle?: ('cream' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'bridge-section'
           }
       )[]
-    | null;
+    | null
   meta?: {
     /**
      * Overrides page title in search results and browser tabs. 50–60 chars ideal.
      */
-    title?: string | null;
+    title?: string | null
     /**
      * Summary shown in search results. 150–160 chars ideal.
      */
-    description?: string | null;
+    description?: string | null
     /**
      * Open Graph image for social sharing. 1200×630px recommended.
      */
-    image?: (number | null) | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
+    image?: (number | null) | Media
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials".
  */
 export interface Testimonial {
-  id: number;
-  quote: string;
+  id: number
+  quote: string
   /**
    * Advisor's full name
    */
-  name: string;
+  name: string
   /**
    * Job title, e.g. "Certified Exit Planning Advisor"
    */
-  title?: string | null;
-  company?: string | null;
-  photo?: (number | null) | Media;
+  title?: string | null
+  company?: string | null
+  photo?: (number | null) | Media
   /**
    * Optional quantitative result to highlight alongside the quote
    */
@@ -879,529 +892,531 @@ export interface Testimonial {
     /**
      * e.g. "3x" or "40%"
      */
-    value?: string | null;
+    value?: string | null
     /**
      * e.g. "more clients served"
      */
-    label?: string | null;
-  };
+    label?: string | null
+  }
   /**
    * Only approved testimonials appear on the site
    */
-  approved?: boolean | null;
+  approved?: boolean | null
   /**
    * Tag by discipline to allow targeted display
    */
-  disciplines?: (number | Discipline)[] | null;
-  updatedAt: string;
-  createdAt: string;
+  disciplines?: (number | Discipline)[] | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partners".
  */
 export interface Partner {
-  id: number;
-  name: string;
-  logo?: (number | null) | Media;
-  type: 'association' | 'technology' | 'certification' | 'media' | 'integration';
-  url?: string | null;
-  showOnHomepage?: boolean | null;
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: number
+  name: string
+  logo?: (number | null) | Media
+  type: 'association' | 'technology' | 'certification' | 'media' | 'integration'
+  url?: string | null
+  showOnHomepage?: boolean | null
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "solutions".
  */
 export interface Solution {
-  id: number;
-  title: string;
-  slug: string;
-  discipline: number | Discipline;
+  id: number
+  title: string
+  slug: string
+  discipline: number | Discipline
   /**
    * Short descriptor shown in solution cards
    */
-  tagline?: string | null;
-  status?: ('published' | 'waitlist' | 'coming-soon') | null;
+  tagline?: string | null
+  status?: ('published' | 'waitlist' | 'coming-soon') | null
   /**
    * Mark as the primary beachhead use case (Exit Planning)
    */
-  isBeachhead?: boolean | null;
+  isBeachhead?: boolean | null
   hero: {
-    headline: string;
-    subheadline?: string | null;
+    headline: string
+    subheadline?: string | null
     primaryCta?: {
-      label?: string | null;
-      href?: string | null;
-    };
+      label?: string | null
+      href?: string | null
+    }
     secondaryCta?: {
-      label?: string | null;
-      href?: string | null;
-    };
-    visual?: (number | null) | Media;
-    style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+      label?: string | null
+      href?: string | null
+    }
+    visual?: (number | null) | Media
+    style?: ('default' | 'centered' | 'split' | 'minimal') | null
     /**
      * Substring of the headline to render in accent color. Leave empty for no highlight.
      */
-    highlightText?: string | null;
+    highlightText?: string | null
     /**
      * Color applied to the highlighted headline substring.
      */
-    highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null;
-  };
+    highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null
+  }
   layout?:
     | (
         | {
             /**
              * Small eyebrow label above the heading (optional)
              */
-            sectionLabel?: string | null;
-            heading?: string | null;
+            sectionLabel?: string | null
+            heading?: string | null
             body?: {
               root: {
-                type: string;
+                type: string
                 children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            media?: (number | null) | Media;
-            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
+                  type: any
+                  version: number
+                  [k: string]: unknown
+                }[]
+                direction: ('ltr' | 'rtl') | null
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                indent: number
+                version: number
+              }
+              [k: string]: unknown
+            } | null
+            media?: (number | null) | Media
+            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null
             link?: {
-              label?: string | null;
-              href?: string | null;
-              style?: ('button' | 'link') | null;
-            };
+              label?: string | null
+              href?: string | null
+              style?: ('button' | 'link') | null
+            }
             /**
              * Small badge/tag to display near the heading
              */
-            badge?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content-section';
+            badge?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'content-section'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            variant?: ('feature' | 'icon' | 'minimal') | null;
-            columns?: ('2' | '3' | '4') | null;
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
+            variant?: ('feature' | 'icon' | 'minimal') | null
+            columns?: ('2' | '3' | '4') | null
             cards?:
               | {
-                  heading: string;
-                  body?: string | null;
-                  icon?: (number | null) | Media;
+                  heading: string
+                  body?: string | null
+                  icon?: (number | null) | Media
                   link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
+                    label?: string | null
+                    href?: string | null
+                  }
                   /**
                    * ID of a section further down the page to link to (without #)
                    */
-                  anchorTarget?: string | null;
+                  anchorTarget?: string | null
                   /**
                    * Short capability bullets shown below the card description
                    */
                   capabilities?:
                     | {
-                        text: string;
-                        id?: string | null;
+                        text: string
+                        id?: string | null
                       }[]
-                    | null;
-                  id?: string | null;
+                    | null
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'card-grid';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'card-grid'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            layout?: ('single' | 'grid' | 'carousel') | null;
-            testimonials?: (number | Testimonial)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'testimonial-block';
+            sectionLabel?: string | null
+            heading?: string | null
+            layout?: ('single' | 'grid' | 'carousel') | null
+            testimonials?: (number | Testimonial)[] | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'testimonial-block'
           }
         | {
-            headline?: string | null;
-            body?: string | null;
+            headline?: string | null
+            body?: string | null
             primaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
+              label?: string | null
+              href?: string | null
+            }
             secondaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
+              label?: string | null
+              href?: string | null
+            }
             /**
              * Small text below CTAs (e.g. "No credit card required")
              */
-            closingLine?: string | null;
+            closingLine?: string | null
             /**
              * Trust signal near CTA (e.g. "Join 200+ advisors")
              */
-            microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta-section';
+            microcopy?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'cta-section'
           }
         | {
             /**
              * HTML id attribute for anchor links (e.g. "coverage")
              */
-            sectionId?: string | null;
-            sectionLabel?: string | null;
+            sectionId?: string | null
+            sectionLabel?: string | null
             /**
              * Alternating text+visual rows
              */
             sections?:
               | {
-                  heading: string;
+                  heading: string
                   body?: {
                     root: {
-                      type: string;
+                      type: string
                       children: {
-                        type: any;
-                        version: number;
-                        [k: string]: unknown;
-                      }[];
-                      direction: ('ltr' | 'rtl') | null;
-                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                      indent: number;
-                      version: number;
-                    };
-                    [k: string]: unknown;
-                  } | null;
-                  visual?: (number | null) | Media;
-                  visualAlt?: string | null;
+                        type: any
+                        version: number
+                        [k: string]: unknown
+                      }[]
+                      direction: ('ltr' | 'rtl') | null
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                      indent: number
+                      version: number
+                    }
+                    [k: string]: unknown
+                  } | null
+                  visual?: (number | null) | Media
+                  visualAlt?: string | null
                   /**
                    * Optional embedded testimonial
                    */
-                  testimonial?: (number | null) | Testimonial;
+                  testimonial?: (number | null) | Testimonial
                   link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
-                  id?: string | null;
+                    label?: string | null
+                    href?: string | null
+                  }
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'feature-deep-dive';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'feature-deep-dive'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
             steps?:
               | {
-                  heading: string;
-                  body?: string | null;
+                  heading: string
+                  body?: string | null
                   /**
                    * Screenshot or illustration for this step
                    */
-                  image?: (number | null) | Media;
-                  id?: string | null;
+                  image?: (number | null) | Media
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'numbered-steps';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'numbered-steps'
           }
         | {
-            heading?: string | null;
-            intro?: string | null;
+            heading?: string | null
+            intro?: string | null
             items?:
               | {
-                  title: string;
-                  body?: string | null;
-                  icon?: (number | null) | Media;
-                  id?: string | null;
+                  title: string
+                  body?: string | null
+                  icon?: (number | null) | Media
+                  id?: string | null
                 }[]
-              | null;
+              | null
             /**
              * Standalone closing statement after the items list.
              */
-            closingLine?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'trust-security';
+            closingLine?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'trust-security'
           }
         | {
-            embedType?: ('typeform' | 'loops' | 'custom') | null;
-            formId?: string | null;
-            embedCode?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'formEmbed';
+            embedType?: ('typeform' | 'loops' | 'custom') | null
+            formId?: string | null
+            embedCode?: string | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'formEmbed'
           }
       )[]
-    | null;
+    | null
   meta?: {
     /**
      * Overrides page title in search results and browser tabs. 50–60 chars ideal.
      */
-    title?: string | null;
+    title?: string | null
     /**
      * Summary shown in search results. 150–160 chars ideal.
      */
-    description?: string | null;
+    description?: string | null
     /**
      * Open Graph image for social sharing. 1200×630px recommended.
      */
-    image?: (number | null) | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
+    image?: (number | null) | Media
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "faq-items".
  */
 export interface FaqItem {
-  id: number;
-  question: string;
+  id: number
+  question: string
   answer: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  category?: ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security') | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  }
+  category?:
+    | ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security')
+    | null
   /**
    * Include in the FAQ section on the Pricing page
    */
-  showOnPricing?: boolean | null;
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  showOnPricing?: boolean | null
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pricing-tiers".
  */
 export interface PricingTier {
-  id: number;
+  id: number
   /**
    * e.g. "Free", "Practitioner", "Vanguard"
    */
-  name: string;
+  name: string
   price?: {
     /**
      * Monthly price in cents (e.g. 9900 = $99). 0 = Free.
      */
-    amount?: number | null;
-    period?: ('month' | 'year' | 'one-time' | 'custom') | null;
+    amount?: number | null
+    period?: ('month' | 'year' | 'one-time' | 'custom') | null
     /**
      * Override price display (e.g. "Contact us")
      */
-    customLabel?: string | null;
-  };
+    customLabel?: string | null
+  }
   /**
    * Short descriptor shown under the tier name
    */
-  tagline?: string | null;
+  tagline?: string | null
   features?:
     | {
-        feature: string;
-        included?: ('yes' | 'no' | 'limited' | 'addon') | null;
-        id?: string | null;
+        feature: string
+        included?: ('yes' | 'no' | 'limited' | 'addon') | null
+        id?: string | null
       }[]
-    | null;
+    | null
   cta?: {
-    label?: string | null;
-    href?: string | null;
-  };
+    label?: string | null
+    href?: string | null
+  }
   /**
    * Show this tier as the recommended/featured option
    */
-  highlighted?: boolean | null;
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  highlighted?: boolean | null
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "landing-pages".
  */
 export interface LandingPage {
-  id: number;
-  title: string;
-  slug: string;
+  id: number
+  title: string
+  slug: string
   /**
    * Campaign or event this landing page is associated with (e.g., "EPI Summit 2025")
    */
-  campaign?: string | null;
-  status?: ('draft' | 'published') | null;
+  campaign?: string | null
+  status?: ('draft' | 'published') | null
   hero: {
-    headline: string;
-    subheadline?: string | null;
+    headline: string
+    subheadline?: string | null
     primaryCta?: {
-      label?: string | null;
-      href?: string | null;
-    };
+      label?: string | null
+      href?: string | null
+    }
     secondaryCta?: {
-      label?: string | null;
-      href?: string | null;
-    };
-    visual?: (number | null) | Media;
-    style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+      label?: string | null
+      href?: string | null
+    }
+    visual?: (number | null) | Media
+    style?: ('default' | 'centered' | 'split' | 'minimal') | null
     /**
      * Substring of the headline to render in accent color. Leave empty for no highlight.
      */
-    highlightText?: string | null;
+    highlightText?: string | null
     /**
      * Color applied to the highlighted headline substring.
      */
-    highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null;
-  };
+    highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null
+  }
   layout?:
     | (
         | {
             /**
              * Small eyebrow label above the heading (optional)
              */
-            sectionLabel?: string | null;
-            heading?: string | null;
+            sectionLabel?: string | null
+            heading?: string | null
             body?: {
               root: {
-                type: string;
+                type: string
                 children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            media?: (number | null) | Media;
-            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
+                  type: any
+                  version: number
+                  [k: string]: unknown
+                }[]
+                direction: ('ltr' | 'rtl') | null
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                indent: number
+                version: number
+              }
+              [k: string]: unknown
+            } | null
+            media?: (number | null) | Media
+            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null
             link?: {
-              label?: string | null;
-              href?: string | null;
-              style?: ('button' | 'link') | null;
-            };
+              label?: string | null
+              href?: string | null
+              style?: ('button' | 'link') | null
+            }
             /**
              * Small badge/tag to display near the heading
              */
-            badge?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content-section';
+            badge?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'content-section'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            variant?: ('feature' | 'icon' | 'minimal') | null;
-            columns?: ('2' | '3' | '4') | null;
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
+            variant?: ('feature' | 'icon' | 'minimal') | null
+            columns?: ('2' | '3' | '4') | null
             cards?:
               | {
-                  heading: string;
-                  body?: string | null;
-                  icon?: (number | null) | Media;
+                  heading: string
+                  body?: string | null
+                  icon?: (number | null) | Media
                   link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
+                    label?: string | null
+                    href?: string | null
+                  }
                   /**
                    * ID of a section further down the page to link to (without #)
                    */
-                  anchorTarget?: string | null;
+                  anchorTarget?: string | null
                   /**
                    * Short capability bullets shown below the card description
                    */
                   capabilities?:
                     | {
-                        text: string;
-                        id?: string | null;
+                        text: string
+                        id?: string | null
                       }[]
-                    | null;
-                  id?: string | null;
+                    | null
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'card-grid';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'card-grid'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            layout?: ('single' | 'grid' | 'carousel') | null;
-            testimonials?: (number | Testimonial)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'testimonial-block';
+            sectionLabel?: string | null
+            heading?: string | null
+            layout?: ('single' | 'grid' | 'carousel') | null
+            testimonials?: (number | Testimonial)[] | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'testimonial-block'
           }
         | {
-            headline?: string | null;
-            body?: string | null;
+            headline?: string | null
+            body?: string | null
             primaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
+              label?: string | null
+              href?: string | null
+            }
             secondaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
+              label?: string | null
+              href?: string | null
+            }
             /**
              * Small text below CTAs (e.g. "No credit card required")
              */
-            closingLine?: string | null;
+            closingLine?: string | null
             /**
              * Trust signal near CTA (e.g. "Join 200+ advisors")
              */
-            microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta-section';
+            microcopy?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'cta-section'
           }
         | {
-            variant?: ('logos' | 'stats' | 'combined' | 'text') | null;
+            variant?: ('logos' | 'stats' | 'combined' | 'text') | null
             /**
              * Centered text statement. Shown when variant is "Text statement".
              */
-            statement?: string | null;
+            statement?: string | null
             /**
              * Small label above logos (e.g. "Trusted by advisors certified through")
              */
-            label?: string | null;
-            partners?: (number | Partner)[] | null;
+            label?: string | null
+            partners?: (number | Partner)[] | null
             /**
              * Shown in "stats" and "combined" variants
              */
@@ -1410,255 +1425,255 @@ export interface LandingPage {
                   /**
                    * e.g. "200+"
                    */
-                  value: string;
+                  value: string
                   /**
                    * e.g. "advisors onboarded"
                    */
-                  label: string;
-                  id?: string | null;
+                  label: string
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'credibility-strip';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'credibility-strip'
           }
         | {
             /**
              * HTML id attribute for anchor links (e.g. "coverage")
              */
-            sectionId?: string | null;
-            sectionLabel?: string | null;
+            sectionId?: string | null
+            sectionLabel?: string | null
             /**
              * Alternating text+visual rows
              */
             sections?:
               | {
-                  heading: string;
+                  heading: string
                   body?: {
                     root: {
-                      type: string;
+                      type: string
                       children: {
-                        type: any;
-                        version: number;
-                        [k: string]: unknown;
-                      }[];
-                      direction: ('ltr' | 'rtl') | null;
-                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                      indent: number;
-                      version: number;
-                    };
-                    [k: string]: unknown;
-                  } | null;
-                  visual?: (number | null) | Media;
-                  visualAlt?: string | null;
+                        type: any
+                        version: number
+                        [k: string]: unknown
+                      }[]
+                      direction: ('ltr' | 'rtl') | null
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                      indent: number
+                      version: number
+                    }
+                    [k: string]: unknown
+                  } | null
+                  visual?: (number | null) | Media
+                  visualAlt?: string | null
                   /**
                    * Optional embedded testimonial
                    */
-                  testimonial?: (number | null) | Testimonial;
+                  testimonial?: (number | null) | Testimonial
                   link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
-                  id?: string | null;
+                    label?: string | null
+                    href?: string | null
+                  }
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'feature-deep-dive';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'feature-deep-dive'
           }
         | {
-            heading?: string | null;
-            intro?: string | null;
+            heading?: string | null
+            intro?: string | null
             items?:
               | {
-                  title: string;
-                  body?: string | null;
-                  icon?: (number | null) | Media;
-                  id?: string | null;
+                  title: string
+                  body?: string | null
+                  icon?: (number | null) | Media
+                  id?: string | null
                 }[]
-              | null;
+              | null
             /**
              * Standalone closing statement after the items list.
              */
-            closingLine?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'trust-security';
+            closingLine?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'trust-security'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
             steps?:
               | {
-                  heading: string;
-                  body?: string | null;
+                  heading: string
+                  body?: string | null
                   /**
                    * Screenshot or illustration for this step
                    */
-                  image?: (number | null) | Media;
-                  id?: string | null;
+                  image?: (number | null) | Media
+                  id?: string | null
                 }[]
-              | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'numbered-steps';
+              | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'numbered-steps'
           }
         | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            solutions?: (number | Solution)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'solutions-selector';
+            sectionLabel?: string | null
+            heading?: string | null
+            subheading?: string | null
+            solutions?: (number | Solution)[] | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'solutions-selector'
           }
         | {
-            heading?: string | null;
+            heading?: string | null
             /**
              * Only show FAQs from this category (leave blank for all)
              */
             filterByCategory?:
               | ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security')
-              | null;
+              | null
             /**
              * Manually select FAQ items (overrides category filter)
              */
-            items?: (number | FaqItem)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'faq-accordion';
+            items?: (number | FaqItem)[] | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'faq-accordion'
           }
         | {
-            heading?: string | null;
-            subheading?: string | null;
-            placeholder?: string | null;
-            buttonLabel?: string | null;
-            successMessage?: string | null;
+            heading?: string | null
+            subheading?: string | null
+            placeholder?: string | null
+            buttonLabel?: string | null
+            successMessage?: string | null
             /**
              * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
              */
-            microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'newsletter-capture';
+            microcopy?: string | null
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'newsletter-capture'
           }
         | {
-            embedType?: ('typeform' | 'loops' | 'custom') | null;
-            formId?: string | null;
-            embedCode?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'formEmbed';
+            embedType?: ('typeform' | 'loops' | 'custom') | null
+            formId?: string | null
+            embedCode?: string | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'formEmbed'
           }
       )[]
-    | null;
+    | null
   meta?: {
     /**
      * Overrides page title in search results and browser tabs. 50–60 chars ideal.
      */
-    title?: string | null;
+    title?: string | null
     /**
      * Summary shown in search results. 150–160 chars ideal.
      */
-    description?: string | null;
+    description?: string | null
     /**
      * Open Graph image for social sharing. 1200×630px recommended.
      */
-    image?: (number | null) | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
+    image?: (number | null) | Media
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tools".
  */
 export interface Tool {
-  id: number;
-  title: string;
-  slug: string;
-  description?: string | null;
+  id: number
+  title: string
+  slug: string
+  description?: string | null
   /**
    * Deep link to this tool within the ELLA app
    */
-  toolUrl?: string | null;
-  disciplines?: (number | Discipline)[] | null;
+  toolUrl?: string | null
+  disciplines?: (number | Discipline)[] | null
   /**
    * Minimum tier required to access this tool
    */
-  pricingTier?: (number | null) | PricingTier;
-  status?: ('available' | 'coming-soon' | 'beta') | null;
-  icon?: (number | null) | Media;
-  updatedAt: string;
-  createdAt: string;
+  pricingTier?: (number | null) | PricingTier
+  status?: ('available' | 'coming-soon' | 'beta') | null
+  icon?: (number | null) | Media
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
-  id: number;
+  id: number
   /**
    * Source path (e.g. "/old-page" or full URL from exitwithella.io)
    */
-  from: string;
+  from: string
   /**
    * Destination path or URL
    */
-  to: string;
-  type?: ('301' | '302') | null;
+  to: string
+  type?: ('301' | '302') | null
   /**
    * Which domain this redirect originates from
    */
-  sourceDomain?: ('withella' | 'exitwithella') | null;
-  active?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
+  sourceDomain?: ('withella' | 'exitwithella') | null
+  active?: boolean | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "case-studies".
  */
 export interface CaseStudy {
-  id: number;
+  id: number
   /**
    * Internal title — not shown publicly (client is anonymous)
    */
-  title: string;
+  title: string
   /**
    * Public-facing headline, e.g. "How one advisor tripled engagement in 90 days"
    */
-  headline?: string | null;
+  headline?: string | null
   /**
    * Short summary paragraph shown in card/list views
    */
-  summary?: string | null;
+  summary?: string | null
   /**
    * Full case study narrative
    */
   body?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   /**
    * Anonymous client descriptor — no identifying information
    */
@@ -1666,9 +1681,9 @@ export interface CaseStudy {
     /**
      * e.g. "Mid-size RIA, Southeast US" or "Solo CEPA practitioner"
      */
-    descriptor?: string | null;
-    firmSize?: ('solo' | 'small' | 'mid' | 'large') | null;
-  };
+    descriptor?: string | null
+    firmSize?: ('solo' | 'small' | 'mid' | 'large') | null
+  }
   /**
    * Quantitative outcomes to highlight
    */
@@ -1677,66 +1692,66 @@ export interface CaseStudy {
         /**
          * e.g. "3x" or "40%"
          */
-        value: string;
+        value: string
         /**
          * e.g. "increase in client engagement"
          */
-        label: string;
-        id?: string | null;
+        label: string
+        id?: string | null
       }[]
-    | null;
+    | null
   /**
    * Primary discipline this case study belongs to
    */
-  discipline?: (number | null) | Discipline;
+  discipline?: (number | null) | Discipline
   /**
    * Pin to featured placement on case studies index
    */
-  featured?: boolean | null;
+  featured?: boolean | null
   /**
    * Only approved case studies appear on the site
    */
-  approved?: boolean | null;
-  coverImage?: (number | null) | Media;
-  updatedAt: string;
-  createdAt: string;
+  approved?: boolean | null
+  coverImage?: (number | null) | Media
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "vanguard-events".
  */
 export interface VanguardEvent {
-  id: number;
-  title: string;
-  description?: string | null;
-  date: string;
+  id: number
+  title: string
+  description?: string | null
+  date: string
   location?: {
-    type?: ('virtual' | 'in-person' | 'hybrid') | null;
+    type?: ('virtual' | 'in-person' | 'hybrid') | null
     /**
      * Physical address for in-person or hybrid events
      */
-    address?: string | null;
-    city?: string | null;
+    address?: string | null
+    city?: string | null
     /**
      * e.g. "Zoom" or "Hopin" for virtual events
      */
-    platform?: string | null;
-  };
+    platform?: string | null
+  }
   /**
    * External registration link
    */
-  registrationUrl?: string | null;
+  registrationUrl?: string | null
   /**
    * Maximum attendees (leave blank for unlimited)
    */
-  capacity?: number | null;
-  status: 'upcoming' | 'registration-open' | 'sold-out' | 'completed' | 'canceled';
+  capacity?: number | null
+  status: 'upcoming' | 'registration-open' | 'sold-out' | 'completed' | 'canceled'
   /**
    * Restrict registration to Vanguard tier members
    */
-  vanguardOnly?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
+  vanguardOnly?: boolean | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * API keys control which collections, resources, tools, and prompts MCP clients can access
@@ -1745,1631 +1760,1631 @@ export interface VanguardEvent {
  * via the `definition` "payload-mcp-api-keys".
  */
 export interface PayloadMcpApiKey {
-  id: number;
+  id: number
   /**
    * The user that the API key is associated with.
    */
-  user: number | User;
+  user: number | User
   /**
    * A useful label for the API key.
    */
-  label?: string | null;
+  label?: string | null
   /**
    * The purpose of the API key.
    */
-  description?: string | null;
+  description?: string | null
   posts?: {
     /**
      * Allow clients to find posts.
      */
-    find?: boolean | null;
+    find?: boolean | null
     /**
      * Allow clients to create posts.
      */
-    create?: boolean | null;
+    create?: boolean | null
     /**
      * Allow clients to update posts.
      */
-    update?: boolean | null;
+    update?: boolean | null
     /**
      * Allow clients to delete posts.
      */
-    delete?: boolean | null;
-  };
+    delete?: boolean | null
+  }
   pages?: {
     /**
      * Allow clients to find pages.
      */
-    find?: boolean | null;
+    find?: boolean | null
     /**
      * Allow clients to create pages.
      */
-    create?: boolean | null;
+    create?: boolean | null
     /**
      * Allow clients to update pages.
      */
-    update?: boolean | null;
+    update?: boolean | null
     /**
      * Allow clients to delete pages.
      */
-    delete?: boolean | null;
-  };
+    delete?: boolean | null
+  }
   landingPages?: {
     /**
      * Allow clients to find landing-pages.
      */
-    find?: boolean | null;
+    find?: boolean | null
     /**
      * Allow clients to create landing-pages.
      */
-    create?: boolean | null;
+    create?: boolean | null
     /**
      * Allow clients to update landing-pages.
      */
-    update?: boolean | null;
+    update?: boolean | null
     /**
      * Allow clients to delete landing-pages.
      */
-    delete?: boolean | null;
-  };
+    delete?: boolean | null
+  }
   teamMembers?: {
     /**
      * Allow clients to find team-members.
      */
-    find?: boolean | null;
+    find?: boolean | null
     /**
      * Allow clients to create team-members.
      */
-    create?: boolean | null;
+    create?: boolean | null
     /**
      * Allow clients to update team-members.
      */
-    update?: boolean | null;
+    update?: boolean | null
     /**
      * Allow clients to delete team-members.
      */
-    delete?: boolean | null;
-  };
+    delete?: boolean | null
+  }
   categories?: {
     /**
      * Allow clients to find categories.
      */
-    find?: boolean | null;
+    find?: boolean | null
     /**
      * Allow clients to create categories.
      */
-    create?: boolean | null;
+    create?: boolean | null
     /**
      * Allow clients to update categories.
      */
-    update?: boolean | null;
+    update?: boolean | null
     /**
      * Allow clients to delete categories.
      */
-    delete?: boolean | null;
-  };
+    delete?: boolean | null
+  }
   solutions?: {
     /**
      * Allow clients to find solutions.
      */
-    find?: boolean | null;
+    find?: boolean | null
     /**
      * Allow clients to create solutions.
      */
-    create?: boolean | null;
+    create?: boolean | null
     /**
      * Allow clients to update solutions.
      */
-    update?: boolean | null;
+    update?: boolean | null
     /**
      * Allow clients to delete solutions.
      */
-    delete?: boolean | null;
-  };
+    delete?: boolean | null
+  }
   testimonials?: {
     /**
      * Allow clients to find testimonials.
      */
-    find?: boolean | null;
+    find?: boolean | null
     /**
      * Allow clients to create testimonials.
      */
-    create?: boolean | null;
+    create?: boolean | null
     /**
      * Allow clients to update testimonials.
      */
-    update?: boolean | null;
+    update?: boolean | null
     /**
      * Allow clients to delete testimonials.
      */
-    delete?: boolean | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-  enableAPIKey?: boolean | null;
-  apiKey?: string | null;
-  apiKeyIndex?: string | null;
+    delete?: boolean | null
+  }
+  updatedAt: string
+  createdAt: string
+  enableAPIKey?: boolean | null
+  apiKey?: string | null
+  apiKeyIndex?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: number;
-  key: string;
+  id: number
+  key: string
   data:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
+    | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: number
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'users'
+        value: number | User
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
+        relationTo: 'media'
+        value: number | Media
       } | null)
     | ({
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'posts'
+        value: number | Post
       } | null)
     | ({
-        relationTo: 'pages';
-        value: number | Page;
+        relationTo: 'pages'
+        value: number | Page
       } | null)
     | ({
-        relationTo: 'landing-pages';
-        value: number | LandingPage;
+        relationTo: 'landing-pages'
+        value: number | LandingPage
       } | null)
     | ({
-        relationTo: 'categories';
-        value: number | Category;
+        relationTo: 'categories'
+        value: number | Category
       } | null)
     | ({
-        relationTo: 'disciplines';
-        value: number | Discipline;
+        relationTo: 'disciplines'
+        value: number | Discipline
       } | null)
     | ({
-        relationTo: 'team-members';
-        value: number | TeamMember;
+        relationTo: 'team-members'
+        value: number | TeamMember
       } | null)
     | ({
-        relationTo: 'testimonials';
-        value: number | Testimonial;
+        relationTo: 'testimonials'
+        value: number | Testimonial
       } | null)
     | ({
-        relationTo: 'partners';
-        value: number | Partner;
+        relationTo: 'partners'
+        value: number | Partner
       } | null)
     | ({
-        relationTo: 'faq-items';
-        value: number | FaqItem;
+        relationTo: 'faq-items'
+        value: number | FaqItem
       } | null)
     | ({
-        relationTo: 'pricing-tiers';
-        value: number | PricingTier;
+        relationTo: 'pricing-tiers'
+        value: number | PricingTier
       } | null)
     | ({
-        relationTo: 'tools';
-        value: number | Tool;
+        relationTo: 'tools'
+        value: number | Tool
       } | null)
     | ({
-        relationTo: 'redirects';
-        value: number | Redirect;
+        relationTo: 'redirects'
+        value: number | Redirect
       } | null)
     | ({
-        relationTo: 'solutions';
-        value: number | Solution;
+        relationTo: 'solutions'
+        value: number | Solution
       } | null)
     | ({
-        relationTo: 'case-studies';
-        value: number | CaseStudy;
+        relationTo: 'case-studies'
+        value: number | CaseStudy
       } | null)
     | ({
-        relationTo: 'vanguard-events';
-        value: number | VanguardEvent;
+        relationTo: 'vanguard-events'
+        value: number | VanguardEvent
       } | null)
     | ({
-        relationTo: 'payload-mcp-api-keys';
-        value: number | PayloadMcpApiKey;
-      } | null);
-  globalSlug?: string | null;
+        relationTo: 'payload-mcp-api-keys'
+        value: number | PayloadMcpApiKey
+      } | null)
+  globalSlug?: string | null
   user:
     | {
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'users'
+        value: number | User
       }
     | {
-        relationTo: 'payload-mcp-api-keys';
-        value: number | PayloadMcpApiKey;
-      };
-  updatedAt: string;
-  createdAt: string;
+        relationTo: 'payload-mcp-api-keys'
+        value: number | PayloadMcpApiKey
+      }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: number
   user:
     | {
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'users'
+        value: number | User
       }
     | {
-        relationTo: 'payload-mcp-api-keys';
-        value: number | PayloadMcpApiKey;
-      };
-  key?: string | null;
+        relationTo: 'payload-mcp-api-keys'
+        value: number | PayloadMcpApiKey
+      }
+  key?: string | null
   value?:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: number
+  name?: string | null
+  batch?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  loginAttempts?: T
+  lockUntil?: T
   sessions?:
     | T
     | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
+        id?: T
+        createdAt?: T
+        expiresAt?: T
+      }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  caption?: T;
-  credit?: T;
-  category?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
+  alt?: T
+  caption?: T
+  credit?: T
+  category?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  excerpt?: T;
-  publishedDate?: T;
-  status?: T;
-  author?: T;
-  featuredImage?: T;
-  categories?: T;
-  disciplines?: T;
-  tier?: T;
-  relatedPosts?: T;
-  legacySlug?: T;
-  showNewsletterCTA?: T;
-  content?: T;
+  title?: T
+  slug?: T
+  excerpt?: T
+  publishedDate?: T
+  status?: T
+  author?: T
+  featuredImage?: T
+  categories?: T
+  disciplines?: T
+  tier?: T
+  relatedPosts?: T
+  legacySlug?: T
+  showNewsletterCTA?: T
+  content?: T
   meta?:
     | T
     | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
+        title?: T
+        description?: T
+        image?: T
+      }
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  status?: T;
-  publishedDate?: T;
-  parent?: T;
+  title?: T
+  slug?: T
+  status?: T
+  publishedDate?: T
+  parent?: T
   hero?:
     | T
     | {
-        headline?: T;
-        subheadline?: T;
+        headline?: T
+        subheadline?: T
         primaryCta?:
           | T
           | {
-              label?: T;
-              href?: T;
-            };
+              label?: T
+              href?: T
+            }
         secondaryCta?:
           | T
           | {
-              label?: T;
-              href?: T;
-            };
-        visual?: T;
-        style?: T;
-        highlightText?: T;
-        highlightColor?: T;
-      };
+              label?: T
+              href?: T
+            }
+        visual?: T
+        style?: T
+        highlightText?: T
+        highlightColor?: T
+      }
   layout?:
     | T
     | {
         'content-section'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              body?: T;
-              media?: T;
-              mediaPosition?: T;
+              sectionLabel?: T
+              heading?: T
+              body?: T
+              media?: T
+              mediaPosition?: T
               link?:
                 | T
                 | {
-                    label?: T;
-                    href?: T;
-                    style?: T;
-                  };
-              badge?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    label?: T
+                    href?: T
+                    style?: T
+                  }
+              badge?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'card-grid'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              variant?: T;
-              columns?: T;
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
+              variant?: T
+              columns?: T
               cards?:
                 | T
                 | {
-                    heading?: T;
-                    body?: T;
-                    icon?: T;
+                    heading?: T
+                    body?: T
+                    icon?: T
                     link?:
                       | T
                       | {
-                          label?: T;
-                          href?: T;
-                        };
-                    anchorTarget?: T;
+                          label?: T
+                          href?: T
+                        }
+                    anchorTarget?: T
                     capabilities?:
                       | T
                       | {
-                          text?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                          text?: T
+                          id?: T
+                        }
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'testimonial-block'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              layout?: T;
-              testimonials?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              sectionLabel?: T
+              heading?: T
+              layout?: T
+              testimonials?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'cta-section'?:
           | T
           | {
-              headline?: T;
-              body?: T;
+              headline?: T
+              body?: T
               primaryCta?:
                 | T
                 | {
-                    label?: T;
-                    href?: T;
-                  };
+                    label?: T
+                    href?: T
+                  }
               secondaryCta?:
                 | T
                 | {
-                    label?: T;
-                    href?: T;
-                  };
-              closingLine?: T;
-              microcopy?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    label?: T
+                    href?: T
+                  }
+              closingLine?: T
+              microcopy?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'credibility-strip'?:
           | T
           | {
-              variant?: T;
-              statement?: T;
-              label?: T;
-              partners?: T;
+              variant?: T
+              statement?: T
+              label?: T
+              partners?: T
               stats?:
                 | T
                 | {
-                    value?: T;
-                    label?: T;
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    value?: T
+                    label?: T
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'feature-deep-dive'?:
           | T
           | {
-              sectionId?: T;
-              sectionLabel?: T;
+              sectionId?: T
+              sectionLabel?: T
               sections?:
                 | T
                 | {
-                    heading?: T;
-                    body?: T;
-                    visual?: T;
-                    visualAlt?: T;
-                    testimonial?: T;
+                    heading?: T
+                    body?: T
+                    visual?: T
+                    visualAlt?: T
+                    testimonial?: T
                     link?:
                       | T
                       | {
-                          label?: T;
-                          href?: T;
-                        };
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                          label?: T
+                          href?: T
+                        }
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'comparison-table'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
               columns?:
                 | T
                 | {
-                    heading?: T;
-                    subheading?: T;
-                    highlighted?: T;
-                    id?: T;
-                  };
+                    heading?: T
+                    subheading?: T
+                    highlighted?: T
+                    id?: T
+                  }
               rows?:
                 | T
                 | {
-                    label?: T;
+                    label?: T
                     values?:
                       | T
                       | {
-                          text?: T;
-                          indicator?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                          text?: T
+                          indicator?: T
+                          id?: T
+                        }
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'trust-security'?:
           | T
           | {
-              heading?: T;
-              intro?: T;
+              heading?: T
+              intro?: T
               items?:
                 | T
                 | {
-                    title?: T;
-                    body?: T;
-                    icon?: T;
-                    id?: T;
-                  };
-              closingLine?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    title?: T
+                    body?: T
+                    icon?: T
+                    id?: T
+                  }
+              closingLine?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'numbered-steps'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
               steps?:
                 | T
                 | {
-                    heading?: T;
-                    body?: T;
-                    image?: T;
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    heading?: T
+                    body?: T
+                    image?: T
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'solutions-selector'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              solutions?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
+              solutions?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'faq-accordion'?:
           | T
           | {
-              heading?: T;
-              filterByCategory?: T;
-              items?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              heading?: T
+              filterByCategory?: T
+              items?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'pricing-journey'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              tiers?: T;
-              showToggle?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
+              tiers?: T
+              showToggle?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'newsletter-capture'?:
           | T
           | {
-              heading?: T;
-              subheading?: T;
-              placeholder?: T;
-              buttonLabel?: T;
-              successMessage?: T;
-              microcopy?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              heading?: T
+              subheading?: T
+              placeholder?: T
+              buttonLabel?: T
+              successMessage?: T
+              microcopy?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         formEmbed?:
           | T
           | {
-              embedType?: T;
-              formId?: T;
-              embedCode?: T;
-              id?: T;
-              blockName?: T;
-            };
+              embedType?: T
+              formId?: T
+              embedCode?: T
+              id?: T
+              blockName?: T
+            }
         'before-after-panel'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
               before?:
                 | T
                 | {
-                    label?: T;
-                    image?: T;
-                    caption?: T;
+                    label?: T
+                    image?: T
+                    caption?: T
                     points?:
                       | T
                       | {
-                          text?: T;
-                          id?: T;
-                        };
-                  };
+                          text?: T
+                          id?: T
+                        }
+                  }
               after?:
                 | T
                 | {
-                    label?: T;
-                    image?: T;
-                    caption?: T;
+                    label?: T
+                    image?: T
+                    caption?: T
                     points?:
                       | T
                       | {
-                          text?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
+                          text?: T
+                          id?: T
+                        }
+                  }
+              id?: T
+              blockName?: T
+            }
         'bridge-section'?:
           | T
           | {
-              heading?: T;
-              body?: T;
+              heading?: T
+              body?: T
               quotes?:
                 | T
                 | {
-                    text?: T;
-                    attribution?: T;
-                    id?: T;
-                  };
-              closer?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
-      };
+                    text?: T
+                    attribution?: T
+                    id?: T
+                  }
+              closer?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
+      }
   meta?:
     | T
     | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
+        title?: T
+        description?: T
+        image?: T
+      }
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "landing-pages_select".
  */
 export interface LandingPagesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  campaign?: T;
-  status?: T;
+  title?: T
+  slug?: T
+  campaign?: T
+  status?: T
   hero?:
     | T
     | {
-        headline?: T;
-        subheadline?: T;
+        headline?: T
+        subheadline?: T
         primaryCta?:
           | T
           | {
-              label?: T;
-              href?: T;
-            };
+              label?: T
+              href?: T
+            }
         secondaryCta?:
           | T
           | {
-              label?: T;
-              href?: T;
-            };
-        visual?: T;
-        style?: T;
-        highlightText?: T;
-        highlightColor?: T;
-      };
+              label?: T
+              href?: T
+            }
+        visual?: T
+        style?: T
+        highlightText?: T
+        highlightColor?: T
+      }
   layout?:
     | T
     | {
         'content-section'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              body?: T;
-              media?: T;
-              mediaPosition?: T;
+              sectionLabel?: T
+              heading?: T
+              body?: T
+              media?: T
+              mediaPosition?: T
               link?:
                 | T
                 | {
-                    label?: T;
-                    href?: T;
-                    style?: T;
-                  };
-              badge?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    label?: T
+                    href?: T
+                    style?: T
+                  }
+              badge?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'card-grid'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              variant?: T;
-              columns?: T;
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
+              variant?: T
+              columns?: T
               cards?:
                 | T
                 | {
-                    heading?: T;
-                    body?: T;
-                    icon?: T;
+                    heading?: T
+                    body?: T
+                    icon?: T
                     link?:
                       | T
                       | {
-                          label?: T;
-                          href?: T;
-                        };
-                    anchorTarget?: T;
+                          label?: T
+                          href?: T
+                        }
+                    anchorTarget?: T
                     capabilities?:
                       | T
                       | {
-                          text?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                          text?: T
+                          id?: T
+                        }
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'testimonial-block'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              layout?: T;
-              testimonials?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              sectionLabel?: T
+              heading?: T
+              layout?: T
+              testimonials?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'cta-section'?:
           | T
           | {
-              headline?: T;
-              body?: T;
+              headline?: T
+              body?: T
               primaryCta?:
                 | T
                 | {
-                    label?: T;
-                    href?: T;
-                  };
+                    label?: T
+                    href?: T
+                  }
               secondaryCta?:
                 | T
                 | {
-                    label?: T;
-                    href?: T;
-                  };
-              closingLine?: T;
-              microcopy?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    label?: T
+                    href?: T
+                  }
+              closingLine?: T
+              microcopy?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'credibility-strip'?:
           | T
           | {
-              variant?: T;
-              statement?: T;
-              label?: T;
-              partners?: T;
+              variant?: T
+              statement?: T
+              label?: T
+              partners?: T
               stats?:
                 | T
                 | {
-                    value?: T;
-                    label?: T;
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    value?: T
+                    label?: T
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'feature-deep-dive'?:
           | T
           | {
-              sectionId?: T;
-              sectionLabel?: T;
+              sectionId?: T
+              sectionLabel?: T
               sections?:
                 | T
                 | {
-                    heading?: T;
-                    body?: T;
-                    visual?: T;
-                    visualAlt?: T;
-                    testimonial?: T;
+                    heading?: T
+                    body?: T
+                    visual?: T
+                    visualAlt?: T
+                    testimonial?: T
                     link?:
                       | T
                       | {
-                          label?: T;
-                          href?: T;
-                        };
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                          label?: T
+                          href?: T
+                        }
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'trust-security'?:
           | T
           | {
-              heading?: T;
-              intro?: T;
+              heading?: T
+              intro?: T
               items?:
                 | T
                 | {
-                    title?: T;
-                    body?: T;
-                    icon?: T;
-                    id?: T;
-                  };
-              closingLine?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    title?: T
+                    body?: T
+                    icon?: T
+                    id?: T
+                  }
+              closingLine?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'numbered-steps'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
               steps?:
                 | T
                 | {
-                    heading?: T;
-                    body?: T;
-                    image?: T;
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    heading?: T
+                    body?: T
+                    image?: T
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'solutions-selector'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              solutions?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
+              solutions?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'faq-accordion'?:
           | T
           | {
-              heading?: T;
-              filterByCategory?: T;
-              items?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              heading?: T
+              filterByCategory?: T
+              items?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'newsletter-capture'?:
           | T
           | {
-              heading?: T;
-              subheading?: T;
-              placeholder?: T;
-              buttonLabel?: T;
-              successMessage?: T;
-              microcopy?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              heading?: T
+              subheading?: T
+              placeholder?: T
+              buttonLabel?: T
+              successMessage?: T
+              microcopy?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         formEmbed?:
           | T
           | {
-              embedType?: T;
-              formId?: T;
-              embedCode?: T;
-              id?: T;
-              blockName?: T;
-            };
-      };
+              embedType?: T
+              formId?: T
+              embedCode?: T
+              id?: T
+              blockName?: T
+            }
+      }
   meta?:
     | T
     | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
+        title?: T
+        description?: T
+        image?: T
+      }
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  internalLabel?: T;
-  description?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  title?: T
+  slug?: T
+  internalLabel?: T
+  description?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "disciplines_select".
  */
 export interface DisciplinesSelect<T extends boolean = true> {
-  name?: T;
-  slug?: T;
-  description?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  slug?: T
+  description?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members_select".
  */
 export interface TeamMembersSelect<T extends boolean = true> {
-  name?: T;
-  slug?: T;
-  role?: T;
-  photo?: T;
-  bio?: T;
-  isAuthor?: T;
-  linkedIn?: T;
-  twitter?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  slug?: T
+  role?: T
+  photo?: T
+  bio?: T
+  isAuthor?: T
+  linkedIn?: T
+  twitter?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials_select".
  */
 export interface TestimonialsSelect<T extends boolean = true> {
-  quote?: T;
-  name?: T;
-  title?: T;
-  company?: T;
-  photo?: T;
+  quote?: T
+  name?: T
+  title?: T
+  company?: T
+  photo?: T
   metrics?:
     | T
     | {
-        value?: T;
-        label?: T;
-      };
-  approved?: T;
-  disciplines?: T;
-  updatedAt?: T;
-  createdAt?: T;
+        value?: T
+        label?: T
+      }
+  approved?: T
+  disciplines?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partners_select".
  */
 export interface PartnersSelect<T extends boolean = true> {
-  name?: T;
-  logo?: T;
-  type?: T;
-  url?: T;
-  showOnHomepage?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  logo?: T
+  type?: T
+  url?: T
+  showOnHomepage?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "faq-items_select".
  */
 export interface FaqItemsSelect<T extends boolean = true> {
-  question?: T;
-  answer?: T;
-  category?: T;
-  showOnPricing?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  question?: T
+  answer?: T
+  category?: T
+  showOnPricing?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pricing-tiers_select".
  */
 export interface PricingTiersSelect<T extends boolean = true> {
-  name?: T;
+  name?: T
   price?:
     | T
     | {
-        amount?: T;
-        period?: T;
-        customLabel?: T;
-      };
-  tagline?: T;
+        amount?: T
+        period?: T
+        customLabel?: T
+      }
+  tagline?: T
   features?:
     | T
     | {
-        feature?: T;
-        included?: T;
-        id?: T;
-      };
+        feature?: T
+        included?: T
+        id?: T
+      }
   cta?:
     | T
     | {
-        label?: T;
-        href?: T;
-      };
-  highlighted?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
+        label?: T
+        href?: T
+      }
+  highlighted?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tools_select".
  */
 export interface ToolsSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  description?: T;
-  toolUrl?: T;
-  disciplines?: T;
-  pricingTier?: T;
-  status?: T;
-  icon?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  title?: T
+  slug?: T
+  description?: T
+  toolUrl?: T
+  disciplines?: T
+  pricingTier?: T
+  status?: T
+  icon?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
-  from?: T;
-  to?: T;
-  type?: T;
-  sourceDomain?: T;
-  active?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  from?: T
+  to?: T
+  type?: T
+  sourceDomain?: T
+  active?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "solutions_select".
  */
 export interface SolutionsSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  discipline?: T;
-  tagline?: T;
-  status?: T;
-  isBeachhead?: T;
+  title?: T
+  slug?: T
+  discipline?: T
+  tagline?: T
+  status?: T
+  isBeachhead?: T
   hero?:
     | T
     | {
-        headline?: T;
-        subheadline?: T;
+        headline?: T
+        subheadline?: T
         primaryCta?:
           | T
           | {
-              label?: T;
-              href?: T;
-            };
+              label?: T
+              href?: T
+            }
         secondaryCta?:
           | T
           | {
-              label?: T;
-              href?: T;
-            };
-        visual?: T;
-        style?: T;
-        highlightText?: T;
-        highlightColor?: T;
-      };
+              label?: T
+              href?: T
+            }
+        visual?: T
+        style?: T
+        highlightText?: T
+        highlightColor?: T
+      }
   layout?:
     | T
     | {
         'content-section'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              body?: T;
-              media?: T;
-              mediaPosition?: T;
+              sectionLabel?: T
+              heading?: T
+              body?: T
+              media?: T
+              mediaPosition?: T
               link?:
                 | T
                 | {
-                    label?: T;
-                    href?: T;
-                    style?: T;
-                  };
-              badge?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    label?: T
+                    href?: T
+                    style?: T
+                  }
+              badge?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'card-grid'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
-              variant?: T;
-              columns?: T;
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
+              variant?: T
+              columns?: T
               cards?:
                 | T
                 | {
-                    heading?: T;
-                    body?: T;
-                    icon?: T;
+                    heading?: T
+                    body?: T
+                    icon?: T
                     link?:
                       | T
                       | {
-                          label?: T;
-                          href?: T;
-                        };
-                    anchorTarget?: T;
+                          label?: T
+                          href?: T
+                        }
+                    anchorTarget?: T
                     capabilities?:
                       | T
                       | {
-                          text?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                          text?: T
+                          id?: T
+                        }
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'testimonial-block'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              layout?: T;
-              testimonials?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+              sectionLabel?: T
+              heading?: T
+              layout?: T
+              testimonials?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'cta-section'?:
           | T
           | {
-              headline?: T;
-              body?: T;
+              headline?: T
+              body?: T
               primaryCta?:
                 | T
                 | {
-                    label?: T;
-                    href?: T;
-                  };
+                    label?: T
+                    href?: T
+                  }
               secondaryCta?:
                 | T
                 | {
-                    label?: T;
-                    href?: T;
-                  };
-              closingLine?: T;
-              microcopy?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    label?: T
+                    href?: T
+                  }
+              closingLine?: T
+              microcopy?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'feature-deep-dive'?:
           | T
           | {
-              sectionId?: T;
-              sectionLabel?: T;
+              sectionId?: T
+              sectionLabel?: T
               sections?:
                 | T
                 | {
-                    heading?: T;
-                    body?: T;
-                    visual?: T;
-                    visualAlt?: T;
-                    testimonial?: T;
+                    heading?: T
+                    body?: T
+                    visual?: T
+                    visualAlt?: T
+                    testimonial?: T
                     link?:
                       | T
                       | {
-                          label?: T;
-                          href?: T;
-                        };
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                          label?: T
+                          href?: T
+                        }
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'numbered-steps'?:
           | T
           | {
-              sectionLabel?: T;
-              heading?: T;
-              subheading?: T;
+              sectionLabel?: T
+              heading?: T
+              subheading?: T
               steps?:
                 | T
                 | {
-                    heading?: T;
-                    body?: T;
-                    image?: T;
-                    id?: T;
-                  };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    heading?: T
+                    body?: T
+                    image?: T
+                    id?: T
+                  }
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         'trust-security'?:
           | T
           | {
-              heading?: T;
-              intro?: T;
+              heading?: T
+              intro?: T
               items?:
                 | T
                 | {
-                    title?: T;
-                    body?: T;
-                    icon?: T;
-                    id?: T;
-                  };
-              closingLine?: T;
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    title?: T
+                    body?: T
+                    icon?: T
+                    id?: T
+                  }
+              closingLine?: T
+              bgStyle?: T
+              id?: T
+              blockName?: T
+            }
         formEmbed?:
           | T
           | {
-              embedType?: T;
-              formId?: T;
-              embedCode?: T;
-              id?: T;
-              blockName?: T;
-            };
-      };
+              embedType?: T
+              formId?: T
+              embedCode?: T
+              id?: T
+              blockName?: T
+            }
+      }
   meta?:
     | T
     | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
+        title?: T
+        description?: T
+        image?: T
+      }
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "case-studies_select".
  */
 export interface CaseStudiesSelect<T extends boolean = true> {
-  title?: T;
-  headline?: T;
-  summary?: T;
-  body?: T;
+  title?: T
+  headline?: T
+  summary?: T
+  body?: T
   client?:
     | T
     | {
-        descriptor?: T;
-        firmSize?: T;
-      };
+        descriptor?: T
+        firmSize?: T
+      }
   metrics?:
     | T
     | {
-        value?: T;
-        label?: T;
-        id?: T;
-      };
-  discipline?: T;
-  featured?: T;
-  approved?: T;
-  coverImage?: T;
-  updatedAt?: T;
-  createdAt?: T;
+        value?: T
+        label?: T
+        id?: T
+      }
+  discipline?: T
+  featured?: T
+  approved?: T
+  coverImage?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "vanguard-events_select".
  */
 export interface VanguardEventsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  date?: T;
+  title?: T
+  description?: T
+  date?: T
   location?:
     | T
     | {
-        type?: T;
-        address?: T;
-        city?: T;
-        platform?: T;
-      };
-  registrationUrl?: T;
-  capacity?: T;
-  status?: T;
-  vanguardOnly?: T;
-  updatedAt?: T;
-  createdAt?: T;
+        type?: T
+        address?: T
+        city?: T
+        platform?: T
+      }
+  registrationUrl?: T
+  capacity?: T
+  status?: T
+  vanguardOnly?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-mcp-api-keys_select".
  */
 export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
-  user?: T;
-  label?: T;
-  description?: T;
+  user?: T
+  label?: T
+  description?: T
   posts?:
     | T
     | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
+        find?: T
+        create?: T
+        update?: T
+        delete?: T
+      }
   pages?:
     | T
     | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
+        find?: T
+        create?: T
+        update?: T
+        delete?: T
+      }
   landingPages?:
     | T
     | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
+        find?: T
+        create?: T
+        update?: T
+        delete?: T
+      }
   teamMembers?:
     | T
     | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
+        find?: T
+        create?: T
+        update?: T
+        delete?: T
+      }
   categories?:
     | T
     | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
+        find?: T
+        create?: T
+        update?: T
+        delete?: T
+      }
   solutions?:
     | T
     | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
+        find?: T
+        create?: T
+        update?: T
+        delete?: T
+      }
   testimonials?:
     | T
     | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  enableAPIKey?: T;
-  apiKey?: T;
-  apiKeyIndex?: T;
+        find?: T
+        create?: T
+        update?: T
+        delete?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  enableAPIKey?: T
+  apiKey?: T
+  apiKeyIndex?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
-  key?: T;
-  data?: T;
+  key?: T
+  data?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  document?: T
+  globalSlug?: T
+  user?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  user?: T
+  key?: T
+  value?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  batch?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
  */
 export interface SiteSetting {
-  id: number;
-  siteName?: string | null;
-  logo?: (number | null) | Media;
+  id: number
+  siteName?: string | null
+  logo?: (number | null) | Media
   /**
    * Square/icon version of logo for favicon and mobile
    */
-  logomark?: (number | null) | Media;
+  logomark?: (number | null) | Media
   /**
    * Default Open Graph image for pages without a custom og:image (1200×630px)
    */
-  ogImage?: (number | null) | Media;
+  ogImage?: (number | null) | Media
   socialLinks?: {
-    linkedIn?: string | null;
-    twitter?: string | null;
-    youtube?: string | null;
-  };
+    linkedIn?: string | null
+    twitter?: string | null
+    youtube?: string | null
+  }
   announcementBar?: {
-    enabled?: boolean | null;
-    message?: string | null;
+    enabled?: boolean | null
+    message?: string | null
     link?: {
-      label?: string | null;
-      href?: string | null;
-    };
-    style?: ('forest' | 'goldenrod' | 'ash') | null;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
+      label?: string | null
+      href?: string | null
+    }
+    style?: ('forest' | 'goldenrod' | 'ash') | null
+  }
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation".
  */
 export interface Navigation {
-  id: number;
+  id: number
   primaryNav?:
     | {
-        label: string;
-        href?: string | null;
-        type?: ('link' | 'dropdown') | null;
+        label: string
+        href?: string | null
+        type?: ('link' | 'dropdown') | null
         dropdownItems?:
           | {
-              label: string;
-              href: string;
+              label: string
+              href: string
               /**
                * Short descriptor shown under label in mega-menu
                */
-              description?: string | null;
-              id?: string | null;
+              description?: string | null
+              id?: string | null
             }[]
-          | null;
-        id?: string | null;
+          | null
+        id?: string | null
       }[]
-    | null;
+    | null
   primaryCta?: {
-    label?: string | null;
-    href?: string | null;
-  };
+    label?: string | null
+    href?: string | null
+  }
   secondaryCta?: {
-    label?: string | null;
-    href?: string | null;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    label?: string | null
+    href?: string | null
+  }
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
-  id: number;
+  id: number
   /**
    * Footer link columns
    */
   columns?:
     | {
-        heading: string;
+        heading: string
         links?:
           | {
-              label: string;
-              href: string;
-              id?: string | null;
+              label: string
+              href: string
+              id?: string | null
             }[]
-          | null;
-        id?: string | null;
+          | null
+        id?: string | null
       }[]
-    | null;
+    | null
   newsletterSection?: {
-    enabled?: boolean | null;
-    heading?: string | null;
-    subheading?: string | null;
-    placeholder?: string | null;
-    buttonLabel?: string | null;
-  };
+    enabled?: boolean | null
+    heading?: string | null
+    subheading?: string | null
+    placeholder?: string | null
+    buttonLabel?: string | null
+  }
   legalLinks?:
     | {
-        label: string;
-        href: string;
-        id?: string | null;
+        label: string
+        href: string
+        id?: string | null
       }[]
-    | null;
-  copyrightText?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  copyrightText?: string | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
-  siteName?: T;
-  logo?: T;
-  logomark?: T;
-  ogImage?: T;
+  siteName?: T
+  logo?: T
+  logomark?: T
+  ogImage?: T
   socialLinks?:
     | T
     | {
-        linkedIn?: T;
-        twitter?: T;
-        youtube?: T;
-      };
+        linkedIn?: T
+        twitter?: T
+        youtube?: T
+      }
   announcementBar?:
     | T
     | {
-        enabled?: T;
-        message?: T;
+        enabled?: T
+        message?: T
         link?:
           | T
           | {
-              label?: T;
-              href?: T;
-            };
-        style?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+              label?: T
+              href?: T
+            }
+        style?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3379,34 +3394,34 @@ export interface NavigationSelect<T extends boolean = true> {
   primaryNav?:
     | T
     | {
-        label?: T;
-        href?: T;
-        type?: T;
+        label?: T
+        href?: T
+        type?: T
         dropdownItems?:
           | T
           | {
-              label?: T;
-              href?: T;
-              description?: T;
-              id?: T;
-            };
-        id?: T;
-      };
+              label?: T
+              href?: T
+              description?: T
+              id?: T
+            }
+        id?: T
+      }
   primaryCta?:
     | T
     | {
-        label?: T;
-        href?: T;
-      };
+        label?: T
+        href?: T
+      }
   secondaryCta?:
     | T
     | {
-        label?: T;
-        href?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        label?: T
+        href?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3416,45 +3431,44 @@ export interface FooterSelect<T extends boolean = true> {
   columns?:
     | T
     | {
-        heading?: T;
+        heading?: T
         links?:
           | T
           | {
-              label?: T;
-              href?: T;
-              id?: T;
-            };
-        id?: T;
-      };
+              label?: T
+              href?: T
+              id?: T
+            }
+        id?: T
+      }
   newsletterSection?:
     | T
     | {
-        enabled?: T;
-        heading?: T;
-        subheading?: T;
-        placeholder?: T;
-        buttonLabel?: T;
-      };
+        enabled?: T
+        heading?: T
+        subheading?: T
+        placeholder?: T
+        buttonLabel?: T
+      }
   legalLinks?:
     | T
     | {
-        label?: T;
-        href?: T;
-        id?: T;
-      };
-  copyrightText?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        label?: T
+        href?: T
+        id?: T
+      }
+  copyrightText?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+  [k: string]: unknown
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

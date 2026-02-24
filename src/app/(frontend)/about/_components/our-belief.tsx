@@ -31,7 +31,7 @@ export function OurBelief() {
   }
 
   return (
-    <section className="py-16" ref={ref}>
+    <section className="py-20 md:py-28" ref={ref}>
       <Container>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-16">
           <motion.div
@@ -40,7 +40,7 @@ export function OurBelief() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
           >
-            <h2 className="font-serif text-ash-950 text-[2rem]/10 tracking-tight sm:text-5xl/14">
+            <h2 className="text-ash-950 font-serif text-[2rem]/10 tracking-tight sm:text-5xl/14">
               Our Belief
             </h2>
           </motion.div>

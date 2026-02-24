@@ -24,7 +24,7 @@ function TestimonialEmbed({ testimonial }: { testimonial: number | Testimonial }
   return (
     <blockquote className="border-moss-400 bg-ash-100 mt-8 rounded-sm border-l-2 p-6">
       {testimonial.quote && (
-        <p className="font-serif text-ash-800 text-lg/relaxed">{testimonial.quote}</p>
+        <p className="text-ash-800 font-serif text-lg/relaxed">{testimonial.quote}</p>
       )}
       {(testimonial.name || testimonial.title) && (
         <footer className="text-ash-500 mt-3 text-sm font-medium">
@@ -43,7 +43,7 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
       <Container>
         {/* Section label */}
         {block.sectionLabel && (
-          <p className="text-moss-600 mb-4 text-xs font-semibold uppercase tracking-widest">
+          <p className="text-moss-600 mb-4 text-xs font-semibold tracking-widest uppercase">
             {block.sectionLabel}
           </p>
         )}
@@ -68,9 +68,7 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
                         <RichText data={section.body} />
                       </div>
                     )}
-                    {section.testimonial && (
-                      <TestimonialEmbed testimonial={section.testimonial} />
-                    )}
+                    {section.testimonial && <TestimonialEmbed testimonial={section.testimonial} />}
                     {section.link?.href && section.link?.label && (
                       <a
                         href={section.link.href}

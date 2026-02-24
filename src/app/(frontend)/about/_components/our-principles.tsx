@@ -33,7 +33,7 @@ export function OurPrinciples() {
   const isInView = useInView(ref, { margin: '-50px', once: true })
 
   return (
-    <section className="py-16">
+    <section className="py-20 md:py-28">
       <Container>
         <motion.div
           ref={ref}
@@ -47,7 +47,7 @@ export function OurPrinciples() {
               className="bg-ash-50 absolute -top-4 left-8 px-4 sm:-top-5 sm:left-16 sm:px-6 md:left-20"
               variants={fadeInUp}
             >
-              <h2 className="font-serif text-ash-950 text-[2rem]/10 tracking-tight sm:text-5xl/14">
+              <h2 className="text-ash-950 font-serif text-[2rem]/10 tracking-tight sm:text-5xl/14">
                 {principles.headline}
               </h2>
             </motion.div>

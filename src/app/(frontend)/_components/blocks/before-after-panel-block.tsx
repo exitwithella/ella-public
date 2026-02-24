@@ -23,7 +23,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
         {(block.sectionLabel || block.heading) && (
           <div className="mb-12 md:mb-16">
             {block.sectionLabel && (
-              <p className="text-moss-600 mb-3 text-xs font-semibold uppercase tracking-widest">
+              <p className="text-moss-600 mb-3 text-xs font-semibold tracking-widest uppercase">
                 {block.sectionLabel}
               </p>
             )}
@@ -41,13 +41,10 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
         {/* Two-panel layout */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
           {/* Before panel — fragmented, cluttered feel */}
-          <div className="rounded-sm border border-ash-200 bg-white/40 p-8">
+          <div className="border-ash-200 rounded-sm border bg-white/40 p-8">
             <div className="mb-6 flex items-center gap-2">
-              <span
-                className="bg-ash-300 inline-block h-2 w-2 rounded-full"
-                aria-hidden="true"
-              />
-              <h3 className="font-display text-ash-500 text-sm font-semibold uppercase tracking-wider">
+              <span className="bg-ash-300 inline-block h-2 w-2 rounded-full" aria-hidden="true" />
+              <h3 className="font-display text-ash-500 text-sm font-semibold tracking-wider uppercase">
                 {beforeLabel}
               </h3>
             </div>
@@ -69,13 +66,10 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
           </div>
 
           {/* After panel — clean, unified feel */}
-          <div className="bg-moss-50 rounded-sm border border-moss-200 p-8">
+          <div className="bg-moss-50 border-moss-200 rounded-sm border p-8">
             <div className="mb-6 flex items-center gap-2">
-              <span
-                className="bg-moss-500 inline-block h-2 w-2 rounded-full"
-                aria-hidden="true"
-              />
-              <h3 className="font-display text-moss-700 text-sm font-semibold uppercase tracking-wider">
+              <span className="bg-moss-500 inline-block h-2 w-2 rounded-full" aria-hidden="true" />
+              <h3 className="font-display text-moss-700 text-sm font-semibold tracking-wider uppercase">
                 {afterLabel}
               </h3>
             </div>

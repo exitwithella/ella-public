@@ -369,23 +369,23 @@ The following skills are available and should be actively invoked when relevant.
 
 ### Frontend & Next.js Skills (use proactively)
 
-| Skill | Invoke | When to Use |
-|-------|--------|-------------|
+| Skill                           | Invoke                         | When to Use                                                                                                                                                          |
+| ------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **vercel-react-best-practices** | `/vercel-react-best-practices` | When writing or reviewing any React component, Next.js page, data fetching pattern, or bundle optimization. Invoke before shipping any server/client component work. |
-| **frontend-design** | `/frontend-design` | When building new UI sections, components, or page layouts. Provides production-grade design quality guidance and avoids generic AI-aesthetic patterns. |
-| **rams** | `/rams` | Before marking any page "done" — runs accessibility and visual design review. Required for every page ship per the self-review checklist. |
+| **frontend-design**             | `/frontend-design`             | When building new UI sections, components, or page layouts. Provides production-grade design quality guidance and avoids generic AI-aesthetic patterns.              |
+| **rams**                        | `/rams`                        | Before marking any page "done" — runs accessibility and visual design review. Required for every page ship per the self-review checklist.                            |
 
 ### Project Management Skills
 
-| Skill | Invoke | When to Use |
-|-------|--------|-------------|
-| **Notion:tasks:plan** | `/Notion:tasks:plan` | When given a Notion page URL with feature/task description to plan. |
-| **Notion:tasks:build** | `/Notion:tasks:build` | When given a Notion page URL to start implementation. |
+| Skill                  | Invoke                | When to Use                                                         |
+| ---------------------- | --------------------- | ------------------------------------------------------------------- |
+| **Notion:tasks:plan**  | `/Notion:tasks:plan`  | When given a Notion page URL with feature/task description to plan. |
+| **Notion:tasks:build** | `/Notion:tasks:build` | When given a Notion page URL to start implementation.               |
 
 ### Commit & Review Skills
 
-| Skill | Invoke | When to Use |
-|-------|--------|-------------|
+| Skill              | Invoke            | When to Use                                                                      |
+| ------------------ | ----------------- | -------------------------------------------------------------------------------- |
 | **clean-comments** | `/clean-comments` | Before committing — removes redundant comments while preserving meaningful ones. |
 
 ### Usage Rules

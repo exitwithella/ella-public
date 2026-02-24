@@ -16,8 +16,9 @@
  *   - Homepage page document (full real content, upsert)
  */
 import 'dotenv/config'
-import config from './payload.config'
 import { getPayload } from 'payload'
+
+import config from './payload.config'
 
 /** Build a Lexical rich-text document from plain paragraph strings. */
 function makeRichText(...paragraphs: string[]) {
@@ -502,11 +503,11 @@ async function seed() {
     // Block 3: Bridge — "Advisors are stuck in AI's messy middle"
     {
       blockType: 'bridge-section',
-      heading: "Advisors are stuck in AI\u2019s messy middle.",
+      heading: 'Advisors are stuck in AI\u2019s messy middle.',
       body: makeRichText(
-        "Advisors are racing to prepare for client meetings, often pulling up ChatGPT to synthesize documents, draft agendas, or make sense of a fact pattern they haven\u2019t had time to fully digest. It\u2019s fast, it\u2019s convenient, and it\u2019s quietly creating regulatory and reputational risk.",
-        "When you open ChatGPT for one client and move to the next conversation, you\u2019re one careless prompt away from cross-pollinating confidential information. Most advisors we spoke with hadn\u2019t thought about this. The ones who had were worried but didn\u2019t have a better option.",
-        "Meanwhile, business owners are using the same tools. They\u2019re asking AI what their business is worth, what questions to ask their advisor, whether they even need an advisor at all. The information asymmetry that once justified advisory fees is eroding.",
+        'Advisors are racing to prepare for client meetings, often pulling up ChatGPT to synthesize documents, draft agendas, or make sense of a fact pattern they haven\u2019t had time to fully digest. It\u2019s fast, it\u2019s convenient, and it\u2019s quietly creating regulatory and reputational risk.',
+        'When you open ChatGPT for one client and move to the next conversation, you\u2019re one careless prompt away from cross-pollinating confidential information. Most advisors we spoke with hadn\u2019t thought about this. The ones who had were worried but didn\u2019t have a better option.',
+        'Meanwhile, business owners are using the same tools. They\u2019re asking AI what their business is worth, what questions to ask their advisor, whether they even need an advisor at all. The information asymmetry that once justified advisory fees is eroding.',
       ),
       quotes: [
         {
@@ -514,11 +515,12 @@ async function seed() {
           attribution: 'Exit planning advisor, 20+ years experience',
         },
         {
-          text: "The minute they feel like they\u2019re in a box, they\u2019re like, \u2018wait, I was unique to you two minutes ago, and now I\u2019m in a box?\u2019",
+          text: 'The minute they feel like they\u2019re in a box, they\u2019re like, \u2018wait, I was unique to you two minutes ago, and now I\u2019m in a box?\u2019',
           attribution: 'CEPA, on client expectations',
         },
       ],
-      closer: "The squeeze is real. And the tools advisors have today weren\u2019t built for this reality.",
+      closer:
+        'The squeeze is real. And the tools advisors have today weren\u2019t built for this reality.',
       bgStyle: 'ash-light',
     },
     // Block 4a: Pillar Cards
@@ -583,7 +585,7 @@ async function seed() {
       blockType: 'trust-security',
       heading: 'Secure, because both of our reputations are on the line.',
       intro:
-        "We know trust is earned, and essential when you\u2019re the steward of your clients\u2019 most valuable asset. ELLA is built with a security-first architecture that solves a problem most advisors haven\u2019t fully considered yet.\n\nHere\u2019s what ChatGPT can\u2019t do: guarantee that your last client\u2019s financials don\u2019t leak into your next client\u2019s analysis. We solve this at the architectural level. Every client engagement lives in a sandboxed workspace with customizable permissions for all team members.",
+        'We know trust is earned, and essential when you\u2019re the steward of your clients\u2019 most valuable asset. ELLA is built with a security-first architecture that solves a problem most advisors haven\u2019t fully considered yet.\n\nHere\u2019s what ChatGPT can\u2019t do: guarantee that your last client\u2019s financials don\u2019t leak into your next client\u2019s analysis. We solve this at the architectural level. Every client engagement lives in a sandboxed workspace with customizable permissions for all team members.',
       items: [
         { title: 'Full data encryption in transit and at rest' },
         { title: 'Modern U.S.-based infrastructure (SOC2/II compliant providers)' },
@@ -707,7 +709,7 @@ async function seed() {
     // Block 9: Closer CTA
     {
       blockType: 'cta-section',
-      body: "We\u2019ve noticed a divide forming among advisors.\n\nSome are actively experimenting with how to adapt their practice for the age of AI. They want to build durable systems around what makes them unique.\n\nMany more are stuck in the crunch. Running so hard to keep up with each engagement that they haven\u2019t had the bandwidth to step back and think about their practice as a system.\n\nThe advisors who figure out how to systematize without sacrificing the relationship are the ones who will thrive as AI reshapes the landscape.",
+      body: 'We\u2019ve noticed a divide forming among advisors.\n\nSome are actively experimenting with how to adapt their practice for the age of AI. They want to build durable systems around what makes them unique.\n\nMany more are stuck in the crunch. Running so hard to keep up with each engagement that they haven\u2019t had the bandwidth to step back and think about their practice as a system.\n\nThe advisors who figure out how to systematize without sacrificing the relationship are the ones who will thrive as AI reshapes the landscape.',
       closingLine: 'Your methodology is your moat. Build the system around it.',
       primaryCta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
       secondaryCta: {

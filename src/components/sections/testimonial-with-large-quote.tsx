@@ -21,7 +21,7 @@ export function TestimonialLargeQuote({
       <Container>
         <figure className="text-ash-950">
           <blockquote
-            className={`font-serif mx-auto flex max-w-240 flex-col gap-4 text-center text-[2rem]/12 tracking-tight text-pretty *:first:before:content-['\u201c'] *:last:after:content-['\u201d'] sm:text-5xl/16`}
+            className={`mx-auto flex max-w-240 flex-col gap-4 text-center font-serif text-[2rem]/12 tracking-tight text-pretty *:first:before:content-['\u201c'] *:last:after:content-['\u201d'] sm:text-5xl/16`}
           >
             {quote}
           </blockquote>

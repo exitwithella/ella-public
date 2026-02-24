@@ -61,7 +61,8 @@ export const heroField: GroupField = {
       name: 'highlightText',
       type: 'text',
       admin: {
-        description: 'Substring of the headline to render in accent color. Leave empty for no highlight.',
+        description:
+          'Substring of the headline to render in accent color. Leave empty for no highlight.',
       },
     },
     {

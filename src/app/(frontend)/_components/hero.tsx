@@ -43,9 +43,7 @@ function AnimatedHeadlineLine({
   const highlightWords = highlight ? highlight.split(' ') : []
   const highlightStart = highlight ? text.indexOf(highlight) : -1
   const highlightStartWord =
-    highlightStart >= 0
-      ? text.slice(0, highlightStart).split(' ').filter(Boolean).length
-      : -1
+    highlightStart >= 0 ? text.slice(0, highlightStart).split(' ').filter(Boolean).length : -1
 
   return (
     <span className="flex flex-wrap justify-center gap-x-3">
@@ -123,7 +121,7 @@ export function Hero({ hero }: HeroProps) {
   const secondaryLabel = hero.secondaryCta?.label ?? 'Book a Demo'
 
   return (
-    <section className="py-16">
+    <section className="py-24 md:py-36">
       <Container className="flex flex-col items-center gap-6">
         {/* Announcement Badge */}
         <motion.div
@@ -164,7 +162,7 @@ export function Hero({ hero }: HeroProps) {
               type: 'spring',
             }}
           >
-            <Text className="max-w-md text-center text-pretty text-xl md:text-2xl">
+            <Text className="max-w-md text-center text-xl text-pretty md:text-2xl">
               {hero.subheadline}
             </Text>
           </motion.div>
