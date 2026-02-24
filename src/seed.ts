@@ -462,7 +462,108 @@ async function seed() {
   })
 
   if (homepageExists.docs.length > 0) {
-    console.log('  Homepage already exists')
+    // Ensure the comparison table block exists — idempotent upsert for existing environments
+    const homepage = await payload.findByID({
+      collection: 'pages',
+      id: homepageExists.docs[0].id,
+      depth: 0,
+    })
+    const existingLayout = (homepage.layout ?? []) as any[]
+    const hasComparisonTable = existingLayout.some(
+      (b: any) => b.blockType === 'comparison-table',
+    )
+    if (hasComparisonTable) {
+      console.log('  Homepage already exists (comparison table present)')
+    } else {
+      const comparisonTableBlock = {
+        blockType: 'comparison-table',
+        sectionLabel: 'A Better Way to Work',
+        heading: 'The old way isn\u2019t working. Neither is the patchwork.',
+        subheading: 'See how ELLA compares to the workflows advisors are trying to leave behind.',
+        bgStyle: 'cream',
+        columns: [
+          { heading: 'The Old Way', subheading: 'Manual, memory-based', highlighted: false },
+          { heading: 'The Patchwork', subheading: 'Stitched together, leaky', highlighted: false },
+          { heading: 'With ELLA', subheading: 'Purpose-built for advisors', highlighted: true },
+        ],
+        rows: [
+          {
+            label: 'Client intake',
+            values: [
+              { text: 'Paper forms, email back-and-forth', indicator: 'cross' },
+              {
+                text: '\u201cIt\u2019s in the CRM. Or the email. Or the shared drive.\u201d',
+                indicator: 'partial',
+              },
+              {
+                text: 'Owner uploads directly; exit team contributes in one workspace',
+                indicator: 'check',
+              },
+            ],
+          },
+          {
+            label: 'Analysis',
+            values: [
+              { text: 'Manual extraction, memory-based', indicator: 'cross' },
+              {
+                text: '\u201cI asked ChatGPT\u201d (one prompt away from leaking client data)',
+                indicator: 'partial',
+              },
+              {
+                text: 'Contextual AI within a sandboxed client workspace',
+                indicator: 'check',
+              },
+            ],
+          },
+          {
+            label: 'Deliverables',
+            values: [
+              { text: '90-page template reports', indicator: 'cross' },
+              {
+                text: 'Cobbled from Word, inconsistent, \u201cgood enough\u201d',
+                indicator: 'partial',
+              },
+              {
+                text: 'Built from the actual financials, assessments, and conversation',
+                indicator: 'check',
+              },
+            ],
+          },
+          {
+            label: 'Team coordination',
+            values: [
+              { text: 'Email chains, version confusion', indicator: 'cross' },
+              { text: 'Shared drives that nobody maintains', indicator: 'partial' },
+              {
+                text: 'One workspace, role-based access, advisor in the driver\u2019s seat',
+                indicator: 'check',
+              },
+            ],
+          },
+          {
+            label: 'Knowledge retention',
+            values: [
+              { text: 'Walks out the door when the advisor does', indicator: 'cross' },
+              { text: 'Scattered across six tools, never connected', indicator: 'partial' },
+              {
+                text: 'Compounds over the lifecycle of every engagement',
+                indicator: 'check',
+              },
+            ],
+          },
+        ],
+      }
+      const ctaIdx = existingLayout.findIndex((b: any) => b.blockType === 'cta-section')
+      const insertAt = ctaIdx >= 0 ? ctaIdx : existingLayout.length
+      const newLayout = [
+        ...existingLayout.slice(0, insertAt),
+        comparisonTableBlock,
+        ...existingLayout.slice(insertAt),
+      ]
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await payload.update({ collection: 'pages', id: homepage.id, data: { layout: newLayout } as any })
+      console.log('✓ Homepage comparison table block inserted')
+    }
   } else {
     const placeholderRichText = {
       root: {
