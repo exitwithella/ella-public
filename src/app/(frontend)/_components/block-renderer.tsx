@@ -4,6 +4,7 @@ import { BridgeSectionBlock } from './blocks/bridge-section-block'
 import { CardGridBlock } from './blocks/card-grid-block'
 import { CredibilityStripBlock } from './blocks/credibility-strip-block'
 import { FeatureDeepDiveBlock } from './blocks/feature-deep-dive-block'
+import { BeforeAfterPanelBlock } from './blocks/before-after-panel-block'
 import { TrustSecurityBlock } from './blocks/trust-security-block'
 
 type Block = NonNullable<Page['layout']>[number]
@@ -25,6 +26,7 @@ export function BlockRenderer({ block }: BlockRendererProps) {
     case 'trust-security':
       return <TrustSecurityBlock block={block} />
     case 'before-after-panel':
+      return <BeforeAfterPanelBlock block={block} />
     case 'cta-section':
     case 'content-section':
     case 'testimonial-block':
