@@ -491,7 +491,7 @@ export interface Page {
             blockType: 'testimonial-block';
           }
         | {
-            headline: string;
+            headline?: string | null;
             body?: string | null;
             primaryCta?: {
               label?: string | null;
@@ -1037,7 +1037,7 @@ export interface Solution {
             blockType: 'testimonial-block';
           }
         | {
-            headline: string;
+            headline?: string | null;
             body?: string | null;
             primaryCta?: {
               label?: string | null;
@@ -1368,7 +1368,7 @@ export interface LandingPage {
             blockType: 'testimonial-block';
           }
         | {
-            headline: string;
+            headline?: string | null;
             body?: string | null;
             primaryCta?: {
               label?: string | null;

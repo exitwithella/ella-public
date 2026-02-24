@@ -415,6 +415,247 @@ async function seed() {
   })
   console.log('✓ SiteSettings global')
 
+  // ─────────────────────────────────────────────────────────
+  // Testimonials (placeholder — update via Payload admin or MCP)
+  // ─────────────────────────────────────────────────────────
+  const testimonialDefs = [
+    {
+      name: 'Advisor A',
+      title: 'Certified Exit Planning Advisor',
+      quote: '[Testimonial A placeholder — edit via Payload admin or MCP.]',
+      approved: false,
+    },
+    {
+      name: 'Advisor B',
+      title: 'M&A Advisor',
+      quote: '[Testimonial B placeholder — edit via Payload admin or MCP.]',
+      approved: false,
+    },
+  ]
+
+  const testimonialIds: Record<string, number> = {}
+
+  for (const t of testimonialDefs) {
+    const existing = await payload.find({
+      collection: 'testimonials',
+      where: { name: { equals: t.name } },
+      limit: 1,
+    })
+
+    if (existing.docs.length === 0) {
+      const created = await payload.create({ collection: 'testimonials', data: t })
+      testimonialIds[t.name] = created.id
+      console.log(`✓ Testimonial: ${t.name}`)
+    } else {
+      testimonialIds[t.name] = existing.docs[0].id
+      console.log(`  Testimonial already exists: ${t.name}`)
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // Homepage Page document (placeholder — update via Payload admin or MCP)
+  // ─────────────────────────────────────────────────────────
+  const homepageExists = await payload.find({
+    collection: 'pages',
+    where: { slug: { equals: 'home' } },
+    limit: 1,
+  })
+
+  if (homepageExists.docs.length > 0) {
+    console.log('  Homepage already exists')
+  } else {
+    const placeholderRichText = {
+      root: {
+        type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
+        children: [
+          {
+            type: 'paragraph',
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
+            textFormat: 0,
+            textStyle: '',
+            children: [
+              {
+                type: 'text',
+                version: 1,
+                text: '[Placeholder body content — edit via Payload admin or MCP.]',
+                format: 0,
+                detail: 0,
+                mode: 'normal' as const,
+                style: '',
+              },
+            ],
+          },
+        ],
+      },
+    }
+
+    await payload.create({
+      collection: 'pages',
+      data: {
+        title: 'Home',
+        slug: 'home',
+        status: 'published',
+        hero: {
+          headline: '[HOMEPAGE HEADLINE]\n[SECOND LINE]',
+          subheadline: '[Subheadline placeholder — edit via Payload admin or MCP.]',
+          primaryCta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
+          secondaryCta: {
+            label: 'Book a Demo',
+            href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+          },
+          style: 'default',
+          highlightText: 'HEADLINE',
+          highlightColor: 'goldenrod',
+        },
+        layout: [
+          // Block 2: Credibility Strip
+          {
+            blockType: 'credibility-strip',
+            variant: 'text',
+            statement: '[Credibility strip — line one.]\n[Line two.]',
+            bgStyle: 'cream',
+          },
+          // Block 3: Bridge
+          {
+            blockType: 'bridge-section',
+            heading: '[Bridge section heading — edit via Payload admin or MCP.]',
+            body: placeholderRichText,
+            quotes: [
+              {
+                text: '[Quote A — edit via Payload admin or MCP.]',
+                attribution: '[Attribution A]',
+              },
+              {
+                text: '[Quote B — edit via Payload admin or MCP.]',
+                attribution: '[Attribution B]',
+              },
+            ],
+            closer: '[Bridge closer line — edit via Payload admin or MCP.]',
+            bgStyle: 'ash-light',
+          },
+          // Block 4a: Pillar Cards
+          {
+            blockType: 'card-grid',
+            sectionLabel: '[Section label]',
+            heading: '[Card grid heading — edit via Payload admin or MCP.]',
+            subheading: '[Subheading placeholder.]',
+            variant: 'feature',
+            columns: '3',
+            bgStyle: 'cream',
+            cards: [
+              {
+                heading: 'Fact Finding',
+                body: '[Card 1 body — edit via Payload admin or MCP.]',
+                capabilities: [
+                  { text: '[Capability 1]' },
+                  { text: '[Capability 2]' },
+                  { text: '[Capability 3]' },
+                ],
+              },
+              {
+                heading: 'Sensemaking',
+                body: '[Card 2 body — edit via Payload admin or MCP.]',
+                capabilities: [
+                  { text: '[Capability 1]' },
+                  { text: '[Capability 2]' },
+                  { text: '[Capability 3]' },
+                ],
+              },
+              {
+                heading: 'Deliverables',
+                body: '[Card 3 body — edit via Payload admin or MCP.]',
+                capabilities: [
+                  { text: '[Capability 1]' },
+                  { text: '[Capability 2]' },
+                  { text: '[Capability 3]' },
+                ],
+              },
+            ],
+          },
+          // Block 4b: Sensemaking Deep-Dive
+          {
+            blockType: 'feature-deep-dive',
+            sectionLabel: 'Sensemaking',
+            sectionId: 'sensemaking',
+            bgStyle: 'ash-light',
+            sections: [
+              {
+                heading: '[Deep-dive heading — edit via Payload admin or MCP.]',
+                body: placeholderRichText,
+                testimonial: testimonialIds['Advisor A'] ?? null,
+              },
+            ],
+          },
+          // Block 5: Trust & Security
+          {
+            blockType: 'trust-security',
+            heading: '[Trust & security heading — edit via Payload admin or MCP.]',
+            intro: '[Trust & security intro — edit via Payload admin or MCP.]',
+            items: [
+              { title: '[Security item 1]' },
+              { title: '[Security item 2]' },
+              { title: '[Security item 3]' },
+              { title: '[Security item 4]' },
+              { title: '[Security item 5]' },
+              { title: '[Security item 6]' },
+              { title: '[Security item 7]' },
+            ],
+            closingLine: '[Trust closing line — edit via Payload admin or MCP.]',
+            bgStyle: 'ash-light',
+          },
+          // Block 6: Before/After Panel
+          {
+            blockType: 'before-after-panel',
+            sectionLabel: '[Section label]',
+            heading: '[Before/after heading — edit via Payload admin or MCP.]',
+            subheading: '[Subheading placeholder.]',
+            before: {
+              label: 'Without ELLA',
+              points: [
+                { text: '[Before point 1]' },
+                { text: '[Before point 2]' },
+                { text: '[Before point 3]' },
+                { text: '[Before point 4]' },
+                { text: '[Before point 5]' },
+              ],
+            },
+            after: {
+              label: 'With ELLA',
+              points: [
+                { text: '[After point 1]' },
+                { text: '[After point 2]' },
+                { text: '[After point 3]' },
+                { text: '[After point 4]' },
+                { text: '[After point 5]' },
+              ],
+            },
+          },
+          // Block 9: Closer CTA
+          {
+            blockType: 'cta-section',
+            body: '[CTA body paragraph 1 — edit via Payload admin or MCP.]\n\n[Paragraph 2.]\n\n[Paragraph 3.]\n\n[Paragraph 4.]',
+            closingLine: '[Closing line — edit via Payload admin or MCP.]',
+            primaryCta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
+            secondaryCta: {
+              label: 'Book a Demo',
+              href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+            },
+            microcopy: '[Microcopy — edit via Payload admin or MCP.]',
+            bgStyle: 'forest-dark',
+          },
+        ],
+      },
+    })
+    console.log('✓ Homepage page document')
+  }
+
   console.log('\nSeed complete.')
   process.exit(0)
 }

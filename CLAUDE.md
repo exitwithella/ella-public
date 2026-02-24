@@ -94,6 +94,13 @@ Oatmeal is a Tailwind CSS component kit with 50+ pre-built, responsive component
 - Use Payload's built-in access control for draft/publish workflows. The admin UI is for the content team — keep it clean and intuitive.
 - When adding fields, prefer Payload's native field types over custom components. Only build custom field UI when the native types genuinely can't express the content model.
 
+### Database & Migration Rules
+
+- **Never delete the local D1 SQLite file.** It contains persistent state beyond schema data — MCP agent keys, user logins, and other records that `pnpm seed` cannot regenerate. If schema conflicts arise (e.g. "index already exists" during `pushDevSchema`), resolve them by dropping only the specific conflicting tables via `sqlite3` or `wrangler d1 execute --local`. Never wipe the whole file.
+- **All schema changes go through migration files.** After any collection, field, or block schema change run `pnpm payload migrate:create` to generate a migration, then let the dev server apply it on next startup. Never rely solely on `pushDevSchema` — it doesn't use `IF NOT EXISTS` and will conflict with already-applied migrations.
+- **`pnpm seed` provides generic, complete baseline data.** The seed script establishes a working dev environment — reference collections (disciplines, categories, pricing tiers, partners) and a structurally complete homepage document with representative copy. It is not the source of final content.
+- **Real content is created and edited via the Payload MCP server or admin UI.** Use `mcp__Payload__*` tools or `localhost:3000/admin` for all actual content work. Do not encode production copy in `seed.ts` — the seed is for developers bootstrapping a local environment, not for content management.
+
 ### Tailwind & Design System
 
 The design brief (`_planning/design-brief.md`) defines the complete visual system. Key rules enforced in code:
@@ -281,6 +288,8 @@ These are drawn from the design brief and are non-negotiable:
 9. **No AI visual clichés.** No glowing neural networks, brain imagery, circuit boards, or gradient blobs. Visual identity comes from natural materials — moss, stone, leather, earth.
 10. **No `npm` or `yarn`.** Use `pnpm` exclusively.
 11. **No `eslint` or `prettier`.** Use `oxlint` and `oxfmt` exclusively. Run `pnpm lint` and `pnpm format:check` to verify.
+12. **Never delete the local D1 SQLite file.** Drop specific conflicting tables instead. See Database & Migration Rules above.
+13. **No schema changes without a migration file.** Run `pnpm payload migrate:create` after every schema change.
 
 ## Development Workflow
 

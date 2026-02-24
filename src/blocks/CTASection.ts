@@ -22,7 +22,6 @@ export const CTASectionBlock: Block = {
     {
       name: 'headline',
       type: 'text',
-      required: true,
     },
     {
       name: 'body',
