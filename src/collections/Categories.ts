@@ -32,6 +32,14 @@ export const Categories: CollectionConfig = {
       type: 'textarea',
     },
     {
+      name: 'pathPrefix',
+      type: 'text',
+      admin: {
+        description:
+          'URL prefix for posts in this category (e.g. "changelog" → /blog/changelog/[slug]). Leave empty for flat /blog/[slug] URLs.',
+      },
+    },
+    {
       name: 'sortOrder',
       type: 'number',
       defaultValue: 0,

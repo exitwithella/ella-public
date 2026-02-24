@@ -764,6 +764,171 @@ async function seed() {
     console.log('✓ Homepage created')
   }
 
+  // ─────────────────────────────────────────────────────────
+  // Blog author (TeamMember with isAuthor: true)
+  // ─────────────────────────────────────────────────────────
+  const authorDef = {
+    name: 'Drew Thomas',
+    slug: 'drew-thomas',
+    role: 'Co-Founder & CEO',
+    isAuthor: true as const,
+    sortOrder: 1,
+  }
+
+  let authorId: number | null = null
+
+  const existingAuthor = await payload.find({
+    collection: 'team-members',
+    where: { slug: { equals: authorDef.slug } },
+    limit: 1,
+  })
+
+  if (existingAuthor.docs.length === 0) {
+    const created = await payload.create({ collection: 'team-members', data: authorDef })
+    authorId = created.id
+    console.log(`✓ Team member (author): ${authorDef.name}`)
+  } else {
+    authorId = existingAuthor.docs[0].id
+    console.log(`  Team member already exists: ${authorDef.name}`)
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // Blog posts (5 posts covering all tiers)
+  // ─────────────────────────────────────────────────────────
+  const exitPlanningCat = await payload.find({
+    collection: 'categories',
+    where: { slug: { equals: 'exit-planning' } },
+    limit: 1,
+  })
+  const practiceManagementCat = await payload.find({
+    collection: 'categories',
+    where: { slug: { equals: 'practice-management' } },
+    limit: 1,
+  })
+  const industryTrendsCat = await payload.find({
+    collection: 'categories',
+    where: { slug: { equals: 'industry-trends' } },
+    limit: 1,
+  })
+
+  const epCatId = exitPlanningCat.docs[0]?.id ?? null
+  const pmCatId = practiceManagementCat.docs[0]?.id ?? null
+  const itCatId = industryTrendsCat.docs[0]?.id ?? null
+
+  const blogPosts = [
+    {
+      title: 'Your Methodology Is Your Moat',
+      slug: 'your-methodology-is-your-moat',
+      tier: 'hero' as const,
+      status: 'published' as const,
+      publishedDate: '2025-10-01',
+      excerpt:
+        'The advisors who will thrive as AI reshapes the profession are the ones building durable systems around what makes them unique \u2014 not the ones chasing the next tool.',
+      categories: [pmCatId, itCatId].filter(Boolean),
+      showNewsletterCTA: true,
+      content: makeRichText(
+        'There\u2019s a divide forming among advisors. On one side: those who are actively experimenting with how to systematize their practice for the age of AI. On the other: those running so hard to keep up with each engagement that they haven\u2019t had the bandwidth to step back and think about their practice as a system.',
+        'The divide will matter more than most advisors realize.',
+        'AI is compressing time. Work that once took days \u2014 synthesizing documents, drafting deliverables, researching benchmarks \u2014 now takes hours. This is not a threat to the advisor who has built a methodology. It\u2019s an amplifier. The advisor\u2019s judgment, experience, and client relationship remain irreplaceable. The administrative burden that once crowded out those things gets removed.',
+        'For the advisor without a methodology, AI compression does something different: it exposes the gap. When the market starts comparing advisors not on price, but on demonstrable process, having a consistent and differentiated approach isn\u2019t optional anymore.',
+        'Your methodology is your moat. Build the system around it.',
+      ),
+    },
+    {
+      title: 'Why the \u201cPatchwork\u201d Is More Dangerous Than the Old Way',
+      slug: 'why-the-patchwork-is-more-dangerous',
+      tier: 'featured' as const,
+      status: 'published' as const,
+      publishedDate: '2025-09-15',
+      excerpt:
+        'Stitching together ChatGPT, a shared drive, and your CRM creates a leaky workflow that exposes client data and erodes the trust you\u2019ve spent years building.',
+      categories: [pmCatId].filter(Boolean),
+      showNewsletterCTA: true,
+      content: makeRichText(
+        'When advisors talk about their current workflow, a pattern emerges: most have moved beyond the old manual approach \u2014 the spreadsheets, the Word templates, the email back-and-forth. They\u2019ve patched something together. ChatGPT for synthesis. A shared drive for documents. Maybe a CRM that nobody\u2019s fully maintaining.',
+        'The patchwork feels like progress. It\u2019s faster than the old way. But it has a structural problem the old way didn\u2019t: it\u2019s leaky.',
+        'When you open ChatGPT to help with Client A\u2019s fact pattern and then start a new conversation for Client B, you\u2019re relying on your own memory to prevent cross-contamination. Most of the time, you succeed. But the risk is always there \u2014 and when it surfaces, it\u2019s not just an embarrassing mistake. It\u2019s a regulatory and reputational event.',
+        'The old way, for all its inefficiency, kept client data siloed by default. Paper files don\u2019t leak into each other. Email threads stay with their recipient. The new patchwork has no such guarantee.',
+        'This is the problem ELLA was built to solve: a purpose-built workspace where every client engagement is sandboxed, every collaborator has defined access, and the AI operates within the bounds of what you\u2019ve explicitly provided. Not a tool you route sensitive data through. A system you trust with it.',
+      ),
+    },
+    {
+      title: 'The Exit Planning Engagement Has a Sequencing Problem',
+      slug: 'exit-planning-engagement-sequencing-problem',
+      tier: 'featured' as const,
+      status: 'published' as const,
+      publishedDate: '2025-08-20',
+      excerpt:
+        'Most exit planning engagements fail not because of bad advice, but because discovery, analysis, and deliverables happen in the wrong order \u2014 or in parallel when they shouldn\u2019t.',
+      categories: [epCatId].filter(Boolean),
+      showNewsletterCTA: false,
+      content: makeRichText(
+        'Ask a CEPA what the hardest part of an exit planning engagement is and you\u2019ll get a surprisingly consistent answer: not the technical content. The sequencing.',
+        'Discovery runs too late, analysis starts before the picture is complete, and the deliverable ends up as a patchwork of what could be synthesized given the time available. The result is a document that\u2019s technically defensible but doesn\u2019t reflect the full texture of the client\u2019s situation.',
+        'The problem isn\u2019t effort. CEPAs work hard. The problem is that the tools don\u2019t enforce sequence. There\u2019s no system that says: here\u2019s what you need to know before you can analyze, and here\u2019s what you need to have analyzed before you can produce a deliverable worth presenting.',
+        'ELLA is designed around this insight. Fact finding, sensemaking, and deliverables aren\u2019t tabs in a dashboard \u2014 they\u2019re a sequence. You move through them in order, with each stage drawing on the output of the last. The result is an engagement that actually reflects the advisor\u2019s methodology rather than the constraints of their toolset.',
+      ),
+    },
+    {
+      title: 'One Conversation Changed How We Think About AI in Advisory',
+      slug: 'one-conversation-changed-how-we-think-about-ai',
+      tier: 'standard' as const,
+      status: 'published' as const,
+      publishedDate: '2025-07-10',
+      excerpt:
+        'An offhand comment from a CEPA during a user interview revealed the core tension we\u2019d been circling around for months.',
+      categories: [itCatId].filter(Boolean),
+      showNewsletterCTA: true,
+      content: makeRichText(
+        'We were about sixty interviews in \u2014 CEPAs, M&A advisors, CPAs, wealth managers \u2014 when a CEPA said something that stopped the conversation.',
+        '\u201cThe minute they feel like they\u2019re in a box, they\u2019re like, wait, I was unique to you two minutes ago, and now I\u2019m in a box?\u201d',
+        'He wasn\u2019t talking about AI. He was talking about templates. But the observation applied to both.',
+        'The tension at the center of AI in advisory is this: the technology is powerful because it patterns. It finds structure, draws on precedent, applies frameworks. But the value of a trusted advisor is, in part, the opposite: the ability to see past the pattern, to recognize when the client is unique, and to counsel from that recognition.',
+        'The advisors who will use AI well are the ones who understand this tension. They don\u2019t outsource judgment. They use AI to clear the work that crowds out judgment \u2014 so when the moment matters, they\u2019re fully present for it.',
+      ),
+    },
+    {
+      title: 'A Year of Conversations Before a Line of Code',
+      slug: 'a-year-of-conversations-before-a-line-of-code',
+      tier: 'standard' as const,
+      status: 'published' as const,
+      publishedDate: '2025-06-01',
+      excerpt:
+        'We spent twelve months listening to advisors before we wrote the first component. Here\u2019s what we heard that shaped every decision in ELLA.',
+      categories: [pmCatId, itCatId].filter(Boolean),
+      showNewsletterCTA: true,
+      content: makeRichText(
+        'ELLA didn\u2019t start with a product hypothesis. It started with a question: what does it actually feel like to be an exit planning advisor in 2024?',
+        'Over twelve months, we conducted more than 100 conversations \u2014 CEPAs, CPAs, wealth managers, M&A brokers, business owners who had recently exited. We didn\u2019t have a product to demo. We had a set of questions and a lot of listening to do.',
+        'The conversations surfaced three consistent tensions. First: advisors are drowning in synthesis work that crowds out the relationship time that justifies their fees. Second: the tools advisors are reaching for (primarily ChatGPT) create regulatory and reputational risk they haven\u2019t fully considered. Third: the \u201cold way\u201d \u2014 manual, memory-based \u2014 is slow, but the new patchwork approach creates risks the old way didn\u2019t have.',
+        'These tensions became the design constraints for ELLA. Not features \u2014 constraints. Every decision in the product traces back to something an advisor said in those early conversations.',
+        'We think that\u2019s the right way to build for professionals who stake their reputation on trust. Start by understanding the work. Then build what the work requires.',
+      ),
+    },
+  ]
+
+  for (const postDef of blogPosts) {
+    const existing = await payload.find({
+      collection: 'posts',
+      where: { slug: { equals: postDef.slug } },
+      limit: 1,
+    })
+
+    if (existing.docs.length === 0) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await payload.create({
+        collection: 'posts',
+        data: {
+          ...postDef,
+          author: authorId ?? undefined,
+        } as any,
+      })
+      console.log(`✓ Post: ${postDef.title}`)
+    } else {
+      console.log(`  Post already exists: ${postDef.title}`)
+    }
+  }
+
   console.log('\nSeed complete.')
   process.exit(0)
 }

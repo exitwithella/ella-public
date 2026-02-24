@@ -22,6 +22,8 @@
     "format:check": "oxfmt --check .",
     "type-check": "tsc --noEmit",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "generate-redirects": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/generate-redirects.ts",
+    "prebuild": "pnpm run generate-redirects",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed.ts",
     "seed:landing-pages": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed-landing-pages.ts",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview --env=$CLOUDFLARE_ENV",
