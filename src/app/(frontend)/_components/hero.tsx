@@ -1,33 +1,51 @@
-"use client";
+'use client'
 
-import { motion } from "motion/react";
-import Image from "next/image";
+import { motion } from 'motion/react'
+import Image from 'next/image'
 
-import { AnnouncementBadge } from "@/components/elements/announcement-badge";
-import { ButtonLink, PlainButtonLink } from "@/components/elements/button";
-import { Container } from "@/components/elements/container";
-import { Text } from "@/components/elements/text";
-import { ArrowNarrowRightIcon } from "@/components/icons/arrow-narrow-right-icon";
+import { AnnouncementBadge } from '@/components/elements/announcement-badge'
+import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
+import { Container } from '@/components/elements/container'
+import { Text } from '@/components/elements/text'
+import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
+import type { Page } from '@/payload-types'
 
-import { hero } from "../_lib/content";
+// Maps CMS highlightColor values to Tailwind text classes (full class names required for Tailwind JIT)
+const HIGHLIGHT_COLOR_MAP: Record<string, string> = {
+  goldenrod: 'text-goldenrod-500',
+  moss: 'text-moss-600',
+  coral: 'text-coral-500',
+  ocean: 'text-ocean-600',
+}
+
+// Hardcoded — tightly coupled to animation timing and unlikely to change via CMS
+const BADGE = {
+  href: '/blog/why-we-re-building-ella',
+  text: "Why we're building ELLA",
+  cta: 'Read more',
+}
+const FOOTNOTE = 'Your first 3 clients are on us.'
+const HERO_IMAGE = { src: '/images/ella-dashboard.avif', alt: 'ELLA product screenshot' }
 
 // Word-by-word animated headline line
 function AnimatedHeadlineLine({
   text,
   baseDelay = 0,
   highlight,
+  highlightClass = 'text-goldenrod-500',
 }: {
-  text: string;
-  baseDelay?: number;
-  highlight?: string;
+  text: string
+  baseDelay?: number
+  highlight?: string | null
+  highlightClass?: string
 }) {
-  const words = text.split(" ");
-  const highlightWords = highlight ? highlight.split(" ") : [];
-  const highlightStart = highlight ? text.indexOf(highlight) : -1;
+  const words = text.split(' ')
+  const highlightWords = highlight ? highlight.split(' ') : []
+  const highlightStart = highlight ? text.indexOf(highlight) : -1
   const highlightStartWord =
     highlightStart >= 0
-      ? text.slice(0, highlightStart).split(" ").filter(Boolean).length
-      : -1;
+      ? text.slice(0, highlightStart).split(' ').filter(Boolean).length
+      : -1
 
   return (
     <span className="flex flex-wrap justify-center gap-x-3">
@@ -38,7 +56,7 @@ function AnimatedHeadlineLine({
             highlightStartWord >= 0 &&
             index >= highlightStartWord &&
             index < highlightStartWord + highlightWords.length
-              ? "text-goldenrod-500"
+              ? highlightClass
               : undefined
           }
           initial={{ opacity: 0 }}
@@ -48,14 +66,14 @@ function AnimatedHeadlineLine({
             delay: baseDelay + index * 0.075,
             mass: 10.3,
             stiffness: 69,
-            type: "spring",
+            type: 'spring',
           }}
         >
           {word}
         </motion.span>
       ))}
     </span>
-  );
+  )
 }
 
 // Second headline line with blur and fade effect
@@ -64,12 +82,12 @@ function AnimatedSecondLine({ text }: { text: string }) {
     <motion.span
       className="block"
       initial={{
-        filter: "blur(10px)",
+        filter: 'blur(10px)',
         opacity: 0,
         y: 10,
       }}
       animate={{
-        filter: "blur(0px)",
+        filter: 'blur(0px)',
         opacity: 1,
         y: 0,
       }}
@@ -77,19 +95,37 @@ function AnimatedSecondLine({ text }: { text: string }) {
         bounce: 0,
         delay: 1.2 + 0.05,
         duration: 0.6,
-        type: "spring",
+        type: 'spring',
       }}
     >
       {text}
     </motion.span>
-  );
+  )
 }
 
-export function Hero() {
+interface HeroProps {
+  hero: Page['hero']
+}
+
+export function Hero({ hero }: HeroProps) {
+  // Headline supports a newline separator for two animated lines
+  const headlineLines = hero.headline.split('\n')
+  const line1 = headlineLines[0] ?? ''
+  const line2 = headlineLines[1] ?? null
+
+  const highlightClass =
+    HIGHLIGHT_COLOR_MAP[hero.highlightColor ?? 'goldenrod'] ?? 'text-goldenrod-500'
+
+  const primaryHref = hero.primaryCta?.href ?? 'https://app.exitwithella.io/sign-up'
+  const primaryLabel = hero.primaryCta?.label ?? 'Get Started'
+  const secondaryHref =
+    hero.secondaryCta?.href ?? 'https://cal.com/team/ella/ella-intro?overlayCalendar=true'
+  const secondaryLabel = hero.secondaryCta?.label ?? 'Book a Demo'
+
   return (
     <section className="py-16">
       <Container className="flex flex-col items-center gap-6">
-        {/* Announcement Badge - delay 2.7s */}
+        {/* Announcement Badge */}
         <motion.div
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
@@ -98,40 +134,43 @@ export function Hero() {
             delay: 2.7,
             mass: 8.8,
             stiffness: 378,
-            type: "spring",
+            type: 'spring',
           }}
         >
-          <AnnouncementBadge
-            href={hero.badge.href}
-            text={hero.badge.text}
-            cta={hero.badge.cta}
-          />
+          <AnnouncementBadge href={BADGE.href} text={BADGE.text} cta={BADGE.cta} />
         </motion.div>
 
         {/* Headlines */}
         <h1 className="font-display text-ash-950 flex flex-col items-center text-center text-2xl font-bold text-balance md:text-4xl">
-          <AnimatedHeadlineLine text={hero.headline[0]} baseDelay={0} highlight="INTAKE TO INSIGHT" />
-          <AnimatedSecondLine text={hero.headline[1]} />
+          <AnimatedHeadlineLine
+            text={line1}
+            baseDelay={0}
+            highlight={hero.highlightText}
+            highlightClass={highlightClass}
+          />
+          {line2 && <AnimatedSecondLine text={line2} />}
         </h1>
 
-        {/* Subheadline - delay 2.3s */}
-        <motion.div
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            damping: 29,
-            delay: 2.3,
-            mass: 8.8,
-            stiffness: 378,
-            type: "spring",
-          }}
-        >
-          <Text className="max-w-md text-center text-pretty text-xl md:text-2xl">
-            {hero.subheadline}
-          </Text>
-        </motion.div>
+        {/* Subheadline */}
+        {hero.subheadline && (
+          <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              damping: 29,
+              delay: 2.3,
+              mass: 8.8,
+              stiffness: 378,
+              type: 'spring',
+            }}
+          >
+            <Text className="max-w-md text-center text-pretty text-xl md:text-2xl">
+              {hero.subheadline}
+            </Text>
+          </motion.div>
+        )}
 
-        {/* CTAs - delay 2.5s */}
+        {/* CTAs */}
         <motion.div
           className="flex items-center gap-4"
           initial={{ opacity: 0, y: 150 }}
@@ -140,14 +179,14 @@ export function Hero() {
             bounce: 0.2,
             delay: 2.5,
             duration: 0.4,
-            type: "spring",
+            type: 'spring',
           }}
         >
-          <ButtonLink href={hero.cta.href} size="lg" target="_blank">
-            {hero.cta.label}
+          <ButtonLink href={primaryHref} size="lg" target="_blank">
+            {primaryLabel}
           </ButtonLink>
-          <PlainButtonLink href={hero.demoCta.href} size="lg" target="_blank">
-            {hero.demoCta.label} <ArrowNarrowRightIcon />
+          <PlainButtonLink href={secondaryHref} size="lg" target="_blank">
+            {secondaryLabel} <ArrowNarrowRightIcon />
           </PlainButtonLink>
         </motion.div>
 
@@ -157,10 +196,10 @@ export function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 2.8, duration: 0.4 }}
         >
-          {hero.footnote}
+          {FOOTNOTE}
         </motion.div>
 
-        {/* Hero Image - delay 2.7s */}
+        {/* Hero Image */}
         <motion.div
           className="mt-8 w-full max-w-4xl overflow-hidden rounded-sm"
           initial={{ opacity: 0, y: 150 }}
@@ -169,12 +208,12 @@ export function Hero() {
             bounce: 0.2,
             delay: 2.7,
             duration: 0.4,
-            type: "spring",
+            type: 'spring',
           }}
         >
           <Image
-            src={hero.image.src}
-            alt={hero.image.alt}
+            src={HERO_IMAGE.src}
+            alt={HERO_IMAGE.alt}
             width={1600}
             height={900}
             className="w-full"
@@ -183,5 +222,5 @@ export function Hero() {
         </motion.div>
       </Container>
     </section>
-  );
+  )
 }

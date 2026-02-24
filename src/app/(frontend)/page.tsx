@@ -5,12 +5,24 @@ import { Feature, FeaturesThreeColumn } from '@/components/sections/features-thr
 
 import { CredibilityStrip } from './_components/credibility-strip'
 import { Hero } from './_components/hero'
-import { pillarCards, trustSecurity, closerCta } from './_lib/content'
+import { hero, pillarCards, trustSecurity, closerCta } from './_lib/content'
+
+// Temporary hardcoded hero shape — replaced by CMS fetch in Phase 5 (MKT-75)
+const HARDCODED_HERO = {
+  headline: 'GO FROM INTAKE TO INSIGHT\nIN A FRACTION OF THE TIME',
+  subheadline: hero.subheadline,
+  primaryCta: { label: 'Get Started', href: hero.cta.href },
+  secondaryCta: { label: hero.demoCta.label, href: hero.demoCta.href },
+  visual: null as null,
+  style: 'default' as const,
+  highlightText: 'INTAKE TO INSIGHT',
+  highlightColor: 'goldenrod' as const,
+}
 
 export default function HomePage() {
   return (
     <>
-      <Hero />
+      <Hero hero={HARDCODED_HERO} />
 
       <CredibilityStrip />
 
