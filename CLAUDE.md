@@ -329,7 +329,9 @@ All planning and implementation work is tracked in **Linear** using the **MKT** 
 
 1. **Every plan = a Linear project.** When you create an implementation plan, create a corresponding Linear project in the MKT team. Attach the full plan as a Linear document on that project.
 2. **Every implementation step = a Linear issue.** Each discrete step gets its own issue with clear title, description, and acceptance criteria. Set up `blockedBy`/`blocks` dependencies between issues when ordering matters.
-3. **Track progress in real-time.** Move issues to "In Progress" when you start, "Done" when you finish. Don't leave stale statuses.
+3. **Track progress in real-time.** Don't leave stale statuses.
+   - **Starting work:** Move referenced issues to "In Progress" before writing code.
+   - **Committing:** When a jj/git commit message references MKT issue(s) (`MKT-\d+` in subject or body), move those issues to "In Review" immediately after the commit succeeds. This is a hard rule — never leave referenced issues in a pre-review state after a successful commit.
 4. **Decisions and tradeoffs = comments.** When you make a meaningful choice (component selection, design brief interpretation, deviation from a planning doc, performance tradeoff), add a comment on the relevant issue explaining what was decided and why.
 5. **Use the `/linear-track` skill** for the full workflow reference. It documents the exact tool calls, naming conventions, and example flows.
 
@@ -346,7 +348,7 @@ All planning and implementation work is tracked in **Linear** using the **MKT** 
 
 ### Statuses
 
-`Backlog` → `Ready` → `In Progress` → `Done` (also: `Canceled`, `Duplicate`)
+`Backlog` → `Ready` → `In Progress` → `In Review` → `Done` (also: `Canceled`, `Duplicate`)
 
 ### Labels
 

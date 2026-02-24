@@ -1,19 +1,25 @@
-'use client'
+"use client";
 
-import { motion } from 'motion/react'
-import Image from 'next/image'
+import { motion } from "motion/react";
+import Image from "next/image";
 
-import { AnnouncementBadge } from '@/components/elements/announcement-badge'
-import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
-import { Container } from '@/components/elements/container'
-import { Text } from '@/components/elements/text'
-import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
+import { AnnouncementBadge } from "@/components/elements/announcement-badge";
+import { ButtonLink, PlainButtonLink } from "@/components/elements/button";
+import { Container } from "@/components/elements/container";
+import { Text } from "@/components/elements/text";
+import { ArrowNarrowRightIcon } from "@/components/icons/arrow-narrow-right-icon";
 
-import { hero } from '../_lib/content'
+import { hero } from "../_lib/content";
 
 // Word-by-word animated headline line
-function AnimatedHeadlineLine({ text, baseDelay = 0 }: { text: string; baseDelay?: number }) {
-  const words = text.split(' ')
+function AnimatedHeadlineLine({
+  text,
+  baseDelay = 0,
+}: {
+  text: string;
+  baseDelay?: number;
+}) {
+  const words = text.split(" ");
 
   return (
     <span className="flex flex-wrap justify-center gap-x-3">
@@ -27,14 +33,14 @@ function AnimatedHeadlineLine({ text, baseDelay = 0 }: { text: string; baseDelay
             delay: baseDelay + index * 0.075,
             mass: 10.3,
             stiffness: 69,
-            type: 'spring',
+            type: "spring",
           }}
         >
           {word}
         </motion.span>
       ))}
     </span>
-  )
+  );
 }
 
 // Second headline line with blur and fade effect
@@ -43,12 +49,12 @@ function AnimatedSecondLine({ text }: { text: string }) {
     <motion.span
       className="block"
       initial={{
-        filter: 'blur(10px)',
+        filter: "blur(10px)",
         opacity: 0,
         y: 10,
       }}
       animate={{
-        filter: 'blur(0px)',
+        filter: "blur(0px)",
         opacity: 1,
         y: 0,
       }}
@@ -56,12 +62,12 @@ function AnimatedSecondLine({ text }: { text: string }) {
         bounce: 0,
         delay: 1.2 + 0.05,
         duration: 0.6,
-        type: 'spring',
+        type: "spring",
       }}
     >
       {text}
     </motion.span>
-  )
+  );
 }
 
 export function Hero() {
@@ -77,14 +83,18 @@ export function Hero() {
             delay: 2.7,
             mass: 8.8,
             stiffness: 378,
-            type: 'spring',
+            type: "spring",
           }}
         >
-          <AnnouncementBadge href={hero.badge.href} text={hero.badge.text} cta={hero.badge.cta} />
+          <AnnouncementBadge
+            href={hero.badge.href}
+            text={hero.badge.text}
+            cta={hero.badge.cta}
+          />
         </motion.div>
 
         {/* Headlines */}
-        <h1 className="font-display text-ash-950 flex flex-col items-center text-center text-5xl/12 tracking-tight text-balance sm:text-[5rem]/20">
+        <h1 className="font-display text-ash-950 flex flex-col items-center text-center text-2xl font-bold text-balance md:text-4xl">
           <AnimatedHeadlineLine text={hero.headline[0]} baseDelay={0} />
           <AnimatedSecondLine text={hero.headline[1]} />
         </h1>
@@ -98,10 +108,12 @@ export function Hero() {
             delay: 2.3,
             mass: 8.8,
             stiffness: 378,
-            type: 'spring',
+            type: "spring",
           }}
         >
-          <Text className="max-w-md text-center text-pretty">{hero.subheadline}</Text>
+          <Text className="max-w-md text-center text-pretty text-xl md:text-2xl">
+            {hero.subheadline}
+          </Text>
         </motion.div>
 
         {/* CTAs - delay 2.5s */}
@@ -113,7 +125,7 @@ export function Hero() {
             bounce: 0.2,
             delay: 2.5,
             duration: 0.4,
-            type: 'spring',
+            type: "spring",
           }}
         >
           <ButtonLink href={hero.cta.href} size="lg" target="_blank">
@@ -142,7 +154,7 @@ export function Hero() {
             bounce: 0.2,
             delay: 2.7,
             duration: 0.4,
-            type: 'spring',
+            type: "spring",
           }}
         >
           <Image
@@ -156,5 +168,5 @@ export function Hero() {
         </motion.div>
       </Container>
     </section>
-  )
+  );
 }

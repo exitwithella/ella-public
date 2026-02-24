@@ -964,6 +964,26 @@ export interface Solution {
             blockType: 'feature-deep-dive';
           }
         | {
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            steps?:
+              | {
+                  heading: string;
+                  body?: string | null;
+                  /**
+                   * Screenshot or illustration for this step
+                   */
+                  image?: (number | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'numbered-steps';
+          }
+        | {
             heading?: string | null;
             intro?: string | null;
             items?:
@@ -2611,6 +2631,24 @@ export interface SolutionsSelect<T extends boolean = true> {
                           label?: T;
                           href?: T;
                         };
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'numbered-steps'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              steps?:
+                | T
+                | {
+                    heading?: T;
+                    body?: T;
+                    image?: T;
                     id?: T;
                   };
               bgStyle?: T;

@@ -13,7 +13,7 @@ function AboutHero() {
         <EllaLogoMark className="h-[400px] w-auto sm:h-[500px] md:h-[600px] lg:h-[700px]" />
       </div>
       <Container className="relative">
-        <h1 className="font-display text-ash-950 max-w-4xl text-5xl/12 tracking-tight text-balance sm:text-[5rem]/20">
+        <h1 className="font-display text-ash-950 max-w-4xl text-2xl font-semibold text-balance md:text-3xl xl:text-4xl">
           We're building tools for advisors who believe in their clients' legacies.
         </h1>
       </Container>
