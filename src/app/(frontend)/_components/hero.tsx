@@ -75,7 +75,7 @@ function AnimatedHeadlineLine({
 }
 
 // Second headline line with blur and fade effect
-function AnimatedSecondLine({ text }: { text: string }) {
+function AnimatedSecondLine({ text, delay = 1.25 }: { text: string; delay?: number }) {
   return (
     <motion.span
       className="block"
@@ -91,7 +91,7 @@ function AnimatedSecondLine({ text }: { text: string }) {
       }}
       transition={{
         bounce: 0,
-        delay: 1.2 + 0.05,
+        delay,
         duration: 0.6,
         type: 'spring',
       }}
@@ -106,10 +106,10 @@ interface HeroProps {
 }
 
 export function Hero({ hero }: HeroProps) {
-  // Headline supports a newline separator for two animated lines
-  const headlineLines = hero.headline.split('\n')
-  const line1 = headlineLines[0] ?? ''
-  const line2 = headlineLines[1] ?? null
+  const line1 = hero.headline
+  const line1Animation = hero.headlineAnimation ?? 'word-by-word'
+  const line2 = hero.headlineLine2 ?? null
+  const line2Animation = hero.headlineAnimation2 ?? 'blur-fade'
 
   const highlightClass =
     HIGHLIGHT_COLOR_MAP[hero.highlightColor ?? 'goldenrod'] ?? 'text-goldenrod-500'
@@ -140,13 +140,22 @@ export function Hero({ hero }: HeroProps) {
 
         {/* Headlines */}
         <h1 className="font-display text-ash-950 flex flex-col items-center text-center text-2xl font-bold text-balance md:text-4xl">
-          <AnimatedHeadlineLine
-            text={line1}
-            baseDelay={0}
-            highlight={hero.highlightText}
-            highlightClass={highlightClass}
-          />
-          {line2 && <AnimatedSecondLine text={line2} />}
+          {line1Animation === 'blur-fade' ? (
+            <AnimatedSecondLine text={line1} delay={0} />
+          ) : (
+            <AnimatedHeadlineLine
+              text={line1}
+              baseDelay={0}
+              highlight={hero.highlightText}
+              highlightClass={highlightClass}
+            />
+          )}
+          {line2 &&
+            (line2Animation === 'word-by-word' ? (
+              <AnimatedHeadlineLine text={line2} baseDelay={1.25} />
+            ) : (
+              <AnimatedSecondLine text={line2} />
+            ))}
         </h1>
 
         {/* Subheadline */}

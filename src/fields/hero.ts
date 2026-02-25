@@ -10,6 +10,41 @@ export const heroField: GroupField = {
       required: true,
     },
     {
+      name: 'headlineAnimation',
+      type: 'select',
+      defaultValue: 'word-by-word',
+      options: [
+        { label: 'Word by Word', value: 'word-by-word' },
+        { label: 'Blur Fade', value: 'blur-fade' },
+      ],
+      admin: {
+        description: 'Animation style for the main headline.',
+        width: '50%',
+      },
+    },
+    {
+      name: 'headlineLine2',
+      type: 'text',
+      admin: {
+        description:
+          'Optional second headline line. Renders below the main headline with its own animation.',
+      },
+    },
+    {
+      name: 'headlineAnimation2',
+      type: 'select',
+      defaultValue: 'blur-fade',
+      options: [
+        { label: 'Word by Word', value: 'word-by-word' },
+        { label: 'Blur Fade', value: 'blur-fade' },
+      ],
+      admin: {
+        description: 'Animation style for the second headline line.',
+        width: '50%',
+        condition: (_, siblingData) => Boolean(siblingData?.headlineLine2),
+      },
+    },
+    {
       name: 'subheadline',
       type: 'textarea',
     },

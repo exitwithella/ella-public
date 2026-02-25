@@ -817,7 +817,10 @@ async function seed() {
   ]
 
   const homepageHero = {
-    headline: 'GO FROM INTAKE TO INSIGHT\nIN A FRACTION OF THE TIME',
+    headline: 'GO FROM INTAKE TO INSIGHT',
+    headlineAnimation: 'word-by-word' as const,
+    headlineLine2: 'IN A FRACTION OF THE TIME',
+    headlineAnimation2: 'blur-fade' as const,
     subheadline:
       'ELLA turns trust into action with tools built for advisor-led transitions. From document intake through sensemaking to client-ready deliverables, one workspace holds everything your engagement needs.',
     primaryCta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },

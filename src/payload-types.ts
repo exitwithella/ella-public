@@ -389,6 +389,18 @@ export interface Page {
   parent?: (number | null) | Page;
   hero: {
     headline: string;
+    /**
+     * Animation style for the main headline.
+     */
+    headlineAnimation?: ('word-by-word' | 'blur-fade') | null;
+    /**
+     * Optional second headline line. Renders below the main headline with its own animation.
+     */
+    headlineLine2?: string | null;
+    /**
+     * Animation style for the second headline line.
+     */
+    headlineAnimation2?: ('word-by-word' | 'blur-fade') | null;
     subheadline?: string | null;
     primaryCta?: {
       label?: string | null;
@@ -935,6 +947,18 @@ export interface Solution {
   isBeachhead?: boolean | null;
   hero: {
     headline: string;
+    /**
+     * Animation style for the main headline.
+     */
+    headlineAnimation?: ('word-by-word' | 'blur-fade') | null;
+    /**
+     * Optional second headline line. Renders below the main headline with its own animation.
+     */
+    headlineLine2?: string | null;
+    /**
+     * Animation style for the second headline line.
+     */
+    headlineAnimation2?: ('word-by-word' | 'blur-fade') | null;
     subheadline?: string | null;
     primaryCta?: {
       label?: string | null;
@@ -1283,6 +1307,18 @@ export interface LandingPage {
   status?: ('draft' | 'published') | null;
   hero: {
     headline: string;
+    /**
+     * Animation style for the main headline.
+     */
+    headlineAnimation?: ('word-by-word' | 'blur-fade') | null;
+    /**
+     * Optional second headline line. Renders below the main headline with its own animation.
+     */
+    headlineLine2?: string | null;
+    /**
+     * Animation style for the second headline line.
+     */
+    headlineAnimation2?: ('word-by-word' | 'blur-fade') | null;
     subheadline?: string | null;
     primaryCta?: {
       label?: string | null;
@@ -2143,6 +2179,9 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         headline?: T;
+        headlineAnimation?: T;
+        headlineLine2?: T;
+        headlineAnimation2?: T;
         subheadline?: T;
         primaryCta?:
           | T
@@ -2492,6 +2531,9 @@ export interface LandingPagesSelect<T extends boolean = true> {
     | T
     | {
         headline?: T;
+        headlineAnimation?: T;
+        headlineLine2?: T;
+        headlineAnimation2?: T;
         subheadline?: T;
         primaryCta?:
           | T
@@ -2907,6 +2949,9 @@ export interface SolutionsSelect<T extends boolean = true> {
     | T
     | {
         headline?: T;
+        headlineAnimation?: T;
+        headlineLine2?: T;
+        headlineAnimation2?: T;
         subheadline?: T;
         primaryCta?:
           | T
