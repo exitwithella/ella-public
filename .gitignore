@@ -49,6 +49,9 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 
+# Agent Browser
+/.browser-profile/
+
 # OpenNext
 .open-next
 .wrangler

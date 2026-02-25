@@ -293,6 +293,30 @@ These are drawn from the design brief and are non-negotiable:
 
 ## Development Workflow
 
+### Agent Browser (Visual Testing & Interaction)
+
+`agent-browser` is a Chromium automation CLI for AI agents and developers. It provides persistent browser sessions for visual review, interaction testing, and screenshots.
+
+**Setup:** Run `bash scripts/setup-browser-profile.sh` to install and create the profile. Then `agent-browser --headed open http://localhost:3000/admin` to log into Payload and save the session.
+
+**Config:** `agent-browser.json` at project root sets the profile path (`.browser-profile/`) and defaults. No flags needed per-command.
+
+**Permissions:** Add `"Bash(agent-browser:*)"` to `.claude/settings.local.json` → `permissions.allow` array to allow Claude Code to run agent-browser without prompting.
+
+**Key commands:**
+- `agent-browser open <url>` — navigate
+- `agent-browser snapshot -i` — accessibility tree with interactive element refs (`@e1`, `@e2`)
+- `agent-browser click @e1` — click a ref from snapshot
+- `agent-browser screenshot [path]` — capture the page
+- `agent-browser set device "iPhone 14"` — mobile viewport
+- `agent-browser --headed open <url>` — visible browser window
+
+**Profile:** `.browser-profile/` stores persistent browser state (cookies, localStorage, auth sessions). Gitignored. Recreate via the setup script + re-authenticating.
+
+**Skills:** Two Claude Code skills are installed:
+- `.claude/skills/agent-browser/` — official command reference (installed via `npx skills add vercel-labs/agent-browser`)
+- `.claude/skills/agent-browser-ella.md` — ELLA-specific workflows and URLs
+
 ### Quality Gates
 
 Every commit goes through automated quality checks:
