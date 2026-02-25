@@ -30,7 +30,7 @@ export function HeroWithDemoOnBackground({
             <div className="flex gap-x-10 gap-y-16 max-lg:flex-col sm:gap-y-24">
               <div className="flex shrink-0 flex-col items-start gap-6 pt-16 sm:pt-32 lg:basis-2xl lg:py-40">
                 {eyebrow}
-                <Heading className="max-w-5xl" color="light">
+                <Heading className="max-w-5xl" color="cream">
                   {headline}
                 </Heading>
                 <div className="flex max-w-3xl flex-col gap-4 text-lg/8 text-white/70">
