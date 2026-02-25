@@ -86,10 +86,15 @@ export function SolutionHero({ hero, title }: SolutionHeroProps) {
 
         {/* CTAs */}
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-          <ButtonLink href={primaryHref} size="lg" target="_blank">
+          <ButtonLink href={primaryHref} size="lg" target="_blank" className="w-full sm:w-auto">
             {primaryLabel}
           </ButtonLink>
-          <PlainButtonLink href={secondaryHref} size="lg" target="_blank">
+          <PlainButtonLink
+            href={secondaryHref}
+            size="lg"
+            target="_blank"
+            className="w-full sm:w-auto"
+          >
             {secondaryLabel} <ArrowNarrowRightIcon />
           </PlainButtonLink>
         </div>

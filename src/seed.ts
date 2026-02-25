@@ -171,83 +171,48 @@ async function seed() {
   }
 
   // ─────────────────────────────────────────────────────────
-  // Pricing Tiers
+  // Pricing Tiers (2-tier: Practitioner + Enterprise)
   // ─────────────────────────────────────────────────────────
   const pricingTiers = [
     {
-      name: 'Free',
-      tagline: 'Explore ELLA at no cost',
-      price: { amount: 0, period: 'month' as const },
+      name: 'Practitioner',
+      tagline: 'For the solo advisor building a scalable practice',
+      description:
+        'Full access to the ELLA platform — Fact Finding, Sensemaking, and Deliverables — for the advisor ready to systematize their practice.',
+      badge: 'Most Popular',
+      price: { amount: 9900, period: 'month' as const },
       features: [
-        { feature: 'Up to 3 active clients', included: 'yes' as const },
-        { feature: 'Core exit planning tools', included: 'yes' as const },
-        { feature: 'Document templates', included: 'limited' as const },
-        { feature: 'Team collaboration', included: 'no' as const },
-        { feature: 'Priority support', included: 'no' as const },
+        { feature: 'Unlimited active client engagements', included: 'yes' as const },
+        { feature: 'Full Fact Finding, Sensemaking & Deliverables', included: 'yes' as const },
+        { feature: 'Custom templates and document generation', included: 'yes' as const },
+        { feature: 'Client portal access', included: 'yes' as const },
+        { feature: 'Email support', included: 'yes' as const },
+        { feature: 'SOC 2 compliant — data never used to train AI', included: 'yes' as const },
       ],
-      cta: { label: 'Start Free', href: '/get-started' },
-      highlighted: false,
+      cta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
+      highlighted: true,
       sortOrder: 1,
     },
     {
-      name: 'Practitioner',
-      tagline: 'For the advisor building their practice',
-      price: { amount: 9900, period: 'month' as const },
-      features: [
-        { feature: 'Unlimited active clients', included: 'yes' as const },
-        { feature: 'Full tool library', included: 'yes' as const },
-        { feature: 'Document templates', included: 'yes' as const },
-        { feature: 'Team collaboration', included: 'yes' as const },
-        { feature: 'Priority support', included: 'no' as const },
-      ],
-      cta: { label: 'Start Free Trial', href: '/get-started?plan=practitioner' },
-      highlighted: true,
-      sortOrder: 2,
-    },
-    {
-      name: 'Team',
-      tagline: 'For practices with multiple advisors',
-      price: { amount: 24900, period: 'month' as const },
+      name: 'Enterprise',
+      tagline: 'For multi-advisor practices and firms',
+      description:
+        'Everything in Practitioner, plus unlimited advisor seats, an admin dashboard, SSO, and a dedicated success manager.',
+      price: { amount: 0, period: 'custom' as const, customLabel: 'Contact us' },
       features: [
         { feature: 'Everything in Practitioner', included: 'yes' as const },
-        { feature: 'Up to 5 advisor seats', included: 'yes' as const },
-        { feature: 'Shared client workspace', included: 'yes' as const },
-        { feature: 'Admin dashboard', included: 'yes' as const },
-        { feature: 'Priority support', included: 'yes' as const },
-      ],
-      cta: { label: 'Start Free Trial', href: '/get-started?plan=team' },
-      highlighted: false,
-      sortOrder: 3,
-    },
-    {
-      name: 'Vanguard',
-      tagline: 'For established practices and enterprise',
-      price: { amount: 0, period: 'custom' as const, customLabel: 'Contact us' },
-      features: [
-        { feature: 'Everything in Team', included: 'yes' as const },
         { feature: 'Unlimited advisor seats', included: 'yes' as const },
-        { feature: 'White-label options', included: 'yes' as const },
-        { feature: 'Custom integrations', included: 'yes' as const },
-        { feature: 'Dedicated success manager', included: 'yes' as const },
+        { feature: 'Team workspace and admin dashboard', included: 'yes' as const },
+        { feature: 'SSO / SAML and custom data retention', included: 'yes' as const },
+        { feature: 'Priority support and dedicated success manager', included: 'yes' as const },
+        { feature: 'Custom onboarding and integrations', included: 'yes' as const },
       ],
-      cta: { label: 'Talk to Sales', href: '/demo' },
+      cta: {
+        label: 'Talk to Our Team',
+        href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+      },
       highlighted: false,
-      sortOrder: 4,
-    },
-    {
-      name: 'Community',
-      tagline: 'For associations and certification bodies',
-      price: { amount: 0, period: 'custom' as const, customLabel: 'Contact us' },
-      features: [
-        { feature: 'Member access management', included: 'yes' as const },
-        { feature: 'Branded portal', included: 'yes' as const },
-        { feature: 'Education pathways', included: 'yes' as const },
-        { feature: 'Bulk onboarding', included: 'yes' as const },
-        { feature: 'Reporting & analytics', included: 'yes' as const },
-      ],
-      cta: { label: 'Learn More', href: '/demo?type=community' },
-      highlighted: false,
-      sortOrder: 5,
+      sortOrder: 2,
     },
   ]
 
@@ -262,7 +227,137 @@ async function seed() {
       await payload.create({ collection: 'pricing-tiers', data: tier })
       console.log(`✓ Pricing Tier: ${tier.name}`)
     } else {
-      console.log(`  Pricing Tier already exists: ${tier.name}`)
+      await payload.update({
+        collection: 'pricing-tiers',
+        id: existing.docs[0].id,
+        data: tier,
+      })
+      console.log(`  Pricing Tier updated: ${tier.name}`)
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // FAQ Items (pricing page)
+  // ─────────────────────────────────────────────────────────
+  const faqItems = [
+    {
+      question: 'What happens to my client data?',
+      answer: makeRichText(
+        'Your client data is encrypted in transit and at rest. Every client engagement lives in a sandboxed workspace — there is no memory bleed between clients. ELLA never uses your data to train AI models, and you can export or delete your data at any time.',
+        'We run on SOC 2 compliant infrastructure with granular role-based access control. Only the people you explicitly invite can access your workspace.',
+      ),
+      category: 'security' as const,
+      showOnPricing: true,
+      sortOrder: 1,
+    },
+    {
+      question: 'Can I use ELLA with my existing methodology?',
+      answer: makeRichText(
+        "ELLA is methodology-agnostic. It's designed to systematize your approach, not replace it. You customize the intake templates, discovery questions, and deliverable structures to match how you already work.",
+        "Whether you follow the Value Acceleration Methodology, a proprietary framework, or something you've developed over decades — ELLA holds your process and makes it repeatable.",
+      ),
+      category: 'platform' as const,
+      showOnPricing: true,
+      sortOrder: 2,
+    },
+    {
+      question: 'How long does it take to get started?',
+      answer: makeRichText(
+        "Most advisors are productive within their first client engagement. There's no lengthy onboarding or implementation project — you configure your templates, invite your first client, and start working.",
+        "If you'd like a guided walkthrough, our team is happy to walk you through the platform and help you map your methodology into ELLA.",
+      ),
+      category: 'onboarding' as const,
+      showOnPricing: true,
+      sortOrder: 3,
+    },
+    {
+      question: "What's included in the Practitioner plan?",
+      answer: makeRichText(
+        'The Practitioner plan gives you full access to the ELLA platform: Fact Finding (structured discovery and client intake), Sensemaking (context-aware AI analysis sandboxed to each client), and Deliverables (client-ready documents built from your actual engagement data).',
+        'You get unlimited active client engagements, custom templates, a client portal, and email support — everything you need to systematize a solo practice.',
+      ),
+      category: 'pricing' as const,
+      showOnPricing: true,
+      sortOrder: 4,
+    },
+    {
+      question: 'Do I need to commit to an annual plan?',
+      answer: makeRichText(
+        'No. ELLA is month-to-month with no long-term contracts. You can cancel at any time.',
+        'Annual pricing is available for those who prefer it. Contact us to learn more.',
+      ),
+      category: 'pricing' as const,
+      showOnPricing: true,
+      sortOrder: 5,
+    },
+    {
+      question: 'What kind of support is included?',
+      answer: makeRichText(
+        'Practitioner includes email support with a response commitment of one business day.',
+        'Enterprise includes priority support, a dedicated customer success manager, and custom onboarding. Your success manager will help you map your methodology into ELLA, train your team, and be available as your practice scales.',
+      ),
+      category: 'pricing' as const,
+      showOnPricing: true,
+      sortOrder: 6,
+    },
+    {
+      question: 'Can I upgrade to Enterprise later?',
+      answer: makeRichText(
+        "Yes. When you're ready to scale beyond a solo practice, upgrading to Enterprise is seamless — your data, templates, and client history all carry over. Contact our team and we'll handle the transition.",
+      ),
+      category: 'pricing' as const,
+      showOnPricing: true,
+      sortOrder: 7,
+    },
+    {
+      question: 'Is ELLA only for exit planning?',
+      answer: makeRichText(
+        "Exit planning is our beachhead — it's where ELLA is deepest and most proven. But the platform is built for the full advisory lifecycle. Advisors use ELLA for wealth management, business advisory, tax and estate planning, and any engagement that involves structured discovery and client-ready deliverables.",
+        "We started with exit planning because that's where the workflow complexity is highest. Every other discipline benefits from the same systematized approach.",
+      ),
+      category: 'platform' as const,
+      showOnPricing: true,
+      sortOrder: 8,
+    },
+    {
+      question: 'Who built ELLA?',
+      answer: makeRichText(
+        "ELLA is built by ei Innovations, Erie Insurance's venture studio. We spent over a year in conversation with CEPAs, CPAs, wealth managers, and M&A advisors before writing a single line of code.",
+        'The product is shaped by the real workflow problems advisors described — not assumptions. That foundation is reflected in every design decision.',
+      ),
+      category: 'general' as const,
+      showOnPricing: true,
+      sortOrder: 9,
+    },
+    {
+      question: 'What if I have multiple advisors in my practice?',
+      answer: makeRichText(
+        'The Enterprise plan is built for multi-advisor practices. It includes unlimited advisor seats, a shared team workspace with role-based access control, and an admin dashboard for managing your practice.',
+        'Contact our team and we can scope the right setup for your practice size and structure.',
+      ),
+      category: 'pricing' as const,
+      showOnPricing: true,
+      sortOrder: 10,
+    },
+  ]
+
+  for (const faq of faqItems) {
+    const existing = await payload.find({
+      collection: 'faq-items',
+      where: { question: { equals: faq.question } },
+      limit: 1,
+    })
+
+    if (existing.docs.length === 0) {
+      await payload.create({ collection: 'faq-items', data: faq })
+      console.log(`✓ FAQ: ${faq.question.slice(0, 60)}`)
+    } else {
+      await payload.update({
+        collection: 'faq-items',
+        id: existing.docs[0].id,
+        data: faq,
+      })
+      console.log(`  FAQ updated: ${faq.question.slice(0, 60)}`)
     }
   }
 

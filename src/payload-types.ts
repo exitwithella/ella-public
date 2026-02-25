@@ -1232,6 +1232,23 @@ export interface PricingTier {
    * Short descriptor shown under the tier name
    */
   tagline?: string | null;
+  /**
+   * 1-2 sentence plan description shown on the pricing card
+   */
+  description?: string | null;
+  /**
+   * Optional badge text (e.g. 'Most Popular')
+   */
+  badge?: string | null;
+  /**
+   * Annual pricing (optional). If set, enables annual/monthly toggle on the pricing page.
+   */
+  annualPrice?: {
+    /**
+     * Annual price in cents (e.g. 95040 = $950.40/yr). Leave blank if no annual pricing.
+     */
+    amount?: number | null;
+  };
   features?:
     | {
         feature: string;
@@ -2821,6 +2838,13 @@ export interface PricingTiersSelect<T extends boolean = true> {
         customLabel?: T;
       };
   tagline?: T;
+  description?: T;
+  badge?: T;
+  annualPrice?:
+    | T
+    | {
+        amount?: T;
+      };
   features?:
     | T
     | {

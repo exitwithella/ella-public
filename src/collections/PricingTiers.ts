@@ -57,6 +57,38 @@ export const PricingTiers: CollectionConfig = {
       },
     },
     {
+      name: 'description',
+      type: 'textarea',
+      admin: {
+        description: '1-2 sentence plan description shown on the pricing card',
+      },
+    },
+    {
+      name: 'badge',
+      type: 'text',
+      admin: {
+        description: "Optional badge text (e.g. 'Most Popular')",
+      },
+    },
+    {
+      name: 'annualPrice',
+      type: 'group',
+      admin: {
+        description:
+          'Annual pricing (optional). If set, enables annual/monthly toggle on the pricing page.',
+      },
+      fields: [
+        {
+          name: 'amount',
+          type: 'number',
+          admin: {
+            description:
+              'Annual price in cents (e.g. 95040 = $950.40/yr). Leave blank if no annual pricing.',
+          },
+        },
+      ],
+    },
+    {
       name: 'features',
       type: 'array',
       fields: [
