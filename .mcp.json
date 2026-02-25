@@ -8,7 +8,7 @@
       "type": "http",
       "url": "http://localhost:3000/api/mcp",
       "headers": {
-        "Authorization": "Bearer 1e26a4e7-8876-419c-881e-9ef1f6b1f34c"
+        "Authorization": "Bearer ${PAYLOAD_MCP_TOKEN}"
       }
     },
     "next-devtools": {
