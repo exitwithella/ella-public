@@ -164,6 +164,17 @@
   --color-emerald-800: oklch(0.323 0.046 135.65);
   --color-emerald-900: oklch(0.229 0.031 135.61);
   --color-emerald-950: oklch(0.187 0.029 136.45);
+
+  /* Semantic brand tokens */
+  --color-forest: oklch(0.412 0.03 124.97); /* moss-700 */
+  --color-mint: oklch(0.69 0.055 124.97); /* moss-400 */
+  --color-cream: oklch(0.969 0.002 144.36); /* ash-50 */
+  --color-goldenrod: oklch(0.82 0.08 75); /* goldenrod-300 */
+  --color-tannery: oklch(0.49 0.08 75); /* goldenrod-700 */
+  --color-leather: oklch(0.33 0.04 75); /* goldenrod-900 */
+  --color-success: oklch(0.697 0.101 135.83); /* emerald-400 */
+  --color-ocean: oklch(0.57 0.05 245); /* ocean-600 */
+  --color-brand-black: oklch(0.343 0.009 145.3); /* ash-900 */
 }
 
 @utility no-scrollbar {
