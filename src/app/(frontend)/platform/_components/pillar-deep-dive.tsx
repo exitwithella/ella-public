@@ -59,10 +59,7 @@ export function PillarDeepDive({ pillar, index, bgLight = false }: PillarDeepDiv
   const reversed = index % 2 === 1
 
   return (
-    <section
-      id={pillar.id}
-      className={`py-20 md:py-28 ${bgLight ? 'bg-ash-100/50' : 'bg-ash-50'}`}
-    >
+    <section id={pillar.id} className={`py-20 md:py-28 ${bgLight ? 'bg-ash-100/50' : 'bg-ash-50'}`}>
       <Container>
         <motion.div
           ref={ref}

@@ -62,7 +62,7 @@ export function PillarOverviewGrid() {
               key={pillar.id}
               href={`#${pillar.id}`}
               variants={fadeInUp}
-              className="border-ash-200 bg-ash-100 group block rounded-sm border p-8 transition-colors hover:border-moss-300 md:p-10"
+              className="border-ash-200 bg-ash-100 group hover:border-moss-300 block rounded-sm border p-8 transition-colors md:p-10"
             >
               <p className="font-display text-moss-700 mb-3 text-sm font-semibold tracking-wider uppercase">
                 {pillar.tag}
@@ -73,10 +73,7 @@ export function PillarOverviewGrid() {
               <ul className="mt-6 space-y-2">
                 {pillar.capabilities.map((cap) => (
                   <li key={cap} className="text-ash-600 flex items-start gap-2 text-sm">
-                    <span
-                      className="text-moss-600 mt-0.5 shrink-0 leading-none"
-                      aria-hidden="true"
-                    >
+                    <span className="text-moss-600 mt-0.5 shrink-0 leading-none" aria-hidden="true">
                       →
                     </span>
                     {cap}

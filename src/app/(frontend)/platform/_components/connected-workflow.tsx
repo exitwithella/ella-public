@@ -49,10 +49,7 @@ export function ConnectedWorkflow() {
               </h2>
             </motion.div>
 
-            <motion.p
-              className="text-ash-600 mt-4 mb-10 text-sm/7 md:mt-2"
-              variants={fadeInUp}
-            >
+            <motion.p className="text-ash-600 mt-4 mb-10 text-sm/7 md:mt-2" variants={fadeInUp}>
               {connectedWorkflow.description}
             </motion.p>
 
