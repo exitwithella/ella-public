@@ -5,6 +5,8 @@ import { useInView } from 'motion/react'
 import { useRef } from 'react'
 
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 
 import { pillarCards, platformPillars } from '../../_lib/content'
 
@@ -42,12 +44,8 @@ export function PillarOverviewGrid() {
           transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
           className="mb-12 md:mb-16"
         >
-          <p className="text-ash-500 mb-3 text-xs font-semibold tracking-widest uppercase">
-            {pillarCards.eyebrow}
-          </p>
-          <h2 className="font-display text-ash-950 text-2xl font-semibold tracking-tight md:text-3xl">
-            {pillarCards.headline}
-          </h2>
+          <Eyebrow color="ash" className="mb-3">{pillarCards.eyebrow}</Eyebrow>
+          <Heading className="text-ash-950">{pillarCards.headline}</Heading>
           <p className="text-ash-600 mt-4 max-w-2xl text-lg/relaxed">{pillarCards.description}</p>
         </motion.div>
 

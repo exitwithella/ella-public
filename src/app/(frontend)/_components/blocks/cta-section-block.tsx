@@ -1,5 +1,6 @@
 import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
 import { Container } from '@/components/elements/container'
+import { Heading } from '@/components/elements/heading'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Page } from '@/payload-types'
 
@@ -35,11 +36,9 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
         <div className="mx-auto max-w-2xl text-center">
           {/* Optional headline */}
           {block.headline && (
-            <h2
-              className={`font-display mb-8 text-2xl font-bold tracking-tight md:text-3xl ${isForestDark ? 'text-ash-50' : 'text-ash-900'}`}
-            >
+            <Heading color={isForestDark ? 'cream' : 'dark'} className="mb-8">
               {block.headline}
-            </h2>
+            </Heading>
           )}
 
           {/* Manifesto body — DM Sans, multi-paragraph */}

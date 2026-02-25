@@ -1,6 +1,8 @@
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 import type { Page, Testimonial } from '@/payload-types'
 
 type FeatureDeepDiveData = Extract<
@@ -43,9 +45,7 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
       <Container>
         {/* Section label — h2 for correct heading hierarchy (h1 hero → h2 section → h3 items) */}
         {block.sectionLabel && (
-          <h2 className="text-moss-600 mb-4 text-xs font-semibold tracking-widest uppercase">
-            {block.sectionLabel}
-          </h2>
+          <Eyebrow className="mb-4">{block.sectionLabel}</Eyebrow>
         )}
 
         {/* Alternating sections */}
@@ -60,9 +60,9 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
                 >
                   {/* Text side */}
                   <div className="flex-1">
-                    <h3 className="font-display text-ash-900 mb-4 text-xl font-bold tracking-tight md:text-2xl">
+                    <Heading as="h3" className="mb-4 font-bold">
                       {section.heading}
-                    </h3>
+                    </Heading>
                     {section.body && (
                       <div className="prose prose-lg text-ash-700 max-w-none">
                         <RichText data={section.body} />

@@ -1,4 +1,5 @@
 import { Container } from '@/components/elements/container'
+import { Heading } from '@/components/elements/heading'
 import type { Page } from '@/payload-types'
 
 type TrustSecurityData = Extract<
@@ -46,9 +47,7 @@ export function TrustSecurityBlock({ block }: TrustSecurityBlockProps) {
         <div className="mx-auto max-w-3xl">
           {/* Heading — Termina */}
           {block.heading && (
-            <h2 className="font-display text-ash-900 mb-6 text-2xl font-bold tracking-tight md:text-3xl">
-              {block.heading}
-            </h2>
+            <Heading className="mb-6">{block.heading}</Heading>
           )}
 
           {/* Intro prose — DM Sans */}

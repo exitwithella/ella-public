@@ -5,6 +5,7 @@ import { useInView } from 'motion/react'
 import { useRef } from 'react'
 
 import { Container } from '@/components/elements/container'
+import { Heading } from '@/components/elements/heading'
 
 import { connectedWorkflow } from '../../_lib/content'
 
@@ -44,9 +45,9 @@ export function ConnectedWorkflow() {
               className="bg-ash-50 absolute -top-4 left-8 px-4 sm:-top-5 sm:left-16 sm:px-6 md:left-20"
               variants={fadeInUp}
             >
-              <h2 className="font-display text-ash-950 text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
+              <Heading className="text-xl text-ash-950 sm:text-2xl md:text-3xl">
                 {connectedWorkflow.headline}
-              </h2>
+              </Heading>
             </motion.div>
 
             <motion.p className="text-ash-600 mt-4 mb-10 text-sm/7 md:mt-2" variants={fadeInUp}>

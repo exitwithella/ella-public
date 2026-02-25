@@ -1,6 +1,8 @@
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import { MinusIcon } from '@/components/icons/minus-icon'
 import { PlusIcon } from '@/components/icons/plus-icon'
@@ -19,12 +21,8 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
         <div className="mx-auto max-w-3xl">
           {/* Header */}
           <div className="mb-12 text-center">
-            <p className="font-display text-moss-700 mb-3 text-sm font-semibold tracking-widest uppercase">
-              FAQ
-            </p>
-            <h2 className="font-display text-ash-900 text-3xl font-bold tracking-tight md:text-4xl">
-              Common questions.
-            </h2>
+            <Eyebrow className="font-display mb-3 text-sm text-moss-700">FAQ</Eyebrow>
+            <Heading className="text-3xl md:text-4xl">Common questions.</Heading>
           </div>
 
           {/* Accordion */}

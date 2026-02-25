@@ -1,4 +1,6 @@
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 import type { Page } from '@/payload-types'
 
 type BeforeAfterPanelData = Extract<
@@ -23,14 +25,10 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
         {(block.sectionLabel || block.heading) && (
           <div className="mb-12 md:mb-16">
             {block.sectionLabel && (
-              <p className="text-moss-600 mb-3 text-xs font-semibold tracking-widest uppercase">
-                {block.sectionLabel}
-              </p>
+              <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>
             )}
             {block.heading && (
-              <h2 className="font-display text-ash-900 text-2xl font-bold tracking-tight md:text-3xl">
-                {block.heading}
-              </h2>
+              <Heading>{block.heading}</Heading>
             )}
             {block.subheading && (
               <p className="text-ash-600 mt-4 max-w-2xl text-lg/relaxed">{block.subheading}</p>

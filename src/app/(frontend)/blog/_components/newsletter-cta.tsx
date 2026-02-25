@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 
+import { Heading } from '@/components/elements/heading'
+
 export function NewsletterCTA() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -24,9 +26,9 @@ export function NewsletterCTA() {
         </div>
       ) : (
         <>
-          <h3 className="font-display text-ash-900 text-xl font-semibold">
+          <Heading as="h3" className="text-xl md:text-xl">
             Writing worth your inbox
-          </h3>
+          </Heading>
           <p className="text-ash-600 mt-2 text-sm/relaxed">
             Practical perspectives on advisory practice, systematization, and what's changing in the
             profession. No fluff.

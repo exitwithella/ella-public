@@ -1,4 +1,5 @@
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
 import type { Page } from '@/payload-types'
 
 type CredibilityStripData = Extract<
@@ -37,9 +38,9 @@ export function CredibilityStripBlock({ block }: CredibilityStripBlockProps) {
     <section className={`py-8 ${bg}`}>
       <Container>
         {block.label && (
-          <p className="text-ash-500 mb-4 text-center text-xs font-semibold tracking-widest uppercase">
+          <Eyebrow color="ash" className="mb-4 text-center">
             {block.label}
-          </p>
+          </Eyebrow>
         )}
         {block.stats && block.stats.length > 0 && (
           <dl className="flex flex-wrap justify-center gap-8">

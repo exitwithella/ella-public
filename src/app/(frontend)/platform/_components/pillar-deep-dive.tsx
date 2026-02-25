@@ -5,6 +5,8 @@ import { useInView } from 'motion/react'
 import { useRef } from 'react'
 
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 
 interface PillarData {
   id: string
@@ -71,18 +73,12 @@ export function PillarDeepDive({ pillar, index, bgLight = false }: PillarDeepDiv
           }`}
         >
           <div>
-            <motion.p
-              variants={fadeInUp}
-              className="font-display text-moss-700 mb-4 text-xs font-semibold tracking-widest uppercase"
-            >
-              {pillar.tag}
-            </motion.p>
-            <motion.h2
-              variants={fadeInUp}
-              className="font-display text-ash-950 mb-5 text-2xl font-semibold tracking-tight text-balance md:text-3xl"
-            >
-              {pillar.headline}
-            </motion.h2>
+            <motion.div variants={fadeInUp}>
+              <Eyebrow className="font-display mb-4 text-moss-700">{pillar.tag}</Eyebrow>
+            </motion.div>
+            <motion.div variants={fadeInUp}>
+              <Heading className="mb-5 text-ash-950 text-balance">{pillar.headline}</Heading>
+            </motion.div>
             <motion.p
               variants={fadeInUp}
               className="text-ash-600 mb-8 text-base/relaxed md:text-lg/relaxed"

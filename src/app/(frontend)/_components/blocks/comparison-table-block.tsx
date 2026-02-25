@@ -1,4 +1,6 @@
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 import type { Page } from '@/payload-types'
 
 type ComparisonTableData = Extract<
@@ -74,14 +76,14 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
         {(block.sectionLabel || block.heading || block.subheading) && (
           <div className="mx-auto mb-14 max-w-3xl text-center">
             {block.sectionLabel && (
-              <p className="font-display text-moss-700 mb-3 text-sm font-semibold tracking-widest uppercase">
+              <Eyebrow className="font-display mb-3 text-sm text-moss-700">
                 {block.sectionLabel}
-              </p>
+              </Eyebrow>
             )}
             {block.heading && (
-              <h2 className="font-display text-ash-900 mb-4 text-3xl font-bold tracking-tight md:text-4xl">
+              <Heading className="mb-4 text-3xl md:text-4xl">
                 {block.heading}
-              </h2>
+              </Heading>
             )}
             {block.subheading && <p className="text-ash-600 text-lg/relaxed">{block.subheading}</p>}
           </div>

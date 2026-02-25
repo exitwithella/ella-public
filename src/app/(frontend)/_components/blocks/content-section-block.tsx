@@ -2,6 +2,8 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Page, Solution } from '@/payload-types'
 
@@ -43,13 +45,9 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
 
         {/* Section label */}
         {block.sectionLabel && (
-          <p
-            className={`mb-4 text-xs font-semibold tracking-widest uppercase ${
-              isForestDark ? 'text-moss-400' : 'text-moss-600'
-            }`}
-          >
+          <Eyebrow color={isForestDark ? 'light' : 'moss'} className="mb-4">
             {block.sectionLabel}
-          </p>
+          </Eyebrow>
         )}
 
         {/* Full-width media above */}
@@ -70,13 +68,9 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
           {/* Text column */}
           <div className={isTwoColumn ? 'flex-1' : 'max-w-[680px]'}>
             {block.heading && (
-              <h2
-                className={`font-display text-2xl font-bold tracking-tight md:text-3xl ${
-                  isForestDark ? 'text-ash-50' : 'text-ash-900'
-                }`}
-              >
+              <Heading color={isForestDark ? 'cream' : 'dark'}>
                 {block.heading}
-              </h2>
+              </Heading>
             )}
 
             {block.body && (

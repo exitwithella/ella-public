@@ -1,4 +1,6 @@
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 import type { Page } from '@/payload-types'
 
 type CardGridData = Extract<NonNullable<Page['layout']>[number], { blockType: 'card-grid' }>
@@ -32,18 +34,14 @@ export function CardGridBlock({ block }: CardGridBlockProps) {
         {(block.sectionLabel || block.heading) && (
           <div className="mb-12 md:mb-16">
             {block.sectionLabel && (
-              <p
-                className={`mb-3 text-xs font-semibold tracking-widest uppercase ${isForestDark ? 'text-moss-400' : 'text-moss-600'}`}
-              >
+              <Eyebrow color={isForestDark ? 'light' : 'moss'} className="mb-3">
                 {block.sectionLabel}
-              </p>
+              </Eyebrow>
             )}
             {block.heading && (
-              <h2
-                className={`font-display text-2xl font-bold tracking-tight md:text-3xl ${isForestDark ? 'text-ash-50' : 'text-ash-900'}`}
-              >
+              <Heading color={isForestDark ? 'cream' : 'dark'}>
                 {block.heading}
-              </h2>
+              </Heading>
             )}
             {block.subheading && (
               <p

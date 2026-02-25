@@ -1,4 +1,6 @@
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 
 // Reuse CellValue pattern from comparison-table-block.tsx
 function CellValue({
@@ -192,12 +194,10 @@ export function FeatureComparison() {
     <section className="bg-ash-50 py-24 md:py-32">
       <Container>
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <p className="font-display text-moss-700 mb-3 text-sm font-semibold tracking-widest uppercase">
-            Compare Plans
-          </p>
-          <h2 className="font-display text-ash-900 text-3xl font-bold tracking-tight md:text-4xl">
+          <Eyebrow className="font-display mb-3 text-sm text-moss-700">Compare Plans</Eyebrow>
+          <Heading className="text-3xl md:text-4xl">
             Everything you need, nothing you don't.
-          </h2>
+          </Heading>
         </div>
 
         {/* Desktop table */}
