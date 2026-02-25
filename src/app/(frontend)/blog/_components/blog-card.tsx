@@ -100,7 +100,10 @@ export function BlogCard({ post, variant }: BlogCardProps) {
                 priority
               />
             ) : (
-              <div className="bg-moss-100 absolute inset-0 flex items-center justify-center">
+              <div
+                className="bg-moss-100 absolute inset-0 flex items-center justify-center"
+                aria-hidden="true"
+              >
                 <span className="text-moss-400 font-display text-4xl font-bold">ELLA</span>
               </div>
             )}

@@ -81,7 +81,10 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
 
                   {/* Visual side — placeholder when no image */}
                   <div className="flex-1">
-                    <div className="bg-ash-200 flex aspect-video items-center justify-center rounded-sm">
+                    <div
+                      className="bg-ash-200 flex aspect-video items-center justify-center rounded-sm"
+                      aria-hidden="true"
+                    >
                       <span className="text-ash-400 text-sm">Product visual</span>
                     </div>
                   </div>
