@@ -125,7 +125,7 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
             </thead>
             <tbody>
               {rows.map((row, rowIdx) => (
-                <tr key={row.id} className={rowIdx % 2 === 0 ? 'bg-white/60' : 'bg-ash-50/60'}>
+                <tr key={row.id} className={rowIdx % 2 === 0 ? 'bg-ash-50/60' : 'bg-ash-50/60'}>
                   <th
                     scope="row"
                     className="border-ash-100 text-ash-800 border-t px-6 py-4 text-left font-medium"

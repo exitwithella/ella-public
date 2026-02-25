@@ -21,8 +21,8 @@ export function Button({
       type={type}
       className={clsx(
         'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium',
-        color === 'dark/light' && 'bg-ash-950 text-white hover:bg-ash-800',
-        color === 'light' && 'hover bg-white text-ash-950 hover:bg-ash-100',
+        color === 'dark/light' && 'bg-ash-950 text-ash-50 hover:bg-ash-800',
+        color === 'light' && 'bg-ash-50 text-ash-950 hover:bg-ash-100',
         sizes[size],
         className,
       )}
@@ -47,8 +47,8 @@ export function ButtonLink({
       href={href}
       className={clsx(
         'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium',
-        color === 'dark/light' && 'bg-ash-950 text-white hover:bg-ash-800',
-        color === 'light' && 'hover bg-white text-ash-950 hover:bg-ash-100',
+        color === 'dark/light' && 'bg-ash-950 text-ash-50 hover:bg-ash-800',
+        color === 'light' && 'bg-ash-50 text-ash-950 hover:bg-ash-100',
         sizes[size],
         className,
       )}
@@ -116,7 +116,7 @@ export function PlainButton({
       className={clsx(
         'inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm/7 font-medium',
         color === 'dark/light' && 'text-ash-950 hover:bg-ash-950/10',
-        color === 'light' && 'text-white hover:bg-white/15',
+        color === 'light' && 'text-ash-50 hover:bg-ash-50/15',
         sizes[size],
         className,
       )}
@@ -142,7 +142,7 @@ export function PlainButtonLink({
       className={clsx(
         'inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm/7 font-medium',
         color === 'dark/light' && 'text-ash-950 hover:bg-ash-950/10',
-        color === 'light' && 'text-white hover:bg-white/15',
+        color === 'light' && 'text-ash-50 hover:bg-ash-50/15',
         sizes[size],
         className,
       )}

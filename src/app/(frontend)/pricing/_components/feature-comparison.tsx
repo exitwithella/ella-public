@@ -239,7 +239,7 @@ export function FeatureComparison() {
                   {category.rows.map((row, rowIdx) => (
                     <tr
                       key={`${category.name}-${row.label}`}
-                      className={rowIdx % 2 === 0 ? 'bg-white/60' : 'bg-ash-50/60'}
+                      className={rowIdx % 2 === 0 ? 'bg-ash-50/60' : 'bg-ash-50/60'}
                     >
                       <th
                         scope="row"

@@ -48,7 +48,7 @@ export function NewsletterCTA() {
             />
             <button
               type="submit"
-              className="bg-moss-700 hover:bg-moss-600 rounded-lg px-6 py-2.5 text-sm font-semibold whitespace-nowrap text-white transition-colors"
+              className="bg-moss-700 hover:bg-moss-600 rounded-lg px-6 py-2.5 text-sm font-semibold whitespace-nowrap text-ash-50 transition-colors"
             >
               Subscribe
             </button>
