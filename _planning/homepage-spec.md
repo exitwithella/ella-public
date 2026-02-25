@@ -61,7 +61,7 @@ Why it works: Two-word contrast that names the specific daily frustration (stitc
 
 **Primary option (from existing site, lightly refined):**
 
-> ELLA turns trust into action with tools built for advisor-led transitions. From document intake through sensemaking to client-ready deliverables, one workspace holds everything your engagement needs.
+> ELLA turns trust into action with tools built for advisor-led transitions. 
 
 **Alternative — Manifesto compression:**
 
