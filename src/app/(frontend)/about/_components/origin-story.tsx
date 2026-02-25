@@ -7,7 +7,7 @@ import { useRef } from 'react'
 
 import { Container } from '@/components/elements/container'
 
-import { originStory } from '../../_lib/content'
+import { originStory } from '../_lib/content'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },

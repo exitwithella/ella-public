@@ -2,7 +2,7 @@ import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
 import { Container } from '@/components/elements/container'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 
-import { aboutCloser } from '../../_lib/content'
+import { aboutCloser } from '../_lib/content'
 
 export function AboutCloser() {
   return (

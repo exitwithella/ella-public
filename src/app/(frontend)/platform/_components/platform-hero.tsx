@@ -2,7 +2,7 @@ import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
 
-import { platformHero } from '../../_lib/content'
+import { platformHero } from '../_lib/content'
 
 export function PlatformHero() {
   return (

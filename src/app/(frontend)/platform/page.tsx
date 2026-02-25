@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { platformPillars } from '../_lib/content'
+import { platformPillars } from './_lib/content'
 import { ConnectedWorkflow } from './_components/connected-workflow'
 import { PillarDeepDive } from './_components/pillar-deep-dive'
 import { PillarOverviewGrid } from './_components/pillar-overview-grid'

@@ -8,7 +8,8 @@ import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
 
-import { pillarCards, platformPillars } from '../../_lib/content'
+import { pillarCards } from '../../_lib/content'
+import { platformPillars } from '../_lib/content'
 
 const staggerContainer = {
   hidden: { opacity: 0 },

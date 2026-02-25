@@ -6,7 +6,7 @@ import { useRef } from 'react'
 
 import { Container } from '@/components/elements/container'
 
-import { principles } from '../../_lib/content'
+import { principles } from '../_lib/content'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
