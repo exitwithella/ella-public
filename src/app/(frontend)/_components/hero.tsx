@@ -189,13 +189,20 @@ export function Hero({ hero }: HeroProps) {
             type: 'spring',
           }}
         >
-          <ButtonLink href={primaryHref} size="lg" target="_blank" className="w-full sm:w-auto">
+          <ButtonLink
+            href={primaryHref}
+            size="lg"
+            target="_blank"
+            rel="noopener"
+            className="w-full sm:w-auto"
+          >
             {primaryLabel}
           </ButtonLink>
           <PlainButtonLink
             href={secondaryHref}
             size="lg"
             target="_blank"
+            rel="noopener"
             className="w-full sm:w-auto"
           >
             {secondaryLabel} <ArrowNarrowRightIcon />

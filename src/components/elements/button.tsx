@@ -20,7 +20,7 @@ export function Button({
     <button
       type={type}
       className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium',
+        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-600',
         color === 'dark/light' && 'bg-ash-950 text-ash-50 hover:bg-ash-800',
         color === 'light' && 'bg-ash-50 text-ash-950 hover:bg-ash-100',
         sizes[size],
@@ -46,7 +46,7 @@ export function ButtonLink({
     <a
       href={href}
       className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium',
+        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-600',
         color === 'dark/light' && 'bg-ash-950 text-ash-50 hover:bg-ash-800',
         color === 'light' && 'bg-ash-50 text-ash-950 hover:bg-ash-100',
         sizes[size],
@@ -69,7 +69,7 @@ export function SoftButton({
     <button
       type={type}
       className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full bg-ash-950/10 text-sm/7 font-medium text-ash-950 hover:bg-ash-950/15',
+        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full bg-ash-950/10 text-sm/7 font-medium text-ash-950 hover:bg-ash-950/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-600',
         sizes[size],
         className,
       )}
@@ -91,7 +91,7 @@ export function SoftButtonLink({
     <a
       href={href}
       className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full bg-ash-950/10 text-sm/7 font-medium text-ash-950 hover:bg-ash-950/15',
+        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full bg-ash-950/10 text-sm/7 font-medium text-ash-950 hover:bg-ash-950/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-600',
         sizes[size],
         className,
       )}
@@ -114,7 +114,7 @@ export function PlainButton({
     <button
       type={type}
       className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm/7 font-medium',
+        'inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-600',
         color === 'dark/light' && 'text-ash-950 hover:bg-ash-950/10',
         color === 'light' && 'text-ash-50 hover:bg-ash-50/15',
         sizes[size],
@@ -140,7 +140,7 @@ export function PlainButtonLink({
     <a
       href={href}
       className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm/7 font-medium',
+        'inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-600',
         color === 'dark/light' && 'text-ash-950 hover:bg-ash-950/10',
         color === 'light' && 'text-ash-50 hover:bg-ash-50/15',
         sizes[size],

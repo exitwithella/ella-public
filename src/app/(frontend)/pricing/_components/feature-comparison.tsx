@@ -194,7 +194,7 @@ export function FeatureComparison() {
     <section className="bg-ash-50 py-24 md:py-32">
       <Container>
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <Eyebrow className="font-display mb-3 text-sm text-moss-700">Compare Plans</Eyebrow>
+          <Eyebrow className="font-display text-moss-700 mb-3 text-sm">Compare Plans</Eyebrow>
           <Heading className="text-3xl md:text-4xl">
             Everything you need, nothing you don't.
           </Heading>

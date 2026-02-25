@@ -28,6 +28,7 @@ export function SocialLink({
     <a
       href={href}
       target="_blank"
+      rel="noopener"
       aria-label={name}
       className={clsx('text-ash-950 *:size-6', className)}
       {...props}
@@ -51,7 +52,7 @@ export function FooterWithLinksAndSocialIcons({
       <div className="bg-ash-950/2.5 text-ash-950 py-16">
         <Container className="flex flex-col gap-10 text-center text-sm/7">
           <div className="flex flex-col gap-6">
-            <nav>
+            <nav aria-label="Footer">
               <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-2">
                 {links}
               </ul>

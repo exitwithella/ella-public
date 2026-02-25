@@ -32,7 +32,7 @@ function CellValue({ text, indicator }: { text?: string | null; indicator?: stri
             strokeLinejoin="round"
           />
         </svg>
-        {text && <span>{text}</span>}
+        {text ? <span>{text}</span> : <span className="sr-only">Yes</span>}
       </span>
     )
   }
@@ -47,7 +47,7 @@ function CellValue({ text, indicator }: { text?: string | null; indicator?: stri
             strokeLinecap="round"
           />
         </svg>
-        {text && <span>{text}</span>}
+        {text ? <span>{text}</span> : <span className="sr-only">No</span>}
       </span>
     )
   }
@@ -57,7 +57,7 @@ function CellValue({ text, indicator }: { text?: string | null; indicator?: stri
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path d="M3 7h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
-        {text && <span>{text}</span>}
+        {text ? <span>{text}</span> : <span className="sr-only">Partial</span>}
       </span>
     )
   }
@@ -76,14 +76,12 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
         {(block.sectionLabel || block.heading || block.subheading) && (
           <div className="mx-auto mb-14 max-w-3xl text-center">
             {block.sectionLabel && (
-              <Eyebrow className="font-display mb-3 text-sm text-moss-700">
+              <Eyebrow className="font-display text-moss-700 mb-3 text-sm">
                 {block.sectionLabel}
               </Eyebrow>
             )}
             {block.heading && (
-              <Heading className="mb-4 text-3xl md:text-4xl">
-                {block.heading}
-              </Heading>
+              <Heading className="mb-4 text-3xl md:text-4xl">{block.heading}</Heading>
             )}
             {block.subheading && <p className="text-ash-600 text-lg/relaxed">{block.subheading}</p>}
           </div>
@@ -100,7 +98,9 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
             </colgroup>
             <thead>
               <tr>
-                <th className="bg-ash-100 px-6 py-5 text-left" aria-hidden="true" />
+                <th className="bg-ash-100 px-6 py-5 text-left" scope="col">
+                  <span className="sr-only">Feature</span>
+                </th>
                 {columns.map((col, i) => (
                   <th
                     key={col.id}
@@ -125,7 +125,7 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
             </thead>
             <tbody>
               {rows.map((row, rowIdx) => (
-                <tr key={row.id} className={rowIdx % 2 === 0 ? 'bg-ash-50/60' : 'bg-ash-50/60'}>
+                <tr key={row.id} className={rowIdx % 2 === 0 ? 'bg-ash-50/60' : 'bg-ash-100/40'}>
                   <th
                     scope="row"
                     className="border-ash-100 text-ash-800 border-t px-6 py-4 text-left font-medium"

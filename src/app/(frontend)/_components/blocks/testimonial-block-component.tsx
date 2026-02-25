@@ -91,9 +91,7 @@ export function TestimonialBlockComponent({ block }: TestimonialBlockComponentPr
               </Eyebrow>
             )}
             {block.heading && (
-              <Heading color={isForestDark ? 'cream' : 'dark'}>
-                {block.heading}
-              </Heading>
+              <Heading color={isForestDark ? 'cream' : 'dark'}>{block.heading}</Heading>
             )}
           </div>
         )}

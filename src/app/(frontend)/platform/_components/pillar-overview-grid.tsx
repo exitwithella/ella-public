@@ -45,7 +45,9 @@ export function PillarOverviewGrid() {
           transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
           className="mb-12 md:mb-16"
         >
-          <Eyebrow color="ash" className="mb-3">{pillarCards.eyebrow}</Eyebrow>
+          <Eyebrow color="ash" className="mb-3">
+            {pillarCards.eyebrow}
+          </Eyebrow>
           <Heading className="text-ash-950">{pillarCards.headline}</Heading>
           <p className="text-ash-600 mt-4 max-w-2xl text-lg/relaxed">{pillarCards.description}</p>
         </motion.div>

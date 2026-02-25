@@ -304,6 +304,7 @@ These are drawn from the design brief and are non-negotiable:
 **Permissions:** Add `"Bash(agent-browser:*)"` to `.claude/settings.local.json` → `permissions.allow` array to allow Claude Code to run agent-browser without prompting.
 
 **Key commands:**
+
 - `agent-browser open <url>` — navigate
 - `agent-browser snapshot -i` — accessibility tree with interactive element refs (`@e1`, `@e2`)
 - `agent-browser click @e1` — click a ref from snapshot
@@ -314,6 +315,7 @@ These are drawn from the design brief and are non-negotiable:
 **Profile:** `.browser-profile/` stores persistent browser state (cookies, localStorage, auth sessions). Gitignored. Recreate via the setup script + re-authenticating.
 
 **Skills:** Two Claude Code skills are installed:
+
 - `.claude/skills/agent-browser/` — official command reference (installed via `npx skills add vercel-labs/agent-browser`)
 - `.claude/skills/agent-browser-ella.md` — ELLA-specific workflows and URLs
 

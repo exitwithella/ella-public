@@ -8,7 +8,7 @@ export function PricingHero() {
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow className="font-display mb-4 text-sm">Pricing</Eyebrow>
-          <Heading as="h1" className="mb-6 text-ash-950">
+          <Heading as="h1" className="text-ash-950 mb-6">
             Simple, transparent pricing.
           </Heading>
           <p className="text-ash-600 text-lg/relaxed">

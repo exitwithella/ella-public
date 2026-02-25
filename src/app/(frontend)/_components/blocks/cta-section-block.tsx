@@ -69,16 +69,19 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
             <ButtonLink
               href={primaryHref}
               size="lg"
+              color={isForestDark ? 'light' : 'dark/light'}
               target="_blank"
-              className={isForestDark ? 'bg-ash-50 text-moss-900 hover:bg-ash-100' : undefined}
+              rel="noopener"
+              className={isForestDark ? 'text-moss-900 hover:bg-ash-100' : undefined}
             >
               {primaryLabel}
             </ButtonLink>
             <PlainButtonLink
               href={secondaryHref}
               size="lg"
+              color={isForestDark ? 'light' : 'dark/light'}
               target="_blank"
-              className={isForestDark ? 'text-ash-200 hover:text-ash-50' : undefined}
+              rel="noopener"
             >
               {secondaryLabel} <ArrowNarrowRightIcon />
             </PlainButtonLink>

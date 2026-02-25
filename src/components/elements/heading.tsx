@@ -28,7 +28,12 @@ export function Heading<T extends HeadingTag = 'h2'>({
   const Tag = tag as ElementType
   return (
     <Tag
-      className={clsx('font-display tracking-tight', sizeDefaults[tag], colorClass[color], className)}
+      className={clsx(
+        'font-display tracking-tight',
+        sizeDefaults[tag],
+        colorClass[color],
+        className,
+      )}
       {...props}
     >
       {children}

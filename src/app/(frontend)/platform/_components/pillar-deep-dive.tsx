@@ -74,10 +74,10 @@ export function PillarDeepDive({ pillar, index, bgLight = false }: PillarDeepDiv
         >
           <div>
             <motion.div variants={fadeInUp}>
-              <Eyebrow className="font-display mb-4 text-moss-700">{pillar.tag}</Eyebrow>
+              <Eyebrow className="font-display text-moss-700 mb-4">{pillar.tag}</Eyebrow>
             </motion.div>
             <motion.div variants={fadeInUp}>
-              <Heading className="mb-5 text-ash-950 text-balance">{pillar.headline}</Heading>
+              <Heading className="text-ash-950 mb-5 text-balance">{pillar.headline}</Heading>
             </motion.div>
             <motion.p
               variants={fadeInUp}

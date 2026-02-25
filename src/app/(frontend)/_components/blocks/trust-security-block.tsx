@@ -46,9 +46,7 @@ export function TrustSecurityBlock({ block }: TrustSecurityBlockProps) {
       <Container>
         <div className="mx-auto max-w-3xl">
           {/* Heading — Termina */}
-          {block.heading && (
-            <Heading className="mb-6">{block.heading}</Heading>
-          )}
+          {block.heading && <Heading className="mb-6">{block.heading}</Heading>}
 
           {/* Intro prose — DM Sans */}
           {block.intro && (

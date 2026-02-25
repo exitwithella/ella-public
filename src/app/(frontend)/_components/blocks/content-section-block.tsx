@@ -68,9 +68,7 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
           {/* Text column */}
           <div className={isTwoColumn ? 'flex-1' : 'max-w-[680px]'}>
             {block.heading && (
-              <Heading color={isForestDark ? 'cream' : 'dark'}>
-                {block.heading}
-              </Heading>
+              <Heading color={isForestDark ? 'cream' : 'dark'}>{block.heading}</Heading>
             )}
 
             {block.body && (

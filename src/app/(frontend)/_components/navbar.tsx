@@ -33,6 +33,7 @@ export function Navbar() {
           <PlainButtonLink
             href={navigation.actions.bookDemo.href}
             target="_blank"
+            rel="noopener"
             className="max-sm:hidden"
           >
             {navigation.actions.bookDemo.label}
@@ -40,11 +41,12 @@ export function Navbar() {
           <PlainButtonLink
             href={navigation.actions.login.href}
             target="_blank"
+            rel="noopener"
             className="max-sm:hidden"
           >
             {navigation.actions.login.label}
           </PlainButtonLink>
-          <ButtonLink href={navigation.actions.signUp.href} target="_blank">
+          <ButtonLink href={navigation.actions.signUp.href} target="_blank" rel="noopener">
             {navigation.actions.signUp.label}
           </ButtonLink>
         </>

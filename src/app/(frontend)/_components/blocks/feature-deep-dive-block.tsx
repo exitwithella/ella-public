@@ -44,9 +44,7 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
     <section id={block.sectionId ?? undefined} className={`py-20 md:py-28 ${bg}`}>
       <Container>
         {/* Section label — h2 for correct heading hierarchy (h1 hero → h2 section → h3 items) */}
-        {block.sectionLabel && (
-          <Eyebrow className="mb-4">{block.sectionLabel}</Eyebrow>
-        )}
+        {block.sectionLabel && <Eyebrow className="mb-4">{block.sectionLabel}</Eyebrow>}
 
         {/* Alternating sections */}
         {block.sections && block.sections.length > 0 && (
@@ -74,7 +72,7 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
                         href={section.link.href}
                         className="text-moss-700 hover:text-moss-800 mt-6 inline-flex items-center gap-1 text-sm font-semibold"
                       >
-                        {section.link.label} →
+                        {section.link.label} <span aria-hidden="true">→</span>
                       </a>
                     )}
                   </div>

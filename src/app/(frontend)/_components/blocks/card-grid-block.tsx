@@ -39,9 +39,7 @@ export function CardGridBlock({ block }: CardGridBlockProps) {
               </Eyebrow>
             )}
             {block.heading && (
-              <Heading color={isForestDark ? 'cream' : 'dark'}>
-                {block.heading}
-              </Heading>
+              <Heading color={isForestDark ? 'cream' : 'dark'}>{block.heading}</Heading>
             )}
             {block.subheading && (
               <p
@@ -104,7 +102,7 @@ export function CardGridBlock({ block }: CardGridBlockProps) {
                     href={card.link.href}
                     className={`mt-6 inline-flex items-center gap-1 text-sm font-semibold ${isForestDark ? 'text-moss-300 hover:text-moss-200' : 'text-moss-700 hover:text-moss-800'}`}
                   >
-                    {card.link.label} →
+                    {card.link.label} <span aria-hidden="true">→</span>
                   </a>
                 )}
               </div>

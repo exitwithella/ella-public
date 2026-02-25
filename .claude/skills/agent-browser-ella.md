@@ -12,6 +12,7 @@ A persistent Chromium profile at `.browser-profile/` is configured via `agent-br
 ## First-Time Setup
 
 If the profile doesn't exist yet:
+
 1. Run `bash scripts/setup-browser-profile.sh`
 2. Authenticate with Payload: `agent-browser --headed open http://localhost:3000/admin`
 3. Log in manually, then close the browser — the session persists in the profile
@@ -19,11 +20,13 @@ If the profile doesn't exist yet:
 ## Common Workflows
 
 ### Visual page review
+
 ```bash
 agent-browser open http://localhost:3000 && agent-browser screenshot
 ```
 
 ### Interactive element inspection
+
 ```bash
 agent-browser snapshot -i          # get refs (@e1, @e2, ...)
 agent-browser click @e3            # interact with a ref
@@ -31,6 +34,7 @@ agent-browser snapshot -i          # re-snapshot — refs are invalidated after 
 ```
 
 ### Mobile responsive check
+
 ```bash
 agent-browser set device "iPhone 14"
 agent-browser open http://localhost:3000
@@ -38,12 +42,14 @@ agent-browser screenshot mobile-home.png
 ```
 
 ### Payload admin (uses saved auth)
+
 ```bash
 agent-browser open http://localhost:3000/admin
 agent-browser snapshot -i
 ```
 
 ### Visual diff after changes
+
 ```bash
 agent-browser screenshot --annotate before.png
 # ... make changes ...
@@ -53,13 +59,13 @@ agent-browser diff screenshot --baseline before.png
 
 ## Key URLs
 
-| URL | Page |
-|-----|------|
-| `http://localhost:3000` | Homepage |
-| `http://localhost:3000/admin` | Payload CMS admin |
-| `http://localhost:3000/platform` | Platform page |
-| `http://localhost:3000/solutions/exit-planning` | Exit Planning |
-| `http://localhost:3000/pricing` | Pricing |
+| URL                                             | Page              |
+| ----------------------------------------------- | ----------------- |
+| `http://localhost:3000`                         | Homepage          |
+| `http://localhost:3000/admin`                   | Payload CMS admin |
+| `http://localhost:3000/platform`                | Platform page     |
+| `http://localhost:3000/solutions/exit-planning` | Exit Planning     |
+| `http://localhost:3000/pricing`                 | Pricing           |
 
 ## Tips
 

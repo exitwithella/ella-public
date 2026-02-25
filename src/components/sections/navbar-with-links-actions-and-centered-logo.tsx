@@ -1,5 +1,7 @@
+'use client'
+
 import { clsx } from 'clsx/lite'
-import type { ComponentProps, ReactNode } from 'react'
+import { type ComponentProps, type ReactNode, useCallback, useRef } from 'react'
 
 export function NavbarLink({
   children,
@@ -40,7 +42,14 @@ export function NavbarLogo({
   href,
   ...props
 }: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
-  return <a href={href} {...props} className={clsx('inline-flex items-stretch', className)} />
+  return (
+    <a
+      href={href}
+      aria-label="ELLA home"
+      {...props}
+      className={clsx('inline-flex items-stretch', className)}
+    />
+  )
 }
 
 export function NavbarWithLinksActionsAndCenteredLogo({
@@ -54,10 +63,14 @@ export function NavbarWithLinksActionsAndCenteredLogo({
   logo: ReactNode
   actions: ReactNode
 } & ComponentProps<'header'>) {
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const openMenu = useCallback(() => dialogRef.current?.showModal(), [])
+  const closeMenu = useCallback(() => dialogRef.current?.close(), [])
+
   return (
     <header className={clsx('sticky top-0 z-10 bg-ash-50', className)} {...props}>
       <style>{`:root { --scroll-padding-top: 5.25rem }`}</style>
-      <nav>
+      <nav aria-label="Main">
         <div className="mx-auto flex h-(--scroll-padding-top) max-w-7xl items-center gap-4 px-6 lg:px-10">
           <div className="flex flex-1 gap-8 max-lg:hidden">{links}</div>
           <div className="flex items-center">{logo}</div>
@@ -65,12 +78,11 @@ export function NavbarWithLinksActionsAndCenteredLogo({
             <div className="flex shrink-0 items-center gap-5">{actions}</div>
 
             <button
-              command="show-modal"
-              commandfor="mobile-menu"
-              aria-label="Toggle menu"
+              onClick={openMenu}
+              aria-label="Open menu"
               className="text-ash-950 hover:bg-ash-950/10 inline-flex rounded-full p-1.5 lg:hidden"
             >
-              <svg viewBox="0 0 24 24" fill="currentColor" className="size-6">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="size-6" aria-hidden="true">
                 <path
                   fillRule="evenodd"
                   d="M3.748 8.248a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75ZM3.748 15.75a.75.75 0 0 1 .75-.751h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75Z"
@@ -81,13 +93,12 @@ export function NavbarWithLinksActionsAndCenteredLogo({
           </div>
         </div>
 
-        <dialog id="mobile-menu" className="backdrop:bg-transparent">
+        <dialog ref={dialogRef} className="backdrop:bg-transparent">
           <div className="bg-ash-50 fixed inset-0 px-6 py-6 lg:px-10">
             <div className="flex justify-end">
               <button
-                command="close"
-                commandfor="mobile-menu"
-                aria-label="Toggle menu"
+                onClick={closeMenu}
+                aria-label="Close menu"
                 className="text-ash-950 hover:bg-ash-950/10 inline-flex rounded-full p-1.5"
               >
                 <svg
@@ -97,6 +108,7 @@ export function NavbarWithLinksActionsAndCenteredLogo({
                   strokeWidth={1.5}
                   stroke="currentColor"
                   className="size-6"
+                  aria-hidden="true"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>

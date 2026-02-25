@@ -36,9 +36,7 @@ export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
               </Eyebrow>
             )}
             {block.heading && (
-              <Heading color={isForestDark ? 'cream' : 'dark'}>
-                {block.heading}
-              </Heading>
+              <Heading color={isForestDark ? 'cream' : 'dark'}>{block.heading}</Heading>
             )}
             {block.subheading && (
               <p

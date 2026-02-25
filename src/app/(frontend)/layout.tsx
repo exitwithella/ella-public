@@ -27,7 +27,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body className="bg-ash-50">
         <MotionProvider>
           <Navbar />
           <Main>{children}</Main>

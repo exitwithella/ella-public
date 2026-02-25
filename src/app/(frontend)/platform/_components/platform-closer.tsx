@@ -19,16 +19,20 @@ export function PlatformCloser() {
             <ButtonLink
               href={platformCloser.primaryCta.href}
               size="lg"
+              color="light"
               target="_blank"
-              className="bg-ash-50 text-moss-900 hover:bg-ash-100 w-full sm:w-auto"
+              rel="noopener"
+              className="text-moss-900 hover:bg-ash-100 w-full sm:w-auto"
             >
               {platformCloser.primaryCta.label}
             </ButtonLink>
             <PlainButtonLink
               href={platformCloser.secondaryCta.href}
               size="lg"
+              color="light"
               target="_blank"
-              className="text-ash-200 hover:text-ash-50 w-full justify-center sm:w-auto"
+              rel="noopener"
+              className="w-full justify-center sm:w-auto"
             >
               {platformCloser.secondaryCta.label} <ArrowNarrowRightIcon />
             </PlainButtonLink>

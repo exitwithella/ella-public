@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 
-import { platformPillars } from './_lib/content'
 import { ConnectedWorkflow } from './_components/connected-workflow'
 import { PillarDeepDive } from './_components/pillar-deep-dive'
 import { PillarOverviewGrid } from './_components/pillar-overview-grid'
 import { PlatformCloser } from './_components/platform-closer'
 import { PlatformHero } from './_components/platform-hero'
 import { PlatformTrust } from './_components/platform-trust'
+import { platformPillars } from './_lib/content'
 
 export const metadata: Metadata = {
   title: 'Platform — ELLA',

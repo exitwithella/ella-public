@@ -24,12 +24,8 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
         {/* Section header */}
         {(block.sectionLabel || block.heading) && (
           <div className="mb-12 md:mb-16">
-            {block.sectionLabel && (
-              <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>
-            )}
-            {block.heading && (
-              <Heading>{block.heading}</Heading>
-            )}
+            {block.sectionLabel && <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>}
+            {block.heading && <Heading>{block.heading}</Heading>}
             {block.subheading && (
               <p className="text-ash-600 mt-4 max-w-2xl text-lg/relaxed">{block.subheading}</p>
             )}
@@ -47,7 +43,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
               </h3>
             </div>
             {beforePoints.length > 0 && (
-              <ol className="space-y-4">
+              <ol role="list" className="space-y-4">
                 {beforePoints.map((point, index) => (
                   <li key={point.id} className="flex items-start gap-3">
                     <span
@@ -72,7 +68,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
               </h3>
             </div>
             {afterPoints.length > 0 && (
-              <ol className="space-y-4">
+              <ol role="list" className="space-y-4">
                 {afterPoints.map((point, index) => (
                   <li key={point.id} className="flex items-start gap-3">
                     <span

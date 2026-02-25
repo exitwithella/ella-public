@@ -45,7 +45,7 @@ export function ConnectedWorkflow() {
               className="bg-ash-50 absolute -top-4 left-8 px-4 sm:-top-5 sm:left-16 sm:px-6 md:left-20"
               variants={fadeInUp}
             >
-              <Heading className="text-xl text-ash-950 sm:text-2xl md:text-3xl">
+              <Heading className="text-ash-950 text-xl sm:text-2xl md:text-3xl">
                 {connectedWorkflow.headline}
               </Heading>
             </motion.div>
