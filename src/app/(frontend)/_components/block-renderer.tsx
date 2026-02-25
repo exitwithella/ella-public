@@ -42,11 +42,6 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       return <NumberedStepsBlock block={block} />
     case 'testimonial-block':
       return <TestimonialBlockComponent block={block} />
-    case 'solutions-selector':
-    case 'faq-accordion':
-    case 'pricing-journey':
-    case 'newsletter-capture':
-    case 'formEmbed':
     default:
       return null
   }
