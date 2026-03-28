@@ -22,14 +22,23 @@ export const TrustSecurityBlock: Block = {
     {
       name: 'heading',
       type: 'text',
+      admin: {
+        description: 'Wrap words in *asterisks* to render them in italic.',
+      },
     },
     {
       name: 'intro',
       type: 'textarea',
+      admin: {
+        description: 'Wrap words in *asterisks* to render them in italic.',
+      },
     },
     {
-      name: 'items',
+      name: 'sections',
       type: 'array',
+      admin: {
+        description: 'Content sections displayed in a two-column grid.',
+      },
       fields: [
         {
           name: 'title',
@@ -41,18 +50,33 @@ export const TrustSecurityBlock: Block = {
           type: 'textarea',
         },
         {
-          name: 'icon',
-          type: 'upload',
-          relationTo: 'media',
+          name: 'bulletHeading',
+          type: 'text',
+          admin: {
+            description: 'Optional heading above the bullet list (e.g. "You\'re in Good Hands").',
+          },
+        },
+        {
+          name: 'bulletItems',
+          type: 'array',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+            },
+          ],
+        },
+        {
+          name: 'column',
+          type: 'select',
+          defaultValue: 'left',
+          options: [
+            { label: 'Left', value: 'left' },
+            { label: 'Right', value: 'right' },
+          ],
         },
       ],
-    },
-    {
-      name: 'closingLine',
-      type: 'textarea',
-      admin: {
-        description: 'Standalone closing statement after the items list.',
-      },
     },
     bgStyleField,
   ],

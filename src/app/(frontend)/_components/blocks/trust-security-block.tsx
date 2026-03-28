@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react'
+
 import { Container } from '@/components/elements/container'
 import { Heading } from '@/components/elements/heading'
 import type { Page } from '@/payload-types'
@@ -18,63 +20,94 @@ const BG_CLASS: Record<string, string> = {
   'forest-dark': 'bg-moss-900',
 }
 
-// Minimal inline SVG shield icon — no external asset dependency
-function ShieldIcon() {
+/**
+ * Parses *asterisk-wrapped* segments into <em> elements.
+ * Returns a ReactNode array safe for JSX rendering.
+ */
+function parseEmphasis(text: string): ReactNode[] {
+  const parts = text.split(/(\*[^*]+\*)/)
+  return parts.map((part, i) => {
+    if (part.startsWith('*') && part.endsWith('*')) {
+      return <em key={i}>{part.slice(1, -1)}</em>
+    }
+    return part
+  })
+}
+
+type Section = NonNullable<TrustSecurityData['sections']>[number]
+
+function SectionCard({ section }: { section: Section }) {
   return (
-    <svg
-      aria-hidden="true"
-      className="text-moss-600 mt-0.5 h-5 w-5 shrink-0"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.75}
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
-      />
-    </svg>
+    <div>
+      <h3 className="text-ash-900 mb-3 text-lg font-bold">{section.title}</h3>
+
+      {section.body && (
+        <div className="text-ash-600 space-y-4 text-base/relaxed">
+          {section.body.split('\n\n').map((paragraph, i) => (
+            <p key={i}>{paragraph}</p>
+          ))}
+        </div>
+      )}
+
+      {section.bulletHeading && (
+        <h4 className="text-ash-900 mt-6 mb-3 text-base font-bold">{section.bulletHeading}</h4>
+      )}
+
+      {section.bulletItems && section.bulletItems.length > 0 && (
+        <ul className="border-ash-200 space-y-2 border-b pb-6">
+          {section.bulletItems.map((item) => (
+            <li key={item.id} className="text-ash-700 text-sm/relaxed">
+              {item.label}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
 
 export function TrustSecurityBlock({ block }: TrustSecurityBlockProps) {
   const bg = BG_CLASS[block.bgStyle ?? 'ash-light'] ?? BG_CLASS['ash-light']
 
+  const leftSections = block.sections?.filter((s) => s.column === 'left') ?? []
+  const rightSections = block.sections?.filter((s) => s.column === 'right') ?? []
+
   return (
     <section className={`py-20 md:py-28 ${bg}`}>
       <Container>
-        <div className="mx-auto max-w-3xl">
-          {/* Heading — Termina */}
-          {block.heading && <Heading className="mb-6">{block.heading}</Heading>}
+        <div className="mx-auto max-w-5xl">
+          {block.heading && (
+            <Heading className="mb-8">{parseEmphasis(block.heading)}</Heading>
+          )}
 
-          {/* Intro prose — DM Sans */}
+          {(block.heading || block.intro) && (
+            <hr className="border-ash-300 mb-8" />
+          )}
+
           {block.intro && (
-            <p className="text-ash-600 mb-10 max-w-2xl text-lg/relaxed">{block.intro}</p>
-          )}
-
-          {/* 7-item capability list */}
-          {block.items && block.items.length > 0 && (
-            <ul className="space-y-4" role="list">
-              {block.items.map((item) => (
-                <li key={item.id} className="flex items-start gap-3">
-                  <ShieldIcon />
-                  <div>
-                    <span className="text-ash-800 font-medium">{item.title}</span>
-                    {item.body && (
-                      <p className="text-ash-500 mt-0.5 text-sm/relaxed">{item.body}</p>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {/* Closing line — standalone, muted */}
-          {block.closingLine && (
-            <p className="text-ash-500 border-ash-200 mt-10 border-t pt-8 text-sm/relaxed">
-              {block.closingLine}
+            <p className="text-ash-700 mb-14 max-w-4xl text-base/relaxed">
+              {parseEmphasis(block.intro)}
             </p>
+          )}
+
+          {(leftSections.length > 0 || rightSections.length > 0) && (
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-16">
+              {leftSections.length > 0 && (
+                <div className="space-y-8 lg:col-span-3">
+                  {leftSections.map((section) => (
+                    <SectionCard key={section.id} section={section} />
+                  ))}
+                </div>
+              )}
+
+              {rightSections.length > 0 && (
+                <div className="space-y-10 lg:col-span-2">
+                  {rightSections.map((section) => (
+                    <SectionCard key={section.id} section={section} />
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         </div>
       </Container>

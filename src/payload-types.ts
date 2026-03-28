@@ -650,20 +650,35 @@ export interface Page {
             blockType: 'comparison-table';
           }
         | {
+            /**
+             * Wrap words in *asterisks* to render them in italic.
+             */
             heading?: string | null;
+            /**
+             * Wrap words in *asterisks* to render them in italic.
+             */
             intro?: string | null;
-            items?:
+            /**
+             * Content sections displayed in a two-column grid.
+             */
+            sections?:
               | {
                   title: string;
                   body?: string | null;
-                  icon?: (number | null) | Media;
+                  /**
+                   * Optional heading above the bullet list (e.g. "You're in Good Hands").
+                   */
+                  bulletHeading?: string | null;
+                  bulletItems?:
+                    | {
+                        label: string;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  column?: ('left' | 'right') | null;
                   id?: string | null;
                 }[]
               | null;
-            /**
-             * Standalone closing statement after the items list.
-             */
-            closingLine?: string | null;
             bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
@@ -1154,20 +1169,35 @@ export interface Solution {
             blockType: 'numbered-steps';
           }
         | {
+            /**
+             * Wrap words in *asterisks* to render them in italic.
+             */
             heading?: string | null;
+            /**
+             * Wrap words in *asterisks* to render them in italic.
+             */
             intro?: string | null;
-            items?:
+            /**
+             * Content sections displayed in a two-column grid.
+             */
+            sections?:
               | {
                   title: string;
                   body?: string | null;
-                  icon?: (number | null) | Media;
+                  /**
+                   * Optional heading above the bullet list (e.g. "You're in Good Hands").
+                   */
+                  bulletHeading?: string | null;
+                  bulletItems?:
+                    | {
+                        label: string;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  column?: ('left' | 'right') | null;
                   id?: string | null;
                 }[]
               | null;
-            /**
-             * Standalone closing statement after the items list.
-             */
-            closingLine?: string | null;
             bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
@@ -1526,20 +1556,35 @@ export interface LandingPage {
             blockType: 'feature-deep-dive';
           }
         | {
+            /**
+             * Wrap words in *asterisks* to render them in italic.
+             */
             heading?: string | null;
+            /**
+             * Wrap words in *asterisks* to render them in italic.
+             */
             intro?: string | null;
-            items?:
+            /**
+             * Content sections displayed in a two-column grid.
+             */
+            sections?:
               | {
                   title: string;
                   body?: string | null;
-                  icon?: (number | null) | Media;
+                  /**
+                   * Optional heading above the bullet list (e.g. "You're in Good Hands").
+                   */
+                  bulletHeading?: string | null;
+                  bulletItems?:
+                    | {
+                        label: string;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  column?: ('left' | 'right') | null;
                   id?: string | null;
                 }[]
               | null;
-            /**
-             * Standalone closing statement after the items list.
-             */
-            closingLine?: string | null;
             bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
             id?: string | null;
             blockName?: string | null;
@@ -2369,15 +2414,21 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               heading?: T;
               intro?: T;
-              items?:
+              sections?:
                 | T
                 | {
                     title?: T;
                     body?: T;
-                    icon?: T;
+                    bulletHeading?: T;
+                    bulletItems?:
+                      | T
+                      | {
+                          label?: T;
+                          id?: T;
+                        };
+                    column?: T;
                     id?: T;
                   };
-              closingLine?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -2690,15 +2741,21 @@ export interface LandingPagesSelect<T extends boolean = true> {
           | {
               heading?: T;
               intro?: T;
-              items?:
+              sections?:
                 | T
                 | {
                     title?: T;
                     body?: T;
-                    icon?: T;
+                    bulletHeading?: T;
+                    bulletItems?:
+                      | T
+                      | {
+                          label?: T;
+                          id?: T;
+                        };
+                    column?: T;
                     id?: T;
                   };
-              closingLine?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -3108,15 +3165,21 @@ export interface SolutionsSelect<T extends boolean = true> {
           | {
               heading?: T;
               intro?: T;
-              items?:
+              sections?:
                 | T
                 | {
                     title?: T;
                     body?: T;
-                    icon?: T;
+                    bulletHeading?: T;
+                    bulletItems?:
+                      | T
+                      | {
+                          label?: T;
+                          id?: T;
+                        };
+                    column?: T;
                     id?: T;
                   };
-              closingLine?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;

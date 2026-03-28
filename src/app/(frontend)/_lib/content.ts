@@ -73,34 +73,35 @@ export const pillarCards = {
 }
 
 export const trustSecurity = {
-  badges: [
-    'Full data encryption',
-    'Modern U.S.-based infrastructure',
-    'GDPR & CCPA adherence',
-    'Granular access control (RBAC)',
-    'Multi-factor auth by default',
-    'Enterprise SSO / SAML',
-  ],
+  headline: 'Secure, because *both* of our reputations are on the line.',
   description:
-    "We know trust is earned — and essential when you're the steward of your clients' most valuable asset.",
-  features: [
+    "We know trust is earned\u2014and essential when you're the steward of your clients' most valuable asset. That's why ELLA is built with a security-first mindset, grounded in transparency and respect for your data *and* your clients' data.",
+  sections: [
     {
       title: 'Secure by Design',
-      description:
-        'Built on SOC2-compliant infrastructure with encryption in transit and at rest. Strict access controls and MFA safeguard your information.',
+      body: "We design our systems and processes in alignment with leading security frameworks. Our practices are informed by these standards to ensure robust security, access control, and data protection.\n\nAll data on ELLA is encrypted in transit and at rest. We use modern SOC2/II compliant infrastructure providers like Vercel and Cloudflare. Strict access controls, internal policies, and multi-factor authentication (MFA) safeguard your information within our company.",
+      bulletHeading: "You're in Good Hands",
+      bulletItems: [
+        'Full data encryption',
+        'Modern U.S.-based Infrastructure',
+        'GDPR & CCPA Adherence',
+        'Granular Access Control (RBAC)',
+        'Multi-factor Auth by Default',
+        'Enterprise SSO / SAML',
+      ],
+      column: 'left' as const,
     },
     {
-      title: 'Your Data, Always',
-      description:
-        "Only those you explicitly invite can access your workspace. We don't share your business information without your permission.",
+      title: 'Your data, always',
+      body: "When advisors use ELLA to support their clients, they remain in control. Only those you explicitly invite can access your organization or client workbenches. We don't share your business information without your permission.",
+      column: 'right' as const,
     },
     {
       title: 'Privacy Built-In',
-      description:
-        'We follow U.S. state privacy laws and align with GDPR. Export or delete your data at any time. ELLA never sells your data.',
+      body: "We follow U.S. state privacy laws and align with international standards like GDPR. Users can export or delete their data at any time. ELLA never sells your data, and only processes it to provide the services you've signed up for.",
+      column: 'right' as const,
     },
   ],
-  headline: 'Secure, because both of our reputations are on the line.',
 }
 
 export const closerCta = {

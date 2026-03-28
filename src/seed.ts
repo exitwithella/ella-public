@@ -716,22 +716,35 @@ async function seed() {
     // Block 5: Trust & Security
     {
       blockType: 'trust-security',
-      heading: 'Secure, because both of our reputations are on the line.',
+      heading: 'Secure, because *both* of our reputations are on the line.',
       intro:
-        'We know trust is earned, and essential when you\u2019re the steward of your clients\u2019 most valuable asset. ELLA is built with a security-first architecture that solves a problem most advisors haven\u2019t fully considered yet.\n\nHere\u2019s what ChatGPT can\u2019t do: guarantee that your last client\u2019s financials don\u2019t leak into your next client\u2019s analysis. We solve this at the architectural level. Every client engagement lives in a sandboxed workspace with customizable permissions for all team members.',
-      items: [
-        { title: 'Full data encryption in transit and at rest' },
+        'We know trust is earned\u2014and essential when you\u2019re the steward of your clients\u2019 most valuable asset. That\u2019s why ELLA is built with a security-first mindset, grounded in transparency and respect for your data *and* your clients\u2019 data.',
+      sections: [
         {
-          title: 'Modern U.S.-based infrastructure (SOC2/II compliant providers)',
+          title: 'Secure by Design',
+          body: 'We design our systems and processes in alignment with leading security frameworks. Our practices are informed by these standards to ensure robust security, access control, and data protection.\n\nAll data on ELLA is encrypted in transit and at rest. We use modern SOC2/II compliant infrastructure providers like Vercel and Cloudflare. Strict access controls, internal policies, and multi-factor authentication (MFA) safeguard your information within our company.',
+          bulletHeading: "You're in Good Hands",
+          bulletItems: [
+            { label: 'Full data encryption' },
+            { label: 'Modern U.S.-based Infrastructure' },
+            { label: 'GDPR & CCPA Adherence' },
+            { label: 'Granular Access Control (RBAC)' },
+            { label: 'Multi-factor Auth by Default' },
+            { label: 'Enterprise SSO / SAML' },
+          ],
+          column: 'left',
         },
-        { title: 'Granular role-based access control (RBAC)' },
-        { title: 'Multi-factor authentication by default' },
-        { title: 'Enterprise SSO / SAML' },
-        { title: 'GDPR and CCPA adherence' },
-        { title: 'Your data exportable and deletable at any time' },
+        {
+          title: 'Your data, always',
+          body: 'When advisors use ELLA to support their clients, they remain in control. Only those you explicitly invite can access your organization or client workbenches. We don\u2019t share your business information without your permission.',
+          column: 'right',
+        },
+        {
+          title: 'Privacy Built-In',
+          body: 'We follow U.S. state privacy laws and align with international standards like GDPR. Users can export or delete their data at any time. ELLA never sells your data, and only processes it to provide the services you\u2019ve signed up for.',
+          column: 'right',
+        },
       ],
-      closingLine:
-        'Only those you explicitly invite can access your workspace. We don\u2019t share your business information without your permission. ELLA never sells your data.',
       bgStyle: 'ash-light',
     },
     // Block 6: Before/After Panel
