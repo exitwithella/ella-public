@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 import type { Media } from '@/payload-types'
 
 import { BlogCard } from '../_components/blog-card'
@@ -86,12 +88,12 @@ export default async function SlugPage({ params, searchParams }: SlugPageProps) 
         <>
           <section className="bg-ash-50 py-20 md:py-24">
             <Container>
-              <p className="text-moss-600 mb-3 text-sm font-semibold tracking-widest uppercase">
+              <Eyebrow size="sm" className="mb-3">
                 Category
-              </p>
-              <h1 className="font-display text-ash-950 text-4xl font-semibold tracking-tight md:text-5xl">
+              </Eyebrow>
+              <Heading as="h1">
                 {category.title}
-              </h1>
+              </Heading>
               {category.description && (
                 <p className="text-ash-600 mt-4 max-w-xl text-lg/relaxed">{category.description}</p>
               )}

@@ -1,6 +1,7 @@
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import { Container } from '@/components/elements/container'
+import { Heading } from '@/components/elements/heading'
 import type { Page } from '@/payload-types'
 
 type BridgeSectionData = Extract<
@@ -27,11 +28,9 @@ export function BridgeSectionBlock({ block }: BridgeSectionBlockProps) {
       <Container>
         <div className="mx-auto max-w-2xl">
           {/* Heading — Termina */}
-          <h2
-            className={`font-display mb-8 text-2xl font-bold tracking-tight md:text-3xl ${isForestDark ? 'text-ash-50' : 'text-ash-900'}`}
-          >
+          <Heading color={isForestDark ? 'light' : 'dark'} className="mb-8 font-bold">
             {block.heading}
-          </h2>
+          </Heading>
 
           {/* Body — DM Sans richText */}
           {block.body && (

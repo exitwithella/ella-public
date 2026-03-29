@@ -7,7 +7,7 @@ export function PricingHero() {
     <section className="bg-ash-50 py-24 md:py-32">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow className="font-display mb-4 text-sm">Pricing</Eyebrow>
+          <Eyebrow size="sm" className="mb-4">Pricing</Eyebrow>
           <Heading as="h1" className="text-ash-950 mb-6">
             Simple, transparent pricing.
           </Heading>

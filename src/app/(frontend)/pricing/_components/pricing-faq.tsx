@@ -21,7 +21,7 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
         <div className="mx-auto max-w-3xl">
           {/* Header */}
           <div className="mb-12 text-center">
-            <Eyebrow className="font-display text-moss-700 mb-3 text-sm">FAQ</Eyebrow>
+            <Eyebrow size="sm" className="mb-3">FAQ</Eyebrow>
             <Heading className="text-3xl md:text-4xl">Common questions.</Heading>
           </div>
 

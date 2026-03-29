@@ -65,9 +65,9 @@ export function PillarOverviewGrid() {
               variants={fadeInUp}
               className="border-ash-200 bg-ash-100 group hover:border-moss-300 block rounded-sm border p-8 transition-colors md:p-10"
             >
-              <p className="font-display text-moss-700 mb-3 text-sm font-semibold tracking-wider uppercase">
+              <Eyebrow size="sm" className="font-display mb-3 tracking-wider">
                 {pillar.tag}
-              </p>
+              </Eyebrow>
               <h3 className="text-ash-900 mb-3 text-lg font-semibold">{pillar.headline}</h3>
               <p className="text-ash-600 text-sm/relaxed">{pillar.description}</p>
 

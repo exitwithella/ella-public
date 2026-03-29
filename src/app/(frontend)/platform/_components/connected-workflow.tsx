@@ -5,6 +5,7 @@ import { useInView } from 'motion/react'
 import { useRef } from 'react'
 
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
 
 import { connectedWorkflow } from '../_lib/content'
@@ -68,9 +69,9 @@ export function ConnectedWorkflow() {
                       : ''
                   }`}
                 >
-                  <p className="text-moss-700 mb-1 text-xs font-semibold tracking-wider uppercase">
+                  <Eyebrow className="mb-1 tracking-wider">
                     0{index + 1}
-                  </p>
+                  </Eyebrow>
                   <h3 className="text-ash-950 mb-2 text-sm font-semibold">{item.title}</h3>
                   <p className="text-ash-600 text-sm/6">{item.description}</p>
                 </motion.div>

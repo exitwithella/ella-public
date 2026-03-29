@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 
 import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 
 import { BlogCard } from './_components/blog-card'
 import { CategoryFilter } from './_components/category-filter'
@@ -61,12 +63,12 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       {/* Hero section */}
       <section className="bg-ash-50 py-20 md:py-28">
         <Container>
-          <p className="text-moss-600 mb-4 text-sm font-semibold tracking-widest uppercase">
+          <Eyebrow size="sm" className="mb-4">
             The ELLA Blog
-          </p>
-          <h1 className="font-display text-ash-950 max-w-2xl text-4xl font-semibold tracking-tight text-balance md:text-5xl">
+          </Eyebrow>
+          <Heading as="h1" className="max-w-2xl text-balance">
             Thinking clearly about advisory practice.
-          </h1>
+          </Heading>
           <p className="text-ash-600 mt-5 max-w-xl text-lg/relaxed">
             Practical perspectives on practice systematization, advisor-led transitions, and what's
             changing in the profession.

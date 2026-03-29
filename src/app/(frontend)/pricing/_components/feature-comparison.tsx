@@ -194,7 +194,7 @@ export function FeatureComparison() {
     <section className="bg-ash-50 py-24 md:py-32">
       <Container>
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <Eyebrow className="font-display text-moss-700 mb-3 text-sm">Compare Plans</Eyebrow>
+          <Eyebrow size="sm" className="mb-3">Compare Plans</Eyebrow>
           <Heading className="text-3xl md:text-4xl">
             Everything you need, nothing you don't.
           </Heading>
@@ -276,9 +276,9 @@ export function FeatureComparison() {
             </h3>
             {FEATURE_CATEGORIES.map((category) => (
               <div key={category.name} className="mb-4">
-                <p className="text-ash-500 mb-2 text-xs font-semibold tracking-widest uppercase">
+                <Eyebrow color="ash" className="mb-2">
                   {category.name}
-                </p>
+                </Eyebrow>
                 <dl className="space-y-2.5">
                   {category.rows.map((row) => (
                     <div key={row.label} className="flex items-start justify-between gap-4">
@@ -303,9 +303,9 @@ export function FeatureComparison() {
             </h3>
             {FEATURE_CATEGORIES.map((category) => (
               <div key={category.name} className="mb-4">
-                <p className="text-ash-500 mb-2 text-xs font-semibold tracking-widest uppercase">
+                <Eyebrow color="ash" className="mb-2">
                   {category.name}
-                </p>
+                </Eyebrow>
                 <dl className="space-y-2.5">
                   {category.rows.map((row) => (
                     <div key={row.label} className="flex items-start justify-between gap-4">

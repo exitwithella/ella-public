@@ -71,13 +71,13 @@ export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
 
               {/* Step content */}
               <div>
-                <h3
-                  className={`font-display text-lg font-semibold tracking-tight md:text-xl ${
-                    isForestDark ? 'text-ash-50' : 'text-ash-900'
-                  }`}
+                <Heading
+                  as="h3"
+                  color={isForestDark ? 'light' : 'dark'}
+                  className="text-lg md:text-xl"
                 >
                   {step.heading}
-                </h3>
+                </Heading>
                 {step.body && (
                   <p
                     className={`mt-3 max-w-xl text-base/relaxed ${

@@ -44,9 +44,9 @@ function VisualPlaceholder({ tag }: { tag: string }) {
     <div className="bg-ash-200/60 border-ash-300/50 flex aspect-[4/3] w-full items-center justify-center rounded-sm border">
       <div className="text-center">
         <div className="bg-ash-300/60 mx-auto mb-3 h-1 w-12 rounded-full" />
-        <p className="font-display text-ash-400 text-xs font-semibold tracking-widest uppercase">
+        <Eyebrow color="ash" className="font-display text-ash-400">
           {tag}
-        </p>
+        </Eyebrow>
         <p className="text-ash-400 mt-1 text-xs">Screenshot coming soon</p>
         <div className="bg-ash-300/60 mx-auto mt-3 h-1 w-8 rounded-full" />
       </div>
@@ -74,7 +74,7 @@ export function PillarDeepDive({ pillar, index, bgLight = false }: PillarDeepDiv
         >
           <div>
             <motion.div variants={fadeInUp}>
-              <Eyebrow className="font-display text-moss-700 mb-4">{pillar.tag}</Eyebrow>
+              <Eyebrow className="font-display mb-4">{pillar.tag}</Eyebrow>
             </motion.div>
             <motion.div variants={fadeInUp}>
               <Heading className="text-ash-950 mb-5 text-balance">{pillar.headline}</Heading>

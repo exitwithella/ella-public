@@ -76,7 +76,7 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
         {(block.sectionLabel || block.heading || block.subheading) && (
           <div className="mx-auto mb-14 max-w-3xl text-center">
             {block.sectionLabel && (
-              <Eyebrow className="font-display text-moss-700 mb-3 text-sm">
+              <Eyebrow size="sm" className="mb-3">
                 {block.sectionLabel}
               </Eyebrow>
             )}

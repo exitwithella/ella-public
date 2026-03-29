@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { Container } from '@/components/elements/container'
+import { Heading } from '@/components/elements/heading'
 
 import { trustSecurity } from '../../_lib/content'
 
@@ -22,9 +23,9 @@ export function PlatformTrust() {
     <section className="bg-ash-100/50 py-20 md:py-28">
       <Container>
         <div className="mx-auto max-w-5xl">
-          <h2 className="font-display text-ash-900 mb-8 text-2xl font-semibold tracking-tight md:text-3xl">
+          <Heading as="h2" className="mb-8">
             {parseEmphasis(trustSecurity.headline)}
-          </h2>
+          </Heading>
 
           <hr className="border-ash-300 mb-8" />
 
