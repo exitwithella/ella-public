@@ -4,20 +4,30 @@ import type { ComponentProps } from 'react'
 const colorClass = {
   moss: 'text-moss-600',
   ash: 'text-ash-500',
-  light: 'text-moss-400',
+  light: 'text-ash-50',
   'ash-dark': 'text-ash-700',
+} as const
+
+const sizeClass = {
+  xs: 'text-xs',
+  sm: 'text-sm',
 } as const
 
 export function Eyebrow({
   children,
   color = 'moss',
+  size = 'xs',
   className,
   ...props
-}: { color?: keyof typeof colorClass } & ComponentProps<'p'>) {
+}: {
+  color?: keyof typeof colorClass
+  size?: keyof typeof sizeClass
+} & ComponentProps<'p'>) {
   return (
     <p
       className={clsx(
-        'text-xs font-semibold tracking-widest uppercase',
+        'font-semibold tracking-widest uppercase',
+        sizeClass[size],
         colorClass[color],
         className,
       )}

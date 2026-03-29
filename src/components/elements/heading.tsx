@@ -14,6 +14,7 @@ const sizeDefaults: Record<HeadingTag, string> = {
 
 const colorClass = {
   dark: 'text-ash-900',
+  light: 'text-ash-50',
   cream: 'text-ash-50',
 } as const
 
