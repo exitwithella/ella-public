@@ -1,56 +1,40 @@
-import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
-import {
-  NavbarWithLinksActionsAndCenteredLogo,
-  NavbarLink,
-  NavbarLogo,
-} from '@/components/sections/navbar-with-links-actions-and-centered-logo'
-
+import { NavbarClient } from './navbar-client'
 import { EllaLogo } from '../_assets/logo'
-import { navigation } from '../_lib/content'
+import { getNavigation } from '../_lib/get-navigation'
+import { navigation as fallbackNav } from '../_lib/content'
 
-export function Navbar() {
+export async function Navbar() {
+  const nav = await getNavigation()
+
+  const links =
+    nav.primaryNav?.map((item) => ({
+      label: item.label,
+      href: item.href ?? undefined,
+      type: (item.type ?? 'link') as 'link' | 'dropdown',
+      dropdownItems:
+        item.dropdownItems?.map((di) => ({
+          label: di.label,
+          href: di.href,
+          description: di.description ?? undefined,
+        })) ?? [],
+    })) ?? []
+
+  const primaryCta = {
+    label: nav.primaryCta?.label || fallbackNav.actions.signUp.label,
+    href: nav.primaryCta?.href || fallbackNav.actions.signUp.href,
+  }
+
+  const secondaryCta = {
+    label: nav.secondaryCta?.label || fallbackNav.actions.bookDemo.label,
+    href: nav.secondaryCta?.href || fallbackNav.actions.bookDemo.href,
+  }
+
   return (
-    <NavbarWithLinksActionsAndCenteredLogo
-      links={
-        <>
-          {navigation.links.map((link) => (
-            <NavbarLink key={link.href} href={link.href}>
-              {link.label}
-            </NavbarLink>
-          ))}
-          <NavbarLink href={navigation.actions.login.href} className="sm:hidden">
-            {navigation.actions.login.label}
-          </NavbarLink>
-        </>
-      }
-      logo={
-        <NavbarLogo href="/">
-          <EllaLogo className="h-14 w-auto" />
-        </NavbarLogo>
-      }
-      actions={
-        <>
-          <PlainButtonLink
-            href={navigation.actions.bookDemo.href}
-            target="_blank"
-            rel="noopener"
-            className="max-sm:hidden"
-          >
-            {navigation.actions.bookDemo.label}
-          </PlainButtonLink>
-          <PlainButtonLink
-            href={navigation.actions.login.href}
-            target="_blank"
-            rel="noopener"
-            className="max-sm:hidden"
-          >
-            {navigation.actions.login.label}
-          </PlainButtonLink>
-          <ButtonLink href={navigation.actions.signUp.href} target="_blank" rel="noopener">
-            {navigation.actions.signUp.label}
-          </ButtonLink>
-        </>
-      }
+    <NavbarClient
+      links={links}
+      primaryCta={primaryCta}
+      secondaryCta={secondaryCta}
+      logo={<EllaLogo className="h-14 w-auto" />}
     />
   )
 }
