@@ -633,9 +633,10 @@ async function seed() {
         'We spent a year talking to advisors before we wrote a line of code. 100+ conversations with CEPAs, CPAs, wealth managers, and M&A brokers shaped every decision in this product.',
       bgStyle: 'cream',
     },
-    // Block 3: Bridge — "Advisors are stuck in AI's messy middle"
+    // Block 3: Squeeze — "Advisors are stuck in AI's messy middle"
     {
-      blockType: 'bridge-section',
+      blockType: 'squeeze-section',
+      label: 'The Problem',
       heading: 'Advisors are stuck in AI\u2019s messy middle.',
       body: makeRichText(
         'Advisors are racing to prepare for client meetings, often pulling up ChatGPT to synthesize documents, draft agendas, or make sense of a fact pattern they haven\u2019t had time to fully digest. It\u2019s fast, it\u2019s convenient, and it\u2019s quietly creating regulatory and reputational risk.',
@@ -654,7 +655,22 @@ async function seed() {
       ],
       closer:
         'The squeeze is real. And the tools advisors have today weren\u2019t built for this reality.',
-      bgStyle: 'ash-light',
+      pressureItems: [
+        { text: 'More clients' },
+        { text: 'Deeper engagements' },
+        { text: 'Shorter timelines' },
+        { text: 'Higher stakes' },
+        { text: 'Regulatory scrutiny' },
+        { text: 'Key-person risk' },
+      ],
+      erosionItems: [
+        { text: 'Owners Googling valuations' },
+        { text: 'ChatGPT drafting exit plans' },
+        { text: 'AI leveling the field' },
+        { text: 'Clients questioning fees' },
+        { text: 'Information parity' },
+        { text: 'Commoditized insights' },
+      ],
     },
     // Block 4a: Pillar Cards
     {

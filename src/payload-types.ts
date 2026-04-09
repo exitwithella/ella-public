@@ -899,6 +899,125 @@ export interface Page {
             blockName?: string | null;
             blockType: 'product-features';
           }
+        | {
+            /**
+             * Eyebrow text above the heading, e.g. "The Problem"
+             */
+            label?: string | null;
+            /**
+             * Section headline. Rendered in Instrument Serif.
+             */
+            heading: string;
+            /**
+             * Body copy — each paragraph becomes a separate animated content block.
+             */
+            body?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            /**
+             * Blockquotes rendered in Instrument Serif.
+             */
+            quotes?:
+              | {
+                  text: string;
+                  /**
+                   * e.g. "Exit planning advisor, 20+ years experience"
+                   */
+                  attribution?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Standalone closing line after the content blocks.
+             */
+            closer?: string | null;
+            /**
+             * Left-wall "Growing Pressure" labels. Shown on desktop walls and mobile inline callouts.
+             */
+            pressureItems?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Right-wall "Eroding Advantage" labels. Shown on desktop walls and mobile inline callouts.
+             */
+            erosionItems?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'squeeze-section';
+          }
+        | {
+            /**
+             * Eyebrow text above the heading, e.g. "The Advisor's Dilemma"
+             */
+            label?: string | null;
+            /**
+             * Main heading, e.g. "Rigid or improvised."
+             */
+            heading: string;
+            /**
+             * Secondary heading line rendered in a lighter color, e.g. "Those aren't the only options."
+             */
+            headingAccent?: string | null;
+            /**
+             * Intro paragraph below the heading.
+             */
+            body?: string | null;
+            /**
+             * First line of the transition copy between the visualization and table, e.g. "What if your tools were built for advisory work —"
+             */
+            transitionLine1?: string | null;
+            /**
+             * Second line of the transition copy (rendered in moss/green), e.g. "and adapted to your methodology, not the other way around?"
+             */
+            transitionLine2?: string | null;
+            /**
+             * Optional JSON override for comparison table rows. Array of objects with keys: dim, old, rigid, patch, ella. Leave empty to use built-in defaults.
+             */
+            tableData?:
+              | {
+                  [k: string]: unknown;
+                }
+              | unknown[]
+              | string
+              | number
+              | boolean
+              | null;
+            /**
+             * Optional JSON override for rigid platform steps. Array of objects with keys: label, sub. Leave empty to use built-in defaults.
+             */
+            steps?:
+              | {
+                  [k: string]: unknown;
+                }
+              | unknown[]
+              | string
+              | number
+              | boolean
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'dilemma-section';
+          }
       )[]
     | null;
   meta?: {
@@ -2611,6 +2730,49 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'squeeze-section'?:
+          | T
+          | {
+              label?: T;
+              heading?: T;
+              body?: T;
+              quotes?:
+                | T
+                | {
+                    text?: T;
+                    attribution?: T;
+                    id?: T;
+                  };
+              closer?: T;
+              pressureItems?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              erosionItems?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'dilemma-section'?:
+          | T
+          | {
+              label?: T;
+              heading?: T;
+              headingAccent?: T;
+              body?: T;
+              transitionLine1?: T;
+              transitionLine2?: T;
+              tableData?: T;
+              steps?: T;
               id?: T;
               blockName?: T;
             };

@@ -10,6 +10,8 @@ import { CTASectionBlock } from './blocks/cta-section-block'
 import { FeatureDeepDiveBlock } from './blocks/feature-deep-dive-block'
 import { NumberedStepsBlock } from './blocks/numbered-steps-block'
 import { ProductFeaturesBlock } from './blocks/product-features-block'
+import { DilemmaSectionBlock } from './blocks/dilemma-section-block'
+import { SqueezeSectionBlock } from './blocks/squeeze-section-block'
 import { TestimonialBlockComponent } from './blocks/testimonial-block-component'
 import { TrustSecurityBlock } from './blocks/trust-security-block'
 
@@ -43,6 +45,10 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       return <NumberedStepsBlock block={block} />
     case 'product-features':
       return <ProductFeaturesBlock block={block} />
+    case 'squeeze-section':
+      return <SqueezeSectionBlock block={block} />
+    case 'dilemma-section':
+      return <DilemmaSectionBlock block={block} />
     case 'testimonial-block':
       return <TestimonialBlockComponent block={block} />
     default:
