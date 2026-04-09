@@ -164,9 +164,9 @@ const STATUS_TEXTS = [
 ];
 
 function getStatusIndex(progress: number): number {
-  if (progress < 0.15) return 0;
-  if (progress < 0.4) return 1;
-  if (progress < 0.7) return 2;
+  if (progress < 0.2) return 0;
+  if (progress < 0.5) return 1;
+  if (progress < 0.8) return 2;
   return 3;
 }
 
@@ -1461,8 +1461,8 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
     offset: ["start start", "end end"],
   });
 
-  // Viz completes within first 28% of scroll (panels still visible)
-  const vizEnd = isMobile ? 0.22 : 0.28;
+  // Viz completes within the scroll runway (~200-250vh of total section height)
+  const vizEnd = isMobile ? 0.4 : 0.45;
   const vizProgress = useTransform(scrollYProgress, [0, vizEnd], [0, 1]);
 
   // For status pill and transition copy (need raw value)
@@ -1519,8 +1519,6 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
     margin: "-10%",
   });
 
-  // Status pill colors
-  const statusColors = getStatusColors(vizProgressValue);
   const statusIndex = getStatusIndex(vizProgressValue);
 
   return (
@@ -1538,6 +1536,18 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
             paddingBottom: isMobile ? "80px" : "120px",
           }}
         >
+          {/* ─── SCROLL RUNWAY: pins header + caption + viz while scroll drives animations ─── */}
+          <div style={{ minHeight: isMobile ? "140vh" : "175vh" }}>
+          <div
+            style={{
+              position: "sticky",
+              top: 0,
+              background: CREAM,
+              zIndex: 1,
+              paddingTop: isMobile ? "16px" : "24px",
+              paddingBottom: isMobile ? "24px" : "32px",
+            }}
+          >
           {/* ─── HEADER ─── */}
           <div
             style={{
@@ -1588,6 +1598,52 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
               {props.body ??
                 "Rigid platforms were built for advisors but don\u2019t respect your methodology. Consumer AI tools are powerful but weren\u2019t built for client work. Advisors shouldn\u2019t have to choose."}
             </p>
+          </div>
+
+          {/* ─── STICKY CAPTION ─── */}
+          <div
+            style={{
+              position: "sticky",
+              top: isMobile ? "12px" : "20px",
+              zIndex: 20,
+              textAlign: "center",
+              padding: isMobile ? "0 20px" : "0 32px",
+              marginBottom: isMobile ? "24px" : "32px",
+              pointerEvents: "none",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                background: `${CREAM}ee`,
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+                padding: isMobile ? "10px 20px" : "12px 28px",
+                borderRadius: "2px",
+                border: `1px solid ${ASH_200}80`,
+                minHeight: isMobile ? "40px" : "44px",
+              }}
+            >
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={statusIndex}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  style={{
+                    fontFamily: "'DM Serif Display', Georgia, serif",
+                    fontSize: isMobile ? "15px" : "18px",
+                    color: ASH_700,
+                    lineHeight: 1.4,
+                    margin: 0,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {STATUS_TEXTS[statusIndex]}
+                </motion.p>
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* ─── VISUALIZATION ─── */}
@@ -1767,36 +1823,10 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
               </div>
             )}
 
-            {/* Status pill with AnimatePresence crossfade */}
-            <div style={{ textAlign: "center", marginTop: "24px" }}>
-              <motion.span
-                animate={{
-                  color: statusColors.color,
-                  backgroundColor: statusColors.bg,
-                }}
-                transition={SPRING_SLOW}
-                style={{
-                  fontSize: isMobile ? "11px" : "12px",
-                  fontWeight: 600,
-                  letterSpacing: "0.04em",
-                  padding: "6px 16px",
-                  display: "inline-block",
-                }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={statusIndex}
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    {STATUS_TEXTS[statusIndex]}
-                  </motion.span>
-                </AnimatePresence>
-              </motion.span>
-            </div>
+            {/* Status caption (sticky version rendered above viz) */}
           </div>
+          </div>{/* end sticky frame */}
+          </div>{/* end scroll runway */}
 
           {/* ─── TRANSITION COPY ─── */}
           <motion.div
