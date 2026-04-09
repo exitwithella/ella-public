@@ -17,6 +17,7 @@ import {
   SolutionsSelectorBlock,
   TestimonialBlock,
   TrustSecurityBlock,
+  ProductFeaturesBlock,
 } from '../blocks'
 import { heroField } from '../fields/hero'
 import { metaField } from '../fields/meta'
@@ -83,6 +84,7 @@ export const Pages: CollectionConfig = {
         FormEmbedBlock,
         BeforeAfterPanelBlock,
         BridgeSectionBlock,
+        ProductFeaturesBlock,
       ],
     },
     metaField,

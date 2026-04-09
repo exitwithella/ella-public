@@ -9,6 +9,7 @@ import { CredibilityStripBlock } from './blocks/credibility-strip-block'
 import { CTASectionBlock } from './blocks/cta-section-block'
 import { FeatureDeepDiveBlock } from './blocks/feature-deep-dive-block'
 import { NumberedStepsBlock } from './blocks/numbered-steps-block'
+import { ProductFeaturesBlock } from './blocks/product-features-block'
 import { TestimonialBlockComponent } from './blocks/testimonial-block-component'
 import { TrustSecurityBlock } from './blocks/trust-security-block'
 
@@ -40,6 +41,8 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       return <ContentSectionBlock block={block} />
     case 'numbered-steps':
       return <NumberedStepsBlock block={block} />
+    case 'product-features':
+      return <ProductFeaturesBlock block={block} />
     case 'testimonial-block':
       return <TestimonialBlockComponent block={block} />
     default:

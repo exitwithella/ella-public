@@ -867,6 +867,38 @@ export interface Page {
             blockName?: string | null;
             blockType: 'bridge-section';
           }
+        | {
+            /**
+             * Optional eyebrow label above the heading
+             */
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            /**
+             * 2–4 feature tiers. Each item drives one scroll panel.
+             */
+            items?:
+              | {
+                  title: string;
+                  description?: string | null;
+                  screenshot: number | Media;
+                  /**
+                   * Short capability labels shown as pill badges (max 3)
+                   */
+                  badges?:
+                    | {
+                        text: string;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?: ('cream' | 'ash-light') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'product-features';
+          }
       )[]
     | null;
   meta?: {
@@ -2554,6 +2586,30 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               closer?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'product-features'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    screenshot?: T;
+                    badges?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
               bgStyle?: T;
               id?: T;
               blockName?: T;
