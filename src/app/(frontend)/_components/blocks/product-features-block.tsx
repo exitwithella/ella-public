@@ -1,84 +1,92 @@
-'use client'
+"use client";
 
-import { AnimatePresence, motion, useInView } from 'motion/react'
-import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
-import { Heading } from '@/components/elements/heading'
-import type { Media, Page } from '@/payload-types'
+import { Container } from "@/components/elements/container";
+import { Eyebrow } from "@/components/elements/eyebrow";
+import { Heading } from "@/components/elements/heading";
+import type { Media, Page } from "@/payload-types";
 
-const SCREENSHOT_INITIAL = { opacity: 0 }
-const SCREENSHOT_ANIMATE = { opacity: 1 }
-const SCREENSHOT_EXIT = { opacity: 0 }
-const SCREENSHOT_TRANSITION = { duration: 0.35, ease: 'easeInOut' }
+const SCREENSHOT_INITIAL = { opacity: 0, scale: 1.02 };
+const SCREENSHOT_ANIMATE = { opacity: 1, scale: 1 };
+const SCREENSHOT_EXIT = { opacity: 0, scale: 0.98 };
+const SCREENSHOT_TRANSITION = { duration: 0.4, ease: "easeInOut" as const };
 
 type ProductFeaturesData = Extract<
-  NonNullable<Page['layout']>[number],
-  { blockType: 'product-features' }
->
+  NonNullable<Page["layout"]>[number],
+  { blockType: "product-features" }
+>;
 
-type Item = NonNullable<ProductFeaturesData['items']>[number]
+type Item = NonNullable<ProductFeaturesData["items"]>[number];
 
 interface ProductFeaturesBlockProps {
-  block: ProductFeaturesData
+  block: ProductFeaturesData;
 }
 
 const BG_CLASS: Record<string, string> = {
-  cream: 'bg-ash-50',
-  'ash-light': 'bg-ash-100',
-}
+  cream: "bg-ash-50",
+  "ash-light": "bg-ash-100",
+};
 
-// Per-panel tracker: calls onVisible(index) when ≥50% of the panel is in view
+// Scroll-driven panel with fade in/out as it enters and exits the feature zone
 function PanelTracker({
   index,
   onVisible,
   children,
-  isActive,
 }: {
-  index: number
-  onVisible: (i: number) => void
-  children: React.ReactNode
-  isActive: boolean
+  index: number;
+  onVisible: (i: number) => void;
+  children: React.ReactNode;
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { amount: 0.5 })
+  const ref = useRef<HTMLDivElement>(null);
 
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // Smooth fade curve: invisible → fade in → full → fade out → invisible
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.35, 0.65, 0.8, 1],
+    [0, 0.1, 1, 1, 0.1, 0],
+  );
+  // Subtle vertical slide for a "riding the rail" feel
+  const y = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [30, 0, 0, -30]);
+
+  // Switch active image when panel is centered in viewport
   useEffect(() => {
-    if (inView) onVisible(index)
-  }, [inView, index, onVisible])
+    return scrollYProgress.on("change", (v) => {
+      if (v > 0.35 && v < 0.65) onVisible(index);
+    });
+  }, [scrollYProgress, onVisible, index]);
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      className={`flex min-h-svh items-center py-24 transition-opacity duration-300 ${
-        isActive ? 'opacity-100' : 'opacity-40'
-      }`}
+      style={{ opacity, y }}
+      className="flex min-h-[70vh] items-center py-12"
     >
-      <div
-        className={`pl-8 transition-all duration-300 ${
-          isActive ? 'border-l-2 border-moss-600 pl-6' : 'border-l-2 border-transparent'
-        }`}
-      >
-        {children}
-      </div>
-    </div>
-  )
+      {children}
+    </motion.div>
+  );
 }
 
-function PanelContent({ item, isActive }: { item: Item; isActive: boolean }) {
-  const screenshot = item.screenshot as Media | null
+function PanelContent({ item, index }: { item: Item; index: number }) {
+  const screenshot = item.screenshot as Media | null;
+  const stepNum = String(index + 1).padStart(2, "0");
 
   return (
     <>
-      {/* Mobile screenshot (shown only on mobile) */}
+      {/* Mobile screenshot */}
       {screenshot?.url && (
         <div className="mb-6 lg:hidden">
-          <div className="overflow-hidden rounded-lg shadow-lg">
+          <div className="overflow-hidden border border-ash-200/40">
             <Image
               src={screenshot.url}
-              alt={screenshot.alt ?? item.title ?? ''}
+              alt={screenshot.alt ?? item.title ?? ""}
               width={screenshot.width ?? 800}
               height={screenshot.height ?? 600}
               className="w-full object-cover"
@@ -87,27 +95,30 @@ function PanelContent({ item, isActive }: { item: Item; isActive: boolean }) {
         </div>
       )}
 
+      {/* Step counter — architectural rhythm */}
+      <p className="mb-3 font-mono text-xs tracking-wider text-ash-400">
+        {stepNum}
+      </p>
+
       {/* Title */}
-      <h3
-        className={`font-display text-2xl font-semibold tracking-tight transition-colors duration-300 ${
-          isActive ? 'text-ash-900' : 'text-ash-500'
-        }`}
-      >
+      <h3 className="font-display text-2xl font-semibold tracking-tight text-ash-900 lg:text-3xl">
         {item.title}
       </h3>
 
       {/* Description */}
       {item.description && (
-        <p className="mt-3 max-w-sm text-base/relaxed text-ash-600">{item.description}</p>
+        <p className="mt-3 max-w-md text-base/relaxed text-ash-600">
+          {item.description}
+        </p>
       )}
 
-      {/* Badges */}
+      {/* Badges — sharp rectangular blueprint tags */}
       {item.badges && item.badges.length > 0 && (
         <div className="mt-5 flex flex-wrap gap-2">
           {item.badges.map((badge) => (
             <span
               key={badge.id}
-              className="rounded-full border border-moss-300 bg-moss-50 px-3 py-1 text-xs font-medium text-moss-700"
+              className="border border-ash-300 px-2.5 py-1 font-mono text-xs tracking-wide text-ash-500"
             >
               {badge.text}
             </span>
@@ -115,119 +126,201 @@ function PanelContent({ item, isActive }: { item: Item; isActive: boolean }) {
         </div>
       )}
     </>
-  )
+  );
 }
 
 function ProductFeaturesScroller({
   items,
   bgStyle,
+  sectionLabel,
+  heading,
+  subheading,
 }: {
-  items: Item[]
-  bgStyle: string
+  items: Item[];
+  bgStyle: string;
+  sectionLabel?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
 }) {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const activeItem = items[activeIndex]
-  const activeScreenshot = activeItem?.screenshot as Media | null
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeItem = items[activeIndex];
+  const activeScreenshot = activeItem?.screenshot as Media | null;
+  const handleVisible = useCallback((i: number) => setActiveIndex(i), []);
+  const bgClass = BG_CLASS[bgStyle] ?? BG_CLASS.cream;
+  const hasHeader = sectionLabel || heading || subheading;
 
-  function handleDotClick(e: React.MouseEvent<HTMLButtonElement>) {
-    const idx = Number(e.currentTarget.dataset.index)
-    if (!Number.isNaN(idx)) setActiveIndex(idx)
-  }
+  // Track when the section's bottom edge is 20vh above viewport bottom → drives panel shrink
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: sectionEndProgress } = useScroll({
+    target: sectionRef,
+    offset: ["end 0.9", "end start"],
+  });
+
+  // progress 0 = section bottom hits viewport bottom, 1 = section bottom hits viewport top
+  const panelHeight = useTransform(
+    sectionEndProgress,
+    [0, 0.5],
+    ["100%", "0%"],
+  );
+  const panelOpacity = useTransform(sectionEndProgress, [0, 0.25], [1, 0]);
+  const panelRadius = useTransform(sectionEndProgress, [0, 0.5], [16, 24]);
 
   return (
-    <div className={`${BG_CLASS[bgStyle] ?? BG_CLASS.cream}`}>
+    <section
+      ref={sectionRef}
+      className={`relative border-b border-ash-200 ${bgClass}`}
+      style={{ overflowX: "clip" }}
+    >
+      {/* Sticky header — cream bg only on the left column, right stays transparent */}
+      <div className="sticky top-0 z-20">
+        {hasHeader && (
+          <Container>
+            <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-8 xl:gap-16">
+              {/* Left column: header content with cream background */}
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ash-50 via-ash-50 to-ash-50/90" />
+                <div className="relative pt-20 pb-8 md:pt-28 md:pb-10">
+                  {sectionLabel && (
+                    <Eyebrow color="moss" className="mb-3">
+                      {sectionLabel}
+                    </Eyebrow>
+                  )}
+                  {heading && <Heading color="dark">{heading}</Heading>}
+                  {subheading && (
+                    <p className="mt-4 text-lg/relaxed text-ash-600">
+                      {subheading}
+                    </p>
+                  )}
+                </div>
+              </div>
+              {/* Right column: transparent — ash panel shows through */}
+              <div className="hidden lg:block" />
+            </div>
+          </Container>
+        )}
+        {/* Top horizontal rail — sticks with the header */}
+        <div className="h-px bg-ash-200" />
+      </div>
+
+      {/* Two-column feature area */}
       <Container>
-        <div className="lg:grid lg:grid-cols-[1fr_1fr] lg:gap-16 xl:gap-24">
-          {/* Left: scrolling panels */}
-          <div>
+        <div className="relative lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-8 xl:gap-16">
+          {/* Left column: throughline rail + scrolling features (z-auto, scrolls behind header) */}
+          <div className="relative">
+            {/* Vertical throughline — the rail */}
+            <div className="absolute left-0 top-0 bottom-0 hidden w-px bg-ash-200 lg:block" />
+
             {items.map((item, i) => (
-              <PanelTracker
-                key={item.id}
-                index={i}
-                onVisible={setActiveIndex}
-                isActive={i === activeIndex}
-              >
-                <PanelContent item={item} isActive={i === activeIndex} />
+              <PanelTracker key={item.id} index={i} onVisible={handleVisible}>
+                {/* Left border overlays the throughline: bold when active */}
+                <div
+                  className={`transition-all duration-500 lg:-ml-[2px] lg:border-l-[3px] lg:pl-8 ${
+                    i === activeIndex
+                      ? "lg:border-moss-600"
+                      : "lg:border-transparent"
+                  }`}
+                >
+                  <PanelContent item={item} index={i} />
+                </div>
               </PanelTracker>
             ))}
           </div>
 
-          {/* Right: sticky screenshot (desktop only) */}
-          <div className="relative hidden lg:block">
-            <div className="sticky top-0 flex h-svh items-center justify-center">
-              <div className="w-full">
-                {/* Screenshot frame */}
-                <div className="relative overflow-hidden rounded-xl shadow-2xl ring-1 ring-ash-200 aspect-[4/3]">
-                  <AnimatePresence mode="wait">
-                    {activeScreenshot?.url && (
-                      <motion.div
-                        key={activeIndex}
-                        initial={SCREENSHOT_INITIAL}
-                        animate={SCREENSHOT_ANIMATE}
-                        exit={SCREENSHOT_EXIT}
-                        transition={SCREENSHOT_TRANSITION}
-                        className="absolute inset-0"
-                      >
-                        <Image
-                          src={activeScreenshot.url}
-                          alt={activeScreenshot.alt ?? activeItem?.title ?? ''}
-                          fill
-                          className="object-cover"
-                          sizes="(min-width: 1024px) 50vw, 100vw"
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+          {/* Right column: sticky background panel with image (z-30, paints above header rail) */}
+          <div className="relative z-30 hidden lg:block">
+            <div className="sticky top-0 flex h-svh flex-col pb-6 pt-36">
+              {/* Background box — shrinks to 0 as section ends */}
+              <motion.div
+                className="relative"
+                style={{ height: panelHeight }}
+              >
+                {/* Background fill with rounded left corners */}
+                <motion.div
+                  className="absolute inset-0 bg-ash-200"
+                  style={{
+                    borderTopLeftRadius: panelRadius,
+                    borderBottomLeftRadius: panelRadius,
+                  }}
+                />
+                {/* Bleed extension — outside overflow-hidden, extends to viewport edge */}
+                <div className="absolute inset-y-0 left-full w-[50vw] bg-ash-200" />
 
-                {/* Progress dots */}
-                <div className="mt-5 flex justify-center gap-2">
-                  {items.map((item, i) => (
-                    <button
-                      key={item.id}
-                      data-index={i}
-                      onClick={handleDotClick}
-                      aria-label={`View ${item.title}`}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        i === activeIndex ? 'w-6 bg-moss-600' : 'w-1.5 bg-ash-300'
-                      }`}
-                    />
-                  ))}
+                {/* Content — clipped by the panel height, fades out */}
+                <div className="absolute inset-0 flex items-center overflow-hidden pl-8 pr-8 xl:pl-10 xl:pr-10">
+                  <motion.div
+                    className="relative z-20 w-full"
+                    style={{ opacity: panelOpacity }}
+                  >
+                  {/* Image frame — cream bg lifts off the ash panel, above the rail lines */}
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-ash-50 shadow-lg shadow-ash-900/[0.04]">
+                    <AnimatePresence mode="wait">
+                      {activeScreenshot?.url && (
+                        <motion.div
+                          key={activeIndex}
+                          initial={SCREENSHOT_INITIAL}
+                          animate={SCREENSHOT_ANIMATE}
+                          exit={SCREENSHOT_EXIT}
+                          transition={SCREENSHOT_TRANSITION}
+                          className="absolute inset-0"
+                        >
+                          <Image
+                            src={activeScreenshot.url}
+                            alt={
+                              activeScreenshot.alt ?? activeItem?.title ?? ""
+                            }
+                            fill
+                            className="object-cover"
+                            sizes="(min-width: 1024px) 55vw, 100vw"
+                          />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Progress indicator: 01 ─── ── ── 04 */}
+                  <div className="mt-5 flex items-center justify-center gap-3">
+                    <span className="font-mono text-xs text-ash-400">
+                      {String(activeIndex + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex gap-1.5">
+                      {items.map((item, i) => (
+                        <div
+                          key={item.id}
+                          className={`h-px transition-all duration-500 ${
+                            i === activeIndex
+                              ? "w-8 bg-moss-600"
+                              : "w-3 bg-ash-300/60"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <span className="font-mono text-xs text-ash-400">
+                      {String(items.length).padStart(2, "0")}
+                    </span>
+                  </div>
+                </motion.div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </Container>
-    </div>
-  )
+
+      {/* Bottom rail is the section's border-b */}
+    </section>
+  );
 }
 
 export function ProductFeaturesBlock({ block }: ProductFeaturesBlockProps) {
-  const bg = BG_CLASS[block.bgStyle ?? 'cream'] ?? BG_CLASS.cream
-
-  if (!block.items || block.items.length === 0) return null
+  if (!block.items || block.items.length === 0) return null;
 
   return (
-    <section>
-      {/* Optional section header */}
-      {(block.sectionLabel || block.heading || block.subheading) && (
-        <div className={`${bg} pt-20 pb-8 md:pt-28 md:pb-12`}>
-          <Container>
-            {block.sectionLabel && (
-              <Eyebrow color="moss" className="mb-3">
-                {block.sectionLabel}
-              </Eyebrow>
-            )}
-            {block.heading && <Heading color="dark">{block.heading}</Heading>}
-            {block.subheading && (
-              <p className="mt-4 max-w-2xl text-lg/relaxed text-ash-600">{block.subheading}</p>
-            )}
-          </Container>
-        </div>
-      )}
-
-      <ProductFeaturesScroller items={block.items} bgStyle={block.bgStyle ?? 'cream'} />
-    </section>
-  )
+    <ProductFeaturesScroller
+      items={block.items}
+      bgStyle={block.bgStyle ?? "cream"}
+      sectionLabel={block.sectionLabel}
+      heading={block.heading}
+      subheading={block.subheading}
+    />
+  );
 }

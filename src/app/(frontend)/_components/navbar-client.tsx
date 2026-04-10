@@ -61,16 +61,23 @@ function ArrowRightIcon({ className }: { className?: string }) {
 function DropdownPanel({
   items,
   open,
+  onMouseEnter,
+  onMouseLeave,
 }: {
   items: NavLink['dropdownItems']
   open: boolean
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
 }) {
   return (
     <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       className={clsx(
-        'pointer-events-none absolute top-full left-1/2 z-20 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200',
-        open && 'pointer-events-auto translate-y-0 opacity-100',
-        !open && '-translate-y-1',
+        'absolute top-full left-1/2 z-20 -translate-x-1/2 pt-3 transition-all duration-200',
+        open
+          ? 'pointer-events-auto translate-y-0 opacity-100'
+          : 'pointer-events-none -translate-y-1 opacity-0',
       )}
     >
       <div className="bg-ash-50 border-ash-200 w-72 rounded-lg border p-2 shadow-lg shadow-ash-900/8">
@@ -156,7 +163,12 @@ function DesktopNavItem({ link }: { link: NavLink }) {
           )}
         />
       </button>
-      <DropdownPanel items={link.dropdownItems} open={open} />
+      <DropdownPanel
+        items={link.dropdownItems}
+        open={open}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+      />
     </div>
   )
 }
