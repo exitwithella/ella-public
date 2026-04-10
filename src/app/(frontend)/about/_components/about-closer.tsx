@@ -1,19 +1,21 @@
-import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
-import { Container } from '@/components/elements/container'
-import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
+import { ButtonLink, PlainButtonLink } from "@/components/elements/button";
+import { Container } from "@/components/elements/container";
+import { ArrowNarrowRightIcon } from "@/components/icons/arrow-narrow-right-icon";
 
-import { aboutCloser } from '../_lib/content'
+import { aboutCloser } from "../_lib/content";
 
 export function AboutCloser() {
   return (
     <section className="bg-moss-900 py-24 md:py-32">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-ash-50 mb-8 font-serif text-2xl/snug md:text-3xl/snug">
+          <h2 className="text-ash-100 mb-8 font-serif text-2xl/snug md:text-3xl/snug">
             {aboutCloser.headline}
           </h2>
 
-          <p className="text-ash-200 mb-10 text-lg/relaxed">{aboutCloser.body}</p>
+          <p className="text-ash-200 mb-10 text-lg/relaxed">
+            {aboutCloser.body}
+          </p>
 
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <ButtonLink
@@ -42,5 +44,5 @@ export function AboutCloser() {
         </div>
       </Container>
     </section>
-  )
+  );
 }

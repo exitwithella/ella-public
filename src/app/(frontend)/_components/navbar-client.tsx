@@ -1,22 +1,22 @@
-'use client'
+"use client";
 
-import { clsx } from 'clsx/lite'
+import { clsx } from "clsx/lite";
 import {
   type ReactNode,
   useCallback,
   useEffect,
   useRef,
   useState,
-} from 'react'
+} from "react";
 
 type NavLink = {
-  label: string
-  href?: string
-  type: 'link' | 'dropdown'
-  dropdownItems: { label: string; href: string; description?: string }[]
-}
+  label: string;
+  href?: string;
+  type: "link" | "dropdown";
+  dropdownItems: { label: string; href: string; description?: string }[];
+};
 
-type NavCta = { label: string; href: string }
+type NavCta = { label: string; href: string };
 
 function ChevronDownIcon({ className }: { className?: string }) {
   return (
@@ -34,7 +34,7 @@ function ChevronDownIcon({ className }: { className?: string }) {
         d="m19.5 8.25-7.5 7.5-7.5-7.5"
       />
     </svg>
-  )
+  );
 }
 
 function ArrowRightIcon({ className }: { className?: string }) {
@@ -53,7 +53,7 @@ function ArrowRightIcon({ className }: { className?: string }) {
         d="m8.25 4.5 7.5 7.5-7.5 7.5"
       />
     </svg>
-  )
+  );
 }
 
 /* ─── Dropdown panel (desktop) ─── */
@@ -64,23 +64,23 @@ function DropdownPanel({
   onMouseEnter,
   onMouseLeave,
 }: {
-  items: NavLink['dropdownItems']
-  open: boolean
-  onMouseEnter?: () => void
-  onMouseLeave?: () => void
+  items: NavLink["dropdownItems"];
+  open: boolean;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }) {
   return (
     <div
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={clsx(
-        'absolute top-full left-1/2 z-20 -translate-x-1/2 pt-3 transition-all duration-200',
+        "absolute top-full left-1/2 z-20 -translate-x-1/2 pt-3 transition-all duration-200",
         open
-          ? 'pointer-events-auto translate-y-0 opacity-100'
-          : 'pointer-events-none -translate-y-1 opacity-0',
+          ? "pointer-events-auto translate-y-0 opacity-100"
+          : "pointer-events-none -translate-y-1 opacity-0",
       )}
     >
-      <div className="bg-ash-50 border-ash-200 w-72 rounded-lg border p-2 shadow-lg shadow-ash-900/8">
+      <div className="bg-sandstone-50 border-ash-200 w-72 rounded-lg border p-2 shadow-lg shadow-ash-900/8">
         {items.map((item) => (
           <a
             key={item.href}
@@ -91,7 +91,7 @@ function DropdownPanel({
               {item.label}
             </span>
             {item.description && (
-              <span className="text-ash-500 text-xs/relaxed">
+              <span className="text-ash-1000 text-xs/relaxed">
                 {item.description}
               </span>
             )}
@@ -99,36 +99,36 @@ function DropdownPanel({
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 /* ─── Desktop nav item ─── */
 
 function DesktopNavItem({ link }: { link: NavLink }) {
-  const [open, setOpen] = useState(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [open, setOpen] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleEnter = useCallback(() => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    setOpen(true)
-  }, [])
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setOpen(true);
+  }, []);
 
   const handleLeave = useCallback(() => {
-    timeoutRef.current = setTimeout(() => setOpen(false), 150)
-  }, [])
+    timeoutRef.current = setTimeout(() => setOpen(false), 150);
+  }, []);
 
   // Close on escape
   useEffect(() => {
-    if (!open) return
+    if (!open) return;
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setOpen(false)
+      if (e.key === "Escape") setOpen(false);
     }
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [open])
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
-  if (link.type === 'link') {
+  if (link.type === "link") {
     return (
       <a
         href={link.href}
@@ -136,7 +136,7 @@ function DesktopNavItem({ link }: { link: NavLink }) {
       >
         {link.label}
       </a>
-    )
+    );
   }
 
   return (
@@ -151,15 +151,15 @@ function DesktopNavItem({ link }: { link: NavLink }) {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         className={clsx(
-          'inline-flex items-center gap-1 text-sm/7 font-medium transition-colors',
-          open ? 'text-moss-700' : 'text-ash-950 hover:text-moss-700',
+          "inline-flex items-center gap-1 text-sm/7 font-medium transition-colors",
+          open ? "text-moss-700" : "text-ash-950 hover:text-moss-700",
         )}
       >
         {link.label}
         <ChevronDownIcon
           className={clsx(
-            'size-3.5 transition-transform duration-200',
-            open && 'rotate-180',
+            "size-3.5 transition-transform duration-200",
+            open && "rotate-180",
           )}
         />
       </button>
@@ -170,7 +170,7 @@ function DesktopNavItem({ link }: { link: NavLink }) {
         onMouseLeave={handleLeave}
       />
     </div>
-  )
+  );
 }
 
 /* ─── Mobile nav item ─── */
@@ -179,12 +179,12 @@ function MobileNavItem({
   link,
   onNavigate,
 }: {
-  link: NavLink
-  onNavigate: () => void
+  link: NavLink;
+  onNavigate: () => void;
 }) {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(false);
 
-  if (link.type === 'link') {
+  if (link.type === "link") {
     return (
       <a
         href={link.href}
@@ -199,7 +199,7 @@ function MobileNavItem({
           <ArrowRightIcon className="size-6" />
         </span>
       </a>
-    )
+    );
   }
 
   return (
@@ -213,8 +213,8 @@ function MobileNavItem({
         {link.label}
         <ChevronDownIcon
           className={clsx(
-            'size-5 transition-transform duration-200',
-            expanded && 'rotate-180',
+            "size-5 transition-transform duration-200",
+            expanded && "rotate-180",
           )}
         />
       </button>
@@ -231,7 +231,7 @@ function MobileNavItem({
                 {item.label}
               </span>
               {item.description && (
-                <span className="text-ash-500 mt-0.5 block text-sm">
+                <span className="text-ash-1000 mt-0.5 block text-sm">
                   {item.description}
                 </span>
               )}
@@ -240,7 +240,7 @@ function MobileNavItem({
         </div>
       )}
     </div>
-  )
+  );
 }
 
 /* ─── Main navbar ─── */
@@ -251,18 +251,18 @@ export function NavbarClient({
   secondaryCta,
   logo,
 }: {
-  links: NavLink[]
-  primaryCta: NavCta
-  secondaryCta: NavCta
-  logo: ReactNode
+  links: NavLink[];
+  primaryCta: NavCta;
+  secondaryCta: NavCta;
+  logo: ReactNode;
 }) {
-  const dialogRef = useRef<HTMLDialogElement>(null)
-  const openMenu = useCallback(() => dialogRef.current?.showModal(), [])
-  const closeMenu = useCallback(() => dialogRef.current?.close(), [])
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const openMenu = useCallback(() => dialogRef.current?.showModal(), []);
+  const closeMenu = useCallback(() => dialogRef.current?.close(), []);
 
   return (
-    <header className="bg-ash-50 sticky top-0 z-10">
-      <style>{':root { --scroll-padding-top: 5.25rem }'}</style>
+    <header className="bg-sandstone-50 sticky top-0 z-10">
+      <style>{":root { --scroll-padding-top: 5.25rem }"}</style>
       <nav aria-label="Main">
         <div className="mx-auto flex h-(--scroll-padding-top) max-w-7xl items-center gap-4 px-6 lg:px-10">
           {/* Desktop links (left) */}
@@ -273,7 +273,11 @@ export function NavbarClient({
           </div>
 
           {/* Logo (center) */}
-          <a href="/" aria-label="ELLA home" className="inline-flex items-stretch">
+          <a
+            href="/"
+            aria-label="ELLA home"
+            className="inline-flex items-stretch"
+          >
             {logo}
           </a>
 
@@ -288,7 +292,7 @@ export function NavbarClient({
               </a>
               <a
                 href={primaryCta.href}
-                className="bg-ash-950 text-ash-50 hover:bg-ash-800 inline-flex shrink-0 items-center justify-center gap-1 rounded-full px-3 py-1 text-sm/7 font-medium"
+                className="bg-ash-950 text-ash-100 hover:bg-ash-800 inline-flex shrink-0 items-center justify-center gap-1 rounded-full px-3 py-1 text-sm/7 font-medium"
               >
                 {primaryCta.label}
               </a>
@@ -318,7 +322,7 @@ export function NavbarClient({
 
         {/* Mobile menu dialog */}
         <dialog ref={dialogRef} className="backdrop:bg-transparent">
-          <div className="bg-ash-50 fixed inset-0 px-6 py-6 lg:px-10">
+          <div className="bg-sandstone-50 fixed inset-0 px-6 py-6 lg:px-10">
             <div className="flex justify-end">
               <button
                 onClick={closeMenu}
@@ -360,7 +364,7 @@ export function NavbarClient({
                 </a>
                 <a
                   href={primaryCta.href}
-                  className="bg-ash-950 text-ash-50 hover:bg-ash-800 inline-flex items-center justify-center rounded-full px-4 py-2 text-base font-medium"
+                  className="bg-ash-950 text-ash-100 hover:bg-ash-800 inline-flex items-center justify-center rounded-full px-4 py-2 text-base font-medium"
                 >
                   {primaryCta.label}
                 </a>
@@ -370,5 +374,5 @@ export function NavbarClient({
         </dialog>
       </nav>
     </header>
-  )
+  );
 }

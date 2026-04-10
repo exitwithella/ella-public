@@ -1,48 +1,45 @@
-import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
-import { Heading } from '@/components/elements/heading'
-import type { Page, Solution } from '@/payload-types'
+import { Container } from "@/components/elements/container";
+import { Eyebrow } from "@/components/elements/eyebrow";
+import { Heading } from "@/components/elements/heading";
+import { ThemeSection } from "@/components/elements/theme-section";
+import type { Page, Solution } from "@/payload-types";
 
 type NumberedStepsData =
-  | Extract<NonNullable<Page['layout']>[number], { blockType: 'numbered-steps' }>
-  | Extract<NonNullable<Solution['layout']>[number], { blockType: 'numbered-steps' }>
+  | Extract<
+      NonNullable<Page["layout"]>[number],
+      { blockType: "numbered-steps" }
+    >
+  | Extract<
+      NonNullable<Solution["layout"]>[number],
+      { blockType: "numbered-steps" }
+    >;
 
 interface NumberedStepsBlockProps {
-  block: NumberedStepsData
-}
-
-const BG_CLASS: Record<string, string> = {
-  cream: 'bg-ash-50',
-  white: 'bg-ash-50',
-  'ash-light': 'bg-ash-100',
-  'forest-dark': 'bg-moss-900',
+  block: NumberedStepsData;
 }
 
 export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
-  const bg = BG_CLASS[block.bgStyle ?? 'cream'] ?? BG_CLASS.cream
-  const isForestDark = block.bgStyle === 'forest-dark'
-
-  if (!block.steps || block.steps.length === 0) return null
+  if (!block.steps || block.steps.length === 0) return null;
 
   return (
-    <section className={`py-20 md:py-28 ${bg}`}>
+    <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
       <Container>
         {/* Section header */}
         {(block.sectionLabel || block.heading) && (
           <div className="mb-12 md:mb-16">
             {block.sectionLabel && (
-              <Eyebrow color={isForestDark ? 'light' : 'moss'} className="mb-3">
+              <Eyebrow className="mb-3">
                 {block.sectionLabel}
               </Eyebrow>
             )}
             {block.heading && (
-              <Heading color={isForestDark ? 'cream' : 'dark'}>{block.heading}</Heading>
+              <Heading>
+                {block.heading}
+              </Heading>
             )}
             {block.subheading && (
               <p
-                className={`mt-4 max-w-2xl text-lg/relaxed ${
-                  isForestDark ? 'text-ash-300' : 'text-ash-600'
-                }`}
+                className="text-theme-text-secondary mt-4 max-w-2xl text-lg/relaxed"
               >
                 {block.subheading}
               </p>
@@ -55,34 +52,29 @@ export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
           {block.steps.map((step, index) => (
             <div
               key={step.id}
-              className={`border-ash-200 grid grid-cols-1 gap-4 py-8 md:grid-cols-[80px_1fr] md:gap-8 ${
-                index < block.steps!.length - 1 ? 'border-b' : ''
-              } ${isForestDark ? 'border-moss-700' : ''}`}
+              className={`border-theme-border grid grid-cols-1 gap-4 py-8 md:grid-cols-[80px_1fr] md:gap-8 ${
+                index < block.steps!.length - 1 ? "border-b" : ""
+              }`}
             >
               {/* Step number */}
               <div
-                className={`font-display text-2xl font-bold md:text-5xl ${
-                  isForestDark ? 'text-moss-700' : 'text-ash-200'
-                }`}
+                className="text-theme-border font-display text-2xl font-bold md:text-5xl"
                 aria-hidden="true"
               >
-                {String(index + 1).padStart(2, '0')}
+                {String(index + 1).padStart(2, "0")}
               </div>
 
               {/* Step content */}
               <div>
                 <Heading
                   as="h3"
-                  color={isForestDark ? 'light' : 'dark'}
                   className="text-lg md:text-xl"
                 >
                   {step.heading}
                 </Heading>
                 {step.body && (
                   <p
-                    className={`mt-3 max-w-xl text-base/relaxed ${
-                      isForestDark ? 'text-ash-300' : 'text-ash-600'
-                    }`}
+                    className="text-theme-text-secondary mt-3 max-w-xl text-base/relaxed"
                   >
                     {step.body}
                   </p>
@@ -92,6 +84,6 @@ export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
           ))}
         </div>
       </Container>
-    </section>
-  )
+    </ThemeSection>
+  );
 }

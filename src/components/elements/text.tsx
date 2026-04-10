@@ -12,7 +12,7 @@ export function Text({
       className={clsx(
         size === 'md' && 'text-base/7',
         size === 'lg' && 'text-lg/8',
-        'text-ash-700',
+        'text-theme-text-secondary',
         className,
       )}
       {...props}

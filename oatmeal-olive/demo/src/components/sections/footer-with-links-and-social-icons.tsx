@@ -44,7 +44,7 @@ export function FooterWithLinksAndSocialIcons({
   fineprint: ReactNode
 } & ComponentProps<'footer'>) {
   return (
-    <footer className={clsx('pt-16', className)} {...props}>
+    <footer className={clsx(className)} {...props}>
       <div className="bg-olive-950/2.5 py-16 text-olive-950 dark:bg-white/5 dark:text-white">
         <Container className="flex flex-col gap-10 text-center text-sm/7">
           <div className="flex flex-col gap-6">

@@ -1,32 +1,33 @@
-import { clsx } from 'clsx/lite'
-import type { ComponentProps } from 'react'
+import { clsx } from "clsx/lite";
+import type { ComponentProps } from "react";
 
 const colorClass = {
-  moss: 'text-moss-600',
-  ash: 'text-ash-500',
-  light: 'text-ash-50',
-  'ash-dark': 'text-ash-700',
-} as const
+  auto: "text-theme-accent",
+  moss: "text-moss-600",
+  ash: "text-ash-1000",
+  light: "text-ash-100",
+  "ash-dark": "text-ash-700",
+} as const;
 
 const sizeClass = {
-  xs: 'text-xs',
-  sm: 'text-sm',
-} as const
+  xs: "text-xs",
+  sm: "text-sm",
+} as const;
 
 export function Eyebrow({
   children,
-  color = 'moss',
-  size = 'xs',
+  color = "auto",
+  size = "xs",
   className,
   ...props
 }: {
-  color?: keyof typeof colorClass
-  size?: keyof typeof sizeClass
-} & ComponentProps<'p'>) {
+  color?: keyof typeof colorClass;
+  size?: keyof typeof sizeClass;
+} & ComponentProps<"p">) {
   return (
     <p
       className={clsx(
-        'font-semibold tracking-widest uppercase',
+        "font-semibold tracking-widest uppercase",
         sizeClass[size],
         colorClass[color],
         className,
@@ -35,5 +36,5 @@ export function Eyebrow({
     >
       {children}
     </p>
-  )
+  );
 }

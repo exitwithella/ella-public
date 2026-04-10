@@ -1,23 +1,27 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from "next/image";
+import Link from "next/link";
 
-import type { Category, Media, Post, TeamMember } from '@/payload-types'
+import type { Category, Media, Post, TeamMember } from "@/payload-types";
 
-import { calculateReadingTime, formatPublishedDate, getPostUrl } from '../_lib/utils'
+import {
+  calculateReadingTime,
+  formatPublishedDate,
+  getPostUrl,
+} from "../_lib/utils";
 
 interface BlogCardProps {
-  post: Post
-  variant: 'hero' | 'featured' | 'standard'
+  post: Post;
+  variant: "hero" | "featured" | "standard";
 }
 
-function CategoryTags({ categories }: { categories: Post['categories'] }) {
-  if (!Array.isArray(categories) || categories.length === 0) return null
+function CategoryTags({ categories }: { categories: Post["categories"] }) {
+  if (!Array.isArray(categories) || categories.length === 0) return null;
 
   return (
     <div className="flex flex-wrap gap-2">
       {categories.map((cat) => {
-        if (typeof cat !== 'object') return null
-        const c = cat as Category
+        if (typeof cat !== "object") return null;
+        const c = cat as Category;
         return (
           <span
             key={c.id}
@@ -25,10 +29,10 @@ function CategoryTags({ categories }: { categories: Post['categories'] }) {
           >
             {c.title}
           </span>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
 
 function AuthorByline({
@@ -37,16 +41,17 @@ function AuthorByline({
   readingTime,
   compact = false,
 }: {
-  author: Post['author']
-  date: string
-  readingTime: number
-  compact?: boolean
+  author: Post["author"];
+  date: string;
+  readingTime: number;
+  compact?: boolean;
 }) {
-  const a = typeof author === 'object' ? (author as TeamMember) : null
-  const photo = a?.photo && typeof a.photo === 'object' ? (a.photo as Media) : null
+  const a = typeof author === "object" ? (author as TeamMember) : null;
+  const photo =
+    a?.photo && typeof a.photo === "object" ? (a.photo as Media) : null;
 
   return (
-    <div className="text-ash-500 flex items-center gap-3">
+    <div className="text-ash-1000 flex items-center gap-3">
       {a && !compact && (
         <div className="bg-ash-200 relative size-10 shrink-0 overflow-hidden rounded-full">
           {photo?.url ? (
@@ -64,8 +69,14 @@ function AuthorByline({
           )}
         </div>
       )}
-      <div className={compact ? 'flex items-center gap-2 text-xs' : 'flex flex-col text-sm'}>
-        {a && !compact && <span className="text-ash-700 font-medium">{a.name}</span>}
+      <div
+        className={
+          compact ? "flex items-center gap-2 text-xs" : "flex flex-col text-sm"
+        }
+      >
+        {a && !compact && (
+          <span className="text-ash-700 font-medium">{a.name}</span>
+        )}
         <div className="flex items-center gap-2">
           <span>{formatPublishedDate(date)}</span>
           <span aria-hidden="true">·</span>
@@ -73,20 +84,20 @@ function AuthorByline({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function BlogCard({ post, variant }: BlogCardProps) {
-  const href = getPostUrl(post)
-  const readingTime = calculateReadingTime(post.content)
+  const href = getPostUrl(post);
+  const readingTime = calculateReadingTime(post.content);
   const image =
-    post.featuredImage && typeof post.featuredImage === 'object'
+    post.featuredImage && typeof post.featuredImage === "object"
       ? (post.featuredImage as Media)
-      : null
+      : null;
 
-  if (variant === 'hero') {
+  if (variant === "hero") {
     return (
-      <article className="group border-ash-200 bg-ash-50 overflow-hidden rounded-2xl border shadow-sm transition-shadow hover:shadow-md">
+      <article className="group border-ash-200 bg-sandstone-50 overflow-hidden rounded-2xl border shadow-sm transition-shadow hover:shadow-md">
         <Link href={href} className="block lg:flex">
           {/* Image — 60% on desktop */}
           <div className="bg-ash-200 relative aspect-[16/9] shrink-0 overflow-hidden lg:aspect-auto lg:w-[60%]">
@@ -104,7 +115,9 @@ export function BlogCard({ post, variant }: BlogCardProps) {
                 className="bg-moss-100 absolute inset-0 flex items-center justify-center"
                 aria-hidden="true"
               >
-                <span className="text-moss-400 font-display text-4xl font-bold">ELLA</span>
+                <span className="text-moss-400 font-display text-4xl font-bold">
+                  ELLA
+                </span>
               </div>
             )}
           </div>
@@ -116,7 +129,9 @@ export function BlogCard({ post, variant }: BlogCardProps) {
               {post.title}
             </h2>
             {post.excerpt && (
-              <p className="text-ash-600 line-clamp-3 text-base/relaxed">{post.excerpt}</p>
+              <p className="text-ash-600 line-clamp-3 text-base/relaxed">
+                {post.excerpt}
+              </p>
             )}
             <AuthorByline
               author={post.author}
@@ -126,12 +141,12 @@ export function BlogCard({ post, variant }: BlogCardProps) {
           </div>
         </Link>
       </article>
-    )
+    );
   }
 
-  if (variant === 'featured') {
+  if (variant === "featured") {
     return (
-      <article className="group border-ash-200 bg-ash-50 hover:border-moss-300 flex flex-col overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-md">
+      <article className="group border-ash-200 bg-sandstone-50 hover:border-moss-300 flex flex-col overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-md">
         <Link href={href} className="flex flex-1 flex-col">
           {/* Image — 16:9 */}
           <div className="bg-ash-200 relative aspect-[16/9] shrink-0 overflow-hidden">
@@ -145,7 +160,9 @@ export function BlogCard({ post, variant }: BlogCardProps) {
               />
             ) : (
               <div className="bg-moss-100 absolute inset-0 flex items-center justify-center">
-                <span className="text-moss-400 font-display text-2xl font-bold">ELLA</span>
+                <span className="text-moss-400 font-display text-2xl font-bold">
+                  ELLA
+                </span>
               </div>
             )}
           </div>
@@ -157,7 +174,9 @@ export function BlogCard({ post, variant }: BlogCardProps) {
               {post.title}
             </h2>
             {post.excerpt && (
-              <p className="text-ash-600 line-clamp-2 grow text-sm/relaxed">{post.excerpt}</p>
+              <p className="text-ash-600 line-clamp-2 grow text-sm/relaxed">
+                {post.excerpt}
+              </p>
             )}
             <AuthorByline
               author={post.author}
@@ -168,12 +187,12 @@ export function BlogCard({ post, variant }: BlogCardProps) {
           </div>
         </Link>
       </article>
-    )
+    );
   }
 
   // standard — horizontal compact
   return (
-    <article className="group border-ash-200 bg-ash-50 hover:border-moss-300 flex gap-4 overflow-hidden rounded-xl border p-4 shadow-sm transition-all hover:shadow-md">
+    <article className="group border-ash-200 bg-sandstone-50 hover:border-moss-300 flex gap-4 overflow-hidden rounded-xl border p-4 shadow-sm transition-all hover:shadow-md">
       {/* Thumbnail */}
       {image?.url && (
         <Link
@@ -206,5 +225,5 @@ export function BlogCard({ post, variant }: BlogCardProps) {
         />
       </div>
     </article>
-  )
+  );
 }

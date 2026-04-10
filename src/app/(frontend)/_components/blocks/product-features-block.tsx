@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Container } from "@/components/elements/container";
 import { Eyebrow } from "@/components/elements/eyebrow";
 import { Heading } from "@/components/elements/heading";
+import { ThemeSection } from "@/components/elements/theme-section";
 import type { Media, Page } from "@/payload-types";
 
 const SCREENSHOT_INITIAL = { opacity: 0, scale: 1.02 };
@@ -24,11 +25,6 @@ type Item = NonNullable<ProductFeaturesData["items"]>[number];
 interface ProductFeaturesBlockProps {
   block: ProductFeaturesData;
 }
-
-const BG_CLASS: Record<string, string> = {
-  cream: "bg-ash-50",
-  "ash-light": "bg-ash-100",
-};
 
 // Scroll-driven panel with fade in/out as it enters and exits the feature zone
 function PanelTracker({
@@ -83,7 +79,7 @@ function PanelContent({ item, index }: { item: Item; index: number }) {
       {/* Mobile screenshot */}
       {screenshot?.url && (
         <div className="mb-6 lg:hidden">
-          <div className="overflow-hidden border border-ash-200/40">
+          <div className="overflow-hidden border border-theme-border/40">
             <Image
               src={screenshot.url}
               alt={screenshot.alt ?? item.title ?? ""}
@@ -96,18 +92,18 @@ function PanelContent({ item, index }: { item: Item; index: number }) {
       )}
 
       {/* Step counter — architectural rhythm */}
-      <p className="mb-3 font-mono text-xs tracking-wider text-ash-400">
+      <p className="mb-3 font-mono text-xs tracking-wider text-theme-text-muted">
         {stepNum}
       </p>
 
       {/* Title */}
-      <h3 className="font-display text-2xl font-semibold tracking-tight text-ash-900 lg:text-3xl">
+      <h3 className="font-display text-2xl font-semibold tracking-tight text-theme-text lg:text-3xl">
         {item.title}
       </h3>
 
       {/* Description */}
       {item.description && (
-        <p className="mt-3 max-w-md text-base/relaxed text-ash-600">
+        <p className="mt-3 max-w-md text-base/relaxed text-theme-text-secondary">
           {item.description}
         </p>
       )}
@@ -118,7 +114,7 @@ function PanelContent({ item, index }: { item: Item; index: number }) {
           {item.badges.map((badge) => (
             <span
               key={badge.id}
-              className="border border-ash-300 px-2.5 py-1 font-mono text-xs tracking-wide text-ash-500"
+              className="border border-theme-border px-2.5 py-1 font-mono text-xs tracking-wide text-theme-text-muted"
             >
               {badge.text}
             </span>
@@ -146,7 +142,6 @@ function ProductFeaturesScroller({
   const activeItem = items[activeIndex];
   const activeScreenshot = activeItem?.screenshot as Media | null;
   const handleVisible = useCallback((i: number) => setActiveIndex(i), []);
-  const bgClass = BG_CLASS[bgStyle] ?? BG_CLASS.cream;
   const hasHeader = sectionLabel || heading || subheading;
 
   // Track when the section's bottom edge is 20vh above viewport bottom → drives panel shrink
@@ -166,28 +161,27 @@ function ProductFeaturesScroller({
   const panelRadius = useTransform(sectionEndProgress, [0, 0.5], [16, 24]);
 
   return (
-    <section
+    <ThemeSection
+      bgStyle={bgStyle}
       ref={sectionRef}
-      className={`relative border-b border-ash-200 ${bgClass}`}
+      className="relative border-b border-theme-border"
       style={{ overflowX: "clip" }}
     >
-      {/* Sticky header — cream bg only on the left column, right stays transparent */}
+      {/* Sticky header — bg color only on the left column, right stays transparent */}
       <div className="sticky top-0 z-20">
         {hasHeader && (
           <Container>
             <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-8 xl:gap-16">
               {/* Left column: header content with cream background */}
               <div className="relative">
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ash-50 via-ash-50 to-ash-50/90" />
+                <div className="pointer-events-none absolute -left-4 inset-y-0 right-0 bg-theme-bg" />
                 <div className="relative pt-20 pb-8 md:pt-28 md:pb-10">
                   {sectionLabel && (
-                    <Eyebrow color="moss" className="mb-3">
-                      {sectionLabel}
-                    </Eyebrow>
+                    <Eyebrow className="mb-3">{sectionLabel}</Eyebrow>
                   )}
-                  {heading && <Heading color="dark">{heading}</Heading>}
+                  {heading && <Heading>{heading}</Heading>}
                   {subheading && (
-                    <p className="mt-4 text-lg/relaxed text-ash-600">
+                    <p className="mt-4 text-lg/relaxed text-theme-text-secondary">
                       {subheading}
                     </p>
                   )}
@@ -199,7 +193,7 @@ function ProductFeaturesScroller({
           </Container>
         )}
         {/* Top horizontal rail — sticks with the header */}
-        <div className="h-px bg-ash-200" />
+        <div className="h-px bg-theme-surface" />
       </div>
 
       {/* Two-column feature area */}
@@ -208,7 +202,7 @@ function ProductFeaturesScroller({
           {/* Left column: throughline rail + scrolling features (z-auto, scrolls behind header) */}
           <div className="relative">
             {/* Vertical throughline — the rail */}
-            <div className="absolute left-0 top-0 bottom-0 hidden w-px bg-ash-200 lg:block" />
+            <div className="absolute left-0 top-0 bottom-0 hidden w-px bg-theme-surface lg:block" />
 
             {items.map((item, i) => (
               <PanelTracker key={item.id} index={i} onVisible={handleVisible}>
@@ -216,7 +210,7 @@ function ProductFeaturesScroller({
                 <div
                   className={`transition-all duration-500 lg:-ml-[2px] lg:border-l-[3px] lg:pl-8 ${
                     i === activeIndex
-                      ? "lg:border-moss-600"
+                      ? "lg:border-theme-accent"
                       : "lg:border-transparent"
                   }`}
                 >
@@ -230,20 +224,17 @@ function ProductFeaturesScroller({
           <div className="relative z-30 hidden lg:block">
             <div className="sticky top-0 flex h-svh flex-col pb-6 pt-36">
               {/* Background box — shrinks to 0 as section ends */}
-              <motion.div
-                className="relative"
-                style={{ height: panelHeight }}
-              >
+              <motion.div className="relative" style={{ height: panelHeight }}>
                 {/* Background fill with rounded left corners */}
                 <motion.div
-                  className="absolute inset-0 bg-ash-200"
+                  className="absolute inset-0 bg-theme-surface"
                   style={{
                     borderTopLeftRadius: panelRadius,
                     borderBottomLeftRadius: panelRadius,
                   }}
                 />
                 {/* Bleed extension — outside overflow-hidden, extends to viewport edge */}
-                <div className="absolute inset-y-0 left-full w-[50vw] bg-ash-200" />
+                <div className="absolute inset-y-0 left-full w-[50vw] bg-theme-surface" />
 
                 {/* Content — clipped by the panel height, fades out */}
                 <div className="absolute inset-0 flex items-center overflow-hidden pl-8 pr-8 xl:pl-10 xl:pr-10">
@@ -251,54 +242,54 @@ function ProductFeaturesScroller({
                     className="relative z-20 w-full"
                     style={{ opacity: panelOpacity }}
                   >
-                  {/* Image frame — cream bg lifts off the ash panel, above the rail lines */}
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-ash-50 shadow-lg shadow-ash-900/[0.04]">
-                    <AnimatePresence mode="wait">
-                      {activeScreenshot?.url && (
-                        <motion.div
-                          key={activeIndex}
-                          initial={SCREENSHOT_INITIAL}
-                          animate={SCREENSHOT_ANIMATE}
-                          exit={SCREENSHOT_EXIT}
-                          transition={SCREENSHOT_TRANSITION}
-                          className="absolute inset-0"
-                        >
-                          <Image
-                            src={activeScreenshot.url}
-                            alt={
-                              activeScreenshot.alt ?? activeItem?.title ?? ""
-                            }
-                            fill
-                            className="object-cover"
-                            sizes="(min-width: 1024px) 55vw, 100vw"
-                          />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Progress indicator: 01 ─── ── ── 04 */}
-                  <div className="mt-5 flex items-center justify-center gap-3">
-                    <span className="font-mono text-xs text-ash-400">
-                      {String(activeIndex + 1).padStart(2, "0")}
-                    </span>
-                    <div className="flex gap-1.5">
-                      {items.map((item, i) => (
-                        <div
-                          key={item.id}
-                          className={`h-px transition-all duration-500 ${
-                            i === activeIndex
-                              ? "w-8 bg-moss-600"
-                              : "w-3 bg-ash-300/60"
-                          }`}
-                        />
-                      ))}
+                    {/* Image frame — cream bg lifts off the ash panel, above the rail lines */}
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-theme-bg shadow-lg shadow-theme-text/[0.04]">
+                      <AnimatePresence mode="wait">
+                        {activeScreenshot?.url && (
+                          <motion.div
+                            key={activeIndex}
+                            initial={SCREENSHOT_INITIAL}
+                            animate={SCREENSHOT_ANIMATE}
+                            exit={SCREENSHOT_EXIT}
+                            transition={SCREENSHOT_TRANSITION}
+                            className="absolute inset-0"
+                          >
+                            <Image
+                              src={activeScreenshot.url}
+                              alt={
+                                activeScreenshot.alt ?? activeItem?.title ?? ""
+                              }
+                              fill
+                              className="object-cover"
+                              sizes="(min-width: 1024px) 55vw, 100vw"
+                            />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <span className="font-mono text-xs text-ash-400">
-                      {String(items.length).padStart(2, "0")}
-                    </span>
-                  </div>
-                </motion.div>
+
+                    {/* Progress indicator: 01 ─── ── ── 04 */}
+                    <div className="mt-5 flex items-center justify-center gap-3">
+                      <span className="font-mono text-xs text-theme-text-muted">
+                        {String(activeIndex + 1).padStart(2, "0")}
+                      </span>
+                      <div className="flex gap-1.5">
+                        {items.map((item, i) => (
+                          <div
+                            key={item.id}
+                            className={`h-px transition-all duration-500 ${
+                              i === activeIndex
+                                ? "w-8 bg-theme-accent"
+                                : "w-3 bg-theme-border"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <span className="font-mono text-xs text-theme-text-muted">
+                        {String(items.length).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
@@ -307,7 +298,7 @@ function ProductFeaturesScroller({
       </Container>
 
       {/* Bottom rail is the section's border-b */}
-    </section>
+    </ThemeSection>
   );
 }
 
@@ -317,7 +308,7 @@ export function ProductFeaturesBlock({ block }: ProductFeaturesBlockProps) {
   return (
     <ProductFeaturesScroller
       items={block.items}
-      bgStyle={block.bgStyle ?? "cream"}
+      bgStyle={block.bgStyle ?? "sandstone"}
       sectionLabel={block.sectionLabel}
       heading={block.heading}
       subheading={block.subheading}

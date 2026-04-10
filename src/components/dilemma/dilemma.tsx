@@ -11,42 +11,38 @@ import {
   type MotionValue,
 } from "framer-motion";
 
-// ─── Brand Palette (hex equivalents of oklch brand tokens) ───
-// Ash - neutral with slight green tint
-const ASH_50 = "#F6F6F4";
-const ASH_100 = "#EAEAE7";
-const ASH_200 = "#D6D6D1";
-const ASH_300 = "#BFBFB9";
-const ASH_400 = "#A8A8A1";
-const ASH_700 = "#6B6B64";
-const ASH_900 = "#43433E";
-const ASH_950 = "#2B2B28";
+// ─── Brand colors (via CSS custom properties from global stylesheet) ───
+const ASH_50 = "var(--color-ash-50)";
+const ASH_100 = "var(--color-ash-100)";
+const ASH_200 = "var(--color-ash-200)";
+const ASH_300 = "var(--color-ash-300)";
+const ASH_400 = "var(--color-ash-400)";
+const ASH_700 = "var(--color-ash-700)";
+const ASH_900 = "var(--color-ash-900)";
 
-// Moss - core brand color
-const MOSS_50 = "#F3F6EF";
-const MOSS_100 = "#E3EAD9";
-const MOSS_400 = "#8FAA74";
-const MOSS_700 = "#4F5E42";
-const MOSS_800 = "#3D4933";
+const MOSS_50 = "var(--color-moss-50)";
+const MOSS_400 = "var(--color-moss-400)";
+const MOSS_700 = "var(--color-moss-700)";
+const MOSS_800 = "var(--color-moss-800)";
 
-// Goldenrod - warm accent
-const GOLDENROD = "#D4B254";
-const GOLDENROD_50 = "#FCF9F0";
-const GOLDENROD_100 = "#F5ECD2";
-const GOLDENROD_700 = "#7A6530";
+const GOLDENROD = "var(--color-goldenrod)";
+const GOLDENROD_50 = "var(--color-goldenrod-50)";
+const GOLDENROD_100 = "var(--color-goldenrod-100)";
+const GOLDENROD_700 = "var(--color-goldenrod-700)";
 
-// Coral - warning scheme
-const CORAL = "#C55E42";
+const CORAL = "var(--color-coral-500)";
 
-// Ocean - informational accent
-const OCEAN_50 = "#F2F5F8";
-const OCEAN_100 = "#E5EBF2";
-const OCEAN_400 = "#8FA8C4";
-const OCEAN_600 = "#5C7A9E";
-const OCEAN_700 = "#4A6482";
+const CREAM = "var(--color-sandstone)";
 
-// Cream background
-const CREAM = ASH_50;
+const OCEAN_50 = "var(--color-ocean-50)";
+const OCEAN_400 = "var(--color-ocean-400)";
+const OCEAN_600 = "var(--color-ocean-600)";
+const OCEAN_700 = "var(--color-ocean-700)";
+
+/** Mix a CSS custom property color with transparency */
+function ca(color: string, opacity: number): string {
+  return `color-mix(in oklch, ${color} ${Math.round(opacity * 100)}%, transparent)`;
+}
 
 // ─── Spring configs (slightly overdamped for confident, deliberate feel) ───
 const SPRING_DEFAULT = { type: "spring" as const, stiffness: 250, damping: 25 };
@@ -193,7 +189,7 @@ function RailsPanel({
   return (
     <div
       style={{
-        background: "white",
+        background: "var(--color-sandstone-50)",
         border: `1px dashed ${ASH_300}`,
         padding: compact ? "16px 14px" : "20px 18px",
         height: "100%",
@@ -216,7 +212,7 @@ function RailsPanel({
         <span
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: compact ? "10px" : "11px",
+            fontSize: compact ? "0.625rem" : "0.6875rem",
             fontWeight: 600,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
@@ -249,7 +245,7 @@ function RailsPanel({
             style={{
               textAlign: "center",
               color: ASH_400,
-              fontSize: "11px",
+              fontSize: "0.6875rem",
               padding: "2px 0 2px 28px",
               letterSpacing: "0.2em",
             }}
@@ -284,7 +280,9 @@ function StepRow({
   const locked = useTransform(sp, (v) => v >= 1);
 
   const borderColor = useTransform(locked, (l) => (l ? OCEAN_700 : ASH_200));
-  const bgColor = useTransform(locked, (l) => (l ? OCEAN_700 : "white"));
+  const bgColor = useTransform(locked, (l) =>
+    l ? OCEAN_700 : "var(--color-sandstone-50)",
+  );
   const connectorBg = useTransform(locked, (l) => (l ? OCEAN_700 : ASH_200));
   const opacity = useTransform(sp, (v) => (v > 0 ? 1 : 0.25));
   const textColor = useTransform(locked, (l) => (l ? OCEAN_700 : ASH_700));
@@ -350,7 +348,7 @@ function StepRow({
         <motion.div
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: compact ? "12px" : "13px",
+            fontSize: compact ? "0.75rem" : "0.8125rem",
             fontWeight: 600,
             color: textColor,
           }}
@@ -361,7 +359,7 @@ function StepRow({
         <motion.div
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: compact ? "10px" : "11px",
+            fontSize: compact ? "0.625rem" : "0.6875rem",
             fontStyle: "italic",
             color: subColor,
             lineHeight: 1.4,
@@ -379,7 +377,7 @@ function StepRow({
           style={{
             alignSelf: "flex-start",
             marginTop: "4px",
-            fontSize: "9px",
+            fontSize: "0.5625rem",
             fontWeight: 700,
             color: OCEAN_700,
             background: OCEAN_50,
@@ -437,7 +435,7 @@ function LockedIcon({
       </motion.svg>
       <motion.span
         style={{
-          fontSize: compact ? "9px" : "10px",
+          fontSize: compact ? "0.5625rem" : "0.625rem",
           fontWeight: 700,
           color: ASH_400,
           opacity: numberOpacity,
@@ -479,14 +477,14 @@ function OutputStack({
       style={{
         marginTop: compact ? "8px" : "12px",
         paddingTop: compact ? "8px" : "12px",
-        borderTop: `1px solid ${OCEAN_700}12`,
+        borderTop: `1px solid ${ca(OCEAN_700, 0.07)}`,
         opacity,
       }}
       transition={SPRING_SLOW}
     >
       <div
         style={{
-          fontSize: "10px",
+          fontSize: "0.625rem",
           fontWeight: 600,
           letterSpacing: "0.06em",
           textTransform: "uppercase",
@@ -511,8 +509,8 @@ function OutputStack({
               left: "50%",
               x: "-50%",
               width: "85%",
-              background: "white",
-              border: `1px solid ${OCEAN_700}20`,
+              background: "var(--color-sandstone-50)",
+              border: `1px solid ${ca(OCEAN_700, 0.13)}`,
               padding: compact ? "4px 8px" : "6px 10px",
               zIndex: 3 - i,
             }}
@@ -526,14 +524,14 @@ function OutputStack({
             >
               <span
                 style={{
-                  fontSize: compact ? "9px" : "10px",
+                  fontSize: compact ? "0.5625rem" : "0.625rem",
                   fontWeight: 600,
                   color: OCEAN_700,
                 }}
               >
                 {n}
               </span>
-              <span style={{ fontSize: "9px", color: ASH_400 }}>90 pages</span>
+              <span style={{ fontSize: "0.5625rem", color: ASH_400 }}>90 pages</span>
             </div>
             {!compact && (
               <div style={{ display: "flex", gap: "2px", marginTop: "4px" }}>
@@ -543,7 +541,7 @@ function OutputStack({
                     style={{
                       height: "2px",
                       width: `${w}%`,
-                      background: `${OCEAN_700}15`,
+                      background: ca(OCEAN_700, 0.08),
                     }}
                   />
                 ))}
@@ -571,12 +569,10 @@ function BleedPanel({
     Math.max(0.3, 1 - p * 0.6),
   );
   const cardBlur = useTransform(vizProgress, (p) => `blur(${p * 1}px)`);
-  const integrityAlpha = useTransform(vizProgress, (p) => {
-    const integrity = Math.max(0, 1 - p * 1.8);
-    return Math.round(integrity * 50)
-      .toString(16)
-      .padStart(2, "0");
-  });
+  const integrityAlpha = useTransform(
+    vizProgress,
+    (p) => Math.max(0, 1 - p * 1.8) * 0.2,
+  );
   const gapSize = useTransform(vizProgress, (p) => 3 + p * 16);
   const dividerBlur = useTransform(vizProgress, (p) => `blur(${p * 2}px)`);
   const warningOpacity = useTransform(vizProgress, (p) =>
@@ -597,9 +593,9 @@ function BleedPanel({
     >
       <div
         style={{
-          background: "white",
+          background: "var(--color-sandstone-50)",
           padding: compact ? "8px" : "10px",
-          border: `1px solid ${cl.color}20`,
+          border: `1px solid ${ca(cl.color, 0.13)}`,
         }}
       >
         <div
@@ -609,14 +605,14 @@ function BleedPanel({
             gap: "4px",
             marginBottom: compact ? "4px" : "6px",
             paddingBottom: compact ? "4px" : "5px",
-            borderBottom: `1px solid ${cl.color}10`,
+            borderBottom: `1px solid ${ca(cl.color, 0.06)}`,
           }}
         >
           <div style={{ width: "5px", height: "5px", background: cl.color }} />
           <span
             style={{
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: compact ? "8px" : "9px",
+              fontSize: compact ? "0.5rem" : "0.5625rem",
               fontWeight: 600,
               letterSpacing: "0.06em",
               textTransform: "uppercase",
@@ -631,7 +627,7 @@ function BleedPanel({
             key={i}
             style={{
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: compact ? "8px" : "9px",
+              fontSize: compact ? "0.5rem" : "0.5625rem",
               color: ASH_700,
               padding: "1.5px 0",
             }}
@@ -646,7 +642,7 @@ function BleedPanel({
   return (
     <div
       style={{
-        background: "white",
+        background: "var(--color-sandstone-50)",
         border: `1px dashed ${ASH_300}`,
         padding: compact ? "14px 12px" : "16px 14px",
         height: "100%",
@@ -668,7 +664,7 @@ function BleedPanel({
         <span
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: compact ? "9px" : "10px",
+            fontSize: compact ? "0.5625rem" : "0.625rem",
             fontWeight: 600,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
@@ -763,7 +759,7 @@ function BleedPanel({
         style={{
           marginTop: compact ? "8px" : "10px",
           paddingTop: "8px",
-          borderTop: `1px solid ${GOLDENROD}15`,
+          borderTop: `1px solid ${ca(GOLDENROD, 0.08)}`,
           textAlign: "center",
           opacity: labelOpacity,
         }}
@@ -772,7 +768,7 @@ function BleedPanel({
         <div
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "10px",
+            fontSize: "0.625rem",
             fontStyle: "italic",
             color: GOLDENROD_700,
             lineHeight: 1.4,
@@ -791,12 +787,12 @@ function DividerLine({
   gapSize,
   blur,
 }: {
-  integrityAlpha: MotionValue<string>;
+  integrityAlpha: MotionValue<number>;
   gapSize: MotionValue<number>;
   blur: MotionValue<string>;
 }) {
   // We need to use the raw values here due to CSS gradient complexity
-  const [alpha, setAlpha] = useState("32");
+  const [alpha, setAlpha] = useState(0.2);
   const [gap, setGap] = useState(3);
   const [blurVal, setBlurVal] = useState("blur(0px)");
 
@@ -816,7 +812,7 @@ function DividerLine({
       style={{
         width: "100%",
         height: "100%",
-        background: `repeating-linear-gradient(to bottom, ${ASH_400}${alpha} 0px, ${ASH_400}${alpha} 3px, transparent 3px, transparent ${gap}px)`,
+        background: `repeating-linear-gradient(to bottom, ${ca(ASH_400, alpha)} 0px, ${ca(ASH_400, alpha)} 3px, transparent 3px, transparent ${gap}px)`,
         filter: blurVal,
       }}
     />
@@ -869,11 +865,11 @@ function DriftingFragment({
       <div
         style={{
           fontFamily: "'DM Sans', sans-serif",
-          fontSize: "9px",
+          fontSize: "0.5625rem",
           fontWeight: 500,
           color,
-          background: `${color}0D`,
-          border: `1px solid ${color}20`,
+          background: ca(color, 0.05),
+          border: `1px solid ${ca(color, 0.13)}`,
           padding: "2px 6px",
           whiteSpace: "nowrap",
         }}
@@ -900,7 +896,7 @@ function AnimatedCheck({
       initial={{ scale: 0, backgroundColor: "rgba(0,0,0,0)" }}
       animate={{
         scale: visible ? 1 : 0,
-        backgroundColor: visible ? `${MOSS_400}20` : "rgba(0,0,0,0)",
+        backgroundColor: visible ? ca(MOSS_400, 0.13) : "rgba(0,0,0,0)",
       }}
       transition={{
         ...SPRING_SNAPPY,
@@ -989,7 +985,7 @@ function TRow({
     display: "flex",
     alignItems: "center",
     fontFamily: "'DM Sans', sans-serif",
-    fontSize: "12px",
+    fontSize: "0.75rem",
   };
 
   return (
@@ -1011,7 +1007,7 @@ function TRow({
           ...cell,
           fontWeight: 600,
           color: ASH_900,
-          fontSize: "13px",
+          fontSize: "0.8125rem",
         }}
       >
         {row.dim}
@@ -1027,15 +1023,15 @@ function TRow({
           ...cell,
           fontStyle: "italic",
           color: ASH_400,
-          background: `${ASH_100}40`,
+          background: ca(ASH_100, 0.25),
           opacity: defeated ? 0.35 : 1,
           textDecorationLine: defeated ? "line-through" : "none",
-          textDecorationColor: defeated ? `${ASH_200}80` : undefined,
+          textDecorationColor: defeated ? ca(ASH_200, 0.5) : undefined,
         }}
         transition={SPRING_DEFAULT}
       >
         <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <span style={{ color: ASH_200, fontSize: "12px", fontWeight: 700 }}>
+          <span style={{ color: ASH_200, fontSize: "0.75rem", fontWeight: 700 }}>
             ✕
           </span>
           {row.old}
@@ -1054,10 +1050,10 @@ function TRow({
           background: OCEAN_50,
           opacity: defeated ? 0.4 : 1,
           textDecorationLine: defeated ? "line-through" : "none",
-          textDecorationColor: defeated ? `${OCEAN_400}80` : undefined,
+          textDecorationColor: defeated ? ca(OCEAN_400, 0.5) : undefined,
           borderLeft:
             showRigid && !defeated
-              ? `2px solid ${OCEAN_700}35`
+              ? `2px solid ${ca(OCEAN_700, 0.21)}`
               : "2px solid rgba(0,0,0,0)",
         }}
         transition={SPRING_DEFAULT}
@@ -1103,13 +1099,13 @@ function TRow({
         style={{
           ...cell,
           color: GOLDENROD_700,
-          background: `${GOLDENROD_100}50`,
+          background: ca(GOLDENROD_100, 0.31),
           opacity: defeated ? 0.4 : 1,
           textDecorationLine: defeated ? "line-through" : "none",
-          textDecorationColor: defeated ? `${GOLDENROD}50` : undefined,
+          textDecorationColor: defeated ? ca(GOLDENROD, 0.31) : undefined,
           borderLeft:
             showPatch && !defeated
-              ? `2px solid ${GOLDENROD}45`
+              ? `2px solid ${ca(GOLDENROD, 0.27)}`
               : "2px solid rgba(0,0,0,0)",
         }}
         transition={SPRING_DEFAULT}
@@ -1156,7 +1152,7 @@ function TRow({
               style={{
                 position: "absolute",
                 inset: 0,
-                background: `linear-gradient(90deg, ${MOSS_400}25, transparent)`,
+                background: `linear-gradient(90deg, ${ca(MOSS_400, 0.15)}, transparent)`,
                 transformOrigin: "left",
                 pointerEvents: "none",
               }}
@@ -1232,14 +1228,14 @@ function MobileTableCard({
   ): React.CSSProperties => ({
     padding: "10px 12px",
     fontFamily: "'DM Sans', sans-serif",
-    fontSize: "13px",
+    fontSize: "0.8125rem",
     lineHeight: 1.4,
     color,
     background: bg,
     borderLeft: `3px solid ${borderColor}`,
     opacity: isDefeated ? 0.4 : 1,
     textDecorationLine: isDefeated ? "line-through" : "none",
-    textDecorationColor: isDefeated ? `${borderColor}60` : undefined,
+    textDecorationColor: isDefeated ? ca(borderColor, 0.38) : undefined,
   });
 
   return (
@@ -1248,7 +1244,7 @@ function MobileTableCard({
       initial="hidden"
       animate={phase >= 1 ? "visible" : "hidden"}
       style={{
-        background: "white",
+        background: "var(--color-sandstone-50)",
         border: `1px dashed ${ASH_300}`,
         overflow: "hidden",
       }}
@@ -1262,7 +1258,7 @@ function MobileTableCard({
         <div
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "11px",
+            fontSize: "0.6875rem",
             fontWeight: 700,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
@@ -1286,11 +1282,11 @@ function MobileTableCard({
           variants={optionVariants}
           initial="hidden"
           animate={showOld ? "visible" : "hidden"}
-          style={optionStyle(`${ASH_100}40`, ASH_400, ASH_200, defeated)}
+          style={optionStyle(ca(ASH_100, 0.25), ASH_400, ASH_200, defeated)}
         >
           <div
             style={{
-              fontSize: "9px",
+              fontSize: "0.5625rem",
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
@@ -1312,7 +1308,7 @@ function MobileTableCard({
         >
           <div
             style={{
-              fontSize: "9px",
+              fontSize: "0.5625rem",
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
@@ -1331,7 +1327,7 @@ function MobileTableCard({
           initial="hidden"
           animate={showPatch ? "visible" : "hidden"}
           style={optionStyle(
-            `${GOLDENROD_100}60`,
+            ca(GOLDENROD_100, 0.38),
             GOLDENROD_700,
             GOLDENROD,
             defeated,
@@ -1339,7 +1335,7 @@ function MobileTableCard({
         >
           <div
             style={{
-              fontSize: "9px",
+              fontSize: "0.5625rem",
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
@@ -1365,7 +1361,7 @@ function MobileTableCard({
           style={{
             padding: "12px 12px",
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "13px",
+            fontSize: "0.8125rem",
             fontWeight: 500,
             lineHeight: 1.4,
             color: MOSS_700,
@@ -1385,7 +1381,7 @@ function MobileTableCard({
                 style={{
                   position: "absolute",
                   inset: 0,
-                  background: `linear-gradient(90deg, ${MOSS_400}20, transparent)`,
+                  background: `linear-gradient(90deg, ${ca(MOSS_400, 0.13)}, transparent)`,
                   transformOrigin: "left",
                   pointerEvents: "none",
                 }}
@@ -1395,7 +1391,7 @@ function MobileTableCard({
           <div style={{ position: "relative", zIndex: 1 }}>
             <div
               style={{
-                fontSize: "9px",
+                fontSize: "0.5625rem",
                 fontWeight: 700,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
@@ -1422,20 +1418,20 @@ function MobileTableCard({
 // ═══════════════════════════════════════════════════════════
 
 export interface DilemmaSectionProps {
-  label?: string
-  heading?: string
-  headingAccent?: string
-  body?: string
-  transitionLine1?: string
-  transitionLine2?: string
+  label?: string;
+  heading?: string;
+  headingAccent?: string;
+  body?: string;
+  transitionLine1?: string;
+  transitionLine2?: string;
   tableData?: Array<{
-    dim: string
-    old: string
-    rigid: string
-    patch: string
-    ella: string
-  }>
-  steps?: Array<{ label: string; sub: string }>
+    dim: string;
+    old: string;
+    rigid: string;
+    patch: string;
+    ella: string;
+  }>;
+  steps?: Array<{ label: string; sub: string }>;
 }
 
 export default function DilemmaSection(props: DilemmaSectionProps = {}) {
@@ -1527,640 +1523,579 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
       style={{
         width: "100%",
         fontFamily: "'DM Sans', sans-serif",
-        background: CREAM,
       }}
     >
-        <div
-          style={{
-            paddingTop: isMobile ? "48px" : "80px",
-            paddingBottom: isMobile ? "80px" : "120px",
-          }}
-        >
-          {/* ─── SCROLL RUNWAY: pins header + caption + viz while scroll drives animations ─── */}
-          <div style={{ minHeight: isMobile ? "140vh" : "175vh" }}>
+      <div
+        style={{
+          paddingTop: isMobile ? "48px" : "80px",
+          paddingBottom: isMobile ? "80px" : "120px",
+        }}
+      >
+        {/* ─── SCROLL RUNWAY: pins header + caption + viz while scroll drives animations ─── */}
+        <div style={{ minHeight: isMobile ? "140vh" : "175vh" }}>
           <div
             style={{
               position: "sticky",
               top: 0,
-              background: CREAM,
               zIndex: 1,
               paddingTop: isMobile ? "16px" : "24px",
               paddingBottom: isMobile ? "24px" : "32px",
             }}
           >
-          {/* ─── HEADER ─── */}
-          <div
-            style={{
-              textAlign: "center",
-              maxWidth: "680px",
-              margin: "0 auto 48px",
-              padding: isMobile ? "0 20px" : "0 32px",
-            }}
-          >
+            {/* ─── HEADER ─── */}
             <div
               style={{
-                fontSize: "11px",
-                fontWeight: 600,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: ASH_400,
-                marginBottom: "16px",
+                textAlign: "center",
+                maxWidth: "680px",
+                margin: "0 auto 48px",
+                padding: isMobile ? "0 20px" : "0 32px",
               }}
             >
-              {props.label ?? "The Advisor\u2019s Dilemma"}
-            </div>
-            <h2
-              style={{
-                fontFamily: "'DM Serif Display', Georgia, serif",
-                fontSize: isMobile ? "28px" : "clamp(28px, 4vw, 42px)",
-                fontWeight: 400,
-                color: ASH_900,
-                lineHeight: 1.15,
-                margin: "0 0 16px",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {props.heading ?? "Rigid or improvised."}
-              <br />
-              <span style={{ color: ASH_400 }}>
-                {props.headingAccent ?? "Those aren\u2019t the only options."}
-              </span>
-            </h2>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: isMobile ? "15px" : "17px",
-                color: ASH_700,
-                lineHeight: 1.55,
-                margin: 0,
-              }}
-            >
-              {props.body ??
-                "Rigid platforms were built for advisors but don\u2019t respect your methodology. Consumer AI tools are powerful but weren\u2019t built for client work. Advisors shouldn\u2019t have to choose."}
-            </p>
-          </div>
-
-          {/* ─── STICKY CAPTION ─── */}
-          <div
-            style={{
-              position: "sticky",
-              top: isMobile ? "12px" : "20px",
-              zIndex: 20,
-              textAlign: "center",
-              padding: isMobile ? "0 20px" : "0 32px",
-              marginBottom: isMobile ? "24px" : "32px",
-              pointerEvents: "none",
-            }}
-          >
-            <div
-              style={{
-                display: "inline-block",
-                background: `${CREAM}ee`,
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
-                padding: isMobile ? "10px 20px" : "12px 28px",
-                borderRadius: "2px",
-                border: `1px solid ${ASH_200}80`,
-                minHeight: isMobile ? "40px" : "44px",
-              }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={statusIndex}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  style={{
-                    fontFamily: "'DM Serif Display', Georgia, serif",
-                    fontSize: isMobile ? "15px" : "18px",
-                    color: ASH_700,
-                    lineHeight: 1.4,
-                    margin: 0,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {STATUS_TEXTS[statusIndex]}
-                </motion.p>
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* ─── VISUALIZATION ─── */}
-          <div
-            style={{
-              maxWidth: isMobile ? "100%" : "820px",
-              margin: "0 auto",
-              padding: isMobile ? "0 16px" : "0 24px",
-            }}
-          >
-            {isMobile ? (
-              /* ═══ MOBILE: Stacked ═══ */
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
+                  fontSize: "0.6875rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: ASH_400,
+                  marginBottom: "16px",
                 }}
               >
-                <div style={{ position: "relative" }}>
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "-12px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      fontSize: "10px",
-                      fontWeight: 600,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      color: OCEAN_700,
-                      background: OCEAN_50,
-                      padding: "4px 12px",
-                      zIndex: 10,
-                      whiteSpace: "nowrap",
-                      border: `1px solid ${OCEAN_700}25`,
-                    }}
-                  >
-                    Rigid Platforms
-                  </div>
-                  <RailsPanel vizProgress={vizProgress} compact={true} />
-                </div>
-
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "4px 0",
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    color: ASH_400,
-                    letterSpacing: "0.06em",
-                  }}
-                >
-                  — or —
-                </div>
-
-                <div style={{ position: "relative" }}>
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "-12px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      fontSize: "10px",
-                      fontWeight: 600,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      color: GOLDENROD_700,
-                      background: GOLDENROD_100,
-                      padding: "4px 12px",
-                      zIndex: 10,
-                      whiteSpace: "nowrap",
-                      border: `1px solid ${GOLDENROD}25`,
-                    }}
-                  >
-                    Consumer AI
-                  </div>
-                  <BleedPanel vizProgress={vizProgress} compact={true} />
-                </div>
+                {props.label ?? "The Advisor\u2019s Dilemma"}
               </div>
-            ) : (
-              /* ═══ DESKTOP: Side-by-side ═══ */
-              <div
+              <h2
+                className="text-4xl font-serif font-normal text-theme-text mb-4"
+              >
+                {props.heading ?? "Rigid or improvised."}
+                <br />
+                <span className="text-theme-text-muted">
+                  {props.headingAccent ?? "Those aren\u2019t the only options."}
+                </span>
+              </h2>
+              <p
                 style={{
-                  display: "flex",
-                  gap: "20px",
-                  minHeight: "440px",
-                  alignItems: "stretch",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: isMobile ? "0.9375rem" : "1.0625rem",
+                  color: ASH_700,
+                  lineHeight: 1.55,
+                  margin: 0,
                 }}
               >
-                <div style={{ flex: "0 0 58%", position: "relative" }}>
-                  <div
+                {props.body ??
+                  "Rigid platforms were built for advisors but don\u2019t respect your methodology. Consumer AI tools are powerful but weren\u2019t built for client work. Advisors shouldn\u2019t have to choose."}
+              </p>
+            </div>
+
+            {/* ─── STICKY CAPTION ─── */}
+            <div
+              style={{
+                position: "sticky",
+                top: isMobile ? "12px" : "20px",
+                zIndex: 20,
+                textAlign: "center",
+                padding: isMobile ? "0 20px" : "0 32px",
+                marginBottom: isMobile ? "24px" : "32px",
+                pointerEvents: "none",
+              }}
+            >
+              <div
+                style={{
+                  display: "inline-block",
+                  background: ca(CREAM, 0.93),
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                  padding: isMobile ? "10px 20px" : "12px 28px",
+                  borderRadius: "2px",
+                  border: `1px solid ${ca(ASH_200, 0.5)}`,
+                  minHeight: isMobile ? "40px" : "44px",
+                }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={statusIndex}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
                     style={{
-                      position: "absolute",
-                      top: "-12px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      fontSize: "10px",
-                      fontWeight: 600,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      color: OCEAN_700,
-                      background: OCEAN_50,
-                      padding: "4px 12px",
-                      zIndex: 10,
-                      whiteSpace: "nowrap",
-                      border: `1px solid ${OCEAN_700}25`,
+                      fontFamily: "'DM Serif Display', Georgia, serif",
+                      fontSize: isMobile ? "0.9375rem" : "1.125rem",
+                      color: ASH_700,
+                      lineHeight: 1.4,
+                      margin: 0,
+                      letterSpacing: "-0.01em",
                     }}
                   >
-                    Rigid Platforms
-                  </div>
-                  <RailsPanel vizProgress={vizProgress} compact={false} />
-                </div>
+                    {STATUS_TEXTS[statusIndex]}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+            </div>
 
-                {/* Divider */}
+            {/* ─── VISUALIZATION ─── */}
+            <div
+              style={{
+                maxWidth: isMobile ? "100%" : "820px",
+                margin: "0 auto",
+                padding: isMobile ? "0 16px" : "0 24px",
+              }}
+            >
+              {isMobile ? (
+                /* ═══ MOBILE: Stacked ═══ */
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "6px",
-                    padding: "20px 0",
+                    gap: "16px",
                   }}
                 >
-                  <div
-                    style={{
-                      width: "1px",
-                      flex: 1,
-                      background: `${ASH_200}60`,
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontSize: "11px",
-                      fontWeight: 600,
-                      letterSpacing: "0.06em",
-                      padding: "6px 0",
-                      color: ASH_400,
-                    }}
-                  >
-                    OR
-                  </span>
-                  <div
-                    style={{
-                      width: "1px",
-                      flex: 1,
-                      background: `${ASH_200}60`,
-                    }}
-                  />
-                </div>
-
-                <div style={{ flex: "0 0 38%", position: "relative" }}>
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "-12px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      fontSize: "10px",
-                      fontWeight: 600,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      color: GOLDENROD_700,
-                      background: GOLDENROD_100,
-                      padding: "4px 12px",
-                      zIndex: 10,
-                      whiteSpace: "nowrap",
-                      border: `1px solid ${GOLDENROD}25`,
-                    }}
-                  >
-                    Consumer AI
-                  </div>
-                  <BleedPanel vizProgress={vizProgress} compact={false} />
-                </div>
-              </div>
-            )}
-
-            {/* Status caption (sticky version rendered above viz) */}
-          </div>
-          </div>{/* end sticky frame */}
-          </div>{/* end scroll runway */}
-
-          {/* ─── TRANSITION COPY ─── */}
-          <motion.div
-            ref={transitionRef}
-            initial={{ opacity: 0, y: 12 }}
-            animate={
-              vizProgressValue > 0.7
-                ? { opacity: 1, y: 0 }
-                : { opacity: 0, y: 12 }
-            }
-            transition={SPRING_SLOW}
-            style={{
-              textAlign: "center",
-              padding: isMobile ? "40px 20px 44px" : "52px 32px 56px",
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "'DM Serif Display', Georgia, serif",
-                fontSize: isMobile ? "18px" : "clamp(18px, 2.2vw, 24px)",
-                color: ASH_900,
-                lineHeight: 1.4,
-                margin: "0 0 6px",
-              }}
-            >
-              {props.transitionLine1 ??
-                "What if your tools were built for advisory work \u2014"}
-            </p>
-            <p
-              style={{
-                fontFamily: "'DM Serif Display', Georgia, serif",
-                fontSize: isMobile ? "18px" : "clamp(18px, 2.2vw, 24px)",
-                color: MOSS_700,
-                lineHeight: 1.4,
-                margin: 0,
-              }}
-            >
-              {props.transitionLine2 ??
-                "and adapted to your methodology, not the other way around?"}
-            </p>
-          </motion.div>
-
-          {/* ═══ TABLE ═══ */}
-          <div
-            ref={tableRef}
-            style={{
-              maxWidth: "1080px",
-              margin: "0 auto",
-              padding: isMobile ? "0 16px" : "0 20px",
-            }}
-          >
-            {isMobile ? (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                }}
-              >
-                {resolvedTableRows.map((row, i) => (
-                  <MobileTableCard
-                    key={i}
-                    row={row}
-                    index={i}
-                    phase={tablePhase}
-                    scanReached={scanReached[i]}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div
-                style={{
-                  background: "white",
-                  border: `1px dashed ${ASH_300}`,
-                  overflow: "hidden",
-                }}
-              >
-                {/* Table header */}
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "120px 1fr 1fr 1fr 1fr",
-                    borderBottom: `1px dashed ${ASH_300}`,
-                  }}
-                >
-                  <div style={{ padding: "18px 12px" }} />
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: tablePhase >= 1 ? 1 : 0 }}
-                    transition={SPRING_DEFAULT}
-                    style={{
-                      padding: "18px 12px",
-                      background: `${ASH_100}40`,
-                      textAlign: "center",
-                    }}
-                  >
+                  <div style={{ position: "relative" }}>
                     <div
                       style={{
-                        fontSize: "10px",
-                        fontWeight: 700,
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        color: ASH_400,
-                        marginBottom: "3px",
-                      }}
-                    >
-                      The Old Way
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        color: ASH_400,
-                        fontStyle: "italic",
-                      }}
-                    >
-                      Manual, memory-based
-                    </div>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: tablePhase >= 2 ? 1 : 0 }}
-                    transition={{ ...SPRING_DEFAULT, delay: 0.06 }}
-                    style={{
-                      padding: "18px 12px",
-                      background: OCEAN_50,
-                      textAlign: "center",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: "10px",
-                        fontWeight: 700,
-                        letterSpacing: "0.1em",
+                        position: "absolute",
+                        top: "-12px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        fontSize: "0.625rem",
+                        fontWeight: 600,
+                        letterSpacing: "0.06em",
                         textTransform: "uppercase",
                         color: OCEAN_700,
-                        marginBottom: "3px",
+                        background: OCEAN_50,
+                        padding: "4px 12px",
+                        zIndex: 10,
+                        whiteSpace: "nowrap",
+                        border: `1px solid ${ca(OCEAN_700, 0.15)}`,
                       }}
                     >
-                      The Rigid Platform
+                      Rigid Platforms
                     </div>
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        color: OCEAN_400,
-                        fontStyle: "italic",
-                      }}
-                    >
-                      Their process, not yours
-                    </div>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: tablePhase >= 3 ? 1 : 0 }}
-                    transition={{ ...SPRING_DEFAULT, delay: 0.06 }}
+                    <RailsPanel vizProgress={vizProgress} compact={true} />
+                  </div>
+
+                  <div
                     style={{
-                      padding: "18px 12px",
-                      background: `${GOLDENROD_100}60`,
                       textAlign: "center",
+                      padding: "4px 0",
+                      fontSize: "0.8125rem",
+                      fontWeight: 600,
+                      color: ASH_400,
+                      letterSpacing: "0.06em",
                     }}
                   >
+                    — or —
+                  </div>
+
+                  <div style={{ position: "relative" }}>
                     <div
                       style={{
-                        fontSize: "10px",
-                        fontWeight: 700,
-                        letterSpacing: "0.1em",
+                        position: "absolute",
+                        top: "-12px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        fontSize: "0.625rem",
+                        fontWeight: 600,
+                        letterSpacing: "0.06em",
                         textTransform: "uppercase",
                         color: GOLDENROD_700,
-                        marginBottom: "3px",
+                        background: GOLDENROD_100,
+                        padding: "4px 12px",
+                        zIndex: 10,
+                        whiteSpace: "nowrap",
+                        border: `1px solid ${ca(GOLDENROD, 0.15)}`,
                       }}
                     >
                       Consumer AI
                     </div>
+                    <BleedPanel vizProgress={vizProgress} compact={true} />
+                  </div>
+                </div>
+              ) : (
+                /* ═══ DESKTOP: Side-by-side ═══ */
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "20px",
+                    minHeight: "440px",
+                    alignItems: "stretch",
+                  }}
+                >
+                  <div style={{ flex: "0 0 58%", position: "relative" }}>
                     <div
                       style={{
-                        fontSize: "11px",
+                        position: "absolute",
+                        top: "-12px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        fontSize: "0.625rem",
+                        fontWeight: 600,
+                        letterSpacing: "0.06em",
+                        textTransform: "uppercase",
+                        color: OCEAN_700,
+                        background: OCEAN_50,
+                        padding: "4px 12px",
+                        zIndex: 10,
+                        whiteSpace: "nowrap",
+                        border: `1px solid ${ca(OCEAN_700, 0.15)}`,
+                      }}
+                    >
+                      Rigid Platforms
+                    </div>
+                    <RailsPanel vizProgress={vizProgress} compact={false} />
+                  </div>
+
+                  {/* Divider */}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "6px",
+                      padding: "20px 0",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "1px",
+                        flex: 1,
+                        background: ca(ASH_200, 0.38),
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontSize: "0.6875rem",
+                        fontWeight: 600,
+                        letterSpacing: "0.06em",
+                        padding: "6px 0",
+                        color: ASH_400,
+                      }}
+                    >
+                      OR
+                    </span>
+                    <div
+                      style={{
+                        width: "1px",
+                        flex: 1,
+                        background: ca(ASH_200, 0.38),
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ flex: "0 0 38%", position: "relative" }}>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "-12px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        fontSize: "0.625rem",
+                        fontWeight: 600,
+                        letterSpacing: "0.06em",
+                        textTransform: "uppercase",
                         color: GOLDENROD_700,
+                        background: GOLDENROD_100,
+                        padding: "4px 12px",
+                        zIndex: 10,
+                        whiteSpace: "nowrap",
+                        border: `1px solid ${ca(GOLDENROD, 0.15)}`,
+                      }}
+                    >
+                      Consumer AI
+                    </div>
+                    <BleedPanel vizProgress={vizProgress} compact={false} />
+                  </div>
+                </div>
+              )}
+
+              {/* Status caption (sticky version rendered above viz) */}
+            </div>
+          </div>
+          {/* end sticky frame */}
+        </div>
+        {/* end scroll runway */}
+
+        {/* ─── TRANSITION COPY ─── */}
+        <motion.div
+          ref={transitionRef}
+          initial={{ opacity: 0, y: 12 }}
+          animate={
+            vizProgressValue > 0.7
+              ? { opacity: 1, y: 0 }
+              : { opacity: 0, y: 12 }
+          }
+          transition={SPRING_SLOW}
+          style={{
+            textAlign: "center",
+            padding: isMobile ? "40px 20px 44px" : "52px 32px 56px",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontSize: isMobile ? "1.125rem" : "clamp(1.125rem, 2.2vw, 1.5rem)",
+              color: ASH_900,
+              lineHeight: 1.4,
+              margin: "0 0 6px",
+            }}
+          >
+            {props.transitionLine1 ??
+              "What if your tools were built for advisory work \u2014"}
+          </p>
+          <p
+            style={{
+              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontSize: isMobile ? "1.125rem" : "clamp(1.125rem, 2.2vw, 1.5rem)",
+              color: MOSS_700,
+              lineHeight: 1.4,
+              margin: 0,
+            }}
+          >
+            {props.transitionLine2 ??
+              "and adapted to your methodology, not the other way around?"}
+          </p>
+        </motion.div>
+
+        {/* ═══ TABLE ═══ */}
+        <div
+          ref={tableRef}
+          style={{
+            maxWidth: "1080px",
+            margin: "0 auto",
+            padding: isMobile ? "0 16px" : "0 20px",
+          }}
+        >
+          {isMobile ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+              }}
+            >
+              {resolvedTableRows.map((row, i) => (
+                <MobileTableCard
+                  key={i}
+                  row={row}
+                  index={i}
+                  phase={tablePhase}
+                  scanReached={scanReached[i]}
+                />
+              ))}
+            </div>
+          ) : (
+            <div
+              style={{
+                background: "var(--color-sandstone-50)",
+                border: `1px dashed ${ASH_300}`,
+                overflow: "hidden",
+              }}
+            >
+              {/* Table header */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "120px 1fr 1fr 1fr 1fr",
+                  borderBottom: `1px dashed ${ASH_300}`,
+                }}
+              >
+                <div style={{ padding: "18px 12px" }} />
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: tablePhase >= 1 ? 1 : 0 }}
+                  transition={SPRING_DEFAULT}
+                  style={{
+                    padding: "18px 12px",
+                    background: ca(ASH_100, 0.25),
+                    textAlign: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "0.625rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: ASH_400,
+                      marginBottom: "3px",
+                    }}
+                  >
+                    The Old Way
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "0.6875rem",
+                      color: ASH_400,
+                      fontStyle: "italic",
+                    }}
+                  >
+                    Manual, memory-based
+                  </div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: tablePhase >= 2 ? 1 : 0 }}
+                  transition={{ ...SPRING_DEFAULT, delay: 0.06 }}
+                  style={{
+                    padding: "18px 12px",
+                    background: OCEAN_50,
+                    textAlign: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "0.625rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: OCEAN_700,
+                      marginBottom: "3px",
+                    }}
+                  >
+                    The Rigid Platform
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "0.6875rem",
+                      color: OCEAN_400,
+                      fontStyle: "italic",
+                    }}
+                  >
+                    Their process, not yours
+                  </div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: tablePhase >= 3 ? 1 : 0 }}
+                  transition={{ ...SPRING_DEFAULT, delay: 0.06 }}
+                  style={{
+                    padding: "18px 12px",
+                    background: ca(GOLDENROD_100, 0.38),
+                    textAlign: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "0.625rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: GOLDENROD_700,
+                      marginBottom: "3px",
+                    }}
+                  >
+                    Consumer AI
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "0.6875rem",
+                      color: GOLDENROD_700,
+                      fontStyle: "italic",
+                    }}
+                  >
+                    Powerful, unprotected
+                  </div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: tablePhase >= 4 ? 1 : 0 }}
+                  transition={SPRING_DEFAULT}
+                  style={{
+                    padding: "18px 12px",
+                    background: MOSS_50,
+                    textAlign: "center",
+                    position: "relative",
+                    overflow: "hidden",
+                    borderLeft:
+                      tablePhase >= 4
+                        ? `3px solid ${MOSS_400}`
+                        : "3px solid rgba(0,0,0,0)",
+                  }}
+                >
+                  <AnimatePresence>
+                    {tablePhase >= 4 && (
+                      <motion.div
+                        initial={{ scaleX: 0, opacity: 0.5 }}
+                        animate={{ scaleX: 1, opacity: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.7, ease: "easeOut" }}
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          background: `linear-gradient(90deg, ${ca(MOSS_400, 0.15)}, transparent)`,
+                          transformOrigin: "left",
+                          pointerEvents: "none",
+                        }}
+                      />
+                    )}
+                  </AnimatePresence>
+                  <div style={{ position: "relative", zIndex: 1 }}>
+                    <div
+                      style={{
+                        fontSize: "0.625rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: MOSS_700,
+                        marginBottom: "3px",
+                      }}
+                    >
+                      With ELLA
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "0.6875rem",
+                        color: MOSS_700,
                         fontStyle: "italic",
                       }}
                     >
-                      Powerful, unprotected
+                      Your methodology, systematized
                     </div>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: tablePhase >= 4 ? 1 : 0 }}
-                    transition={SPRING_DEFAULT}
-                    style={{
-                      padding: "18px 12px",
-                      background: MOSS_50,
-                      textAlign: "center",
-                      position: "relative",
-                      overflow: "hidden",
-                      borderLeft:
-                        tablePhase >= 4
-                          ? `3px solid ${MOSS_400}`
-                          : "3px solid rgba(0,0,0,0)",
-                    }}
-                  >
-                    <AnimatePresence>
-                      {tablePhase >= 4 && (
-                        <motion.div
-                          initial={{ scaleX: 0, opacity: 0.5 }}
-                          animate={{ scaleX: 1, opacity: 0 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.7, ease: "easeOut" }}
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            background: `linear-gradient(90deg, ${MOSS_400}25, transparent)`,
-                            transformOrigin: "left",
-                            pointerEvents: "none",
-                          }}
-                        />
-                      )}
-                    </AnimatePresence>
-                    <div style={{ position: "relative", zIndex: 1 }}>
-                      <div
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: 700,
-                          letterSpacing: "0.1em",
-                          textTransform: "uppercase",
-                          color: MOSS_700,
-                          marginBottom: "3px",
-                        }}
-                      >
-                        With ELLA
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "11px",
-                          color: MOSS_700,
-                          fontStyle: "italic",
-                        }}
-                      >
-                        Your methodology, systematized
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Table rows */}
-                {resolvedTableRows.map((row, i) => (
-                  <TRow
-                    key={i}
-                    row={row}
-                    index={i}
-                    phase={tablePhase}
-                    scanReached={scanReached[i]}
-                  />
-                ))}
+                  </div>
+                </motion.div>
               </div>
-            )}
 
-            {/* Closer */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{
-                opacity: allLocked ? 1 : 0,
-                y: allLocked ? 0 : 14,
-              }}
-              transition={{ ...SPRING_SLOW, delay: 0.3 }}
+              {/* Table rows */}
+              {resolvedTableRows.map((row, i) => (
+                <TRow
+                  key={i}
+                  row={row}
+                  index={i}
+                  phase={tablePhase}
+                  scanReached={scanReached[i]}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Closer */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{
+              opacity: allLocked ? 1 : 0,
+              y: allLocked ? 0 : 14,
+            }}
+            transition={{ ...SPRING_SLOW, delay: 0.3 }}
+            style={{
+              textAlign: "center",
+              padding: isMobile ? "36px 0 0" : "48px 0 0",
+            }}
+          >
+            <p
               style={{
-                textAlign: "center",
-                padding: isMobile ? "36px 0 0" : "48px 0 0",
+                fontFamily: "'DM Serif Display', Georgia, serif",
+                fontSize: isMobile ? "1.375rem" : "clamp(1.25rem, 2.5vw, 1.75rem)",
+                color: ASH_900,
+                lineHeight: 1.3,
+                margin: 0,
               }}
             >
-              <p
-                style={{
-                  fontFamily: "'DM Serif Display', Georgia, serif",
-                  fontSize: isMobile ? "22px" : "clamp(20px, 2.5vw, 28px)",
-                  color: ASH_900,
-                  lineHeight: 1.3,
-                  margin: "0 0 24px",
-                }}
-              >
-                Hours to the first real conversation. Not weeks.
-              </p>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "12px",
-                  justifyContent: "center",
-                  flexWrap: "wrap",
-                  padding: isMobile ? "0 16px" : 0,
-                }}
-              >
-                <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={SPRING_SNAPPY}
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    letterSpacing: "0.02em",
-                    color: ASH_50,
-                    background: MOSS_800,
-                    border: "none",
-                    padding: isMobile ? "14px 24px" : "14px 28px",
-                    cursor: "pointer",
-                    flex: isMobile ? "1 1 auto" : "0 0 auto",
-                  }}
-                >
-                  Get Started
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={SPRING_SNAPPY}
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    letterSpacing: "0.02em",
-                    color: MOSS_800,
-                    background: "transparent",
-                    border: `1.5px solid ${MOSS_700}`,
-                    padding: isMobile ? "14px 24px" : "14px 28px",
-                    cursor: "pointer",
-                    flex: isMobile ? "1 1 auto" : "0 0 auto",
-                  }}
-                >
-                  Book a Demo
-                </motion.button>
-              </div>
-              <p
-                style={{ fontSize: "13px", color: ASH_400, marginTop: "10px" }}
-              >
-                Your first 3 clients are on us.
-              </p>
-            </motion.div>
-          </div>
+              Hours to the first real conversation. Not weeks.
+            </p>
+          </motion.div>
         </div>
       </div>
+    </div>
   );
 }

@@ -40,7 +40,7 @@ function SectionHeader({
           viewport={{ once: true }}
           className="mb-6"
         >
-          <span className="text-goldenrod-600 text-xs tracking-[0.3em] uppercase md:text-sm">
+          <span className="text-ash-400 text-xs tracking-[0.3em] uppercase md:text-sm">
             {label}
           </span>
         </motion.div>
@@ -91,15 +91,12 @@ export function SqueezeSection({
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden pt-32 md:pt-48"
-    >
+    <section ref={sectionRef} className="relative overflow-hidden">
       <div className="sticky top-0 flex min-h-screen flex-col justify-center py-20">
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            background: `radial-gradient(ellipse 90% 80% at center, rgba(245, 240, 232, ${1 - squeezeValue * 0.1}) 0%, rgba(${Math.round(240 - squeezeValue * 15)}, ${Math.round(235 - squeezeValue * 18)}, ${Math.round(220 - squeezeValue * 22)}, 1) 85%)`,
+            background: `radial-gradient(ellipse 90% 80% at center, rgba(250, 247, 241, ${1 - squeezeValue * 0.08}) 0%, rgba(${Math.round(244 - squeezeValue * 8)}, ${Math.round(238 - squeezeValue * 10)}, ${Math.round(228 - squeezeValue * 12)}, 1) 85%)`,
           }}
         />
 

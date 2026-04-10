@@ -105,7 +105,7 @@ Oatmeal is a Tailwind CSS component kit with 50+ pre-built, responsive component
 
 The design brief (`_planning/design-brief.md`) defines the complete visual system. Key rules enforced in code:
 
-- **No pure whites.** Background default is Cream (`ash-50` / `#F5F5F0`), not `#ffffff`.
+- **No pure whites.** Background default is Cream (`sandstone-100` / `#F5F5F0`), not `#ffffff`.
 - **Text is Ash (`ash-900` / `#2A2E26`), not black.** Near-black with subtle green undertone.
 - **Forest (`moss-700` / `#5A6B4A`)** is the primary action color for all CTAs and brand moments.
 - **Goldenrod is accent, never dominant.** Small emphasis moments only.
@@ -278,7 +278,7 @@ Since PRs may ship without human review, run this before pushing:
 These are drawn from the design brief and are non-negotiable:
 
 1. **No dark-mode-default tech aesthetic.** Warm cream, not near-black. (Exception: final CTA block and footer go dark.)
-2. **No pure white backgrounds.** Every "white" surface is Cream (`ash-50`).
+2. **No pure white backgrounds.** Every "white" surface is Cream (`sandstone-100`).
 3. **No cold blues.** Ocean is muted and sparingly used. No bright or electric blues.
 4. **No stock photography.**
 5. **No decorative animation.** Every moving element must serve comprehension.

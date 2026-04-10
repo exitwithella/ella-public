@@ -1,60 +1,64 @@
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import { RichText } from "@payloadcms/richtext-lexical/react";
 
-import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
-import { Heading } from '@/components/elements/heading'
-import type { Page, Testimonial } from '@/payload-types'
+import { Container } from "@/components/elements/container";
+import { Eyebrow } from "@/components/elements/eyebrow";
+import { Heading } from "@/components/elements/heading";
+import { ThemeSection } from "@/components/elements/theme-section";
+import type { Page, Testimonial } from "@/payload-types";
 
 type FeatureDeepDiveData = Extract<
-  NonNullable<Page['layout']>[number],
-  { blockType: 'feature-deep-dive' }
->
+  NonNullable<Page["layout"]>[number],
+  { blockType: "feature-deep-dive" }
+>;
 
 interface FeatureDeepDiveBlockProps {
-  block: FeatureDeepDiveData
+  block: FeatureDeepDiveData;
 }
 
-const BG_CLASS: Record<string, string> = {
-  cream: 'bg-ash-50',
-  white: 'bg-ash-50',
-  'ash-light': 'bg-ash-100',
-  'forest-dark': 'bg-moss-900',
-}
-
-function TestimonialEmbed({ testimonial }: { testimonial: number | Testimonial }) {
-  if (typeof testimonial === 'number') return null
+function TestimonialEmbed({
+  testimonial,
+}: {
+  testimonial: number | Testimonial;
+}) {
+  if (typeof testimonial === "number") return null;
   return (
-    <blockquote className="border-moss-400 bg-ash-100 mt-8 rounded-sm border-l-2 p-6">
+    <blockquote className="border-moss-400 bg-theme-surface mt-8 rounded-sm border-l-2 p-6">
       {testimonial.quote && (
-        <p className="text-ash-800 font-serif text-lg/relaxed">{testimonial.quote}</p>
+        <p className="text-theme-text font-serif text-lg/relaxed">
+          {testimonial.quote}
+        </p>
       )}
       {(testimonial.name || testimonial.title) && (
-        <footer className="text-ash-500 mt-3 text-sm font-medium">
-          {[testimonial.name, testimonial.title].filter(Boolean).join(', ')}
+        <footer className="text-theme-text mt-3 text-sm font-medium">
+          {[testimonial.name, testimonial.title].filter(Boolean).join(", ")}
         </footer>
       )}
     </blockquote>
-  )
+  );
 }
 
 export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
-  const bg = BG_CLASS[block.bgStyle ?? 'cream'] ?? BG_CLASS.cream
-
   return (
-    <section id={block.sectionId ?? undefined} className={`py-20 md:py-28 ${bg}`}>
+    <ThemeSection
+      bgStyle={block.bgStyle}
+      id={block.sectionId ?? undefined}
+      className="py-20 md:py-28"
+    >
       <Container>
         {/* Section label — h2 for correct heading hierarchy (h1 hero → h2 section → h3 items) */}
-        {block.sectionLabel && <Eyebrow className="mb-4">{block.sectionLabel}</Eyebrow>}
+        {block.sectionLabel && (
+          <Eyebrow className="mb-4">{block.sectionLabel}</Eyebrow>
+        )}
 
         {/* Alternating sections */}
         {block.sections && block.sections.length > 0 && (
           <div className="space-y-20 md:space-y-28">
             {block.sections.map((section, index) => {
-              const isEven = index % 2 === 0
+              const isEven = index % 2 === 0;
               return (
                 <div
                   key={section.id}
-                  className={`flex flex-col gap-10 md:flex-row md:items-center md:gap-16 ${!isEven ? 'md:flex-row-reverse' : ''}`}
+                  className={`flex flex-col gap-10 md:flex-row md:items-center md:gap-16 ${!isEven ? "md:flex-row-reverse" : ""}`}
                 >
                   {/* Text side */}
                   <div className="flex-1">
@@ -62,11 +66,13 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
                       {section.heading}
                     </Heading>
                     {section.body && (
-                      <div className="prose prose-lg text-ash-700 max-w-none">
+                      <div className="prose prose-lg text-theme-text-secondary max-w-none">
                         <RichText data={section.body} />
                       </div>
                     )}
-                    {section.testimonial && <TestimonialEmbed testimonial={section.testimonial} />}
+                    {section.testimonial && (
+                      <TestimonialEmbed testimonial={section.testimonial} />
+                    )}
                     {section.link?.href && section.link?.label && (
                       <a
                         href={section.link.href}
@@ -80,18 +86,20 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
                   {/* Visual side — placeholder when no image */}
                   <div className="flex-1">
                     <div
-                      className="bg-ash-200 flex aspect-video items-center justify-center rounded-sm"
+                      className="bg-theme-surface flex aspect-video items-center justify-center rounded-sm"
                       aria-hidden="true"
                     >
-                      <span className="text-ash-400 text-sm">Product visual</span>
+                      <span className="text-theme-text-muted text-sm">
+                        Product visual
+                      </span>
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         )}
       </Container>
-    </section>
-  )
+    </ThemeSection>
+  );
 }

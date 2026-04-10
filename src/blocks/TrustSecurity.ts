@@ -1,16 +1,6 @@
 import type { Block } from 'payload'
 
-const bgStyleField = {
-  name: 'bgStyle',
-  type: 'select' as const,
-  defaultValue: 'ash-light',
-  options: [
-    { label: 'Cream', value: 'cream' },
-    { label: 'White', value: 'white' },
-    { label: 'Ash Light', value: 'ash-light' },
-    { label: 'Forest Dark', value: 'forest-dark' },
-  ],
-}
+import { bgStyleField } from '../fields/bgStyle'
 
 export const TrustSecurityBlock: Block = {
   slug: 'trust-security',

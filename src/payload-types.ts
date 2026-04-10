@@ -455,7 +455,19 @@ export interface Page {
              * Small badge/tag to display near the heading
              */
             badge?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'content-section';
@@ -491,7 +503,19 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'card-grid';
@@ -501,7 +525,19 @@ export interface Page {
             heading?: string | null;
             layout?: ('single' | 'grid' | 'carousel') | null;
             testimonials?: (number | Testimonial)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'testimonial-block';
@@ -525,7 +561,19 @@ export interface Page {
              * Trust signal near CTA (e.g. "Join 200+ advisors")
              */
             microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta-section';
@@ -557,7 +605,19 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'credibility-strip';
@@ -602,7 +662,19 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'feature-deep-dive';
@@ -644,7 +716,19 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'comparison-table';
@@ -679,7 +763,19 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'trust-security';
@@ -699,7 +795,19 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'numbered-steps';
@@ -709,7 +817,19 @@ export interface Page {
             heading?: string | null;
             subheading?: string | null;
             solutions?: (number | Solution)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'solutions-selector';
@@ -726,7 +846,19 @@ export interface Page {
              * Manually select FAQ items (overrides category filter)
              */
             items?: (number | FaqItem)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'faq-accordion';
@@ -743,7 +875,19 @@ export interface Page {
              * Show monthly/annual billing toggle
              */
             showToggle?: boolean | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'pricing-journey';
@@ -758,7 +902,19 @@ export interface Page {
              * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
              */
             microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'newsletter-capture';
@@ -862,7 +1018,19 @@ export interface Page {
              * Standalone closing line after the quotes. DM Sans medium weight.
              */
             closer?: string | null;
-            bgStyle?: ('cream' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'bridge-section';
@@ -894,7 +1062,19 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'ash-light') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'product-features';
@@ -1179,7 +1359,19 @@ export interface Solution {
              * Small badge/tag to display near the heading
              */
             badge?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'content-section';
@@ -1215,7 +1407,19 @@ export interface Solution {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'card-grid';
@@ -1225,7 +1429,19 @@ export interface Solution {
             heading?: string | null;
             layout?: ('single' | 'grid' | 'carousel') | null;
             testimonials?: (number | Testimonial)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'testimonial-block';
@@ -1249,7 +1465,19 @@ export interface Solution {
              * Trust signal near CTA (e.g. "Join 200+ advisors")
              */
             microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta-section';
@@ -1294,7 +1522,19 @@ export interface Solution {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'feature-deep-dive';
@@ -1314,7 +1554,19 @@ export interface Solution {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'numbered-steps';
@@ -1349,7 +1601,19 @@ export interface Solution {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'trust-security';
@@ -1554,7 +1818,19 @@ export interface LandingPage {
              * Small badge/tag to display near the heading
              */
             badge?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'content-section';
@@ -1590,7 +1866,19 @@ export interface LandingPage {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'card-grid';
@@ -1600,7 +1888,19 @@ export interface LandingPage {
             heading?: string | null;
             layout?: ('single' | 'grid' | 'carousel') | null;
             testimonials?: (number | Testimonial)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'testimonial-block';
@@ -1624,7 +1924,19 @@ export interface LandingPage {
              * Trust signal near CTA (e.g. "Join 200+ advisors")
              */
             microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta-section';
@@ -1656,7 +1968,19 @@ export interface LandingPage {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'credibility-strip';
@@ -1701,7 +2025,19 @@ export interface LandingPage {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'feature-deep-dive';
@@ -1736,7 +2072,19 @@ export interface LandingPage {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'trust-security';
@@ -1756,7 +2104,19 @@ export interface LandingPage {
                   id?: string | null;
                 }[]
               | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'numbered-steps';
@@ -1766,7 +2126,19 @@ export interface LandingPage {
             heading?: string | null;
             subheading?: string | null;
             solutions?: (number | Solution)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'solutions-selector';
@@ -1783,7 +2155,19 @@ export interface LandingPage {
              * Manually select FAQ items (overrides category filter)
              */
             items?: (number | FaqItem)[] | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'faq-accordion';
@@ -1798,7 +2182,19 @@ export interface LandingPage {
              * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
              */
             microcopy?: string | null;
-            bgStyle?: ('cream' | 'white' | 'ash-light' | 'forest-dark') | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'newsletter-capture';

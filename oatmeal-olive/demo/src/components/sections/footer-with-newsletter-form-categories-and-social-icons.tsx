@@ -90,7 +90,7 @@ export function FooterWithNewsletterFormCategoriesAndSocialIcons({
   socialLinks?: ReactNode
 } & ComponentProps<'footer'>) {
   return (
-    <footer className={clsx('pt-16', className)} {...props}>
+    <footer className={clsx(className)} {...props}>
       <div className="bg-olive-950/2.5 py-16 text-olive-950 dark:bg-white/5 dark:text-white">
         <Container className="flex flex-col gap-16">
           <div className="grid grid-cols-1 gap-x-6 gap-y-16 text-sm/7 lg:grid-cols-2">

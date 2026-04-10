@@ -1,16 +1,6 @@
 import type { Block } from 'payload'
 
-const bgStyleField = {
-  name: 'bgStyle',
-  type: 'select' as const,
-  defaultValue: 'cream',
-  options: [
-    { label: 'Cream', value: 'cream' },
-    { label: 'White', value: 'white' },
-    { label: 'Ash Light', value: 'ash-light' },
-    { label: 'Forest Dark', value: 'forest-dark' },
-  ],
-}
+import { bgStyleField } from '../fields/bgStyle'
 
 export const ContentSectionBlock: Block = {
   slug: 'content-section',

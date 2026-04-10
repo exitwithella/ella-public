@@ -34,11 +34,11 @@ never ornamental.
 ### Color Restraint
 
 - Lines and structural elements use muted tones that match their adjacent surfaces
-  (e.g., `bg-ash-200` lines on `bg-ash-50` backgrounds), not contrasting colors.
+  (e.g., `bg-ash-200` lines on `bg-sandstone-50` backgrounds), not contrasting colors.
 - Active accents (e.g., `border-moss-600`) are the only structural elements that
   use brand color — used sparingly to mark the current state.
 - Background panels use one step darker than the base (e.g., `bg-ash-100` panel on
-  `bg-ash-50` base) for subtle depth without contrast.
+  `bg-sandstone-50` base) for subtle depth without contrast.
 
 ### Typography as Rhythm
 

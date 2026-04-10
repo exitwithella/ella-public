@@ -35,7 +35,7 @@ ELLA's palette is derived from natural materials: moss, stone, leather, earth. T
 | **Forest**    | `--color-moss-700`      | Core brand color       | `#5A6B4A`  | Primary buttons, headings accent, brand moments |
 | **Mint**      | `--color-moss-400`      | Lighter brand accent   | `#8BAA6E`  | Secondary accents, hover states, highlights     |
 | **Ash**       | `--color-ash-900`       | Text, dark backgrounds | `#2A2E26`  | Body text, dark sections, near-black            |
-| **Cream**     | `--color-ash-50`        | Light backgrounds      | `#F5F5F0`  | Page backgrounds, card backgrounds              |
+| **Cream**     | `--color-sandstone-100`        | Light backgrounds      | `#F5F5F0`  | Page backgrounds, card backgrounds              |
 | **Goldenrod** | `--color-goldenrod-300` | Warm accent            | `#C5A240`  | Highlights, accent moments, "gold leaf" touches |
 
 ### Supporting Colors
@@ -50,7 +50,7 @@ ELLA's palette is derived from natural materials: moss, stone, leather, earth. T
 
 ### Color Rules
 
-1. **Background default is Cream (`ash-50`), not white.** No pure whites anywhere. The warm off-white base is the single biggest differentiator from generic SaaS sites. Reference: Function Health's `#f5eee1`.
+1. **Background default is Cream (`sandstone-100`), not white.** No pure whites anywhere. The warm off-white base is the single biggest differentiator from generic SaaS sites. Reference: Function Health's `#f5eee1`.
 
 2. **Text is Ash (`ash-900`), not black.** The near-black with subtle green undertone maintains warmth throughout.
 
@@ -221,7 +221,7 @@ Pattern for the homepage:
 
 ### Cards (Pillar Cards, Feature Cards)
 
-- **Background:** White or `ash-50` with 1px `ash-200` border
+- **Background:** White or `sandstone-100` with 1px `ash-200` border
 - **Border-radius:** 12-16px (warm, not sharp)
 - **Shadow:** Very subtle, warm-toned (`0 2px 8px rgba(42, 46, 38, 0.06)`) — barely there
 - **Hover:** Slight elevation shift (shadow deepens), border shifts to `moss-300`
@@ -456,7 +456,7 @@ The homepage is the flagship. Everything else cascades from its design. Full con
 
 1. **No dark-mode-default tech aesthetic.** ELLA targets financial advisors, not developers. The site uses warm cream, not near-black. (Exception: the final CTA block and footer can go dark for contrast.)
 
-2. **No pure white backgrounds.** Every "white" surface should be cream (`ash-50`) or warmer.
+2. **No pure white backgrounds.** Every "white" surface should be cream (`sandstone-100`) or warmer.
 
 3. **No cold blues.** The Ocean color is muted and used sparingly for informational elements. No bright blues, no electric accents.
 

@@ -1,44 +1,40 @@
-import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
-import { Container } from '@/components/elements/container'
-import { Heading } from '@/components/elements/heading'
-import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
-import type { Page } from '@/payload-types'
+import { ButtonLink, PlainButtonLink } from "@/components/elements/button";
+import { Container } from "@/components/elements/container";
+import { Heading } from "@/components/elements/heading";
+import { ThemeSection } from "@/components/elements/theme-section";
+import { ArrowNarrowRightIcon } from "@/components/icons/arrow-narrow-right-icon";
+import type { Page } from "@/payload-types";
 
-type CTASectionData = Extract<NonNullable<Page['layout']>[number], { blockType: 'cta-section' }>
+type CTASectionData = Extract<
+  NonNullable<Page["layout"]>[number],
+  { blockType: "cta-section" }
+>;
 
 interface CTASectionBlockProps {
-  block: CTASectionData
-}
-
-const BG_CLASS: Record<string, string> = {
-  cream: 'bg-ash-50',
-  white: 'bg-ash-50',
-  'ash-light': 'bg-ash-100',
-  'forest-dark': 'bg-moss-900',
+  block: CTASectionData;
 }
 
 export function CTASectionBlock({ block }: CTASectionBlockProps) {
-  const bg = BG_CLASS[block.bgStyle ?? 'cream'] ?? BG_CLASS.cream
-  const isForestDark = block.bgStyle === 'forest-dark'
-
   // Body stored as textarea with \n\n paragraph separators
-  const paragraphs = block.body ? block.body.split('\n\n').filter((p) => p.trim().length > 0) : []
+  const paragraphs = block.body
+    ? block.body.split("\n\n").filter((p) => p.trim().length > 0)
+    : [];
 
-  const primaryHref = block.primaryCta?.href ?? 'https://app.exitwithella.io/sign-up'
-  const primaryLabel = block.primaryCta?.label ?? 'Get Started'
+  const primaryHref =
+    block.primaryCta?.href ?? "https://app.exitwithella.io/sign-up";
+  const primaryLabel = block.primaryCta?.label ?? "Get Started";
   const secondaryHref =
-    block.secondaryCta?.href ?? 'https://cal.com/team/ella/ella-intro?overlayCalendar=true'
-  const secondaryLabel = block.secondaryCta?.label ?? 'Book a Demo'
+    block.secondaryCta?.href ??
+    "https://cal.com/team/ella/ella-intro?overlayCalendar=true";
+  const secondaryLabel = block.secondaryCta?.label ?? "Book a Demo";
 
   return (
-    <section className={`py-24 md:py-32 ${bg}`}>
+    <ThemeSection bgStyle={block.bgStyle} className="py-24 md:py-32">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           {/* Optional headline */}
           {block.headline && (
-            <Heading color={isForestDark ? 'cream' : 'dark'} className="mb-8">
-              {block.headline}
-            </Heading>
+            <Heading className="mb-8">{block.headline}</Heading>
           )}
 
           {/* Manifesto body — DM Sans, multi-paragraph */}
@@ -47,7 +43,7 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
               {paragraphs.map((para, index) => (
                 <p
                   key={index}
-                  className={`text-lg/relaxed ${isForestDark ? 'text-ash-200' : 'text-ash-700'}`}
+                  className="text-theme-text-secondary text-lg/relaxed"
                 >
                   {para}
                 </p>
@@ -58,7 +54,9 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
           {/* Closing line — Instrument Serif */}
           {block.closingLine && (
             <p
-              className={`mb-10 font-serif text-xl/relaxed md:text-2xl/relaxed ${isForestDark ? 'text-ash-100' : 'text-ash-800'}`}
+              className={
+                "text-theme-text mb-10 font-serif text-xl/relaxed md:text-3xl/relaxed"
+              }
             >
               {block.closingLine}
             </p>
@@ -69,17 +67,14 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
             <ButtonLink
               href={primaryHref}
               size="lg"
-              color={isForestDark ? 'light' : 'dark/light'}
               target="_blank"
               rel="noopener"
-              className={isForestDark ? 'text-moss-900 hover:bg-ash-100' : undefined}
             >
               {primaryLabel}
             </ButtonLink>
             <PlainButtonLink
               href={secondaryHref}
               size="lg"
-              color={isForestDark ? 'light' : 'dark/light'}
               target="_blank"
               rel="noopener"
             >
@@ -89,12 +84,12 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
 
           {/* Microcopy */}
           {block.microcopy && (
-            <p className={`mt-4 text-sm ${isForestDark ? 'text-ash-400' : 'text-ash-500'}`}>
+            <p className="text-theme-text-muted mt-4 text-sm">
               {block.microcopy}
             </p>
           )}
         </div>
       </Container>
-    </section>
-  )
+    </ThemeSection>
+  );
 }

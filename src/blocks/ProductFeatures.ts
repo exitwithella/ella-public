@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { bgStyleField } from '../fields/bgStyle'
+
 export const ProductFeaturesBlock: Block = {
   slug: 'product-features',
   labels: {
@@ -63,14 +65,6 @@ export const ProductFeaturesBlock: Block = {
         },
       ],
     },
-    {
-      name: 'bgStyle',
-      type: 'select',
-      defaultValue: 'cream',
-      options: [
-        { label: 'Cream', value: 'cream' },
-        { label: 'Ash Light', value: 'ash-light' },
-      ],
-    },
+    bgStyleField,
   ],
 }

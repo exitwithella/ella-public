@@ -1,16 +1,6 @@
 import type { Block } from 'payload'
 
-const bgStyleField = {
-  name: 'bgStyle',
-  type: 'select' as const,
-  defaultValue: 'forest-dark',
-  options: [
-    { label: 'Cream', value: 'cream' },
-    { label: 'White', value: 'white' },
-    { label: 'Ash Light', value: 'ash-light' },
-    { label: 'Forest Dark', value: 'forest-dark' },
-  ],
-}
+import { bgStyleField } from '../fields/bgStyle'
 
 export const CTASectionBlock: Block = {
   slug: 'cta-section',
@@ -69,6 +59,6 @@ export const CTASectionBlock: Block = {
         description: 'Trust signal near CTA (e.g. "Join 200+ advisors")',
       },
     },
-    bgStyleField,
+    { ...bgStyleField, defaultValue: 'forest' },
   ],
 }

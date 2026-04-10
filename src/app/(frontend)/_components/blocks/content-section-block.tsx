@@ -1,43 +1,39 @@
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import { RichText } from "@payloadcms/richtext-lexical/react";
 
-import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
-import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
-import { Heading } from '@/components/elements/heading'
-import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
-import type { Page, Solution } from '@/payload-types'
+import { ButtonLink, PlainButtonLink } from "@/components/elements/button";
+import { Container } from "@/components/elements/container";
+import { Eyebrow } from "@/components/elements/eyebrow";
+import { Heading } from "@/components/elements/heading";
+import { isDarkTheme, ThemeSection } from "@/components/elements/theme-section";
+import { ArrowNarrowRightIcon } from "@/components/icons/arrow-narrow-right-icon";
+import type { Page, Solution } from "@/payload-types";
 
 type ContentSectionData =
-  | Extract<NonNullable<Page['layout']>[number], { blockType: 'content-section' }>
-  | Extract<NonNullable<Solution['layout']>[number], { blockType: 'content-section' }>
+  | Extract<
+      NonNullable<Page["layout"]>[number],
+      { blockType: "content-section" }
+    >
+  | Extract<
+      NonNullable<Solution["layout"]>[number],
+      { blockType: "content-section" }
+    >;
 
 interface ContentSectionBlockProps {
-  block: ContentSectionData
-}
-
-const BG_CLASS: Record<string, string> = {
-  cream: 'bg-ash-50',
-  white: 'bg-ash-50',
-  'ash-light': 'bg-ash-100',
-  'forest-dark': 'bg-moss-900',
+  block: ContentSectionData;
 }
 
 export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
-  const bg = BG_CLASS[block.bgStyle ?? 'cream'] ?? BG_CLASS.cream
-  const isForestDark = block.bgStyle === 'forest-dark'
-  const mediaPos = block.mediaPosition ?? 'none'
-  const hasMedia = mediaPos !== 'none' && block.media
-  const isTwoColumn = hasMedia && (mediaPos === 'left' || mediaPos === 'right')
+  const mediaPos = block.mediaPosition ?? "none";
+  const hasMedia = mediaPos !== "none" && block.media;
+  const isTwoColumn = hasMedia && (mediaPos === "left" || mediaPos === "right");
 
   return (
-    <section className={`py-20 md:py-28 ${bg}`}>
+    <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
       <Container>
         {/* Badge */}
         {block.badge && (
           <span
-            className={`mb-4 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase ${
-              isForestDark ? 'bg-moss-800 text-moss-300' : 'bg-moss-100 text-moss-700'
-            }`}
+            className="bg-theme-surface text-theme-accent mb-4 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase"
           >
             {block.badge}
           </span>
@@ -45,15 +41,15 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
 
         {/* Section label */}
         {block.sectionLabel && (
-          <Eyebrow color={isForestDark ? 'light' : 'moss'} className="mb-4">
+          <Eyebrow className="mb-4">
             {block.sectionLabel}
           </Eyebrow>
         )}
 
         {/* Full-width media above */}
-        {hasMedia && mediaPos === 'top' && (
-          <div className="bg-ash-200 mb-10 flex aspect-video items-center justify-center rounded-sm">
-            <span className="text-ash-400 text-sm">Visual</span>
+        {hasMedia && mediaPos === "top" && (
+          <div className="bg-theme-surface mb-10 flex aspect-video items-center justify-center rounded-sm">
+            <span className="text-theme-text-muted text-sm">Visual</span>
           </div>
         )}
 
@@ -61,21 +57,21 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
         <div
           className={
             isTwoColumn
-              ? `flex flex-col gap-10 md:flex-row md:items-start md:gap-16 ${mediaPos === 'left' ? 'md:flex-row-reverse' : ''}`
-              : ''
+              ? `flex flex-col gap-10 md:flex-row md:items-start md:gap-16 ${mediaPos === "left" ? "md:flex-row-reverse" : ""}`
+              : ""
           }
         >
           {/* Text column */}
-          <div className={isTwoColumn ? 'flex-1' : 'max-w-[680px]'}>
+          <div className={isTwoColumn ? "flex-1" : "max-w-[680px]"}>
             {block.heading && (
-              <Heading color={isForestDark ? 'cream' : 'dark'}>{block.heading}</Heading>
+              <Heading>
+                {block.heading}
+              </Heading>
             )}
 
             {block.body && (
               <div
-                className={`prose prose-lg mt-6 max-w-none ${
-                  isForestDark ? 'prose-invert text-ash-200' : 'text-ash-700'
-                }`}
+                className={`prose prose-lg mt-6 max-w-none text-theme-text-secondary ${isDarkTheme(block.bgStyle) ? "prose-invert" : ""}`}
               >
                 <RichText data={block.body} />
               </div>
@@ -84,13 +80,10 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
             {/* Link */}
             {block.link?.href && block.link?.label && (
               <div className="mt-8">
-                {block.link.style === 'button' ? (
+                {block.link.style === "button" ? (
                   <ButtonLink
                     href={block.link.href}
                     size="lg"
-                    className={
-                      isForestDark ? 'bg-ash-50 text-moss-900 hover:bg-ash-100' : undefined
-                    }
                   >
                     {block.link.label}
                   </ButtonLink>
@@ -98,7 +91,6 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
                   <PlainButtonLink
                     href={block.link.href}
                     size="lg"
-                    className={isForestDark ? 'text-ash-200 hover:text-ash-50' : undefined}
                   >
                     {block.link.label} <ArrowNarrowRightIcon />
                   </PlainButtonLink>
@@ -110,13 +102,13 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
           {/* Media column (two-column mode) */}
           {isTwoColumn && (
             <div className="flex-1">
-              <div className="bg-ash-200 flex aspect-video items-center justify-center rounded-sm">
-                <span className="text-ash-400 text-sm">Visual</span>
+              <div className="bg-theme-surface flex aspect-video items-center justify-center rounded-sm">
+                <span className="text-theme-text-muted text-sm">Visual</span>
               </div>
             </div>
           )}
         </div>
       </Container>
-    </section>
-  )
+    </ThemeSection>
+  );
 }

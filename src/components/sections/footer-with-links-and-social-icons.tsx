@@ -1,18 +1,18 @@
-import { clsx } from 'clsx/lite'
-import type { ComponentProps, ReactNode } from 'react'
+import { clsx } from "clsx/lite";
+import type { ComponentProps, ReactNode } from "react";
 
-import { Container } from '../elements/container'
+import { Container } from "../elements/container";
 
 export function FooterLink({
   href,
   className,
   ...props
-}: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
+}: { href: string } & Omit<ComponentProps<"a">, "href">) {
   return (
-    <li className={clsx('text-ash-700', className)}>
+    <li className={clsx("text-theme-text-secondary", className)}>
       <a href={href} {...props} />
     </li>
-  )
+  );
 }
 
 export function SocialLink({
@@ -21,19 +21,19 @@ export function SocialLink({
   className,
   ...props
 }: {
-  href: string
-  name: string
-} & Omit<ComponentProps<'a'>, 'href'>) {
+  href: string;
+  name: string;
+} & Omit<ComponentProps<"a">, "href">) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener"
       aria-label={name}
-      className={clsx('text-ash-950 *:size-6', className)}
+      className={clsx("text-theme-text *:size-6", className)}
       {...props}
     />
-  )
+  );
 }
 
 export function FooterWithLinksAndSocialIcons({
@@ -43,13 +43,13 @@ export function FooterWithLinksAndSocialIcons({
   className,
   ...props
 }: {
-  links: ReactNode
-  socialLinks?: ReactNode
-  fineprint: ReactNode
-} & ComponentProps<'footer'>) {
+  links: ReactNode;
+  socialLinks?: ReactNode;
+  fineprint: ReactNode;
+} & ComponentProps<"footer">) {
   return (
-    <footer className={clsx('pt-16', className)} {...props}>
-      <div className="bg-ash-950/2.5 text-ash-950 py-16">
+    <footer className={clsx(className)} {...props}>
+      <div className="bg-theme-text/[0.025] text-theme-text py-16">
         <Container className="flex flex-col gap-10 text-center text-sm/7">
           <div className="flex flex-col gap-6">
             <nav aria-label="Footer">
@@ -58,12 +58,14 @@ export function FooterWithLinksAndSocialIcons({
               </ul>
             </nav>
             {socialLinks ? (
-              <div className="flex items-center justify-center gap-10">{socialLinks}</div>
+              <div className="flex items-center justify-center gap-10">
+                {socialLinks}
+              </div>
             ) : null}
           </div>
-          <div className="text-ash-600">{fineprint}</div>
+          <div className="text-theme-text-muted">{fineprint}</div>
         </Container>
       </div>
     </footer>
-  )
+  );
 }

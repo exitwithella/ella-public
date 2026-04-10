@@ -1,6 +1,12 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, useSpring, type MotionValue } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  useSpring,
+  type MotionValue,
+} from "motion/react";
 import { useEffect } from "react";
 
 export const defaultPressureItems = [
@@ -89,7 +95,7 @@ export function PressureWalls({
           width: leftWall,
           opacity: wallOpacity,
           background:
-            "linear-gradient(to right, rgba(196, 198, 192, 1) 0%, rgba(210, 211, 206, 0.97) 70%, rgba(226, 227, 222, 0.85) 100%)",
+            "linear-gradient(to right, rgba(232, 224, 210, 1) 0%, rgba(240, 234, 222, 0.97) 70%, rgba(246, 242, 234, 0.85) 100%)",
         }}
       />
 
@@ -100,23 +106,23 @@ export function PressureWalls({
           opacity: labelOpacity,
         }}
       >
-        <span className="text-goldenrod-700 mb-1 font-sans text-[9px] font-semibold tracking-[0.12em] uppercase md:text-[10px]">
+        <span className="text-ash-600 mb-1 font-mono text-[0.5625rem] font-semibold tracking-[0.12em] uppercase md:text-[0.625rem]">
           Growing Pressure
         </span>
         {leftItems.map((item, i) => (
           <motion.span
             key={item}
-            className="text-ash-700 flex items-center gap-1 text-[10px] font-medium whitespace-nowrap md:text-xs"
+            className="text-ash-600 flex items-center gap-1 text-[0.625rem] font-medium whitespace-nowrap md:text-xs"
             style={{
               opacity: getItemOpacity(step, i, leftItems.length),
             }}
           >
-            <span className="text-moss-600 text-[8px] md:text-[10px]">
+            <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">
               {"\u2192"}
             </span>
             <span className="hidden sm:inline">{item}</span>
             <span className="sm:hidden">{item.split(" ")[0]}</span>
-            <span className="text-moss-600 text-[8px] md:text-[10px]">
+            <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">
               {"\u2192"}
             </span>
           </motion.span>
@@ -130,9 +136,9 @@ export function PressureWalls({
           left: leftWall,
           width: "3px",
           opacity: glowOpacity,
-          background: "oklch(0.55 0.06 130)",
+          background: "oklch(0.72 0.015 65)",
           boxShadow:
-            "0 0 16px 4px oklch(0.55 0.06 130 / 0.2), 0 0 40px 12px oklch(0.55 0.06 130 / 0.08)",
+            "0 0 16px 4px oklch(0.72 0.015 65 / 0.15), 0 0 40px 12px oklch(0.72 0.015 65 / 0.06)",
         }}
       />
 
@@ -143,7 +149,7 @@ export function PressureWalls({
           width: rightWall,
           opacity: wallOpacity,
           background:
-            "linear-gradient(to left, rgba(196, 198, 192, 1) 0%, rgba(210, 211, 206, 0.97) 70%, rgba(226, 227, 222, 0.85) 100%)",
+            "linear-gradient(to left, rgba(232, 224, 210, 1) 0%, rgba(240, 234, 222, 0.97) 70%, rgba(246, 242, 234, 0.85) 100%)",
         }}
       />
 
@@ -154,18 +160,18 @@ export function PressureWalls({
           opacity: labelOpacity,
         }}
       >
-        <span className="text-goldenrod-700 mb-1 font-sans text-[9px] font-semibold tracking-[0.12em] uppercase md:text-[10px]">
+        <span className="text-ash-600 mb-1 font-mono text-[0.5625rem] font-semibold tracking-[0.12em] uppercase md:text-[0.625rem]">
           Eroding Advantage
         </span>
         {rightItems.map((item, i) => (
           <motion.span
             key={item}
-            className="text-ash-700 flex items-center gap-1 text-[10px] font-medium whitespace-nowrap md:text-xs"
+            className="text-ash-600 flex items-center gap-1 text-[0.625rem] font-medium whitespace-nowrap md:text-xs"
             style={{
               opacity: getItemOpacity(step, i, rightItems.length),
             }}
           >
-            <span className="text-moss-600 text-[8px] md:text-[10px]">
+            <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">
               {"\u2190"}
             </span>
             <span className="hidden sm:inline">{item}</span>
@@ -181,9 +187,9 @@ export function PressureWalls({
           right: rightWall,
           width: "3px",
           opacity: glowOpacity,
-          background: "oklch(0.55 0.06 130)",
+          background: "oklch(0.72 0.015 65)",
           boxShadow:
-            "0 0 16px 4px oklch(0.55 0.06 130 / 0.2), 0 0 40px 12px oklch(0.55 0.06 130 / 0.08)",
+            "0 0 16px 4px oklch(0.72 0.015 65 / 0.15), 0 0 40px 12px oklch(0.72 0.015 65 / 0.06)",
         }}
       />
     </>

@@ -1,41 +1,50 @@
-import { RichText } from '@payloadcms/richtext-lexical/react'
-import Image from 'next/image'
-import Link from 'next/link'
+import { RichText } from "@payloadcms/richtext-lexical/react";
+import Image from "next/image";
+import Link from "next/link";
 
-import type { Category, Media, Post, TeamMember } from '@/payload-types'
+import type { Category, Media, Post, TeamMember } from "@/payload-types";
 
-import { calculateReadingTime, formatPublishedDate, getPostUrl } from '../_lib/utils'
-import { BlogCard } from './blog-card'
-import { NewsletterCTA } from './newsletter-cta'
+import {
+  calculateReadingTime,
+  formatPublishedDate,
+  getPostUrl,
+} from "../_lib/utils";
+import { BlogCard } from "./blog-card";
+import { NewsletterCTA } from "./newsletter-cta";
 
 interface PostDetailProps {
-  post: Post
+  post: Post;
 }
 
 export function PostDetail({ post }: PostDetailProps) {
-  const readingTime = calculateReadingTime(post.content)
+  const readingTime = calculateReadingTime(post.content);
   const image =
-    post.featuredImage && typeof post.featuredImage === 'object'
+    post.featuredImage && typeof post.featuredImage === "object"
       ? (post.featuredImage as Media)
-      : null
-  const author = post.author && typeof post.author === 'object' ? (post.author as TeamMember) : null
+      : null;
+  const author =
+    post.author && typeof post.author === "object"
+      ? (post.author as TeamMember)
+      : null;
   const authorPhoto =
-    author?.photo && typeof author.photo === 'object' ? (author.photo as Media) : null
+    author?.photo && typeof author.photo === "object"
+      ? (author.photo as Media)
+      : null;
   const relatedPosts = Array.isArray(post.relatedPosts)
-    ? (post.relatedPosts.filter((p) => typeof p === 'object') as Post[])
-    : []
+    ? (post.relatedPosts.filter((p) => typeof p === "object") as Post[])
+    : [];
 
   return (
     <article>
       {/* Header */}
-      <header className="bg-ash-50 py-16 md:py-24">
+      <header className="bg-sandstone-50 py-16 md:py-24">
         <div className="mx-auto w-full max-w-[720px] px-6">
           {/* Category tags */}
           {Array.isArray(post.categories) && post.categories.length > 0 && (
             <div className="mb-6 flex flex-wrap gap-2">
               {post.categories.map((cat) => {
-                if (typeof cat !== 'object') return null
-                const c = cat as Category
+                if (typeof cat !== "object") return null;
+                const c = cat as Category;
                 return (
                   <Link
                     key={c.id}
@@ -44,7 +53,7 @@ export function PostDetail({ post }: PostDetailProps) {
                   >
                     {c.title}
                   </Link>
-                )
+                );
               })}
             </div>
           )}
@@ -78,12 +87,16 @@ export function PostDetail({ post }: PostDetailProps) {
                 <p className="text-ash-800 text-sm font-semibold">
                   {author.name}
                   {author.role && (
-                    <span className="text-ash-500 font-normal"> · {author.role}</span>
+                    <span className="text-ash-1000 font-normal">
+                      {" "}
+                      · {author.role}
+                    </span>
                   )}
                 </p>
               )}
-              <p className="text-ash-500 mt-0.5 text-sm">
-                {formatPublishedDate(post.publishedDate)} · {readingTime} min read
+              <p className="text-ash-1000 mt-0.5 text-sm">
+                {formatPublishedDate(post.publishedDate)} · {readingTime} min
+                read
               </p>
             </div>
           </div>
@@ -109,7 +122,7 @@ export function PostDetail({ post }: PostDetailProps) {
       {/* Body */}
       <div className="mx-auto w-full max-w-[720px] px-6 py-8 md:py-12">
         {post.content && (
-          <div className="prose prose-lg [&_h2]:font-display [&_h2]:text-ash-900 [&_h3]:font-display [&_h3]:text-ash-900 [&_p]:text-ash-700 [&_li]:text-ash-700 [&_blockquote]:border-moss-400 [&_blockquote]:text-ash-700 [&_a]:text-moss-700 hover:[&_a]:text-moss-600 max-w-none text-[17px]/[1.65] [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:border-l-2 [&_blockquote]:pl-6 [&_blockquote]:font-serif [&_blockquote]:text-xl [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:text-lg [&_h3]:font-semibold [&_p]:mb-5 [&_p]:leading-[1.65]">
+          <div className="prose prose-lg [&_h2]:font-display [&_h2]:text-ash-900 [&_h3]:font-display [&_h3]:text-ash-900 [&_p]:text-ash-700 [&_li]:text-ash-700 [&_blockquote]:border-moss-400 [&_blockquote]:text-ash-700 [&_a]:text-moss-700 hover:[&_a]:text-moss-600 max-w-none text-[1.0625rem]/[1.65] [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:border-l-2 [&_blockquote]:pl-6 [&_blockquote]:font-serif [&_blockquote]:text-xl [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:text-lg [&_h3]:font-semibold [&_p]:mb-5 [&_p]:leading-[1.65]">
             <RichText data={post.content} />
           </div>
         )}
@@ -148,5 +161,5 @@ export function PostDetail({ post }: PostDetailProps) {
         </Link>
       </div>
     </article>
-  )
+  );
 }
