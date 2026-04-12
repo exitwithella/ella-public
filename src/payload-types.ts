@@ -745,31 +745,57 @@ export interface Page {
              * Wrap words in *asterisks* to render them in italic.
              */
             heading?: string | null;
+            intro?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
             /**
-             * Wrap words in *asterisks* to render them in italic.
+             * Optional CTA button displayed below the intro text.
              */
-            intro?: string | null;
+            link?: {
+              label?: string | null;
+              href?: string | null;
+            };
             /**
-             * Content sections displayed in a two-column grid.
+             * Items displayed in a 2-column grid to the right of the heading.
              */
             sections?:
               | {
                   title: string;
-                  body?: string | null;
                   /**
-                   * Optional heading above the bullet list (e.g. "You're in Good Hands").
+                   * Short description (1-2 sentences).
                    */
-                  bulletHeading?: string | null;
-                  bulletItems?:
-                    | {
-                        label: string;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  column?: ('left' | 'right') | null;
+                  body?: string | null;
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Decorative SVG pattern displayed as the section background.
+             */
+            patternSvg?: (number | null) | Media;
+            /**
+             * CSS color for the SVG pattern fill (e.g. "var(--color-moss-300)", "#5A6B4A"). Leave blank to use the theme border color.
+             */
+            patternColor?: string | null;
+            /**
+             * CSS color for the section/pattern background (e.g. "var(--color-sandstone-100)"). Leave blank to use the theme background.
+             */
+            backgroundColor?: string | null;
+            /**
+             * CSS color for the content panel (e.g. "var(--color-sandstone-50)"). Leave blank to use the theme background.
+             */
+            contentBackgroundColor?: string | null;
             bgStyle?:
               | (
                   | 'sandstone'
@@ -1679,31 +1705,57 @@ export interface Solution {
              * Wrap words in *asterisks* to render them in italic.
              */
             heading?: string | null;
+            intro?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
             /**
-             * Wrap words in *asterisks* to render them in italic.
+             * Optional CTA button displayed below the intro text.
              */
-            intro?: string | null;
+            link?: {
+              label?: string | null;
+              href?: string | null;
+            };
             /**
-             * Content sections displayed in a two-column grid.
+             * Items displayed in a 2-column grid to the right of the heading.
              */
             sections?:
               | {
                   title: string;
-                  body?: string | null;
                   /**
-                   * Optional heading above the bullet list (e.g. "You're in Good Hands").
+                   * Short description (1-2 sentences).
                    */
-                  bulletHeading?: string | null;
-                  bulletItems?:
-                    | {
-                        label: string;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  column?: ('left' | 'right') | null;
+                  body?: string | null;
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Decorative SVG pattern displayed as the section background.
+             */
+            patternSvg?: (number | null) | Media;
+            /**
+             * CSS color for the SVG pattern fill (e.g. "var(--color-moss-300)", "#5A6B4A"). Leave blank to use the theme border color.
+             */
+            patternColor?: string | null;
+            /**
+             * CSS color for the section/pattern background (e.g. "var(--color-sandstone-100)"). Leave blank to use the theme background.
+             */
+            backgroundColor?: string | null;
+            /**
+             * CSS color for the content panel (e.g. "var(--color-sandstone-50)"). Leave blank to use the theme background.
+             */
+            contentBackgroundColor?: string | null;
             bgStyle?:
               | (
                   | 'sandstone'
@@ -2157,31 +2209,57 @@ export interface LandingPage {
              * Wrap words in *asterisks* to render them in italic.
              */
             heading?: string | null;
+            intro?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
             /**
-             * Wrap words in *asterisks* to render them in italic.
+             * Optional CTA button displayed below the intro text.
              */
-            intro?: string | null;
+            link?: {
+              label?: string | null;
+              href?: string | null;
+            };
             /**
-             * Content sections displayed in a two-column grid.
+             * Items displayed in a 2-column grid to the right of the heading.
              */
             sections?:
               | {
                   title: string;
-                  body?: string | null;
                   /**
-                   * Optional heading above the bullet list (e.g. "You're in Good Hands").
+                   * Short description (1-2 sentences).
                    */
-                  bulletHeading?: string | null;
-                  bulletItems?:
-                    | {
-                        label: string;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  column?: ('left' | 'right') | null;
+                  body?: string | null;
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Decorative SVG pattern displayed as the section background.
+             */
+            patternSvg?: (number | null) | Media;
+            /**
+             * CSS color for the SVG pattern fill (e.g. "var(--color-moss-300)", "#5A6B4A"). Leave blank to use the theme border color.
+             */
+            patternColor?: string | null;
+            /**
+             * CSS color for the section/pattern background (e.g. "var(--color-sandstone-100)"). Leave blank to use the theme background.
+             */
+            backgroundColor?: string | null;
+            /**
+             * CSS color for the content panel (e.g. "var(--color-sandstone-50)"). Leave blank to use the theme background.
+             */
+            contentBackgroundColor?: string | null;
             bgStyle?:
               | (
                   | 'sandstone'
@@ -3079,21 +3157,23 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               heading?: T;
               intro?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
               sections?:
                 | T
                 | {
                     title?: T;
                     body?: T;
-                    bulletHeading?: T;
-                    bulletItems?:
-                      | T
-                      | {
-                          label?: T;
-                          id?: T;
-                        };
-                    column?: T;
                     id?: T;
                   };
+              patternSvg?: T;
+              patternColor?: T;
+              backgroundColor?: T;
+              contentBackgroundColor?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -3506,21 +3586,23 @@ export interface LandingPagesSelect<T extends boolean = true> {
           | {
               heading?: T;
               intro?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
               sections?:
                 | T
                 | {
                     title?: T;
                     body?: T;
-                    bulletHeading?: T;
-                    bulletItems?:
-                      | T
-                      | {
-                          label?: T;
-                          id?: T;
-                        };
-                    column?: T;
                     id?: T;
                   };
+              patternSvg?: T;
+              patternColor?: T;
+              backgroundColor?: T;
+              contentBackgroundColor?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -3932,21 +4014,23 @@ export interface SolutionsSelect<T extends boolean = true> {
           | {
               heading?: T;
               intro?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
               sections?:
                 | T
                 | {
                     title?: T;
                     body?: T;
-                    bulletHeading?: T;
-                    bulletItems?:
-                      | T
-                      | {
-                          label?: T;
-                          id?: T;
-                        };
-                    column?: T;
                     id?: T;
                   };
+              patternSvg?: T;
+              patternColor?: T;
+              backgroundColor?: T;
+              contentBackgroundColor?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;

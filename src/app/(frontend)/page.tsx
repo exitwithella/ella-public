@@ -17,7 +17,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero hero={page.hero} />
-      <div className="relative z-10 bg-sandstone-50">
+      <div className="bg-sandstone-50 relative z-10">
         {page.layout?.map((block) => (
           <BlockRenderer key={block.id} block={block} />
         ))}

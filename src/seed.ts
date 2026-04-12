@@ -733,35 +733,36 @@ async function seed() {
     {
       blockType: 'trust-security',
       heading: 'Secure, because *both* of our reputations are on the line.',
-      intro:
-        'We know trust is earned\u2014and essential when you\u2019re the steward of your clients\u2019 most valuable asset. That\u2019s why ELLA is built with a security-first mindset, grounded in transparency and respect for your data *and* your clients\u2019 data.',
+      intro: makeRichText(
+        'We know trust is earned\u2014and essential when you\u2019re the steward of your clients\u2019 most valuable asset. That\u2019s why ELLA is built with a security-first mindset, grounded in transparency and respect for your data and your clients\u2019 data.',
+      ),
+      link: {
+        label: 'Learn more',
+        href: '/security',
+      },
       sections: [
         {
           title: 'Secure by Design',
-          body: 'We design our systems and processes in alignment with leading security frameworks. Our practices are informed by these standards to ensure robust security, access control, and data protection.\n\nAll data on ELLA is encrypted in transit and at rest. We use modern SOC2/II compliant infrastructure providers like Vercel and Cloudflare. Strict access controls, internal policies, and multi-factor authentication (MFA) safeguard your information within our company.',
-          bulletHeading: "You're in Good Hands",
-          bulletItems: [
-            { label: 'Full data encryption' },
-            { label: 'Modern U.S.-based Infrastructure' },
-            { label: 'GDPR & CCPA Adherence' },
-            { label: 'Granular Access Control (RBAC)' },
-            { label: 'Multi-factor Auth by Default' },
-            { label: 'Enterprise SSO / SAML' },
-          ],
-          column: 'left',
+          body: 'All data encrypted in transit and at rest. SOC 2-aligned infrastructure with strict access controls and multi-factor authentication.',
         },
         {
-          title: 'Your data, always',
-          body: 'When advisors use ELLA to support their clients, they remain in control. Only those you explicitly invite can access your organization or client workbenches. We don\u2019t share your business information without your permission.',
-          column: 'right',
+          title: 'Your Data, Always',
+          body: 'You remain in control. Only those you explicitly invite can access your organization or client workbenches.',
         },
         {
           title: 'Privacy Built-In',
-          body: 'We follow U.S. state privacy laws and align with international standards like GDPR. Users can export or delete their data at any time. ELLA never sells your data, and only processes it to provide the services you\u2019ve signed up for.',
-          column: 'right',
+          body: 'Aligned with GDPR and U.S. state privacy laws. Export or delete your data at any time. We never sell your data.',
+        },
+        {
+          title: 'Enterprise Ready',
+          body: 'SSO, SAML, and granular role-based access control for teams of any size.',
         },
       ],
-      bgStyle: 'ash-light',
+      patternSvg: null as number | null,
+      patternColor: null as string | null,
+      backgroundColor: null as string | null,
+      contentBackgroundColor: null as string | null,
+      bgStyle: 'brand-black',
     },
     // Block 6: Before/After Panel
     {

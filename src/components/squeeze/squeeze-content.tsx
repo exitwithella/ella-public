@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   motion,
@@ -7,33 +7,33 @@ import {
   useInView,
   useMotionValue,
   type MotionValue,
-} from "motion/react";
-import { useEffect, useRef, useCallback, useState } from "react";
+} from 'motion/react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 
 function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < breakpoint);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, [breakpoint]);
-  return isMobile;
+    const check = () => setIsMobile(window.innerWidth < breakpoint)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [breakpoint])
+  return isMobile
 }
 
 export interface SqueezeQuote {
-  text: string;
-  attribution?: string | null;
+  text: string
+  attribution?: string | null
 }
 
 export interface SqueezeContentProps {
-  step: number;
-  onStepChange: (step: number) => void;
-  bodyParagraphs: string[];
-  quotes: SqueezeQuote[];
-  closer?: string | null;
-  pressureItems: string[];
-  erosionItems: string[];
+  step: number
+  onStepChange: (step: number) => void
+  bodyParagraphs: string[]
+  quotes: SqueezeQuote[]
+  closer?: string | null
+  pressureItems: string[]
+  erosionItems: string[]
 }
 
 /** Shared hook for step-based scroll tracking and spring animation */
@@ -42,40 +42,40 @@ function useStepTracking<T extends HTMLElement = HTMLDivElement>(
   step: number,
   onStepChange: (step: number) => void,
 ): {
-  ref: React.RefObject<T | null>;
-  opacity: number;
-  springVal: MotionValue<number>;
+  ref: React.RefObject<T | null>
+  opacity: number
+  springVal: MotionValue<number>
 } {
-  const ref = useRef<T>(null);
+  const ref = useRef<T>(null)
   const isInView = useInView(ref, {
-    margin: "-45% 0px -45% 0px",
+    margin: '-45% 0px -45% 0px',
     once: false,
-  });
+  })
 
   useEffect(() => {
     if (isInView && index + 1 > step) {
-      onStepChange(index + 1);
+      onStepChange(index + 1)
     } else if (!isInView && index + 1 === step && step > 0) {
-      onStepChange(index);
+      onStepChange(index)
     }
-  }, [isInView, index, step, onStepChange]);
+  }, [isInView, index, step, onStepChange])
 
-  const stepVal = useMotionValue(step);
+  const stepVal = useMotionValue(step)
   const springVal = useSpring(stepVal, {
     stiffness: 100,
     damping: 18,
     mass: 0.6,
-  });
+  })
 
   useEffect(() => {
-    stepVal.set(step);
-  }, [step, stepVal]);
+    stepVal.set(step)
+  }, [step, stepVal])
 
-  const revealed = useRef(false);
-  if (step > index) revealed.current = true;
-  const opacity = revealed.current ? 1 : 0.4;
+  const revealed = useRef(false)
+  if (step > index) revealed.current = true
+  const opacity = revealed.current ? 1 : 0.4
 
-  return { ref, opacity, springVal };
+  return { ref, opacity, springVal }
 }
 
 function ContentBlock({
@@ -85,30 +85,26 @@ function ContentBlock({
   onStepChange,
   isMobile,
 }: {
-  children: React.ReactNode;
-  index: number;
-  step: number;
-  onStepChange: (step: number) => void;
-  isMobile: boolean;
+  children: React.ReactNode
+  index: number
+  step: number
+  onStepChange: (step: number) => void
+  isMobile: boolean
 }) {
-  const { ref, opacity, springVal } = useStepTracking(
-    index,
-    step,
-    onStepChange,
-  );
-  const scaleX = useTransform(springVal, [0, 7], [1, 0.92]);
+  const { ref, opacity, springVal } = useStepTracking(index, step, onStepChange)
+  const scaleX = useTransform(springVal, [0, 7], [1, 0.92])
 
   return (
     <motion.div
       ref={ref}
       animate={{ opacity }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
       style={isMobile ? undefined : { scaleX }}
       className="relative z-20 origin-center"
     >
       {children}
     </motion.div>
-  );
+  )
 }
 
 /** Mobile-only inline callout that shows pressure/erosion items */
@@ -118,28 +114,28 @@ function InlineCallout({
   pressureItems,
   erosionItems,
 }: {
-  type: "pressure" | "erosion";
-  itemIndex: number;
-  pressureItems: string[];
-  erosionItems: string[];
+  type: 'pressure' | 'erosion'
+  itemIndex: number
+  pressureItems: string[]
+  erosionItems: string[]
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, {
-    margin: "-80% 0px 0px 0px",
+    margin: '-80% 0px 0px 0px',
     once: true,
-  });
+  })
 
-  const items = type === "pressure" ? pressureItems : erosionItems;
-  const item = items[itemIndex];
-  if (!item) return null;
+  const items = type === 'pressure' ? pressureItems : erosionItems
+  const item = items[itemIndex]
+  if (!item) return null
 
-  const isPressure = type === "pressure";
+  const isPressure = type === 'pressure'
 
   const bgColor = isPressure
-    ? "bg-sandstone-50/90 border-sandstone-100/60"
-    : "bg-sandstone-50/90 border-sandstone-200/60";
-  const labelColor = isPressure ? "text-ash-600" : "text-ash-600";
-  const arrowColor = isPressure ? "text-goldenrod-500" : "text-goldenrod-500";
+    ? 'bg-sandstone-50/90 border-sandstone-100/60'
+    : 'bg-sandstone-50/90 border-sandstone-200/60'
+  const labelColor = isPressure ? 'text-ash-600' : 'text-ash-600'
+  const arrowColor = isPressure ? 'text-goldenrod-500' : 'text-goldenrod-500'
 
   return (
     <motion.div
@@ -156,23 +152,17 @@ function InlineCallout({
         opacity: { duration: 0.3 },
       }}
       className={`text-ash-700 flex items-center gap-2 border px-3 py-2 font-mono text-xs md:hidden ${bgColor} ${
-        isPressure ? "self-start" : "self-end"
+        isPressure ? 'self-start' : 'self-end'
       }`}
     >
-      {isPressure && (
-        <span className={`${arrowColor} text-xs`}>{"\u2192"}</span>
-      )}
-      <span
-        className={`${labelColor} text-[0.625rem] font-semibold tracking-wider uppercase`}
-      >
-        {type === "pressure" ? "Pressure" : "Erosion"}
+      {isPressure && <span className={`${arrowColor} text-xs`}>{'\u2192'}</span>}
+      <span className={`${labelColor} text-[0.625rem] font-semibold tracking-wider uppercase`}>
+        {type === 'pressure' ? 'Pressure' : 'Erosion'}
       </span>
       <span className="text-ash-800">{item}</span>
-      {!isPressure && (
-        <span className={`${arrowColor} text-xs`}>{"\u2190"}</span>
-      )}
+      {!isPressure && <span className={`${arrowColor} text-xs`}>{'\u2190'}</span>}
     </motion.div>
-  );
+  )
 }
 
 function QuoteBlock({
@@ -183,41 +173,31 @@ function QuoteBlock({
   onStepChange,
   isMobile,
 }: {
-  quote: string;
-  attribution: string;
-  step: number;
-  index: number;
-  onStepChange: (step: number) => void;
-  isMobile: boolean;
+  quote: string
+  attribution: string
+  step: number
+  index: number
+  onStepChange: (step: number) => void
+  isMobile: boolean
 }) {
-  const { ref, opacity, springVal } = useStepTracking<HTMLQuoteElement>(
-    index,
-    step,
-    onStepChange,
-  );
-  const scaleX = useTransform(springVal, [0, 7], [1, 0.94]);
-  const rotate = useTransform(
-    springVal,
-    [3, 7],
-    [0, index % 2 === 0 ? -0.5 : 0.5],
-  );
+  const { ref, opacity, springVal } = useStepTracking<HTMLQuoteElement>(index, step, onStepChange)
+  const scaleX = useTransform(springVal, [0, 7], [1, 0.94])
+  const rotate = useTransform(springVal, [3, 7], [0, index % 2 === 0 ? -0.5 : 0.5])
 
   return (
     <motion.blockquote
       ref={ref}
       animate={{ opacity }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
       style={isMobile ? undefined : { scaleX, rotate }}
       className="border-sandstone-300/60 relative z-20 origin-center border-l-2 py-4 pl-6"
     >
-      <p className="text-ash-800 font-serif text-lg leading-relaxed italic md:text-xl">
-        {quote}
-      </p>
+      <p className="text-ash-800 font-serif text-lg leading-relaxed italic md:text-xl">{quote}</p>
       <footer className="text-goldenrod-500 mt-3 text-sm tracking-wide uppercase">
         {attribution}
       </footer>
     </motion.blockquote>
-  );
+  )
 }
 
 export function SqueezeContent({
@@ -229,45 +209,45 @@ export function SqueezeContent({
   pressureItems,
   erosionItems,
 }: SqueezeContentProps) {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile()
 
   const handleStepChange = useCallback(
     (newStep: number) => {
-      onStepChange(newStep);
+      onStepChange(newStep)
     },
     [onStepChange],
-  );
+  )
 
   // Build content items: paragraphs, then quotes, then closer
   // Each gets a sequential index for step tracking
   const contentItems: Array<
-    | { type: "paragraph"; text: string }
-    | { type: "quote"; text: string; attribution: string }
-    | { type: "closer"; text: string }
-  > = [];
+    | { type: 'paragraph'; text: string }
+    | { type: 'quote'; text: string; attribution: string }
+    | { type: 'closer'; text: string }
+  > = []
 
   for (const text of bodyParagraphs) {
-    contentItems.push({ type: "paragraph", text });
+    contentItems.push({ type: 'paragraph', text })
   }
   for (const q of quotes) {
     contentItems.push({
-      type: "quote",
+      type: 'quote',
       text: q.text,
-      attribution: q.attribution ?? "",
-    });
+      attribution: q.attribution ?? '',
+    })
   }
   if (closer) {
-    contentItems.push({ type: "closer", text: closer });
+    contentItems.push({ type: 'closer', text: closer })
   }
 
   // Interleave callouts: pressure before each item, erosion after
-  let calloutIndex = 0;
+  let calloutIndex = 0
 
   return (
     <div className="relative z-20 mx-auto flex max-w-2xl flex-col gap-10 px-6 md:gap-20 md:px-8">
       {contentItems.map((item, i) => {
-        const currentCalloutIndex = calloutIndex;
-        calloutIndex++;
+        const currentCalloutIndex = calloutIndex
+        calloutIndex++
         return (
           <div key={i} className="contents">
             <InlineCallout
@@ -277,20 +257,18 @@ export function SqueezeContent({
               erosionItems={erosionItems}
             />
 
-            {item.type === "paragraph" && (
+            {item.type === 'paragraph' && (
               <ContentBlock
                 index={i}
                 step={step}
                 onStepChange={handleStepChange}
                 isMobile={isMobile}
               >
-                <p className="text-ash-700 text-lg leading-relaxed md:text-xl">
-                  {item.text}
-                </p>
+                <p className="text-ash-700 text-lg leading-relaxed md:text-xl">{item.text}</p>
               </ContentBlock>
             )}
 
-            {item.type === "quote" && (
+            {item.type === 'quote' && (
               <QuoteBlock
                 index={i}
                 step={step}
@@ -301,7 +279,7 @@ export function SqueezeContent({
               />
             )}
 
-            {item.type === "closer" && (
+            {item.type === 'closer' && (
               <ContentBlock
                 index={i}
                 step={step}
@@ -321,8 +299,8 @@ export function SqueezeContent({
               erosionItems={erosionItems}
             />
           </div>
-        );
+        )
       })}
     </div>
-  );
+  )
 }

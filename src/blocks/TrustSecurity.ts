@@ -18,16 +18,30 @@ export const TrustSecurityBlock: Block = {
     },
     {
       name: 'intro',
-      type: 'textarea',
+      type: 'richText',
+    },
+    {
+      name: 'link',
+      type: 'group',
       admin: {
-        description: 'Wrap words in *asterisks* to render them in italic.',
+        description: 'Optional CTA button displayed below the intro text.',
       },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+        },
+        {
+          name: 'href',
+          type: 'text',
+        },
+      ],
     },
     {
       name: 'sections',
       type: 'array',
       admin: {
-        description: 'Content sections displayed in a two-column grid.',
+        description: 'Items displayed in a 2-column grid to the right of the heading.',
       },
       fields: [
         {
@@ -38,35 +52,43 @@ export const TrustSecurityBlock: Block = {
         {
           name: 'body',
           type: 'textarea',
-        },
-        {
-          name: 'bulletHeading',
-          type: 'text',
           admin: {
-            description: 'Optional heading above the bullet list (e.g. "You\'re in Good Hands").',
+            description: 'Short description (1-2 sentences).',
           },
         },
-        {
-          name: 'bulletItems',
-          type: 'array',
-          fields: [
-            {
-              name: 'label',
-              type: 'text',
-              required: true,
-            },
-          ],
-        },
-        {
-          name: 'column',
-          type: 'select',
-          defaultValue: 'left',
-          options: [
-            { label: 'Left', value: 'left' },
-            { label: 'Right', value: 'right' },
-          ],
-        },
       ],
+    },
+    {
+      name: 'patternSvg',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Decorative SVG pattern displayed as the section background.',
+      },
+    },
+    {
+      name: 'patternColor',
+      type: 'text',
+      admin: {
+        description:
+          'CSS color for the SVG pattern fill (e.g. "var(--color-moss-300)", "#5A6B4A"). Leave blank to use the theme border color.',
+      },
+    },
+    {
+      name: 'backgroundColor',
+      type: 'text',
+      admin: {
+        description:
+          'CSS color for the section/pattern background (e.g. "var(--color-sandstone-100)"). Leave blank to use the theme background.',
+      },
+    },
+    {
+      name: 'contentBackgroundColor',
+      type: 'text',
+      admin: {
+        description:
+          'CSS color for the content panel (e.g. "var(--color-sandstone-50)"). Leave blank to use the theme background.',
+      },
     },
     bgStyleField,
   ],

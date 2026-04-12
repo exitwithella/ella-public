@@ -1,104 +1,145 @@
-import type { ReactNode } from 'react'
+import { RichText } from "@payloadcms/richtext-lexical/react";
+import type { ReactNode } from "react";
 
-import { Container } from '@/components/elements/container'
-import { Heading } from '@/components/elements/heading'
-import { ThemeSection } from '@/components/elements/theme-section'
-import type { Page } from '@/payload-types'
+import { ButtonLink } from "@/components/elements/button";
+import { Container } from "@/components/elements/container";
+import { Heading } from "@/components/elements/heading";
+import { isDarkTheme, ThemeSection } from "@/components/elements/theme-section";
+import type { Media, Page } from "@/payload-types";
 
 type TrustSecurityData = Extract<
-  NonNullable<Page['layout']>[number],
-  { blockType: 'trust-security' }
->
+  NonNullable<Page["layout"]>[number],
+  { blockType: "trust-security" }
+>;
 
 interface TrustSecurityBlockProps {
-  block: TrustSecurityData
+  block: TrustSecurityData;
 }
 
 /**
  * Parses *asterisk-wrapped* segments into <em> elements.
- * Returns a ReactNode array safe for JSX rendering.
  */
 function parseEmphasis(text: string): ReactNode[] {
-  const parts = text.split(/(\*[^*]+\*)/)
+  const parts = text.split(/(\*[^*]+\*|_[^_]+_)/);
   return parts.map((part, i) => {
-    if (part.startsWith('*') && part.endsWith('*')) {
-      return <em key={i}>{part.slice(1, -1)}</em>
+    if (
+      (part.startsWith("*") && part.endsWith("*")) ||
+      (part.startsWith("_") && part.endsWith("_"))
+    ) {
+      return <em key={i}>{part.slice(1, -1)}</em>;
     }
-    return part
-  })
+    return part;
+  });
 }
 
-type Section = NonNullable<TrustSecurityData['sections']>[number]
+async function fetchSvgDataUri(media: Media): Promise<string | null> {
+  const url = media.url;
+  if (!url || !media.mimeType?.includes("svg")) return null;
 
-function SectionCard({ section }: { section: Section }) {
-  return (
-    <div>
-      <h3 className="text-theme-text mb-3 text-lg font-bold">{section.title}</h3>
-
-      {section.body && (
-        <div className="text-theme-text-secondary space-y-4 text-base/relaxed">
-          {section.body.split('\n\n').map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
-        </div>
-      )}
-
-      {section.bulletHeading && (
-        <h4 className="text-theme-text mt-6 mb-3 text-base font-bold">{section.bulletHeading}</h4>
-      )}
-
-      {section.bulletItems && section.bulletItems.length > 0 && (
-        <ul className="border-theme-border space-y-2 border-b pb-6">
-          {section.bulletItems.map((item) => (
-            <li key={item.id} className="text-theme-text-secondary text-sm/relaxed">
-              {item.label}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  )
+  try {
+    const absoluteUrl = url.startsWith("http")
+      ? url
+      : `${process.env.NEXT_PUBLIC_SERVER_URL ?? "http://localhost:3000"}${url}`;
+    const res = await fetch(absoluteUrl, { next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    const svg = await res.text();
+    const encoded = encodeURIComponent(svg);
+    return `url("data:image/svg+xml,${encoded}")`;
+  } catch {
+    return null;
+  }
 }
 
-export function TrustSecurityBlock({ block }: TrustSecurityBlockProps) {
-  const leftSections = block.sections?.filter((s) => s.column === 'left') ?? []
-  const rightSections = block.sections?.filter((s) => s.column === 'right') ?? []
+const patternStyle = (dataUri: string, color: string | null | undefined) =>
+  ({
+    maskImage: dataUri,
+    WebkitMaskImage: dataUri,
+    maskRepeat: "repeat",
+    WebkitMaskRepeat: "repeat",
+    maskSize: "400px",
+    WebkitMaskSize: "400px",
+    backgroundColor: color || undefined,
+  }) as const;
+
+const bgColorStyle = (color: string | null | undefined) =>
+  color ? ({ backgroundColor: color }) as const : undefined;
+
+
+export async function TrustSecurityBlock({ block }: TrustSecurityBlockProps) {
+  const patternMedia =
+    block.patternSvg && typeof block.patternSvg !== "number"
+      ? block.patternSvg
+      : null;
+  const patternDataUri = patternMedia
+    ? await fetchSvgDataUri(patternMedia)
+    : null;
+  const sections = block.sections ?? [];
 
   return (
-    <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
+    <ThemeSection
+      bgStyle={block.bgStyle}
+      className="py-16 md:py-20"
+      style={bgColorStyle(block.backgroundColor)}
+    >
       <Container>
-        <div className="mx-auto max-w-5xl">
-          {block.heading && <Heading className="mb-8">{parseEmphasis(block.heading)}</Heading>}
-
-          {(block.heading || block.intro) && <hr className="border-theme-border mb-8" />}
-
-          {block.intro && (
-            <p className="text-theme-text-secondary mb-14 max-w-4xl text-base/relaxed">
-              {parseEmphasis(block.intro)}
-            </p>
+        <div className="relative flex min-h-[400px] flex-col items-end overflow-hidden">
+          {patternDataUri && (
+            <div
+              className="absolute inset-0 z-0"
+              style={patternStyle(patternDataUri, block.patternColor)}
+            />
           )}
 
-          {(leftSections.length > 0 || rightSections.length > 0) && (
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-16">
-              {leftSections.length > 0 && (
-                <div className="space-y-8 lg:col-span-3">
-                  {leftSections.map((section) => (
-                    <SectionCard key={section.id} section={section} />
-                  ))}
-                </div>
-              )}
+          <div
+            className="bg-theme-bg relative z-10 mx-6 mt-auto p-6 md:mx-10 lg:mx-16 lg:px-12 lg:pt-12"
+            style={bgColorStyle(block.contentBackgroundColor)}
+          >
+            <div className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-10">
+              <div>
+                {block.heading && (
+                  <Heading className="mb-3 text-2xl md:text-3xl">
+                    {parseEmphasis(block.heading)}
+                  </Heading>
+                )}
 
-              {rightSections.length > 0 && (
-                <div className="space-y-10 lg:col-span-2">
-                  {rightSections.map((section) => (
-                    <SectionCard key={section.id} section={section} />
+                {block.intro && (
+                  <div
+                    className={`prose prose-sm text-theme-text-secondary mb-6 max-w-none ${isDarkTheme(block.bgStyle) ? "prose-invert" : ""}`}
+                  >
+                    <RichText data={block.intro} />
+                  </div>
+                )}
+
+                {block.link?.href && block.link.label && (
+                  <ButtonLink href={block.link.href} color="auto">
+                    {block.link.label}
+                  </ButtonLink>
+                )}
+              </div>
+
+              {sections.length > 0 && (
+                <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2 md:gap-y-6">
+                  {sections.map((item) => (
+                    <div
+                      key={item.id}
+                      className="border-theme-border border-t pt-3"
+                    >
+                      <h3 className="text-theme-text mb-1.5 text-sm font-bold tracking-wider uppercase">
+                        {parseEmphasis(item.title)}
+                      </h3>
+                      {item.body && (
+                        <p className="text-theme-text-secondary text-xs/relaxed">
+                          {item.body}
+                        </p>
+                      )}
+                    </div>
                   ))}
                 </div>
               )}
             </div>
-          )}
+          </div>
         </div>
       </Container>
     </ThemeSection>
-  )
+  );
 }

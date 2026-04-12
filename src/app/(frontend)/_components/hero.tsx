@@ -125,132 +125,131 @@ export function Hero({ hero }: HeroProps) {
 
   return (
     <>
-    <section className="pt-24 md:pt-36">
-      <Container className="flex flex-col items-center gap-6">
-        {/* Announcement Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            damping: 29,
-            delay: 2.7,
-            mass: 8.8,
-            stiffness: 378,
-            type: 'spring',
-          }}
-        >
-          <AnnouncementBadge href={BADGE.href} text={BADGE.text} cta={BADGE.cta} />
-        </motion.div>
-
-        {/* Headlines */}
-        <h1 className="font-display text-theme-text flex flex-col items-center text-center text-2xl font-bold text-balance md:text-4xl">
-          {line1Animation === 'blur-fade' ? (
-            <AnimatedSecondLine text={line1} delay={0} />
-          ) : (
-            <AnimatedHeadlineLine
-              text={line1}
-              baseDelay={0}
-              highlight={hero.highlightText}
-              highlightClass={highlightClass}
-            />
-          )}
-          {line2 &&
-            (line2Animation === 'word-by-word' ? (
-              <AnimatedHeadlineLine text={line2} baseDelay={1.25} />
-            ) : (
-              <AnimatedSecondLine text={line2} />
-            ))}
-        </h1>
-
-        {/* Subheadline */}
-        {hero.subheadline && (
+      <section className="pt-24 md:pt-36">
+        <Container className="flex flex-col items-center gap-6">
+          {/* Announcement Badge */}
           <motion.div
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
               damping: 29,
-              delay: 2.3,
+              delay: 2.7,
               mass: 8.8,
               stiffness: 378,
               type: 'spring',
             }}
           >
-            <Text className="max-w-md text-center text-xl text-pretty md:text-2xl">
-              {hero.subheadline}
-            </Text>
+            <AnnouncementBadge href={BADGE.href} text={BADGE.text} cta={BADGE.cta} />
           </motion.div>
-        )}
 
-        {/* CTAs */}
-        <motion.div
-          className="flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row"
-          initial={{ opacity: 0, y: 150 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            bounce: 0.2,
-            delay: 2.5,
-            duration: 0.4,
-            type: 'spring',
-          }}
-        >
-          <ButtonLink
-            href={primaryHref}
-            size="lg"
-            target="_blank"
-            rel="noopener"
-            className="w-full sm:w-auto"
+          {/* Headlines */}
+          <h1 className="font-display text-theme-text flex flex-col items-center text-center text-2xl font-bold text-balance md:text-4xl">
+            {line1Animation === 'blur-fade' ? (
+              <AnimatedSecondLine text={line1} delay={0} />
+            ) : (
+              <AnimatedHeadlineLine
+                text={line1}
+                baseDelay={0}
+                highlight={hero.highlightText}
+                highlightClass={highlightClass}
+              />
+            )}
+            {line2 &&
+              (line2Animation === 'word-by-word' ? (
+                <AnimatedHeadlineLine text={line2} baseDelay={1.25} />
+              ) : (
+                <AnimatedSecondLine text={line2} />
+              ))}
+          </h1>
+
+          {/* Subheadline */}
+          {hero.subheadline && (
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                damping: 29,
+                delay: 2.3,
+                mass: 8.8,
+                stiffness: 378,
+                type: 'spring',
+              }}
+            >
+              <Text className="max-w-md text-center text-xl text-pretty md:text-2xl">
+                {hero.subheadline}
+              </Text>
+            </motion.div>
+          )}
+
+          {/* CTAs */}
+          <motion.div
+            className="flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row"
+            initial={{ opacity: 0, y: 150 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              bounce: 0.2,
+              delay: 2.5,
+              duration: 0.4,
+              type: 'spring',
+            }}
           >
-            {primaryLabel}
-          </ButtonLink>
-          <PlainButtonLink
-            href={secondaryHref}
-            size="lg"
-            target="_blank"
-            rel="noopener"
-            className="w-full sm:w-auto"
+            <ButtonLink
+              href={primaryHref}
+              size="lg"
+              target="_blank"
+              rel="noopener"
+              className="w-full sm:w-auto"
+            >
+              {primaryLabel}
+            </ButtonLink>
+            <PlainButtonLink
+              href={secondaryHref}
+              size="lg"
+              target="_blank"
+              rel="noopener"
+              className="w-full sm:w-auto"
+            >
+              {secondaryLabel} <ArrowNarrowRightIcon />
+            </PlainButtonLink>
+          </motion.div>
+
+          <motion.div
+            className="text-theme-text-secondary text-sm/7"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.8, duration: 0.4 }}
           >
-            {secondaryLabel} <ArrowNarrowRightIcon />
-          </PlainButtonLink>
-        </motion.div>
+            {FOOTNOTE}
+          </motion.div>
+        </Container>
+      </section>
 
-        <motion.div
-          className="text-theme-text-secondary text-sm/7"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.8, duration: 0.4 }}
-        >
-          {FOOTNOTE}
-        </motion.div>
-
-      </Container>
-    </section>
-
-    {/* Hero Image — sticky sibling so layout blocks act as its scroll runway.
+      {/* Hero Image — sticky sibling so layout blocks act as its scroll runway.
         Sticks at top-0; the z-10 layout blocks scroll up and cover it. */}
-    <div className="sticky top-(--scroll-padding-top) z-0">
-      <Container>
-        <motion.div
-          className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-sm"
-          initial={{ opacity: 0, y: 150 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            bounce: 0.2,
-            delay: 2.7,
-            duration: 0.4,
-            type: 'spring',
-          }}
-        >
-          <Image
-            src={HERO_IMAGE.src}
-            alt={HERO_IMAGE.alt}
-            width={1600}
-            height={900}
-            className="w-full"
-            priority
-          />
-        </motion.div>
-      </Container>
-    </div>
+      <div className="sticky top-(--scroll-padding-top) z-0">
+        <Container>
+          <motion.div
+            className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-sm"
+            initial={{ opacity: 0, y: 150 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              bounce: 0.2,
+              delay: 2.7,
+              duration: 0.4,
+              type: 'spring',
+            }}
+          >
+            <Image
+              src={HERO_IMAGE.src}
+              alt={HERO_IMAGE.alt}
+              width={1600}
+              height={900}
+              className="w-full"
+              priority
+            />
+          </motion.div>
+        </Container>
+      </div>
     </>
   )
 }
