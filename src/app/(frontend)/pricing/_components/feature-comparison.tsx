@@ -1,25 +1,19 @@
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 
 // Reuse CellValue pattern from comparison-table-block.tsx
 function CellValue({
   text,
   indicator,
 }: {
-  text?: string;
-  indicator?: "check" | "cross" | "partial" | "text";
+  text?: string
+  indicator?: 'check' | 'cross' | 'partial' | 'text'
 }) {
-  if (indicator === "check") {
+  if (indicator === 'check') {
     return (
       <span className="text-moss-600 inline-flex items-center justify-center gap-1.5">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          aria-hidden="true"
-        >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path
             d="M3 8l3.5 3.5L13 4.5"
             stroke="currentColor"
@@ -30,18 +24,12 @@ function CellValue({
         </svg>
         {text && <span className="sr-only">Yes</span>}
       </span>
-    );
+    )
   }
-  if (indicator === "cross") {
+  if (indicator === 'cross') {
     return (
       <span className="text-ash-400 inline-flex items-center justify-center gap-1.5">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          fill="none"
-          aria-hidden="true"
-        >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path
             d="M2 2l10 10M12 2L2 12"
             stroke="currentColor"
@@ -51,172 +39,161 @@ function CellValue({
         </svg>
         {text && <span className="sr-only">No</span>}
       </span>
-    );
+    )
   }
-  if (indicator === "partial") {
+  if (indicator === 'partial') {
     return (
       <span className="text-goldenrod-600 inline-flex items-center justify-center gap-1.5">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M3 7h8"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M3 7h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
         {text && <span className="text-ash-600 text-sm">{text}</span>}
       </span>
-    );
+    )
   }
   // 'text' or default
-  return <span className="text-ash-700 text-sm">{text ?? "—"}</span>;
+  return <span className="text-ash-700 text-sm">{text ?? '—'}</span>
 }
 
 type FeatureRow = {
-  label: string;
+  label: string
   practitioner: {
-    indicator?: "check" | "cross" | "partial" | "text";
-    text?: string;
-  };
+    indicator?: 'check' | 'cross' | 'partial' | 'text'
+    text?: string
+  }
   enterprise: {
-    indicator?: "check" | "cross" | "partial" | "text";
-    text?: string;
-  };
-};
+    indicator?: 'check' | 'cross' | 'partial' | 'text'
+    text?: string
+  }
+}
 
 type FeatureCategory = {
-  name: string;
-  rows: FeatureRow[];
-};
+  name: string
+  rows: FeatureRow[]
+}
 
 const FEATURE_CATEGORIES: FeatureCategory[] = [
   {
-    name: "Core Platform",
+    name: 'Core Platform',
     rows: [
       {
-        label: "Active client engagements",
-        practitioner: { indicator: "text", text: "Up to 25" },
-        enterprise: { indicator: "text", text: "Unlimited" },
+        label: 'Active client engagements',
+        practitioner: { indicator: 'text', text: 'Up to 25' },
+        enterprise: { indicator: 'text', text: 'Unlimited' },
       },
       {
-        label: "Exit planning workflows",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'Exit planning workflows',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Document generation",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'Document generation',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Custom templates",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'Custom templates',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Client portal",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'Client portal',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
     ],
   },
   {
-    name: "AI & Intelligence",
+    name: 'AI & Intelligence',
     rows: [
       {
-        label: "AI-assisted analysis (Sensemaking)",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'AI-assisted analysis (Sensemaking)',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Context-aware insights",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'Context-aware insights',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Smart deliverables",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'Smart deliverables',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
     ],
   },
   {
-    name: "Collaboration & Team",
+    name: 'Collaboration & Team',
     rows: [
       {
-        label: "Advisor seats",
-        practitioner: { indicator: "text", text: "1 advisor" },
-        enterprise: { indicator: "text", text: "Unlimited" },
+        label: 'Advisor seats',
+        practitioner: { indicator: 'text', text: '1 advisor' },
+        enterprise: { indicator: 'text', text: 'Unlimited' },
       },
       {
-        label: "Team workspace",
-        practitioner: { indicator: "cross" },
-        enterprise: { indicator: "check" },
+        label: 'Team workspace',
+        practitioner: { indicator: 'cross' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Admin dashboard",
-        practitioner: { indicator: "cross" },
-        enterprise: { indicator: "check" },
+        label: 'Admin dashboard',
+        practitioner: { indicator: 'cross' },
+        enterprise: { indicator: 'check' },
       },
     ],
   },
   {
-    name: "Security & Compliance",
+    name: 'Security & Compliance',
     rows: [
       {
-        label: "Encryption at rest and in transit",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'Encryption at rest and in transit',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "SOC 2 compliant infrastructure",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'SOC 2 compliant infrastructure',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "SSO / SAML",
-        practitioner: { indicator: "cross" },
-        enterprise: { indicator: "check" },
+        label: 'SSO / SAML',
+        practitioner: { indicator: 'cross' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Custom data retention policies",
-        practitioner: { indicator: "cross" },
-        enterprise: { indicator: "check" },
+        label: 'Custom data retention policies',
+        practitioner: { indicator: 'cross' },
+        enterprise: { indicator: 'check' },
       },
     ],
   },
   {
-    name: "Support",
+    name: 'Support',
     rows: [
       {
-        label: "Email support",
-        practitioner: { indicator: "check" },
-        enterprise: { indicator: "check" },
+        label: 'Email support',
+        practitioner: { indicator: 'check' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Priority support",
-        practitioner: { indicator: "cross" },
-        enterprise: { indicator: "check" },
+        label: 'Priority support',
+        practitioner: { indicator: 'cross' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Dedicated success manager",
-        practitioner: { indicator: "cross" },
-        enterprise: { indicator: "check" },
+        label: 'Dedicated success manager',
+        practitioner: { indicator: 'cross' },
+        enterprise: { indicator: 'check' },
       },
       {
-        label: "Custom onboarding",
-        practitioner: { indicator: "cross" },
-        enterprise: { indicator: "check" },
+        label: 'Custom onboarding',
+        practitioner: { indicator: 'cross' },
+        enterprise: { indicator: 'check' },
       },
     ],
   },
-];
+]
 
 export function FeatureComparison() {
   return (
@@ -241,10 +218,7 @@ export function FeatureComparison() {
             </colgroup>
             <thead>
               <tr>
-                <th
-                  className="bg-ash-100 px-6 py-5 text-left"
-                  aria-hidden="true"
-                />
+                <th className="bg-ash-100 px-6 py-5 text-left" aria-hidden="true" />
                 <th
                   scope="col"
                   className="font-display bg-moss-50 text-moss-800 px-6 py-5 text-center text-sm font-bold tracking-wide uppercase"
@@ -273,11 +247,7 @@ export function FeatureComparison() {
                   {category.rows.map((row, rowIdx) => (
                     <tr
                       key={`${category.name}-${row.label}`}
-                      className={
-                        rowIdx % 2 === 0
-                          ? "bg-sandstone-50/60"
-                          : "bg-sandstone-50/60"
-                      }
+                      className={rowIdx % 2 === 0 ? 'bg-sandstone-50/60' : 'bg-sandstone-50/60'}
                     >
                       <th
                         scope="row"
@@ -319,10 +289,7 @@ export function FeatureComparison() {
                 </Eyebrow>
                 <dl className="space-y-2.5">
                   {category.rows.map((row) => (
-                    <div
-                      key={row.label}
-                      className="flex items-start justify-between gap-4"
-                    >
+                    <div key={row.label} className="flex items-start justify-between gap-4">
                       <dt className="text-ash-600 text-sm">{row.label}</dt>
                       <dd className="text-moss-800 text-right text-sm font-medium">
                         <CellValue
@@ -349,10 +316,7 @@ export function FeatureComparison() {
                 </Eyebrow>
                 <dl className="space-y-2.5">
                   {category.rows.map((row) => (
-                    <div
-                      key={row.label}
-                      className="flex items-start justify-between gap-4"
-                    >
+                    <div key={row.label} className="flex items-start justify-between gap-4">
                       <dt className="text-ash-600 text-sm">{row.label}</dt>
                       <dd className="text-ash-700 text-right text-sm">
                         <CellValue
@@ -369,5 +333,5 @@ export function FeatureComparison() {
         </div>
       </Container>
     </section>
-  );
+  )
 }

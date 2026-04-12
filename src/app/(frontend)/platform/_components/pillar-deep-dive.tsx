@@ -1,25 +1,25 @@
-"use client";
+'use client'
 
-import { motion } from "motion/react";
-import { useInView } from "motion/react";
-import { useRef } from "react";
+import { motion } from 'motion/react'
+import { useInView } from 'motion/react'
+import { useRef } from 'react'
 
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 
 interface PillarData {
-  id: string;
-  tag: string;
-  headline: string;
-  description: string;
-  capabilities: string[];
+  id: string
+  tag: string
+  headline: string
+  description: string
+  capabilities: string[]
 }
 
 interface PillarDeepDiveProps {
-  pillar: PillarData;
-  index: number;
-  bgLight?: boolean;
+  pillar: PillarData
+  index: number
+  bgLight?: boolean
 }
 
 const fadeInUp = {
@@ -29,7 +29,7 @@ const fadeInUp = {
     y: 0,
     transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] as const },
   },
-};
+}
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -37,7 +37,7 @@ const staggerContainer = {
     opacity: 1,
     transition: { delayChildren: 0.1, staggerChildren: 0.1 },
   },
-};
+}
 
 function VisualPlaceholder({ tag }: { tag: string }) {
   return (
@@ -51,32 +51,28 @@ function VisualPlaceholder({ tag }: { tag: string }) {
         <div className="bg-ash-300/60 mx-auto mt-3 h-1 w-8 rounded-full" />
       </div>
     </div>
-  );
+  )
 }
 
-export function PillarDeepDive({
-  pillar,
-  index,
-  bgLight = false,
-}: PillarDeepDiveProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { margin: "-80px", once: true });
+export function PillarDeepDive({ pillar, index, bgLight = false }: PillarDeepDiveProps) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { margin: '-80px', once: true })
 
-  const reversed = index % 2 === 1;
+  const reversed = index % 2 === 1
 
   return (
     <section
       id={pillar.id}
-      className={`py-20 md:py-28 ${bgLight ? "bg-ash-100/50" : "bg-sandstone-50"}`}
+      className={`py-20 md:py-28 ${bgLight ? 'bg-ash-100/50' : 'bg-sandstone-50'}`}
     >
       <Container>
         <motion.div
           ref={ref}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={isInView ? 'visible' : 'hidden'}
           variants={staggerContainer}
           className={`grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20 ${
-            reversed ? "lg:[&>*:first-child]:order-2" : ""
+            reversed ? 'lg:[&>*:first-child]:order-2' : ''
           }`}
         >
           <div>
@@ -84,9 +80,7 @@ export function PillarDeepDive({
               <Eyebrow className="font-display mb-4">{pillar.tag}</Eyebrow>
             </motion.div>
             <motion.div variants={fadeInUp}>
-              <Heading className="text-ash-950 mb-5 text-balance">
-                {pillar.headline}
-              </Heading>
+              <Heading className="text-ash-950 mb-5 text-balance">{pillar.headline}</Heading>
             </motion.div>
             <motion.p
               variants={fadeInUp}
@@ -97,11 +91,7 @@ export function PillarDeepDive({
 
             <motion.ul variants={staggerContainer} className="space-y-3">
               {pillar.capabilities.map((cap) => (
-                <motion.li
-                  key={cap}
-                  variants={fadeInUp}
-                  className="flex items-start gap-3"
-                >
+                <motion.li key={cap} variants={fadeInUp} className="flex items-start gap-3">
                   <span
                     className="text-moss-600 mt-0.5 shrink-0 text-base leading-none"
                     aria-hidden="true"
@@ -120,5 +110,5 @@ export function PillarDeepDive({
         </motion.div>
       </Container>
     </section>
-  );
+  )
 }

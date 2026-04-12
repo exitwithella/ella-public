@@ -482,6 +482,13 @@ export interface Page {
               | {
                   heading: string;
                   body?: string | null;
+                  /**
+                   * Phosphor icon for this card. Overrides the uploaded icon image when set.
+                   */
+                  iconName?: string | null;
+                  /**
+                   * Fallback icon image (used if no Phosphor icon is selected above).
+                   */
                   icon?: (number | null) | Media;
                   link?: {
                     label?: string | null;
@@ -1198,6 +1205,83 @@ export interface Page {
             blockName?: string | null;
             blockType: 'dilemma-section';
           }
+        | {
+            /**
+             * Eyebrow label above the heading (e.g. "Built for your practice")
+             */
+            sectionLabel?: string | null;
+            heading?: string | null;
+            subheading?: string | null;
+            /**
+             * Full-height image for the left column. Use a portrait-oriented photo.
+             */
+            image: number | Media;
+            /**
+             * Optional quote overlaid on the lower portion of the image with a dark gradient. Leave all fields empty to show the image clean.
+             */
+            imageQuote?: {
+              /**
+               * Small label above the quote (e.g. "From the field")
+               */
+              label?: string | null;
+              /**
+               * The quote text
+               */
+              text?: string | null;
+              /**
+               * Attribution line (e.g. "CEPA, 12 years in practice")
+               */
+              attribution?: string | null;
+            };
+            /**
+             * Advisor persona cards. Each card describes a type of advisor and their ELLA outcome.
+             */
+            personas?:
+              | {
+                  /**
+                   * The persona identifier (e.g. "The CEPA with 40 clients and one associate")
+                   */
+                  title: string;
+                  /**
+                   * The pain or context paragraph for this advisor type
+                   */
+                  description: string;
+                  /**
+                   * The "With ELLA:" resolution — what changes for this advisor
+                   */
+                  withElla: string;
+                  /**
+                   * Phosphor icon for this card. Overrides the uploaded icon image when set.
+                   */
+                  iconName?: string | null;
+                  /**
+                   * Fallback icon image (used if no Phosphor icon is selected above). SVG recommended.
+                   */
+                  icon?: (number | null) | Media;
+                  /**
+                   * Icon background tint color. Defaults to forest green.
+                   */
+                  accentColor?: ('forest' | 'moss' | 'goldenrod' | 'ocean' | 'coral' | 'emerald') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'brand-black'
+                )
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'advisor-personas';
+          }
       )[]
     | null;
   meta?: {
@@ -1386,6 +1470,13 @@ export interface Solution {
               | {
                   heading: string;
                   body?: string | null;
+                  /**
+                   * Phosphor icon for this card. Overrides the uploaded icon image when set.
+                   */
+                  iconName?: string | null;
+                  /**
+                   * Fallback icon image (used if no Phosphor icon is selected above).
+                   */
                   icon?: (number | null) | Media;
                   link?: {
                     label?: string | null;
@@ -1845,6 +1936,13 @@ export interface LandingPage {
               | {
                   heading: string;
                   body?: string | null;
+                  /**
+                   * Phosphor icon for this card. Overrides the uploaded icon image when set.
+                   */
+                  iconName?: string | null;
+                  /**
+                   * Fallback icon image (used if no Phosphor icon is selected above).
+                   */
                   icon?: (number | null) | Media;
                   link?: {
                     label?: string | null;
@@ -2245,6 +2343,13 @@ export interface Tool {
    */
   pricingTier?: (number | null) | PricingTier;
   status?: ('available' | 'coming-soon' | 'beta') | null;
+  /**
+   * Phosphor icon for this tool. Overrides the uploaded icon image when set.
+   */
+  iconName?: string | null;
+  /**
+   * Fallback icon image (used if no Phosphor icon is selected above).
+   */
   icon?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
@@ -2828,6 +2933,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     heading?: T;
                     body?: T;
+                    iconName?: T;
                     icon?: T;
                     link?:
                       | T
@@ -3172,6 +3278,35 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        'advisor-personas'?:
+          | T
+          | {
+              sectionLabel?: T;
+              heading?: T;
+              subheading?: T;
+              image?: T;
+              imageQuote?:
+                | T
+                | {
+                    label?: T;
+                    text?: T;
+                    attribution?: T;
+                  };
+              personas?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    withElla?: T;
+                    iconName?: T;
+                    icon?: T;
+                    accentColor?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T
@@ -3253,6 +3388,7 @@ export interface LandingPagesSelect<T extends boolean = true> {
                 | {
                     heading?: T;
                     body?: T;
+                    iconName?: T;
                     icon?: T;
                     link?:
                       | T
@@ -3588,6 +3724,7 @@ export interface ToolsSelect<T extends boolean = true> {
   disciplines?: T;
   pricingTier?: T;
   status?: T;
+  iconName?: T;
   icon?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -3677,6 +3814,7 @@ export interface SolutionsSelect<T extends boolean = true> {
                 | {
                     heading?: T;
                     body?: T;
+                    iconName?: T;
                     icon?: T;
                     link?:
                       | T

@@ -4,6 +4,7 @@ import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
 import { ThemeSection } from '@/components/elements/theme-section'
+import { PhosphorIcon } from '@/components/icons/PhosphorIcon'
 import type { Media, Page } from '@/payload-types'
 
 type AdvisorPersonasData = Extract<
@@ -159,7 +160,7 @@ export function AdvisorPersonasBlock({ block }: AdvisorPersonasBlockProps) {
           {block.personas && block.personas.length > 0 && (
             <div className="flex flex-col gap-6">
               {block.personas.map((persona) => {
-                const icon = persona.icon as Media | null
+                const uploadedIcon = persona.icon as Media | null
                 const accent = persona.accentColor ?? 'forest'
                 const bgClass = ACCENT_BG[accent] ?? ACCENT_BG.forest
                 const textClass = ACCENT_TEXT[accent] ?? ACCENT_TEXT.forest
@@ -174,9 +175,11 @@ export function AdvisorPersonasBlock({ block }: AdvisorPersonasBlockProps) {
                       <div
                         className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-sm ${bgClass}`}
                       >
-                        {icon?.url ? (
+                        {persona.iconName ? (
+                          <PhosphorIcon name={persona.iconName} size={20} className={textClass} />
+                        ) : uploadedIcon?.url ? (
                           <Image
-                            src={icon.url}
+                            src={uploadedIcon.url}
                             alt=""
                             width={20}
                             height={20}

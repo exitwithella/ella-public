@@ -1,24 +1,19 @@
-"use client";
+'use client'
 
-import { clsx } from "clsx/lite";
-import {
-  type ComponentProps,
-  type ReactNode,
-  useCallback,
-  useRef,
-} from "react";
+import { clsx } from 'clsx/lite'
+import { type ComponentProps, type ReactNode, useCallback, useRef } from 'react'
 
 export function NavbarLink({
   children,
   href,
   className,
   ...props
-}: { href: string } & Omit<ComponentProps<"a">, "href">) {
+}: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
   return (
     <a
       href={href}
       className={clsx(
-        "group inline-flex items-center justify-between gap-2 text-3xl/10 font-medium text-ash-950 lg:text-sm/7",
+        'group inline-flex items-center justify-between gap-2 text-3xl/10 font-medium text-ash-950 lg:text-sm/7',
         className,
       )}
       {...props}
@@ -35,30 +30,26 @@ export function NavbarLink({
           stroke="currentColor"
           className="size-6"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m8.25 4.5 7.5 7.5-7.5 7.5"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>
       </span>
     </a>
-  );
+  )
 }
 
 export function NavbarLogo({
   className,
   href,
   ...props
-}: { href: string } & Omit<ComponentProps<"a">, "href">) {
+}: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
   return (
     <a
       href={href}
       aria-label="ELLA home"
       {...props}
-      className={clsx("inline-flex items-stretch", className)}
+      className={clsx('inline-flex items-stretch', className)}
     />
-  );
+  )
 }
 
 export function NavbarWithLinksActionsAndCenteredLogo({
@@ -68,19 +59,16 @@ export function NavbarWithLinksActionsAndCenteredLogo({
   className,
   ...props
 }: {
-  links: ReactNode;
-  logo: ReactNode;
-  actions: ReactNode;
-} & ComponentProps<"header">) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const openMenu = useCallback(() => dialogRef.current?.showModal(), []);
-  const closeMenu = useCallback(() => dialogRef.current?.close(), []);
+  links: ReactNode
+  logo: ReactNode
+  actions: ReactNode
+} & ComponentProps<'header'>) {
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const openMenu = useCallback(() => dialogRef.current?.showModal(), [])
+  const closeMenu = useCallback(() => dialogRef.current?.close(), [])
 
   return (
-    <header
-      className={clsx("sticky top-0 z-10 bg-sandstone-50", className)}
-      {...props}
-    >
+    <header className={clsx('sticky top-0 z-10 bg-sandstone-50', className)} {...props}>
       <style>{`:root { --scroll-padding-top: 5.25rem }`}</style>
       <nav aria-label="Main">
         <div className="mx-auto flex h-(--scroll-padding-top) max-w-7xl items-center gap-4 px-6 lg:px-10">
@@ -94,12 +82,7 @@ export function NavbarWithLinksActionsAndCenteredLogo({
               aria-label="Open menu"
               className="text-ash-950 hover:bg-ash-950/10 inline-flex rounded-full p-1.5 lg:hidden"
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="size-6"
-                aria-hidden="true"
-              >
+              <svg viewBox="0 0 24 24" fill="currentColor" className="size-6" aria-hidden="true">
                 <path
                   fillRule="evenodd"
                   d="M3.748 8.248a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75ZM3.748 15.75a.75.75 0 0 1 .75-.751h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75Z"
@@ -127,11 +110,7 @@ export function NavbarWithLinksActionsAndCenteredLogo({
                   className="size-6"
                   aria-hidden="true"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
@@ -140,5 +119,5 @@ export function NavbarWithLinksActionsAndCenteredLogo({
         </dialog>
       </nav>
     </header>
-  );
+  )
 }

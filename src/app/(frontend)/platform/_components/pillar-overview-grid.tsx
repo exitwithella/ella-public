@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import { motion } from "motion/react";
-import { useInView } from "motion/react";
-import { useRef } from "react";
+import { motion } from 'motion/react'
+import { useInView } from 'motion/react'
+import { useRef } from 'react'
 
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 
-import { pillarCards } from "../../_lib/content";
-import { platformPillars } from "../_lib/content";
+import { pillarCards } from '../../_lib/content'
+import { platformPillars } from '../_lib/content'
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -20,7 +20,7 @@ const staggerContainer = {
       staggerChildren: 0.12,
     },
   },
-};
+}
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -29,11 +29,11 @@ const fadeInUp = {
     y: 0,
     transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
   },
-};
+}
 
 export function PillarOverviewGrid() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { margin: "-50px", once: true });
+  const ref = useRef(null)
+  const isInView = useInView(ref, { margin: '-50px', once: true })
 
   return (
     <section className="bg-sandstone-50 pb-20 md:pb-28">
@@ -49,14 +49,12 @@ export function PillarOverviewGrid() {
             {pillarCards.eyebrow}
           </Eyebrow>
           <Heading className="text-ash-950">{pillarCards.headline}</Heading>
-          <p className="text-ash-600 mt-4 max-w-2xl text-lg/relaxed">
-            {pillarCards.description}
-          </p>
+          <p className="text-ash-600 mt-4 max-w-2xl text-lg/relaxed">{pillarCards.description}</p>
         </motion.div>
 
         <motion.div
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={isInView ? 'visible' : 'hidden'}
           variants={staggerContainer}
           className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8"
         >
@@ -70,23 +68,13 @@ export function PillarOverviewGrid() {
               <Eyebrow size="sm" className="font-display mb-3 tracking-wider">
                 {pillar.tag}
               </Eyebrow>
-              <h3 className="text-ash-900 mb-3 text-lg font-semibold">
-                {pillar.headline}
-              </h3>
-              <p className="text-ash-600 text-sm/relaxed">
-                {pillar.description}
-              </p>
+              <h3 className="text-ash-900 mb-3 text-lg font-semibold">{pillar.headline}</h3>
+              <p className="text-ash-600 text-sm/relaxed">{pillar.description}</p>
 
               <ul className="mt-6 space-y-2">
                 {pillar.capabilities.map((cap) => (
-                  <li
-                    key={cap}
-                    className="text-ash-600 flex items-start gap-2 text-sm"
-                  >
-                    <span
-                      className="text-moss-600 mt-0.5 shrink-0 leading-none"
-                      aria-hidden="true"
-                    >
+                  <li key={cap} className="text-ash-600 flex items-start gap-2 text-sm">
+                    <span className="text-moss-600 mt-0.5 shrink-0 leading-none" aria-hidden="true">
                       →
                     </span>
                     {cap}
@@ -102,5 +90,5 @@ export function PillarOverviewGrid() {
         </motion.div>
       </Container>
     </section>
-  );
+  )
 }

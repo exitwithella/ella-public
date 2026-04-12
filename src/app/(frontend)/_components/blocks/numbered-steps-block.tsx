@@ -1,25 +1,19 @@
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
-import { ThemeSection } from "@/components/elements/theme-section";
-import type { Page, Solution } from "@/payload-types";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
+import { ThemeSection } from '@/components/elements/theme-section'
+import type { Page, Solution } from '@/payload-types'
 
 type NumberedStepsData =
-  | Extract<
-      NonNullable<Page["layout"]>[number],
-      { blockType: "numbered-steps" }
-    >
-  | Extract<
-      NonNullable<Solution["layout"]>[number],
-      { blockType: "numbered-steps" }
-    >;
+  | Extract<NonNullable<Page['layout']>[number], { blockType: 'numbered-steps' }>
+  | Extract<NonNullable<Solution['layout']>[number], { blockType: 'numbered-steps' }>
 
 interface NumberedStepsBlockProps {
-  block: NumberedStepsData;
+  block: NumberedStepsData
 }
 
 export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
-  if (!block.steps || block.steps.length === 0) return null;
+  if (!block.steps || block.steps.length === 0) return null
 
   return (
     <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
@@ -27,20 +21,10 @@ export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
         {/* Section header */}
         {(block.sectionLabel || block.heading) && (
           <div className="mb-12 md:mb-16">
-            {block.sectionLabel && (
-              <Eyebrow className="mb-3">
-                {block.sectionLabel}
-              </Eyebrow>
-            )}
-            {block.heading && (
-              <Heading>
-                {block.heading}
-              </Heading>
-            )}
+            {block.sectionLabel && <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>}
+            {block.heading && <Heading>{block.heading}</Heading>}
             {block.subheading && (
-              <p
-                className="text-theme-text-secondary mt-4 max-w-2xl text-lg/relaxed"
-              >
+              <p className="text-theme-text-secondary mt-4 max-w-2xl text-lg/relaxed">
                 {block.subheading}
               </p>
             )}
@@ -53,7 +37,7 @@ export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
             <div
               key={step.id}
               className={`border-theme-border grid grid-cols-1 gap-4 py-8 md:grid-cols-[80px_1fr] md:gap-8 ${
-                index < block.steps!.length - 1 ? "border-b" : ""
+                index < block.steps!.length - 1 ? 'border-b' : ''
               }`}
             >
               {/* Step number */}
@@ -61,21 +45,16 @@ export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
                 className="text-theme-border font-display text-2xl font-bold md:text-5xl"
                 aria-hidden="true"
               >
-                {String(index + 1).padStart(2, "0")}
+                {String(index + 1).padStart(2, '0')}
               </div>
 
               {/* Step content */}
               <div>
-                <Heading
-                  as="h3"
-                  className="text-lg md:text-xl"
-                >
+                <Heading as="h3" className="text-lg md:text-xl">
                   {step.heading}
                 </Heading>
                 {step.body && (
-                  <p
-                    className="text-theme-text-secondary mt-3 max-w-xl text-base/relaxed"
-                  >
+                  <p className="text-theme-text-secondary mt-3 max-w-xl text-base/relaxed">
                     {step.body}
                   </p>
                 )}
@@ -85,5 +64,5 @@ export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
         </div>
       </Container>
     </ThemeSection>
-  );
+  )
 }

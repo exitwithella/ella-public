@@ -56,12 +56,14 @@ never ornamental.
 The primary pattern for feature showcases: scrolling content on the left, sticky visual on the right.
 
 **Structure:**
+
 - Left column: scrolling content with a vertical throughline
 - Right column: sticky background panel with rounded left corners, bleeding to the viewport
   right edge via an overflow extension (`absolute left-full w-[50vw]`)
 - Section uses `overflowX: 'clip'` (not `overflow-hidden`, which breaks sticky positioning)
 
 **Background panel construction** (3 layers for z-index compatibility):
+
 1. Outer `motion.div` — height animation only, no overflow clipping
 2. Background fill — `absolute inset-0` with animated border-radius
 3. Content wrapper — `absolute inset-0 overflow-hidden` for clipping during animations

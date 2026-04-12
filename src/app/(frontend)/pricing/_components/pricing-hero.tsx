@@ -1,6 +1,6 @@
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 
 export function PricingHero() {
   return (
@@ -14,11 +14,10 @@ export function PricingHero() {
             Simple, transparent pricing.
           </Heading>
           <p className="text-ash-600 text-lg/relaxed">
-            One plan for the solo practitioner. Custom solutions for teams and
-            firms.
+            One plan for the solo practitioner. Custom solutions for teams and firms.
           </p>
         </div>
       </Container>
     </section>
-  );
+  )
 }

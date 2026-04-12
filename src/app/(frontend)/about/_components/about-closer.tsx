@@ -1,8 +1,8 @@
-import { ButtonLink, PlainButtonLink } from "@/components/elements/button";
-import { Container } from "@/components/elements/container";
-import { ArrowNarrowRightIcon } from "@/components/icons/arrow-narrow-right-icon";
+import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
+import { Container } from '@/components/elements/container'
+import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 
-import { aboutCloser } from "../_lib/content";
+import { aboutCloser } from '../_lib/content'
 
 export function AboutCloser() {
   return (
@@ -13,9 +13,7 @@ export function AboutCloser() {
             {aboutCloser.headline}
           </h2>
 
-          <p className="text-ash-200 mb-10 text-lg/relaxed">
-            {aboutCloser.body}
-          </p>
+          <p className="text-ash-200 mb-10 text-lg/relaxed">{aboutCloser.body}</p>
 
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <ButtonLink
@@ -44,5 +42,5 @@ export function AboutCloser() {
         </div>
       </Container>
     </section>
-  );
+  )
 }

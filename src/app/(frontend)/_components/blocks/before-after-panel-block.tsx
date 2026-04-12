@@ -1,22 +1,22 @@
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
-import type { Page } from "@/payload-types";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
+import type { Page } from '@/payload-types'
 
 type BeforeAfterPanelData = Extract<
-  NonNullable<Page["layout"]>[number],
-  { blockType: "before-after-panel" }
->;
+  NonNullable<Page['layout']>[number],
+  { blockType: 'before-after-panel' }
+>
 
 interface BeforeAfterPanelBlockProps {
-  block: BeforeAfterPanelData;
+  block: BeforeAfterPanelData
 }
 
 export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
-  const beforeLabel = block.before?.label ?? "Without ELLA";
-  const afterLabel = block.after?.label ?? "With ELLA";
-  const beforePoints = block.before?.points ?? [];
-  const afterPoints = block.after?.points ?? [];
+  const beforeLabel = block.before?.label ?? 'Without ELLA'
+  const afterLabel = block.after?.label ?? 'With ELLA'
+  const beforePoints = block.before?.points ?? []
+  const afterPoints = block.after?.points ?? []
 
   return (
     <section className="bg-sandstone-50 py-20 md:py-28">
@@ -24,14 +24,10 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
         {/* Section header */}
         {(block.sectionLabel || block.heading) && (
           <div className="mb-12 md:mb-16">
-            {block.sectionLabel && (
-              <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>
-            )}
+            {block.sectionLabel && <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>}
             {block.heading && <Heading>{block.heading}</Heading>}
             {block.subheading && (
-              <p className="text-ash-600 mt-4 max-w-2xl text-lg/relaxed">
-                {block.subheading}
-              </p>
+              <p className="text-ash-600 mt-4 max-w-2xl text-lg/relaxed">{block.subheading}</p>
             )}
           </div>
         )}
@@ -41,10 +37,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
           {/* Before panel — fragmented, cluttered feel */}
           <div className="border-ash-200 bg-ash-100/60 rounded-sm border p-8">
             <div className="mb-6 flex items-center gap-2">
-              <span
-                className="bg-ash-300 inline-block h-2 w-2 rounded-full"
-                aria-hidden="true"
-              />
+              <span className="bg-ash-300 inline-block h-2 w-2 rounded-full" aria-hidden="true" />
               <h3 className="font-display text-ash-1000 text-sm font-semibold tracking-wider uppercase">
                 {beforeLabel}
               </h3>
@@ -59,9 +52,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
                     >
                       {index + 1}
                     </span>
-                    <span className="text-ash-600 text-base/relaxed">
-                      {point.text}
-                    </span>
+                    <span className="text-ash-600 text-base/relaxed">{point.text}</span>
                   </li>
                 ))}
               </ol>
@@ -71,10 +62,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
           {/* After panel — clean, unified feel */}
           <div className="bg-moss-50 border-moss-200 rounded-sm border p-8">
             <div className="mb-6 flex items-center gap-2">
-              <span
-                className="bg-moss-500 inline-block h-2 w-2 rounded-full"
-                aria-hidden="true"
-              />
+              <span className="bg-moss-500 inline-block h-2 w-2 rounded-full" aria-hidden="true" />
               <h3 className="font-display text-moss-700 text-sm font-semibold tracking-wider uppercase">
                 {afterLabel}
               </h3>
@@ -89,9 +77,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
                     >
                       {index + 1}
                     </span>
-                    <span className="text-ash-700 text-base/relaxed font-medium">
-                      {point.text}
-                    </span>
+                    <span className="text-ash-700 text-base/relaxed font-medium">{point.text}</span>
                   </li>
                 ))}
               </ol>
@@ -100,5 +86,5 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
         </div>
       </Container>
     </section>
-  );
+  )
 }

@@ -1,35 +1,23 @@
-"use client";
+'use client'
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValueEvent,
-} from "motion/react";
-import { useRef, useState, useCallback } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'motion/react'
+import { useRef, useState, useCallback } from 'react'
 
-import { PressureWalls } from "./pressure-walls";
-import { SqueezeContent, type SqueezeQuote } from "./squeeze-content";
-import { TensionThreads } from "./tension-threads";
+import { PressureWalls } from './pressure-walls'
+import { SqueezeContent, type SqueezeQuote } from './squeeze-content'
+import { TensionThreads } from './tension-threads'
 
 export interface SqueezeSectionProps {
-  label?: string | null;
-  heading: string;
-  quotes: SqueezeQuote[];
-  closer?: string | null;
-  pressureItems: string[];
-  erosionItems: string[];
-  bodyParagraphs: string[];
+  label?: string | null
+  heading: string
+  quotes: SqueezeQuote[]
+  closer?: string | null
+  pressureItems: string[]
+  erosionItems: string[]
+  bodyParagraphs: string[]
 }
 
-function SectionHeader({
-  label,
-  heading,
-}: {
-  label?: string | null;
-  heading: string;
-}) {
+function SectionHeader({ label, heading }: { label?: string | null; heading: string }) {
   return (
     <div className="relative z-20 mb-20 text-center md:mb-28">
       {label && (
@@ -56,7 +44,7 @@ function SectionHeader({
         {heading}
       </motion.h2>
     </div>
-  );
+  )
 }
 
 export function SqueezeSection({
@@ -68,27 +56,27 @@ export function SqueezeSection({
   pressureItems,
   erosionItems,
 }: SqueezeSectionProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [squeezeValue, setSqueezeValue] = useState(0);
-  const [step, setStep] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const [squeezeValue, setSqueezeValue] = useState(0)
+  const [step, setStep] = useState(0)
 
-  const totalSteps = bodyParagraphs.length + quotes.length + (closer ? 1 : 0);
+  const totalSteps = bodyParagraphs.length + quotes.length + (closer ? 1 : 0)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"],
-  });
+    offset: ['start end', 'end start'],
+  })
 
-  const squeezeRaw = useTransform(scrollYProgress, [0.0, 0.55], [0, 1]);
-  const squeeze = useSpring(squeezeRaw, { stiffness: 60, damping: 25 });
+  const squeezeRaw = useTransform(scrollYProgress, [0.0, 0.55], [0, 1])
+  const squeeze = useSpring(squeezeRaw, { stiffness: 60, damping: 25 })
 
-  useMotionValueEvent(squeeze, "change", (latest) => {
-    setSqueezeValue(latest);
-  });
+  useMotionValueEvent(squeeze, 'change', (latest) => {
+    setSqueezeValue(latest)
+  })
 
   const handleStepChange = useCallback((newStep: number) => {
-    setStep(newStep);
-  }, []);
+    setStep(newStep)
+  }, [])
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden">
@@ -122,5 +110,5 @@ export function SqueezeSection({
         />
       </div>
     </section>
-  );
+  )
 }

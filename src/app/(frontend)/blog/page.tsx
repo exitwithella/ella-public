@@ -1,67 +1,62 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next'
 
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
 
-import { BlogCard } from "./_components/blog-card";
-import { CategoryFilter } from "./_components/category-filter";
-import { Pagination } from "./_components/pagination";
-import { getAllCategories } from "./_lib/get-categories";
-import { getPublishedPosts } from "./_lib/get-posts";
+import { BlogCard } from './_components/blog-card'
+import { CategoryFilter } from './_components/category-filter'
+import { Pagination } from './_components/pagination'
+import { getAllCategories } from './_lib/get-categories'
+import { getPublishedPosts } from './_lib/get-posts'
 
 export const metadata: Metadata = {
-  title: "Blog — ELLA",
+  title: 'Blog — ELLA',
   description:
     "Practical perspectives on advisory practice, systematization, and what's changing in the profession.",
   openGraph: {
-    title: "ELLA Blog",
+    title: 'ELLA Blog',
     description:
       "Practical perspectives on advisory practice, systematization, and what's changing in the profession.",
-    url: "https://withella.io/blog",
+    url: 'https://withella.io/blog',
   },
-};
+}
 
-const STANDARD_PAGE_SIZE = 10;
+const STANDARD_PAGE_SIZE = 10
 
 interface BlogPageProps {
-  searchParams: Promise<{ category?: string; page?: string }>;
+  searchParams: Promise<{ category?: string; page?: string }>
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const { category: categorySlug, page: pageParam } = await searchParams;
-  const currentPage = Math.max(1, parseInt(pageParam ?? "1", 10));
+  const { category: categorySlug, page: pageParam } = await searchParams
+  const currentPage = Math.max(1, parseInt(pageParam ?? '1', 10))
 
-  const [allPosts, categories] = await Promise.all([
-    getPublishedPosts(),
-    getAllCategories(),
-  ]);
+  const [allPosts, categories] = await Promise.all([getPublishedPosts(), getAllCategories()])
 
   // Partition into tiers — editorial placements ignore category filter
-  const heroPosts = allPosts.filter((p) => p.tier === "hero");
-  const featuredPosts = allPosts.filter((p) => p.tier === "featured");
+  const heroPosts = allPosts.filter((p) => p.tier === 'hero')
+  const featuredPosts = allPosts.filter((p) => p.tier === 'featured')
 
   // Standard tier: remaining posts, optionally filtered by category
-  let standardPosts = allPosts.filter((p) => p.tier === "standard" || !p.tier);
+  let standardPosts = allPosts.filter((p) => p.tier === 'standard' || !p.tier)
   if (categorySlug) {
     standardPosts = standardPosts.filter(
       (p) =>
         Array.isArray(p.categories) &&
-        p.categories.some(
-          (c) => typeof c === "object" && c.slug === categorySlug,
-        ),
-    );
+        p.categories.some((c) => typeof c === 'object' && c.slug === categorySlug),
+    )
   }
 
-  const heroPost = heroPosts[0] ?? null;
+  const heroPost = heroPosts[0] ?? null
 
   // Paginate standard stream
-  const totalStandard = standardPosts.length;
-  const totalPages = Math.ceil(totalStandard / STANDARD_PAGE_SIZE);
+  const totalStandard = standardPosts.length
+  const totalPages = Math.ceil(totalStandard / STANDARD_PAGE_SIZE)
   const paginatedStandard = standardPosts.slice(
     (currentPage - 1) * STANDARD_PAGE_SIZE,
     currentPage * STANDARD_PAGE_SIZE,
-  );
+  )
 
   return (
     <>
@@ -75,8 +70,8 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             Thinking clearly about advisory practice.
           </Heading>
           <p className="text-ash-600 mt-5 max-w-xl text-lg/relaxed">
-            Practical perspectives on practice systematization, advisor-led
-            transitions, and what's changing in the profession.
+            Practical perspectives on practice systematization, advisor-led transitions, and what's
+            changing in the profession.
           </p>
         </Container>
       </section>
@@ -114,10 +109,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               All Posts
             </h2>
             {categories.length > 0 && (
-              <CategoryFilter
-                categories={categories}
-                activeSlug={categorySlug}
-              />
+              <CategoryFilter categories={categories} activeSlug={categorySlug} />
             )}
           </div>
 
@@ -146,5 +138,5 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         </Container>
       </section>
     </>
-  );
+  )
 }

@@ -1,38 +1,29 @@
-import { RichText } from "@payloadcms/richtext-lexical/react";
-import Image from "next/image";
-import Link from "next/link";
+import { RichText } from '@payloadcms/richtext-lexical/react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import type { Category, Media, Post, TeamMember } from "@/payload-types";
+import type { Category, Media, Post, TeamMember } from '@/payload-types'
 
-import {
-  calculateReadingTime,
-  formatPublishedDate,
-  getPostUrl,
-} from "../_lib/utils";
-import { BlogCard } from "./blog-card";
-import { NewsletterCTA } from "./newsletter-cta";
+import { calculateReadingTime, formatPublishedDate, getPostUrl } from '../_lib/utils'
+import { BlogCard } from './blog-card'
+import { NewsletterCTA } from './newsletter-cta'
 
 interface PostDetailProps {
-  post: Post;
+  post: Post
 }
 
 export function PostDetail({ post }: PostDetailProps) {
-  const readingTime = calculateReadingTime(post.content);
+  const readingTime = calculateReadingTime(post.content)
   const image =
-    post.featuredImage && typeof post.featuredImage === "object"
+    post.featuredImage && typeof post.featuredImage === 'object'
       ? (post.featuredImage as Media)
-      : null;
-  const author =
-    post.author && typeof post.author === "object"
-      ? (post.author as TeamMember)
-      : null;
+      : null
+  const author = post.author && typeof post.author === 'object' ? (post.author as TeamMember) : null
   const authorPhoto =
-    author?.photo && typeof author.photo === "object"
-      ? (author.photo as Media)
-      : null;
+    author?.photo && typeof author.photo === 'object' ? (author.photo as Media) : null
   const relatedPosts = Array.isArray(post.relatedPosts)
-    ? (post.relatedPosts.filter((p) => typeof p === "object") as Post[])
-    : [];
+    ? (post.relatedPosts.filter((p) => typeof p === 'object') as Post[])
+    : []
 
   return (
     <article>
@@ -43,8 +34,8 @@ export function PostDetail({ post }: PostDetailProps) {
           {Array.isArray(post.categories) && post.categories.length > 0 && (
             <div className="mb-6 flex flex-wrap gap-2">
               {post.categories.map((cat) => {
-                if (typeof cat !== "object") return null;
-                const c = cat as Category;
+                if (typeof cat !== 'object') return null
+                const c = cat as Category
                 return (
                   <Link
                     key={c.id}
@@ -53,7 +44,7 @@ export function PostDetail({ post }: PostDetailProps) {
                   >
                     {c.title}
                   </Link>
-                );
+                )
               })}
             </div>
           )}
@@ -87,16 +78,12 @@ export function PostDetail({ post }: PostDetailProps) {
                 <p className="text-ash-800 text-sm font-semibold">
                   {author.name}
                   {author.role && (
-                    <span className="text-ash-1000 font-normal">
-                      {" "}
-                      · {author.role}
-                    </span>
+                    <span className="text-ash-1000 font-normal"> · {author.role}</span>
                   )}
                 </p>
               )}
               <p className="text-ash-1000 mt-0.5 text-sm">
-                {formatPublishedDate(post.publishedDate)} · {readingTime} min
-                read
+                {formatPublishedDate(post.publishedDate)} · {readingTime} min read
               </p>
             </div>
           </div>
@@ -161,5 +148,5 @@ export function PostDetail({ post }: PostDetailProps) {
         </Link>
       </div>
     </article>
-  );
+  )
 }

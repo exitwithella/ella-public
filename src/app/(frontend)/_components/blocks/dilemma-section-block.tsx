@@ -1,6 +1,5 @@
-import type { Page } from '@/payload-types'
-
 import DilemmaSection from '@/components/dilemma/dilemma'
+import type { Page } from '@/payload-types'
 
 type DilemmaSectionData = Extract<
   NonNullable<Page['layout']>[number],

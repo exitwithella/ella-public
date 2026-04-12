@@ -79,7 +79,7 @@ export const trustSecurity = {
   sections: [
     {
       title: 'Secure by Design',
-      body: "We design our systems and processes in alignment with leading security frameworks. Our practices are informed by these standards to ensure robust security, access control, and data protection.\n\nAll data on ELLA is encrypted in transit and at rest. We use modern SOC2/II compliant infrastructure providers like Vercel and Cloudflare. Strict access controls, internal policies, and multi-factor authentication (MFA) safeguard your information within our company.",
+      body: 'We design our systems and processes in alignment with leading security frameworks. Our practices are informed by these standards to ensure robust security, access control, and data protection.\n\nAll data on ELLA is encrypted in transit and at rest. We use modern SOC2/II compliant infrastructure providers like Vercel and Cloudflare. Strict access controls, internal policies, and multi-factor authentication (MFA) safeguard your information within our company.',
       bulletHeading: "You're in Good Hands",
       bulletItems: [
         'Full data encryption',

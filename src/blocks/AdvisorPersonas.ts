@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { iconField } from '../fields/icon'
 
 export const AdvisorPersonasBlock: Block = {
   slug: 'advisor-personas',
@@ -70,7 +71,8 @@ export const AdvisorPersonasBlock: Block = {
       minRows: 2,
       maxRows: 8,
       admin: {
-        description: 'Advisor persona cards. Each card describes a type of advisor and their ELLA outcome.',
+        description:
+          'Advisor persona cards. Each card describes a type of advisor and their ELLA outcome.',
       },
       fields: [
         {
@@ -78,7 +80,8 @@ export const AdvisorPersonasBlock: Block = {
           type: 'text',
           required: true,
           admin: {
-            description: 'The persona identifier (e.g. "The CEPA with 40 clients and one associate")',
+            description:
+              'The persona identifier (e.g. "The CEPA with 40 clients and one associate")',
           },
         },
         {
@@ -97,12 +100,18 @@ export const AdvisorPersonasBlock: Block = {
             description: 'The "With ELLA:" resolution — what changes for this advisor',
           },
         },
+        iconField({
+          admin: {
+            description: 'Phosphor icon for this card. Overrides the uploaded icon image when set.',
+          },
+        }),
         {
           name: 'icon',
           type: 'upload',
           relationTo: 'media',
           admin: {
-            description: 'Optional icon image for the card. SVG recommended. Fallback icon shown if empty.',
+            description:
+              'Fallback icon image (used if no Phosphor icon is selected above). SVG recommended.',
           },
         },
         {

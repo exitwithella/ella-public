@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { iconField } from '../fields/icon'
 
 export const CardGridBlock: Block = {
   slug: 'card-grid',
@@ -54,10 +55,18 @@ export const CardGridBlock: Block = {
           name: 'body',
           type: 'textarea',
         },
+        iconField({
+          admin: {
+            description: 'Phosphor icon for this card. Overrides the uploaded icon image when set.',
+          },
+        }),
         {
           name: 'icon',
           type: 'upload',
           relationTo: 'media',
+          admin: {
+            description: 'Fallback icon image (used if no Phosphor icon is selected above).',
+          },
         },
         {
           name: 'link',

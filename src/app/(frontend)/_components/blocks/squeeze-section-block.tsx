@@ -1,6 +1,7 @@
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+
 import { SqueezeSection } from '@/components/squeeze/squeeze-section'
 import type { Page } from '@/payload-types'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
 const defaultPressureItems = [
   'More clients',

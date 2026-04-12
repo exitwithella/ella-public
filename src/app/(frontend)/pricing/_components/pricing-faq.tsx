@@ -1,19 +1,19 @@
-import { RichText } from "@payloadcms/richtext-lexical/react";
+import { RichText } from '@payloadcms/richtext-lexical/react'
 
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
-import { ArrowNarrowRightIcon } from "@/components/icons/arrow-narrow-right-icon";
-import { MinusIcon } from "@/components/icons/minus-icon";
-import { PlusIcon } from "@/components/icons/plus-icon";
-import type { FaqItem } from "@/payload-types";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
+import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
+import { MinusIcon } from '@/components/icons/minus-icon'
+import { PlusIcon } from '@/components/icons/plus-icon'
+import type { FaqItem } from '@/payload-types'
 
 interface PricingFAQProps {
-  faqs: FaqItem[];
+  faqs: FaqItem[]
 }
 
 export function PricingFAQ({ faqs }: PricingFAQProps) {
-  if (faqs.length === 0) return null;
+  if (faqs.length === 0) return null
 
   return (
     <section className="bg-sandstone-50 py-24 md:py-32">
@@ -24,9 +24,7 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
             <Eyebrow size="sm" className="mb-3">
               FAQ
             </Eyebrow>
-            <Heading className="text-3xl md:text-4xl">
-              Common questions.
-            </Heading>
+            <Heading className="text-3xl md:text-4xl">Common questions.</Heading>
           </div>
 
           {/* Accordion */}
@@ -48,7 +46,7 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
           {/* Still have questions? */}
           <div className="mt-10 text-center">
             <p className="text-ash-1000 text-sm">
-              Still have questions?{" "}
+              Still have questions?{' '}
               <a
                 href="https://cal.com/team/ella/ella-intro?overlayCalendar=true"
                 target="_blank"
@@ -62,5 +60,5 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
         </div>
       </Container>
     </section>
-  );
+  )
 }

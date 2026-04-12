@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { iconField } from '../fields/icon'
+
 export const Tools: CollectionConfig = {
   access: {
     read: () => true,
@@ -55,10 +57,18 @@ export const Tools: CollectionConfig = {
         { label: 'Beta', value: 'beta' },
       ],
     },
+    iconField({
+      admin: {
+        description: 'Phosphor icon for this tool. Overrides the uploaded icon image when set.',
+      },
+    }),
     {
       name: 'icon',
       type: 'upload',
       relationTo: 'media',
+      admin: {
+        description: 'Fallback icon image (used if no Phosphor icon is selected above).',
+      },
     },
   ],
   slug: 'tools',

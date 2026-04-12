@@ -1,5 +1,5 @@
-import { Container } from "@/components/elements/container";
-import { ArrowNarrowRightIcon } from "@/components/icons/arrow-narrow-right-icon";
+import { Container } from '@/components/elements/container'
+import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 
 export function PricingCloser() {
   return (
@@ -32,11 +32,9 @@ export function PricingCloser() {
             </a>
           </div>
 
-          <p className="text-ash-400 mt-4 text-sm">
-            Your first 3 clients are on us.
-          </p>
+          <p className="text-ash-400 mt-4 text-sm">Your first 3 clients are on us.</p>
         </div>
       </Container>
     </section>
-  );
+  )
 }

@@ -1,28 +1,28 @@
-import { Container } from "@/components/elements/container";
-import { ArrowNarrowRightIcon } from "@/components/icons/arrow-narrow-right-icon";
-import type { PricingTier } from "@/payload-types";
+import { Container } from '@/components/elements/container'
+import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
+import type { PricingTier } from '@/payload-types'
 
 interface TierCardsProps {
-  tiers: PricingTier[];
+  tiers: PricingTier[]
 }
 
 function formatPrice(tier: PricingTier): {
-  display: string;
-  period: string | null;
+  display: string
+  period: string | null
 } {
-  const price = tier.price;
-  if (!price) return { display: "Contact us", period: null };
+  const price = tier.price
+  if (!price) return { display: 'Contact us', period: null }
 
-  if (price.period === "custom") {
-    return { display: price.customLabel ?? "Contact us", period: null };
+  if (price.period === 'custom') {
+    return { display: price.customLabel ?? 'Contact us', period: null }
   }
 
   if (price.amount == null || price.amount === 0) {
-    return { display: "Free", period: null };
+    return { display: 'Free', period: null }
   }
 
-  const dollars = Math.round(price.amount / 100);
-  return { display: `$${dollars}`, period: "/mo" };
+  const dollars = Math.round(price.amount / 100)
+  return { display: `$${dollars}`, period: '/mo' }
 }
 
 function CheckIcon() {
@@ -43,23 +43,23 @@ function CheckIcon() {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }
 
 function TierCard({ tier }: { tier: PricingTier }) {
-  const isHighlighted = Boolean(tier.highlighted);
-  const { display: priceDisplay, period: pricePeriod } = formatPrice(tier);
-  const isContactUs = pricePeriod === null && priceDisplay !== "Free";
+  const isHighlighted = Boolean(tier.highlighted)
+  const { display: priceDisplay, period: pricePeriod } = formatPrice(tier)
+  const isContactUs = pricePeriod === null && priceDisplay !== 'Free'
 
-  const ctaHref = tier.cta?.href ?? "https://app.exitwithella.io/sign-up";
-  const ctaLabel = tier.cta?.label ?? "Get Started";
+  const ctaHref = tier.cta?.href ?? 'https://app.exitwithella.io/sign-up'
+  const ctaLabel = tier.cta?.label ?? 'Get Started'
 
   return (
     <div
       className={`relative flex flex-col rounded-sm p-8 ${
         isHighlighted
-          ? "border-moss-300 bg-moss-50 border-2"
-          : "border-ash-200 bg-sandstone-50 border"
+          ? 'border-moss-300 bg-moss-50 border-2'
+          : 'border-ash-200 bg-sandstone-50 border'
       }`}
     >
       {/* Badge */}
@@ -77,24 +77,16 @@ function TierCard({ tier }: { tier: PricingTier }) {
       </h2>
 
       {/* Tagline */}
-      {tier.tagline && (
-        <p className="text-ash-1000 mb-6 text-sm">{tier.tagline}</p>
-      )}
+      {tier.tagline && <p className="text-ash-1000 mb-6 text-sm">{tier.tagline}</p>}
 
       {/* Price */}
       <div className="mb-6">
         {isContactUs ? (
-          <p className="font-display text-ash-900 text-3xl font-bold">
-            {priceDisplay}
-          </p>
+          <p className="font-display text-ash-900 text-3xl font-bold">{priceDisplay}</p>
         ) : (
           <div className="flex items-baseline gap-1">
-            <span className="font-display text-ash-900 text-4xl font-bold">
-              {priceDisplay}
-            </span>
-            {pricePeriod && (
-              <span className="text-ash-1000 text-base">{pricePeriod}</span>
-            )}
+            <span className="font-display text-ash-900 text-4xl font-bold">{priceDisplay}</span>
+            {pricePeriod && <span className="text-ash-1000 text-base">{pricePeriod}</span>}
           </div>
         )}
       </div>
@@ -125,19 +117,19 @@ function TierCard({ tier }: { tier: PricingTier }) {
         rel="noopener noreferrer"
         className={`mt-auto inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors ${
           isHighlighted
-            ? "bg-moss-700 text-ash-100 hover:bg-moss-800"
-            : "border-ash-300 text-ash-700 hover:bg-ash-100 border bg-transparent"
+            ? 'bg-moss-700 text-ash-100 hover:bg-moss-800'
+            : 'border-ash-300 text-ash-700 hover:bg-ash-100 border bg-transparent'
         }`}
       >
         {ctaLabel}
         {!isHighlighted && <ArrowNarrowRightIcon className="h-4 w-4" />}
       </a>
     </div>
-  );
+  )
 }
 
 export function TierCards({ tiers }: TierCardsProps) {
-  if (tiers.length === 0) return null;
+  if (tiers.length === 0) return null
 
   return (
     <section className="bg-ash-100 py-16 md:py-20">
@@ -154,5 +146,5 @@ export function TierCards({ tiers }: TierCardsProps) {
         </div>
       </Container>
     </section>
-  );
+  )
 }

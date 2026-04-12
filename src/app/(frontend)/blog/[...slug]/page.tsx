@@ -1,46 +1,40 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
-import type { Media } from "@/payload-types";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
+import type { Media } from '@/payload-types'
 
-import { BlogCard } from "../_components/blog-card";
-import { CategoryFilter } from "../_components/category-filter";
-import { Pagination } from "../_components/pagination";
-import { PostDetail } from "../_components/post-detail";
-import { getCategoryByPrefix } from "../_lib/get-categories";
-import {
-  getAllPostSlugs,
-  getPostByPath,
-  getPublishedPosts,
-} from "../_lib/get-posts";
+import { BlogCard } from '../_components/blog-card'
+import { CategoryFilter } from '../_components/category-filter'
+import { Pagination } from '../_components/pagination'
+import { PostDetail } from '../_components/post-detail'
+import { getCategoryByPrefix } from '../_lib/get-categories'
+import { getAllPostSlugs, getPostByPath, getPublishedPosts } from '../_lib/get-posts'
 
 interface SlugPageProps {
-  params: Promise<{ slug: string[] }>;
-  searchParams: Promise<{ page?: string }>;
+  params: Promise<{ slug: string[] }>
+  searchParams: Promise<{ page?: string }>
 }
 
-const STANDARD_PAGE_SIZE = 10;
+const STANDARD_PAGE_SIZE = 10
 
 export async function generateStaticParams() {
-  const slugPaths = await getAllPostSlugs();
-  return slugPaths.map((segments) => ({ slug: segments }));
+  const slugPaths = await getAllPostSlugs()
+  return slugPaths.map((segments) => ({ slug: segments }))
 }
 
-export async function generateMetadata({
-  params,
-}: SlugPageProps): Promise<Metadata> {
-  const { slug: segments } = await params;
+export async function generateMetadata({ params }: SlugPageProps): Promise<Metadata> {
+  const { slug: segments } = await params
 
   // Try to resolve as post
-  const post = await getPostByPath(segments);
+  const post = await getPostByPath(segments)
   if (post) {
     const ogImage =
-      post.featuredImage && typeof post.featuredImage === "object"
+      post.featuredImage && typeof post.featuredImage === 'object'
         ? ((post.featuredImage as Media).url ?? undefined)
-        : undefined;
+        : undefined
 
     return {
       title: post.meta?.title ?? `${post.title} — ELLA`,
@@ -48,50 +42,47 @@ export async function generateMetadata({
       openGraph: {
         title: post.meta?.title ?? post.title,
         description: post.meta?.description ?? post.excerpt ?? undefined,
-        url: `https://withella.io/blog/${segments.join("/")}`,
+        url: `https://withella.io/blog/${segments.join('/')}`,
         images: ogImage ? [{ url: ogImage }] : undefined,
       },
-    };
+    }
   }
 
   // Try category prefix listing
   if (segments.length === 1) {
-    const category = await getCategoryByPrefix(segments[0]);
+    const category = await getCategoryByPrefix(segments[0])
     if (category) {
       return {
         title: `${category.title} — ELLA Blog`,
         description: category.description ?? undefined,
-      };
+      }
     }
   }
 
-  return { title: "Not Found — ELLA" };
+  return { title: 'Not Found — ELLA' }
 }
 
-export default async function SlugPage({
-  params,
-  searchParams,
-}: SlugPageProps) {
-  const { slug: segments } = await params;
-  const { page: pageParam } = await searchParams;
-  const currentPage = Math.max(1, parseInt(pageParam ?? "1", 10));
+export default async function SlugPage({ params, searchParams }: SlugPageProps) {
+  const { slug: segments } = await params
+  const { page: pageParam } = await searchParams
+  const currentPage = Math.max(1, parseInt(pageParam ?? '1', 10))
 
   // 1. Try to resolve as a blog post
-  const post = await getPostByPath(segments);
+  const post = await getPostByPath(segments)
   if (post) {
-    return <PostDetail post={post} />;
+    return <PostDetail post={post} />
   }
 
   // 2. Single segment — check if it's a category prefix (sub-listing)
   if (segments.length === 1) {
-    const category = await getCategoryByPrefix(segments[0]);
+    const category = await getCategoryByPrefix(segments[0])
     if (category) {
-      const allPosts = await getPublishedPosts({ categorySlug: category.slug });
-      const totalPages = Math.ceil(allPosts.length / STANDARD_PAGE_SIZE);
+      const allPosts = await getPublishedPosts({ categorySlug: category.slug })
+      const totalPages = Math.ceil(allPosts.length / STANDARD_PAGE_SIZE)
       const paginated = allPosts.slice(
         (currentPage - 1) * STANDARD_PAGE_SIZE,
         currentPage * STANDARD_PAGE_SIZE,
-      );
+      )
 
       return (
         <>
@@ -102,9 +93,7 @@ export default async function SlugPage({
               </Eyebrow>
               <Heading as="h1">{category.title}</Heading>
               {category.description && (
-                <p className="text-ash-600 mt-4 max-w-xl text-lg/relaxed">
-                  {category.description}
-                </p>
+                <p className="text-ash-600 mt-4 max-w-xl text-lg/relaxed">{category.description}</p>
               )}
             </Container>
           </section>
@@ -126,9 +115,7 @@ export default async function SlugPage({
                   ))}
                 </div>
               ) : (
-                <p className="text-ash-1000 py-12 text-center">
-                  No posts in this category yet.
-                </p>
+                <p className="text-ash-1000 py-12 text-center">No posts in this category yet.</p>
               )}
 
               {totalPages > 1 && (
@@ -143,10 +130,10 @@ export default async function SlugPage({
             </Container>
           </section>
         </>
-      );
+      )
     }
   }
 
   // Nothing matched
-  notFound();
+  notFound()
 }

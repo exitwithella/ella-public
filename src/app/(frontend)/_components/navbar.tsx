@@ -1,7 +1,7 @@
-import { NavbarClient } from './navbar-client'
 import { EllaLogo } from '../_assets/logo'
-import { getNavigation } from '../_lib/get-navigation'
 import { navigation as fallbackNav } from '../_lib/content'
+import { getNavigation } from '../_lib/get-navigation'
+import { NavbarClient } from './navbar-client'
 
 export async function Navbar() {
   const nav = await getNavigation()

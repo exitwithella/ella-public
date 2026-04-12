@@ -35,7 +35,7 @@ ELLA's palette is derived from natural materials: moss, stone, leather, earth. T
 | **Forest**    | `--color-moss-700`      | Core brand color       | `#5A6B4A`  | Primary buttons, headings accent, brand moments |
 | **Mint**      | `--color-moss-400`      | Lighter brand accent   | `#8BAA6E`  | Secondary accents, hover states, highlights     |
 | **Ash**       | `--color-ash-900`       | Text, dark backgrounds | `#2A2E26`  | Body text, dark sections, near-black            |
-| **Cream**     | `--color-sandstone-100`        | Light backgrounds      | `#F5F5F0`  | Page backgrounds, card backgrounds              |
+| **Cream**     | `--color-sandstone-100` | Light backgrounds      | `#F5F5F0`  | Page backgrounds, card backgrounds              |
 | **Goldenrod** | `--color-goldenrod-300` | Warm accent            | `#C5A240`  | Highlights, accent moments, "gold leaf" touches |
 
 ### Supporting Colors

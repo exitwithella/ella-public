@@ -1,27 +1,25 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 
-import { Heading } from "@/components/elements/heading";
+import { Heading } from '@/components/elements/heading'
 
 export function NewsletterCTA() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState('')
+  const [submitted, setSubmitted] = useState(false)
 
   function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email) return;
+    e.preventDefault()
+    if (!email) return
     // UI-only at launch — email integration deferred
-    setSubmitted(true);
+    setSubmitted(true)
   }
 
   return (
     <aside className="bg-ash-100 rounded-2xl px-8 py-10">
       {submitted ? (
         <div className="text-center">
-          <p className="text-moss-700 font-display text-lg font-semibold">
-            You're on the list.
-          </p>
+          <p className="text-moss-700 font-display text-lg font-semibold">You're on the list.</p>
           <p className="text-ash-600 mt-2 text-sm">
             We'll send updates when there's something worth reading.
           </p>
@@ -32,13 +30,10 @@ export function NewsletterCTA() {
             Writing worth your inbox
           </Heading>
           <p className="text-ash-600 mt-2 text-sm/relaxed">
-            Practical perspectives on advisory practice, systematization, and
-            what's changing in the profession. No fluff.
+            Practical perspectives on advisory practice, systematization, and what's changing in the
+            profession. No fluff.
           </p>
-          <form
-            onSubmit={handleSubmit}
-            className="mt-5 flex flex-col gap-3 sm:flex-row"
-          >
+          <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-3 sm:flex-row">
             <label htmlFor="newsletter-email" className="sr-only">
               Email address
             </label>
@@ -61,5 +56,5 @@ export function NewsletterCTA() {
         </>
       )}
     </aside>
-  );
+  )
 }
