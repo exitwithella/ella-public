@@ -1,5 +1,6 @@
 import type { Page, Solution } from '@/payload-types'
 
+import { AdvisorPersonasBlock } from './blocks/advisor-personas-block'
 import { BeforeAfterPanelBlock } from './blocks/before-after-panel-block'
 import { BridgeSectionBlock } from './blocks/bridge-section-block'
 import { CardGridBlock } from './blocks/card-grid-block'
@@ -23,6 +24,8 @@ interface BlockRendererProps {
 
 export function BlockRenderer({ block }: BlockRendererProps) {
   switch (block.blockType) {
+    case 'advisor-personas':
+      return <AdvisorPersonasBlock block={block} />
     case 'credibility-strip':
       return <CredibilityStripBlock block={block} />
     case 'bridge-section':
