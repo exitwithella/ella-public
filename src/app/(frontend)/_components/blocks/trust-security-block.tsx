@@ -62,8 +62,7 @@ const patternStyle = (dataUri: string, color: string | null | undefined) =>
   }) as const;
 
 const bgColorStyle = (color: string | null | undefined) =>
-  color ? ({ backgroundColor: color }) as const : undefined;
-
+  color ? ({ backgroundColor: color } as const) : undefined;
 
 export async function TrustSecurityBlock({ block }: TrustSecurityBlockProps) {
   const patternMedia =
@@ -97,14 +96,14 @@ export async function TrustSecurityBlock({ block }: TrustSecurityBlockProps) {
             <div className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-10">
               <div>
                 {block.heading && (
-                  <Heading className="mb-3 text-2xl md:text-3xl">
+                  <Heading className="mb-3 text-xl md:text-2xl">
                     {parseEmphasis(block.heading)}
                   </Heading>
                 )}
 
                 {block.intro && (
                   <div
-                    className={`prose prose-sm text-theme-text-secondary mb-6 max-w-none ${isDarkTheme(block.bgStyle) ? "prose-invert" : ""}`}
+                    className={`prose prose-sm [&_p]:text-sm [&_p]:leading-snug [&_p+p]:mt-2 text-theme-text-secondary mb-6 max-w-none ${isDarkTheme(block.bgStyle) ? "prose-invert" : ""}`}
                   >
                     <RichText data={block.intro} />
                   </div>
