@@ -1103,6 +1103,10 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Show the bottom border line on this section.
+             */
+            showBottomBorder?: boolean | null;
             bgStyle?:
               | (
                   | 'sandstone'
@@ -3325,6 +3329,7 @@ export interface PagesSelect<T extends boolean = true> {
                         };
                     id?: T;
                   };
+              showBottomBorder?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;

@@ -131,12 +131,14 @@ function ProductFeaturesScroller({
   sectionLabel,
   heading,
   subheading,
+  showBottomBorder = true,
 }: {
   items: Item[];
   bgStyle: string;
   sectionLabel?: string | null;
   heading?: string | null;
   subheading?: string | null;
+  showBottomBorder?: boolean | null;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = items[activeIndex];
@@ -164,7 +166,7 @@ function ProductFeaturesScroller({
     <ThemeSection
       bgStyle={bgStyle}
       ref={sectionRef}
-      className="border-theme-surface relative border-b"
+      className={`relative ${showBottomBorder !== false ? "border-theme-surface border-b" : ""}`}
       style={{ overflowX: "clip" }}
     >
       {/* Sticky header — bg color only on the left column, right stays transparent */}
@@ -312,6 +314,7 @@ export function ProductFeaturesBlock({ block }: ProductFeaturesBlockProps) {
       sectionLabel={block.sectionLabel}
       heading={block.heading}
       subheading={block.subheading}
+      showBottomBorder={block.showBottomBorder}
     />
   );
 }

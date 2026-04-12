@@ -65,6 +65,14 @@ export const ProductFeaturesBlock: Block = {
         },
       ],
     },
+    {
+      name: 'showBottomBorder',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: {
+        description: 'Show the bottom border line on this section.',
+      },
+    },
     bgStyleField,
   ],
 }
