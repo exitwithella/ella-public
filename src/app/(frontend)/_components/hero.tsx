@@ -124,6 +124,7 @@ export function Hero({ hero }: HeroProps) {
   const secondaryLabel = hero.secondaryCta?.label ?? 'Book a Demo'
 
   return (
+    <>
     <section className="pt-24 md:pt-36">
       <Container className="flex flex-col items-center gap-6">
         {/* Announcement Badge */}
@@ -221,9 +222,15 @@ export function Hero({ hero }: HeroProps) {
           {FOOTNOTE}
         </motion.div>
 
-        {/* Hero Image */}
+      </Container>
+    </section>
+
+    {/* Hero Image — sticky sibling so layout blocks act as its scroll runway.
+        Sticks at top-0; the z-10 layout blocks scroll up and cover it. */}
+    <div className="sticky top-(--scroll-padding-top) z-0">
+      <Container>
         <motion.div
-          className="mt-8 w-full max-w-4xl overflow-hidden rounded-sm"
+          className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-sm"
           initial={{ opacity: 0, y: 150 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -243,6 +250,7 @@ export function Hero({ hero }: HeroProps) {
           />
         </motion.div>
       </Container>
-    </section>
+    </div>
+    </>
   )
 }

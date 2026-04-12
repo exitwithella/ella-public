@@ -356,19 +356,24 @@ oxfmt config (`.oxfmtrc.json`): single quotes, no semi, trailing commas, Tailwin
 
 oxlint config (`.oxlintrc.json`): correctness (errors), suspicious (warnings), perf (warnings). React, JSX-A11y, Next.js, Import, Unicorn, Promise plugins. No opinionated style rules.
 
-## Linear Project Tracking (Mandatory)
+## Linear Project Tracking
 
-All planning and implementation work is tracked in **Linear** using the **MKT** team (Public Site). This is not optional — every plan and implementation task must be reflected in Linear.
+Linear tracking for the **MKT** team (Public Site) is available and should be used when explicitly requested or for larger multi-session initiatives. Don't create Linear projects, documents, or issues unless asked.
 
-### Rules
+### When to use Linear
 
-1. **Every plan = a Linear project.** When you create an implementation plan, create a corresponding Linear project in the MKT team. Attach the full plan as a Linear document on that project.
-2. **Every implementation step = a Linear issue.** Each discrete step gets its own issue with clear title, description, and acceptance criteria. Set up `blockedBy`/`blocks` dependencies between issues when ordering matters.
+- User asks to track something in Linear
+- A large feature spans multiple sessions and needs structured tracking
+- You're working from an existing Linear issue (`MKT-NNN` in the prompt or commit message)
+
+### Rules (when Linear tracking is active)
+
+1. **For large initiatives: project + issues.** When asked to set up tracking for a significant piece of work, create a Linear project in the MKT team, attach the plan as a document, and create issues for each implementation step with `blockedBy`/`blocks` dependencies where ordering matters.
+2. **For smaller tasks: issues only.** When tracking individual work items, create issues without a project unless one already exists.
 3. **Track progress in real-time.** Don't leave stale statuses.
    - **Starting work:** Move referenced issues to "In Progress" before writing code.
    - **Committing:** When a jj/git commit message references MKT issue(s) (`MKT-\d+` in subject or body), move those issues to "In Review" immediately after the commit succeeds. This is a hard rule — never leave referenced issues in a pre-review state after a successful commit.
 4. **Decisions and tradeoffs = comments.** When you make a meaningful choice (component selection, design brief interpretation, deviation from a planning doc, performance tradeoff), add a comment on the relevant issue explaining what was decided and why.
-5. **Use the `/linear-track` skill** for the full workflow reference. It documents the exact tool calls, naming conventions, and example flows.
 
 ### Quick Reference
 
@@ -430,7 +435,7 @@ The following skills are available and should be actively invoked when relevant.
 6. **If requirements conflict, flag it.** The planning docs were written at different points. The homepage spec supersedes the implementation plan where they conflict. The design brief supersedes both on visual decisions.
 7. **Think mobile-first.** Build the mobile layout, then enhance for larger viewports. The site's audience includes advisors checking it on their phones between meetings.
 8. **When in doubt about copy, use what exists.** The homepage spec provides multiple copy options per block. Pick the one marked as recommended. If no recommendation exists, pick the most specific and concrete option — advisors trust specificity over abstraction.
-9. **Create Linear tracking.** Before starting implementation, create the project, plan document, and issues in Linear. Track progress as you work.
+9. **Create Linear tracking if requested.** When asked, create a project, plan document, and/or issues in the MKT team. Don't create tracking unless explicitly requested.
 10. **Run `/rams`** before marking any page complete.
 
 ## Document Precedence
