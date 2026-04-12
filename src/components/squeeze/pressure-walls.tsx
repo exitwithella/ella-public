@@ -90,8 +90,8 @@ export function PressureWalls({
   // Edge glow
   const glowOpacity = useTransform(squeeze, [0, 0.2, 1], [0, 0.3, 0.7])
 
-  // Labels: fade in once walls are visible, stay visible (no fade out)
-  const labelOpacity = useTransform(scrollYProgress, [0.3, 0.38], [0, 1])
+  // Labels: fade in once walls are visible, fade out as section exits
+  const labelOpacity = useTransform(scrollYProgress, [0.3, 0.38, 0.75, 0.9], [0, 1, 1, 0])
 
   return (
     <>

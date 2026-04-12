@@ -987,11 +987,19 @@ export interface Page {
           }
         | {
             /**
+             * Optional eyebrow label above the heading.
+             */
+            label?: string | null;
+            /**
              * Section headline. Rendered in Termina.
              */
-            heading: string;
+            heading?: string | null;
             /**
-             * Body copy — 2–4 paragraphs in DM Sans.
+             * Body = standard DM Sans body text. Feature = larger serif text.
+             */
+            bodyStyle?: ('body' | 'feature') | null;
+            /**
+             * Body copy — 2–4 paragraphs.
              */
             body?: {
               root: {
@@ -1238,6 +1246,10 @@ export interface Page {
              */
             personas?:
               | {
+                  /**
+                   * Short uppercase category label shown in the header bar (e.g. "GROWING PRACTICES", "DEAL WORK"). Optional.
+                   */
+                  label?: string | null;
                   /**
                    * The persona identifier (e.g. "The CEPA with 40 clients and one associate")
                    */
@@ -3197,7 +3209,9 @@ export interface PagesSelect<T extends boolean = true> {
         'bridge-section'?:
           | T
           | {
+              label?: T;
               heading?: T;
+              bodyStyle?: T;
               body?: T;
               quotes?:
                 | T
@@ -3295,6 +3309,7 @@ export interface PagesSelect<T extends boolean = true> {
               personas?:
                 | T
                 | {
+                    label?: T;
                     title?: T;
                     description?: T;
                     withElla?: T;

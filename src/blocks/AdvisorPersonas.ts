@@ -76,6 +76,14 @@ export const AdvisorPersonasBlock: Block = {
       },
       fields: [
         {
+          name: 'label',
+          type: 'text',
+          admin: {
+            description:
+              'Short uppercase category label shown in the header bar (e.g. "GROWING PRACTICES", "DEAL WORK"). Optional.',
+          },
+        },
+        {
           name: 'title',
           type: 'text',
           required: true,

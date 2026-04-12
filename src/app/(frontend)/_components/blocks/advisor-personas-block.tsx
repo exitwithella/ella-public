@@ -17,7 +17,8 @@ interface AdvisorPersonasBlockProps {
 }
 
 const QUOTE_GRADIENT = {
-  background: 'linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
+  background:
+    'linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
 } as const
 
 const ACCENT_BG: Record<string, string> = {
@@ -72,7 +73,7 @@ export function AdvisorPersonasBlock({ block }: AdvisorPersonasBlockProps) {
     block.imageQuote?.text || block.imageQuote?.attribution || block.imageQuote?.label
 
   return (
-    <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
+    <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28" style={{ overflowX: 'clip' }}>
       <Container>
         {/* Section header */}
         {(block.sectionLabel || block.heading) && (
@@ -87,12 +88,12 @@ export function AdvisorPersonasBlock({ block }: AdvisorPersonasBlockProps) {
           </div>
         )}
 
-        {/* Two-column layout */}
-        <div className="lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12 xl:gap-16">
-          {/* Left column — image (sticky on desktop) */}
-          <div className="mb-10 lg:mb-0">
+        {/* Two-column layout — balanced split */}
+        <div className="lg:grid lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          {/* Left column — image (sticky on desktop, aligns with panel top) */}
+          <div className="mb-10 lg:mb-0 lg:self-start lg:sticky lg:top-32">
             {image?.url && (
-              <div className="lg:sticky lg:top-24">
+              <div>
                 {/* Desktop image: portrait crop */}
                 <div className="relative hidden overflow-hidden rounded-sm lg:block lg:aspect-[3/4]">
                   <Image
@@ -100,10 +101,13 @@ export function AdvisorPersonasBlock({ block }: AdvisorPersonasBlockProps) {
                     alt={image.alt ?? block.heading ?? ''}
                     fill
                     className="object-cover"
-                    sizes="(min-width: 1024px) 33vw, 100vw"
+                    sizes="(min-width: 1024px) 45vw, 100vw"
                   />
                   {hasQuote && (
-                    <div className="absolute inset-x-0 bottom-0 p-6 md:p-8" style={QUOTE_GRADIENT}>
+                    <div
+                      className="absolute inset-x-0 bottom-0 p-6 md:p-8"
+                      style={QUOTE_GRADIENT}
+                    >
                       {block.imageQuote?.label && (
                         <p className="text-sandstone-300 mb-2 text-xs font-semibold tracking-widest uppercase">
                           {block.imageQuote.label}
@@ -156,9 +160,15 @@ export function AdvisorPersonasBlock({ block }: AdvisorPersonasBlockProps) {
             )}
           </div>
 
-          {/* Right column — persona cards */}
+          {/* Right column — structured persona list on surface panel, bleeds right */}
           {block.personas && block.personas.length > 0 && (
-            <div className="flex flex-col gap-6">
+            <div className="relative">
+            {/* Background panel — rounds left, bleeds to viewport right edge */}
+            <div className="bg-theme-surface absolute inset-0 rounded-l-lg" />
+            <div className="bg-theme-surface absolute inset-y-0 left-full w-[50vw]" />
+            {/* Content */}
+            <div className="relative p-6 md:p-8 lg:p-10">
+            <div className="flex flex-col gap-8 md:gap-10">
               {block.personas.map((persona) => {
                 const uploadedIcon = persona.icon as Media | null
                 const accent = persona.accentColor ?? 'forest'
@@ -166,50 +176,63 @@ export function AdvisorPersonasBlock({ block }: AdvisorPersonasBlockProps) {
                 const textClass = ACCENT_TEXT[accent] ?? ACCENT_TEXT.forest
 
                 return (
-                  <div
-                    key={persona.id}
-                    className="border-theme-border bg-theme-surface rounded-sm border p-8 md:p-10"
-                  >
-                    <div className="flex gap-5">
-                      {/* Icon container */}
+                  <div key={persona.id}>
+                    {/* Header bar — icon anchored left, rule extending right */}
+                    <div className="mb-4 flex items-center gap-3">
                       <div
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-sm ${bgClass}`}
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-sm ${bgClass}`}
                       >
-                        {persona.iconName ? (
-                          <PhosphorIcon name={persona.iconName} size={20} className={textClass} />
-                        ) : uploadedIcon?.url ? (
-                          <Image
-                            src={uploadedIcon.url}
-                            alt=""
-                            width={20}
-                            height={20}
-                            className={`object-contain ${textClass}`}
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <DefaultIcon className={textClass} />
-                        )}
+                      {persona.iconName ? (
+                        <PhosphorIcon
+                          name={persona.iconName}
+                          size={18}
+                          className={textClass}
+                        />
+                      ) : uploadedIcon?.url ? (
+                        <Image
+                          src={uploadedIcon.url}
+                          alt=""
+                          width={18}
+                          height={18}
+                          className={`object-contain ${textClass}`}
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <DefaultIcon className={textClass} />
+                      )}
                       </div>
+                      {/* Category label */}
+                      {persona.label && (
+                        <span className="text-theme-text-secondary text-[0.625rem] font-semibold tracking-[0.1em] uppercase">
+                          {persona.label}
+                        </span>
+                      )}
+                      {/* Horizontal rule fills remaining space */}
+                      <div className="bg-theme-border h-px flex-1" />
+                    </div>
 
-                      {/* Content */}
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-display text-theme-text text-base font-semibold tracking-tight">
-                          {persona.title}
-                        </h3>
-                        <p className="text-theme-text-secondary mt-2 text-base/relaxed">
-                          {persona.description}
-                        </p>
-                        <div className="border-theme-border mt-4 border-t pt-4">
-                          <p className="text-base/relaxed">
-                            <span className="text-theme-accent font-semibold">With ELLA: </span>
-                            <span className="text-theme-text-secondary">{persona.withElla}</span>
-                          </p>
-                        </div>
-                      </div>
+                    {/* Title */}
+                    <h3 className="font-display text-theme-text text-sm font-semibold tracking-tight">
+                      {persona.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-theme-text-secondary mt-2.5 text-sm/relaxed">
+                      {persona.description}
+                    </p>
+
+                    {/* With ELLA — visually distinct callout */}
+                    <div className="border-theme-accent/30 mt-4 border-l-2 pl-4">
+                      <p className="text-sm/relaxed">
+                        <span className="text-theme-accent font-medium">With ELLA:</span>{' '}
+                        <span className="text-theme-text">{persona.withElla}</span>
+                      </p>
                     </div>
                   </div>
                 )
               })}
+            </div>
+            </div>
             </div>
           )}
         </div>

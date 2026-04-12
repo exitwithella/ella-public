@@ -10,18 +10,37 @@ export const BridgeSectionBlock: Block = {
   },
   fields: [
     {
+      name: 'label',
+      type: 'text',
+      admin: {
+        description: 'Optional eyebrow label above the heading.',
+      },
+    },
+    {
       name: 'heading',
       type: 'text',
-      required: true,
       admin: {
         description: 'Section headline. Rendered in Termina.',
+      },
+    },
+    {
+      name: 'bodyStyle',
+      type: 'select',
+      defaultValue: 'body',
+      options: [
+        { label: 'Body Text', value: 'body' },
+        { label: 'Feature', value: 'feature' },
+      ],
+      admin: {
+        description: 'Body = standard DM Sans body text. Feature = larger serif text.',
+        width: '50%',
       },
     },
     {
       name: 'body',
       type: 'richText',
       admin: {
-        description: 'Body copy — 2–4 paragraphs in DM Sans.',
+        description: 'Body copy — 2–4 paragraphs.',
       },
     },
     {
