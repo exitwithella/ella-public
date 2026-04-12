@@ -60,8 +60,6 @@ export function SqueezeSection({
   const [squeezeValue, setSqueezeValue] = useState(0)
   const [step, setStep] = useState(0)
 
-  const totalSteps = bodyParagraphs.length + quotes.length + (closer ? 1 : 0)
-
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
@@ -78,6 +76,9 @@ export function SqueezeSection({
     setStep(newStep)
   }, [])
 
+  // Content steps = paragraphs + quotes (excluding closer) — drives wall tier count
+  const contentSteps = bodyParagraphs.length + quotes.length
+
   return (
     <section ref={sectionRef} className="relative overflow-hidden">
       <div className="sticky top-0 flex min-h-screen flex-col justify-center py-20">
@@ -92,7 +93,7 @@ export function SqueezeSection({
 
         <PressureWalls
           step={step}
-          totalSteps={totalSteps}
+          contentSteps={contentSteps}
           scrollYProgress={scrollYProgress}
           pressureItems={pressureItems}
           erosionItems={erosionItems}

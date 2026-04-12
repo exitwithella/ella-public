@@ -71,7 +71,9 @@ function useStepTracking<T extends HTMLElement = HTMLDivElement>(
     stepVal.set(step)
   }, [step, stepVal])
 
-  const opacity = step > index ? 1 : 0.4
+  const revealed = useRef(false)
+  if (step > index) revealed.current = true
+  const opacity = revealed.current ? 1 : 0.4
 
   return { ref, opacity, springVal }
 }
@@ -259,6 +261,7 @@ export function SqueezeContent({
               <ContentBlock
                 index={i}
                 step={step}
+
                 onStepChange={handleStepChange}
                 isMobile={isMobile}
               >
@@ -270,6 +273,7 @@ export function SqueezeContent({
               <QuoteBlock
                 index={i}
                 step={step}
+
                 onStepChange={handleStepChange}
                 quote={item.text}
                 attribution={item.attribution}
@@ -281,6 +285,7 @@ export function SqueezeContent({
               <ContentBlock
                 index={i}
                 step={step}
+
                 onStepChange={handleStepChange}
                 isMobile={isMobile}
               >

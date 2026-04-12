@@ -1,7 +1,14 @@
 'use client'
 
-import { motion, useMotionValue, useTransform, useSpring, type MotionValue } from 'motion/react'
-import { useEffect } from 'react'
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  useSpring,
+  useMotionValueEvent,
+  type MotionValue,
+} from 'motion/react'
+import { useEffect, useState } from 'react'
 
 export const defaultPressureItems = [
   'More clients',
@@ -23,52 +30,68 @@ export const defaultErosionItems = [
 
 export function PressureWalls({
   step,
-  totalSteps,
+  contentSteps,
   scrollYProgress,
   pressureItems = defaultPressureItems,
   erosionItems = defaultErosionItems,
 }: {
   step: number
-  totalSteps: number
+  contentSteps: number
   scrollYProgress: MotionValue<number>
   pressureItems?: string[]
   erosionItems?: string[]
 }) {
   const leftItems = pressureItems
   const rightItems = erosionItems
-  const stepVal = useMotionValue(step)
-  // Bouncy spring for the step-based squeeze
-  const springVal = useSpring(stepVal, {
-    stiffness: 120,
-    damping: 14,
-    mass: 0.8,
-  })
+
+  // --- Scroll layer: continuous 0→1 mapped from scroll position ---
+  const scrollSqueezeRaw = useTransform(scrollYProgress, [0.15, 0.55], [0, 1])
+
+  // --- Step layer: normalized step position ---
+  // When each paragraph hits center, the target advances to a new tier.
+  // Follows step in both directions — walls open back up on scroll-up.
+  const safeSteps = Math.max(contentSteps, 1)
+  const stepFloorVal = useMotionValue(Math.min(step / safeSteps, 1))
 
   useEffect(() => {
-    stepVal.set(step)
-  }, [step, stepVal])
+    stepFloorVal.set(Math.min(step / safeSteps, 1))
+  }, [step, safeSteps, stepFloorVal])
 
-  // Walls close in based on steps (0-7 content blocks)
-  // Using percentage-only values for proper animation interpolation
-  // On narrow screens, 22% is safer; on wider screens we can go to 28%
-  const leftWall = useTransform(springVal, [0, 7], ['0%', '22%'])
-  const rightWall = useTransform(springVal, [0, 7], ['0%', '22%'])
+  // --- Exit: walls recede as section hits the upper 20% of viewport ---
+  const exitFactor = useTransform(scrollYProgress, [0.75, 0.9], [1, 0])
+
+  // --- Combined target: scroll advances walls, step floor prevents jitter ---
+  // max() means scroll provides smooth forward motion between steps,
+  // and step tier sets the minimum so walls don't flicker during forward scroll.
+  // exitFactor pulls them back out as the section leaves.
+  const combinedTarget = useTransform(
+    [scrollSqueezeRaw, stepFloorVal, exitFactor] as MotionValue[],
+    ([scroll, floor, exit]: number[]) => Math.max(scroll, floor) * exit,
+  )
+
+  // Heavy, overdamped spring — fast movement, no bounce, high inertia
+  const squeeze = useSpring(combinedTarget, {
+    stiffness: 180,
+    damping: 35,
+    mass: 1.4,
+  })
+
+  // Track squeeze as a plain number for label opacity calculations
+  const [squeezeNum, setSqueezeNum] = useState(0)
+  useMotionValueEvent(squeeze, 'change', (v: number) => setSqueezeNum(v))
+
+  // Walls close in — mapped from 0–1 squeeze
+  const leftWall = useTransform(squeeze, [0, 1], ['0%', '22%'])
+  const rightWall = useTransform(squeeze, [0, 1], ['0%', '22%'])
 
   // Solid opacity — walls need to be readable
-  const wallOpacity = useTransform(springVal, [0, 1, 4, 7], [0, 0.85, 0.92, 0.98])
+  const wallOpacity = useTransform(squeeze, [0, 0.05, 0.5, 1], [0, 0.85, 0.92, 0.98])
 
   // Edge glow
-  const glowOpacity = useTransform(springVal, [0, 2, 7], [0, 0.3, 0.7])
+  const glowOpacity = useTransform(squeeze, [0, 0.2, 1], [0, 0.3, 0.7])
 
-  // Label opacity — visible only while section is on screen and steps are progressing
-  const stepOpacity = useTransform(
-    springVal,
-    [0, 0.5, 2, totalSteps - 0.5, totalSteps],
-    [0, 0, 1, 1, 0],
-  )
-  // Hide labels when section is outside viewport (scroll progress < 0.1 or > 0.9)
-  const sectionVisible = useTransform(scrollYProgress, [0, 0.1, 0.7, 0.8], [0, 1, 1, 0])
-  const labelOpacity = useTransform(() => stepOpacity.get() * sectionVisible.get())
+  // Labels: fade in once walls are visible, stay visible (no fade out)
+  const labelOpacity = useTransform(scrollYProgress, [0.3, 0.38], [0, 1])
 
   return (
     <>
@@ -98,7 +121,7 @@ export function PressureWalls({
             key={item}
             className="text-ash-600 flex items-center gap-1 text-[0.625rem] font-medium whitespace-nowrap md:text-xs"
             style={{
-              opacity: getItemOpacity(step, i, leftItems.length),
+              opacity: getItemOpacity(squeezeNum, i, leftItems.length),
             }}
           >
             <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">{'\u2192'}</span>
@@ -148,7 +171,7 @@ export function PressureWalls({
             key={item}
             className="text-ash-600 flex items-center gap-1 text-[0.625rem] font-medium whitespace-nowrap md:text-xs"
             style={{
-              opacity: getItemOpacity(step, i, rightItems.length),
+              opacity: getItemOpacity(squeezeNum, i, rightItems.length),
             }}
           >
             <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">{'\u2190'}</span>
@@ -174,11 +197,13 @@ export function PressureWalls({
   )
 }
 
-/** Stagger each item's appearance based on step progress */
-function getItemOpacity(step: number, index: number, total: number): number {
-  // Each item appears at a certain step threshold
-  const threshold = 0.8 + index * 0.7
-  if (step < threshold) return 0
-  if (step > threshold + 0.7) return 1
-  return (step - threshold) / 1
+/** Stagger each label's appearance across the 0–1 squeeze progress */
+function getItemOpacity(progress: number, index: number, total: number): number {
+  const start = 0
+  const end = 0.85
+  const threshold = start + (index / Math.max(total - 1, 1)) * (end - start)
+  const fadeWindow = 0.12
+  if (progress < threshold) return 0
+  if (progress > threshold + fadeWindow) return 1
+  return (progress - threshold) / fadeWindow
 }
