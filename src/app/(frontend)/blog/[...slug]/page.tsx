@@ -11,7 +11,7 @@ import { CategoryFilter } from '../_components/category-filter'
 import { Pagination } from '../_components/pagination'
 import { PostDetail } from '../_components/post-detail'
 import { getCategoryByPrefix } from '../_lib/get-categories'
-import { getAllPostSlugs, getPostByPath, getPublishedPosts } from '../_lib/get-posts'
+import { getPostByPath, getPublishedPosts } from '../_lib/get-posts'
 
 interface SlugPageProps {
   params: Promise<{ slug: string[] }>
@@ -20,10 +20,7 @@ interface SlugPageProps {
 
 const STANDARD_PAGE_SIZE = 10
 
-export async function generateStaticParams() {
-  const slugPaths = await getAllPostSlugs()
-  return slugPaths.map((segments) => ({ slug: segments }))
-}
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: SlugPageProps): Promise<Metadata> {
   const { slug: segments } = await params

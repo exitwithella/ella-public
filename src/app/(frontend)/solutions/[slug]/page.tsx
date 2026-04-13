@@ -7,6 +7,8 @@ import config from '@/payload.config'
 import { BlockRenderer } from '../../_components/block-renderer'
 import { SolutionHero } from './_components/solution-hero'
 
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   params: Promise<{ slug: string }>
 }
@@ -25,22 +27,6 @@ async function getSolution(slug: string) {
   })
 
   return solutions.docs[0] || null
-}
-
-export async function generateStaticParams() {
-  const payload = await getPayload({ config })
-
-  const solutions = await payload.find({
-    collection: 'solutions',
-    limit: 100,
-    where: {
-      status: { equals: 'published' },
-    },
-  })
-
-  return solutions.docs.map((solution) => ({
-    slug: solution.slug,
-  }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

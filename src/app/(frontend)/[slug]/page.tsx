@@ -5,6 +5,8 @@ import config from '@/payload.config'
 
 import { BlockRenderer } from '../_components/block-renderer'
 
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   params: Promise<{ slug: string }>
 }
@@ -21,19 +23,6 @@ async function getPage(slug: string) {
   })
 
   return pages.docs[0] || null
-}
-
-export async function generateStaticParams() {
-  const payload = await getPayload({ config })
-
-  const pages = await payload.find({
-    collection: 'pages',
-    limit: 100,
-  })
-
-  return pages.docs.map((page) => ({
-    slug: page.slug,
-  }))
 }
 
 export default async function Page({ params }: PageProps) {

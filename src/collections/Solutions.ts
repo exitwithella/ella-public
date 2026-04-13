@@ -8,7 +8,6 @@ import {
   FormEmbedBlock,
   NumberedStepsBlock,
   TestimonialBlock,
-  TrustSecurityBlock,
 } from '../blocks'
 import { heroField } from '../fields/hero'
 import { metaField } from '../fields/meta'
@@ -75,7 +74,6 @@ export const Solutions: CollectionConfig = {
         CTASectionBlock,
         FeatureDeepDiveBlock,
         NumberedStepsBlock,
-        TrustSecurityBlock,
         FormEmbedBlock,
       ],
     },

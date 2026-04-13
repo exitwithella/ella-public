@@ -9,6 +9,8 @@ import { Navbar } from './_components/navbar'
 
 import './styles.css'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   description:
     'ELLA turns trust into action with tools built for advisor-led transitions. Go from intake to insight in a fraction of the time.',

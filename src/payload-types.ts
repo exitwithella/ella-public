@@ -1705,79 +1705,6 @@ export interface Solution {
             blockType: 'numbered-steps';
           }
         | {
-            /**
-             * Wrap words in *asterisks* to render them in italic.
-             */
-            heading?: string | null;
-            intro?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            /**
-             * Optional CTA button displayed below the intro text.
-             */
-            link?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            /**
-             * Items displayed in a 2-column grid to the right of the heading.
-             */
-            sections?:
-              | {
-                  title: string;
-                  /**
-                   * Short description (1-2 sentences).
-                   */
-                  body?: string | null;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Decorative SVG pattern displayed as the section background.
-             */
-            patternSvg?: (number | null) | Media;
-            /**
-             * CSS color for the SVG pattern fill (e.g. "var(--color-moss-300)", "#5A6B4A"). Leave blank to use the theme border color.
-             */
-            patternColor?: string | null;
-            /**
-             * CSS color for the section/pattern background (e.g. "var(--color-sandstone-100)"). Leave blank to use the theme background.
-             */
-            backgroundColor?: string | null;
-            /**
-             * CSS color for the content panel (e.g. "var(--color-sandstone-50)"). Leave blank to use the theme background.
-             */
-            contentBackgroundColor?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'trust-security';
-          }
-        | {
             embedType?: ('typeform' | 'loops' | 'custom') | null;
             formId?: string | null;
             embedCode?: string | null;
@@ -4010,32 +3937,6 @@ export interface SolutionsSelect<T extends boolean = true> {
                     image?: T;
                     id?: T;
                   };
-              bgStyle?: T;
-              id?: T;
-              blockName?: T;
-            };
-        'trust-security'?:
-          | T
-          | {
-              heading?: T;
-              intro?: T;
-              link?:
-                | T
-                | {
-                    label?: T;
-                    href?: T;
-                  };
-              sections?:
-                | T
-                | {
-                    title?: T;
-                    body?: T;
-                    id?: T;
-                  };
-              patternSvg?: T;
-              patternColor?: T;
-              backgroundColor?: T;
-              contentBackgroundColor?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;

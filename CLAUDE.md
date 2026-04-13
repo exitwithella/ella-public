@@ -97,7 +97,8 @@ Oatmeal is a Tailwind CSS component kit with 50+ pre-built, responsive component
 ### Database & Migration Rules
 
 - **Never delete the local D1 SQLite file.** It contains persistent state beyond schema data — MCP agent keys, user logins, and other records that `pnpm seed` cannot regenerate. If schema conflicts arise (e.g. "index already exists" during `pushDevSchema`), resolve them by dropping only the specific conflicting tables via `sqlite3` or `wrangler d1 execute --local`. Never wipe the whole file.
-- **All schema changes go through migration files.** After any collection, field, or block schema change, restart the dev server (`pnpm dev`) — it automatically generates and applies the migration on startup. Do not run `pnpm payload migrate:create` or `pnpm payload migrate` manually.
+- **Local dev uses `pushDevSchema` (automatic).** The dev server (`pnpm dev`) automatically pushes schema changes to local D1 — most changes are picked up without a restart. A restart is only needed if you encounter type errors on brand-new block types (the types file regenerates on restart). No manual migration step needed for local dev.
+- **Production deploys require migration files.** Before deploying, generate a migration to capture schema changes: `NODE_OPTIONS=--no-deprecation npx payload migrate:create`. This creates a timestamped migration file in `src/migrations/`. The `pnpm run deploy` command runs `payload migrate` against the remote D1 before deploying the app. Do not run `pnpm payload migrate` locally — it targets the local D1 which already has the schema via `pushDevSchema`.
 - **`pnpm seed` provides generic, complete baseline data.** The seed script establishes a working dev environment — reference collections (disciplines, categories, pricing tiers, partners) and a structurally complete homepage document with representative copy. It is not the source of final content.
 - **Real content is created and edited via the Payload MCP server or admin UI.** Use `mcp__Payload__*` tools or `localhost:3000/admin` for all actual content work. Do not encode production copy in `seed.ts` — the seed is for developers bootstrapping a local environment, not for content management.
 
@@ -289,7 +290,7 @@ These are drawn from the design brief and are non-negotiable:
 10. **No `npm` or `yarn`.** Use `pnpm` exclusively.
 11. **No `eslint` or `prettier`.** Use `oxlint` and `oxfmt` exclusively. Run `pnpm lint` and `pnpm format:check` to verify.
 12. **Never delete the local D1 SQLite file.** Drop specific conflicting tables instead. See Database & Migration Rules above.
-13. **No schema changes without restarting the dev server.** After any schema change, restart `pnpm dev` — it handles migration generation and application automatically. Never run `pnpm payload migrate:create` or `pnpm payload migrate` manually.
+13. **Generate migrations before deploying.** Most schema changes are picked up by the running dev server automatically. Before deploying, run `NODE_OPTIONS=--no-deprecation npx payload migrate:create` to generate a migration file for production. The deploy command applies it to the remote D1.
 
 ## Development Workflow
 

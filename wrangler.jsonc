@@ -18,7 +18,7 @@
   "d1_databases": [
     {
       "binding": "D1",
-      "database_id": "4ab22fb9-8aad-46a2-b46a-d3cee6c69445",
+      "database_id": "5de67555-7b5a-4440-b654-feeb078b2b90",
       "database_name": "ella-public-payload",
       "remote": true,
     },
@@ -42,6 +42,15 @@
     //   "bucket_name": "<BUCKET_NAME>",
     // },
   ],
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": false,
+    },
+  },
 
   // Here's how to configure an additional environment
   // It can be deployed with `CLOUDFLARE_ENV=staging pnpm run deploy`
