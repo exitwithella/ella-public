@@ -7,6 +7,7 @@ import { AnnouncementBadge } from '@/components/elements/announcement-badge'
 import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
 import { Container } from '@/components/elements/container'
 import { Text } from '@/components/elements/text'
+import { Wallpaper, type WallpaperColor } from '@/components/elements/wallpaper'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Page } from '@/payload-types'
 
@@ -25,7 +26,7 @@ const BADGE = {
   cta: 'Read more',
 }
 const FOOTNOTE = 'Your first 3 clients are on us.'
-const HERO_IMAGE = {
+const FALLBACK_IMAGE = {
   src: '/images/ella-dashboard.avif',
   alt: 'ELLA product screenshot',
 }
@@ -122,6 +123,13 @@ export function Hero({ hero }: HeroProps) {
   const secondaryHref =
     hero.secondaryCta?.href ?? 'https://cal.com/team/ella/ella-intro?overlayCalendar=true'
   const secondaryLabel = hero.secondaryCta?.label ?? 'Book a Demo'
+
+  // Resolve CMS visual — depth:2 populates it as a Media object
+  const visualMedia = hero.visual && typeof hero.visual === 'object' ? hero.visual : null
+  const heroSrc = visualMedia?.url ?? FALLBACK_IMAGE.src
+  const heroAlt = visualMedia?.alt ?? FALLBACK_IMAGE.alt
+  const heroWidth = visualMedia?.width ?? 1600
+  const heroHeight = visualMedia?.height ?? 900
 
   return (
     <>
@@ -226,10 +234,11 @@ export function Hero({ hero }: HeroProps) {
 
       {/* Hero Image — sticky sibling so layout blocks act as its scroll runway.
         Sticks at top-0; the z-10 layout blocks scroll up and cover it. */}
-      <div className="sticky top-(--scroll-padding-top) z-0">
-        <Container>
+      {hero.heroWallpaper ? (
+        // Animation wraps the whole card (Container + Wallpaper) — the boundary box animates,
+        // not just the image. No bottom rounding — image clips sharply at the bottom edge.
+        <div className="sticky top-(--scroll-padding-top) z-0 px-2">
           <motion.div
-            className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-sm"
             initial={{ opacity: 0, y: 150 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -239,17 +248,53 @@ export function Hero({ hero }: HeroProps) {
               type: 'spring',
             }}
           >
-            <Image
-              src={HERO_IMAGE.src}
-              alt={HERO_IMAGE.alt}
-              width={1600}
-              height={900}
-              className="w-full"
-              priority
-            />
+            <Container>
+              <Wallpaper
+                color={((hero.heroWallpaperColor ?? 'green') as WallpaperColor)}
+                className="mt-8 rounded-t-2xl"
+              >
+                <div className="px-6 pt-8 sm:px-10 sm:pt-12">
+                  <div className="overflow-hidden rounded-t-sm ring-1 ring-black/10">
+                    <Image
+                      src={heroSrc}
+                      alt={heroAlt}
+                      width={heroWidth}
+                      height={heroHeight}
+                      className="w-full"
+                      priority
+                    />
+                  </div>
+                </div>
+              </Wallpaper>
+            </Container>
           </motion.div>
-        </Container>
-      </div>
+        </div>
+      ) : (
+        <div className="sticky top-(--scroll-padding-top) z-0">
+          <Container>
+            <motion.div
+              className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-sm"
+              initial={{ opacity: 0, y: 150 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                bounce: 0.2,
+                delay: 2.7,
+                duration: 0.4,
+                type: 'spring',
+              }}
+            >
+              <Image
+                src={heroSrc}
+                alt={heroAlt}
+                width={heroWidth}
+                height={heroHeight}
+                className="w-full"
+                priority
+              />
+            </motion.div>
+          </Container>
+        </div>
+      )}
     </>
   )
 }

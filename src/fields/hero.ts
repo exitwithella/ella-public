@@ -172,5 +172,29 @@ export const heroField: GroupField = {
         { label: 'Ocean', value: 'ocean' },
       ],
     },
+    {
+      name: 'heroWallpaper',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Show a textured gradient wallpaper behind the hero image.',
+      },
+    },
+    {
+      name: 'heroWallpaperColor',
+      type: 'select',
+      defaultValue: 'green',
+      options: [
+        { label: 'Green', value: 'green' },
+        { label: 'Blue', value: 'blue' },
+        { label: 'Purple', value: 'purple' },
+        { label: 'Brown', value: 'brown' },
+      ],
+      admin: {
+        description: 'Gradient color for the hero wallpaper.',
+        width: '50%',
+        condition: (_, siblingData) => Boolean(siblingData?.heroWallpaper),
+      },
+    },
   ],
 }

@@ -463,6 +463,14 @@ export interface Page {
      * Color applied to the highlighted headline substring.
      */
     highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null;
+    /**
+     * Show a textured gradient wallpaper behind the hero image.
+     */
+    heroWallpaper?: boolean | null;
+    /**
+     * Gradient color for the hero wallpaper.
+     */
+    heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown') | null;
   };
   layout?:
     | (
@@ -1698,6 +1706,14 @@ export interface Solution {
      * Color applied to the highlighted headline substring.
      */
     highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null;
+    /**
+     * Show a textured gradient wallpaper behind the hero image.
+     */
+    heroWallpaper?: boolean | null;
+    /**
+     * Gradient color for the hero wallpaper.
+     */
+    heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown') | null;
   };
   layout?:
     | (
@@ -2160,6 +2176,14 @@ export interface LandingPage {
      * Color applied to the highlighted headline substring.
      */
     highlightColor?: ('goldenrod' | 'moss' | 'coral' | 'ocean') | null;
+    /**
+     * Show a textured gradient wallpaper behind the hero image.
+     */
+    heroWallpaper?: boolean | null;
+    /**
+     * Gradient color for the hero wallpaper.
+     */
+    heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown') | null;
   };
   layout?:
     | (
@@ -3236,6 +3260,8 @@ export interface PagesSelect<T extends boolean = true> {
         style?: T;
         highlightText?: T;
         highlightColor?: T;
+        heroWallpaper?: T;
+        heroWallpaperColor?: T;
       };
   layout?:
     | T
@@ -3764,6 +3790,8 @@ export interface LandingPagesSelect<T extends boolean = true> {
         style?: T;
         highlightText?: T;
         highlightColor?: T;
+        heroWallpaper?: T;
+        heroWallpaperColor?: T;
       };
   layout?:
     | T
@@ -4198,6 +4226,8 @@ export interface SolutionsSelect<T extends boolean = true> {
         style?: T;
         highlightText?: T;
         highlightColor?: T;
+        heroWallpaper?: T;
+        heroWallpaperColor?: T;
       };
   layout?:
     | T
