@@ -131,7 +131,7 @@ export function BlogCard({ post, variant }: BlogCardProps) {
 
   if (variant === 'featured') {
     return (
-      <article className="group border-ash-200 bg-sandstone-50 hover:border-moss-300 flex flex-col overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-md">
+      <article className="group border-ash-200 bg-sandstone-50 hover:border-moss-300 flex h-full flex-col overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-md">
         <Link href={href} className="flex flex-1 flex-col">
           {/* Image — 16:9 */}
           <div className="bg-ash-200 relative aspect-[16/9] shrink-0 overflow-hidden">

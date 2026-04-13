@@ -6,6 +6,7 @@ import { Heading } from '@/components/elements/heading'
 
 import { BlogCard } from './_components/blog-card'
 import { CategoryFilter } from './_components/category-filter'
+import { CarouselItem, EditorsPicksCarousel } from './_components/editors-picks-carousel'
 import { Pagination } from './_components/pagination'
 import { getAllCategories } from './_lib/get-categories'
 import { getPublishedPosts } from './_lib/get-posts'
@@ -89,14 +90,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       {featuredPosts.length > 0 && (
         <section className="bg-sandstone-50 py-12">
           <Container>
-            <h2 className="font-display text-ash-700 mb-6 text-sm font-semibold tracking-widest uppercase">
-              Editor's Picks
-            </h2>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <EditorsPicksCarousel>
               {featuredPosts.map((post) => (
-                <BlogCard key={post.id} post={post} variant="featured" />
+                <CarouselItem key={post.id}>
+                  <BlogCard post={post} variant="featured" />
+                </CarouselItem>
               ))}
-            </div>
+            </EditorsPicksCarousel>
           </Container>
         </section>
       )}
