@@ -208,14 +208,14 @@ These are hard targets, not aspirational:
 We use [Jujutsu](https://martinvonz.github.io/jj/) for version control, which enables stacked changes without the rebase pain of git branches.
 
 ```bash
-jj new                        # Start a new change on top of current
-jj describe -m "type: subject"  # Describe the change (conventional commit format)
-jj new                        # Start the next change in the stack
-jj log                        # View change graph
-jj squash                     # Fold working copy into parent
-jj edit <change-id>           # Jump to any change in the stack to amend it
+jj commit -m "type: subject"    # Describe current change + start a clean working copy (preferred)
+jj describe -m "type: subject"  # Describe a change without starting a new one
+jj new                          # Start a new empty change on top of current
+jj log                          # View change graph
+jj squash                       # Fold working copy into parent
+jj edit <change-id>             # Jump to any change in the stack to amend it
 jj rebase -r <change> -d <dest> # Move a change to a different parent
-jj git push                   # Push to remote
+jj git push                     # Push to remote
 ```
 
 If the project uses git instead of jj, follow standard branch conventions:
