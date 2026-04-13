@@ -574,6 +574,53 @@ async function seed() {
   console.log('✓ SiteSettings global')
 
   // ─────────────────────────────────────────────────────────
+  // Footer global
+  // ─────────────────────────────────────────────────────────
+  await payload.updateGlobal({
+    slug: 'footer',
+    data: {
+      bgStyle: 'brand-black',
+      description: 'ELLA turns trust into action with tools built for advisor-led transitions.',
+      columns: [
+        {
+          heading: 'Platform',
+          links: [
+            { label: 'Overview', href: '/platform' },
+            { label: 'Pricing', href: '/pricing' },
+          ],
+        },
+        {
+          heading: 'Company',
+          links: [
+            { label: 'About', href: '/about' },
+            { label: 'Blog', href: '/blog' },
+          ],
+        },
+        {
+          heading: 'Resources',
+          links: [
+            { label: 'Documentation', href: '/docs' },
+            { label: 'Support', href: '/support' },
+          ],
+        },
+        {
+          heading: 'Connect',
+          links: [
+            { label: 'LinkedIn', href: 'https://linkedin.com/company/withella' },
+            { label: 'Email', href: 'mailto:hello@withella.io' },
+          ],
+        },
+      ],
+      legalLinks: [
+        { label: 'Privacy', href: '/privacy' },
+        { label: 'Terms', href: '/terms' },
+      ],
+      copyrightText: `© ELLA ${new Date().getFullYear()}. All rights reserved.`,
+    },
+  })
+  console.log('✓ Footer global')
+
+  // ─────────────────────────────────────────────────────────
   // Testimonials
   // ─────────────────────────────────────────────────────────
   const testimonialDefs = [

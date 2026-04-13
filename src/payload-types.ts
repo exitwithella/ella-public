@@ -4297,6 +4297,33 @@ export interface Navigation {
  */
 export interface Footer {
   id: number;
+  bgStyle?:
+    | ('sandstone' | 'white' | 'mint' | 'goldenrod' | 'forest' | 'tannery' | 'leather' | 'ocean' | 'brand-black')
+    | null;
+  /**
+   * Logo mark shown in the top-left of the footer. Upload an SVG or PNG.
+   */
+  logomark?: (number | null) | Media;
+  /**
+   * Full logo displayed as a large watermark at the bottom of the footer. Upload an SVG or PNG.
+   */
+  footerLogo?: (number | null) | Media;
+  /**
+   * CSS color for the watermark logo (e.g. "rgba(255,255,255,0.04)", "var(--color-moss-700)"). Leave blank for default theme text at 4% opacity.
+   */
+  footerLogoColor?: string | null;
+  /**
+   * Opacity of the watermark logo in percent (0-100). Only used when no custom color is set. Default: 4
+   */
+  footerLogoOpacity?: number | null;
+  /**
+   * Percentage of the watermark logo to clip off the bottom (0 = fully visible, 33 = bottom third hidden)
+   */
+  footerLogoClipPercent?: number | null;
+  /**
+   * Brief description shown in the footer left column beneath the logo
+   */
+  description?: string | null;
   /**
    * Footer link columns
    */
@@ -4306,7 +4333,21 @@ export interface Footer {
         links?:
           | {
               label: string;
-              href: string;
+              linkType?: ('internal' | 'external') | null;
+              page?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'landing-pages';
+                    value: number | LandingPage;
+                  } | null)
+                | ({
+                    relationTo: 'solutions';
+                    value: number | Solution;
+                  } | null);
+              href?: string | null;
               id?: string | null;
             }[]
           | null;
@@ -4328,6 +4369,16 @@ export interface Footer {
       }[]
     | null;
   copyrightText?: string | null;
+  /**
+   * Optional status page embed (e.g. Instatus, BetterStack)
+   */
+  statusBadge?: {
+    enabled?: boolean | null;
+    /**
+     * Paste your status page embed snippet HTML
+     */
+    embedHtml?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -4406,6 +4457,13 @@ export interface NavigationSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  bgStyle?: T;
+  logomark?: T;
+  footerLogo?: T;
+  footerLogoColor?: T;
+  footerLogoOpacity?: T;
+  footerLogoClipPercent?: T;
+  description?: T;
   columns?:
     | T
     | {
@@ -4414,6 +4472,8 @@ export interface FooterSelect<T extends boolean = true> {
           | T
           | {
               label?: T;
+              linkType?: T;
+              page?: T;
               href?: T;
               id?: T;
             };
@@ -4436,6 +4496,12 @@ export interface FooterSelect<T extends boolean = true> {
         id?: T;
       };
   copyrightText?: T;
+  statusBadge?:
+    | T
+    | {
+        enabled?: T;
+        embedHtml?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

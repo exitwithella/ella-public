@@ -1,29 +1,29 @@
-"use client";
+'use client'
 
-import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
-import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react'
+import Image from 'next/image'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { Container } from "@/components/elements/container";
-import { Eyebrow } from "@/components/elements/eyebrow";
-import { Heading } from "@/components/elements/heading";
-import { ThemeSection } from "@/components/elements/theme-section";
-import type { Media, Page } from "@/payload-types";
+import { Container } from '@/components/elements/container'
+import { Eyebrow } from '@/components/elements/eyebrow'
+import { Heading } from '@/components/elements/heading'
+import { ThemeSection } from '@/components/elements/theme-section'
+import type { Media, Page } from '@/payload-types'
 
-const SCREENSHOT_INITIAL = { opacity: 0, scale: 1.02 };
-const SCREENSHOT_ANIMATE = { opacity: 1, scale: 1 };
-const SCREENSHOT_EXIT = { opacity: 0, scale: 0.98 };
-const SCREENSHOT_TRANSITION = { duration: 0.4, ease: "easeInOut" as const };
+const SCREENSHOT_INITIAL = { opacity: 0, scale: 1.02 }
+const SCREENSHOT_ANIMATE = { opacity: 1, scale: 1 }
+const SCREENSHOT_EXIT = { opacity: 0, scale: 0.98 }
+const SCREENSHOT_TRANSITION = { duration: 0.4, ease: 'easeInOut' as const }
 
 type ProductFeaturesData = Extract<
-  NonNullable<Page["layout"]>[number],
-  { blockType: "product-features" }
->;
+  NonNullable<Page['layout']>[number],
+  { blockType: 'product-features' }
+>
 
-type Item = NonNullable<ProductFeaturesData["items"]>[number];
+type Item = NonNullable<ProductFeaturesData['items']>[number]
 
 interface ProductFeaturesBlockProps {
-  block: ProductFeaturesData;
+  block: ProductFeaturesData
 }
 
 // Scroll-driven panel with fade in/out as it enters and exits the feature zone
@@ -32,47 +32,43 @@ function PanelTracker({
   onVisible,
   children,
 }: {
-  index: number;
-  onVisible: (i: number) => void;
-  children: React.ReactNode;
+  index: number
+  onVisible: (i: number) => void
+  children: React.ReactNode
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
-  });
+    offset: ['start end', 'end start'],
+  })
 
   // Smooth fade curve: invisible → fade in → full → fade out → invisible
   const opacity = useTransform(
     scrollYProgress,
     [0, 0.2, 0.35, 0.65, 0.8, 1],
     [0, 0.1, 1, 1, 0.1, 0],
-  );
+  )
   // Subtle vertical slide for a "riding the rail" feel
-  const y = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [30, 0, 0, -30]);
+  const y = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [30, 0, 0, -30])
 
   // Switch active image when panel is centered in viewport
   useEffect(() => {
-    return scrollYProgress.on("change", (v) => {
-      if (v > 0.35 && v < 0.65) onVisible(index);
-    });
-  }, [scrollYProgress, onVisible, index]);
+    return scrollYProgress.on('change', (v) => {
+      if (v > 0.35 && v < 0.65) onVisible(index)
+    })
+  }, [scrollYProgress, onVisible, index])
 
   return (
-    <motion.div
-      ref={ref}
-      style={{ opacity, y }}
-      className="flex min-h-[70vh] items-center py-12"
-    >
+    <motion.div ref={ref} style={{ opacity, y }} className="flex min-h-[70vh] items-center py-12">
       {children}
     </motion.div>
-  );
+  )
 }
 
 function PanelContent({ item, index }: { item: Item; index: number }) {
-  const screenshot = item.screenshot as Media | null;
-  const stepNum = String(index + 1).padStart(2, "0");
+  const screenshot = item.screenshot as Media | null
+  const stepNum = String(index + 1).padStart(2, '0')
 
   return (
     <>
@@ -82,7 +78,7 @@ function PanelContent({ item, index }: { item: Item; index: number }) {
           <div className="border-theme-border/40 overflow-hidden border">
             <Image
               src={screenshot.url}
-              alt={screenshot.alt ?? item.title ?? ""}
+              alt={screenshot.alt ?? item.title ?? ''}
               width={screenshot.width ?? 800}
               height={screenshot.height ?? 600}
               className="w-full object-cover"
@@ -92,9 +88,7 @@ function PanelContent({ item, index }: { item: Item; index: number }) {
       )}
 
       {/* Step counter — architectural rhythm */}
-      <p className="text-theme-text-muted mb-3 font-mono text-xs tracking-wider">
-        {stepNum}
-      </p>
+      <p className="text-theme-text-muted mb-3 font-mono text-xs tracking-wider">{stepNum}</p>
 
       {/* Title */}
       <h3 className="font-display text-theme-text text-2xl font-semibold tracking-tight lg:text-3xl">
@@ -122,7 +116,7 @@ function PanelContent({ item, index }: { item: Item; index: number }) {
         </div>
       )}
     </>
-  );
+  )
 }
 
 function ProductFeaturesScroller({
@@ -133,41 +127,37 @@ function ProductFeaturesScroller({
   subheading,
   showBottomBorder = true,
 }: {
-  items: Item[];
-  bgStyle: string;
-  sectionLabel?: string | null;
-  heading?: string | null;
-  subheading?: string | null;
-  showBottomBorder?: boolean | null;
+  items: Item[]
+  bgStyle: string
+  sectionLabel?: string | null
+  heading?: string | null
+  subheading?: string | null
+  showBottomBorder?: boolean | null
 }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeItem = items[activeIndex];
-  const activeScreenshot = activeItem?.screenshot as Media | null;
-  const handleVisible = useCallback((i: number) => setActiveIndex(i), []);
-  const hasHeader = sectionLabel || heading || subheading;
+  const [activeIndex, setActiveIndex] = useState(0)
+  const activeItem = items[activeIndex]
+  const activeScreenshot = activeItem?.screenshot as Media | null
+  const handleVisible = useCallback((i: number) => setActiveIndex(i), [])
+  const hasHeader = sectionLabel || heading || subheading
 
   // Track when the section's bottom edge is 20vh above viewport bottom → drives panel shrink
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress: sectionEndProgress } = useScroll({
     target: sectionRef,
-    offset: ["end 0.9", "end start"],
-  });
+    offset: ['end 0.9', 'end start'],
+  })
 
   // progress 0 = section bottom hits viewport bottom, 1 = section bottom hits viewport top
-  const panelHeight = useTransform(
-    sectionEndProgress,
-    [0, 0.5],
-    ["100%", "0%"],
-  );
-  const panelOpacity = useTransform(sectionEndProgress, [0, 0.25], [1, 0]);
-  const panelRadius = useTransform(sectionEndProgress, [0, 0.5], [16, 24]);
+  const panelHeight = useTransform(sectionEndProgress, [0, 0.5], ['100%', '0%'])
+  const panelOpacity = useTransform(sectionEndProgress, [0, 0.25], [1, 0])
+  const panelRadius = useTransform(sectionEndProgress, [0, 0.5], [16, 24])
 
   return (
     <ThemeSection
       bgStyle={bgStyle}
       ref={sectionRef}
-      className={`relative ${showBottomBorder !== false ? "border-theme-surface border-b" : ""}`}
-      style={{ overflowX: "clip" }}
+      className={`relative ${showBottomBorder !== false ? 'border-theme-surface border-b' : ''}`}
+      style={{ overflowX: 'clip' }}
     >
       {/* Sticky header — bg color only on the left column, right stays transparent */}
       <div className="sticky top-0 z-20">
@@ -178,14 +168,10 @@ function ProductFeaturesScroller({
               <div className="relative">
                 <div className="bg-theme-bg pointer-events-none absolute inset-y-0 right-0 -left-4" />
                 <div className="relative pt-20 pb-8 md:pt-28 md:pb-10">
-                  {sectionLabel && (
-                    <Eyebrow className="mb-3">{sectionLabel}</Eyebrow>
-                  )}
+                  {sectionLabel && <Eyebrow className="mb-3">{sectionLabel}</Eyebrow>}
                   {heading && <Heading>{heading}</Heading>}
                   {subheading && (
-                    <p className="text-theme-text-secondary mt-4 text-lg/relaxed">
-                      {subheading}
-                    </p>
+                    <p className="text-theme-text-secondary mt-4 text-lg/relaxed">{subheading}</p>
                   )}
                 </div>
               </div>
@@ -211,9 +197,7 @@ function ProductFeaturesScroller({
                 {/* Left border overlays the throughline: bold when active */}
                 <div
                   className={`transition-all duration-500 lg:-ml-[2px] lg:border-l-[3px] lg:pl-8 ${
-                    i === activeIndex
-                      ? "lg:border-theme-accent"
-                      : "lg:border-transparent"
+                    i === activeIndex ? 'lg:border-theme-accent' : 'lg:border-transparent'
                   }`}
                 >
                   <PanelContent item={item} index={i} />
@@ -240,10 +224,7 @@ function ProductFeaturesScroller({
 
                 {/* Content — clipped by the panel height, fades out */}
                 <div className="absolute inset-0 flex items-center overflow-hidden pr-8 pl-8 xl:pr-10 xl:pl-10">
-                  <motion.div
-                    className="relative z-20 w-full"
-                    style={{ opacity: panelOpacity }}
-                  >
+                  <motion.div className="relative z-20 w-full" style={{ opacity: panelOpacity }}>
                     {/* Image frame — cream bg lifts off the ash panel, above the rail lines */}
                     <div className="bg-theme-bg shadow-theme-text/[0.04] relative aspect-[4/3] overflow-hidden rounded-lg shadow-lg">
                       <AnimatePresence mode="wait">
@@ -258,9 +239,7 @@ function ProductFeaturesScroller({
                           >
                             <Image
                               src={activeScreenshot.url}
-                              alt={
-                                activeScreenshot.alt ?? activeItem?.title ?? ""
-                              }
+                              alt={activeScreenshot.alt ?? activeItem?.title ?? ''}
                               fill
                               className="object-cover"
                               sizes="(min-width: 1024px) 55vw, 100vw"
@@ -273,22 +252,20 @@ function ProductFeaturesScroller({
                     {/* Progress indicator: 01 ─── ── ── 04 */}
                     <div className="mt-5 flex items-center justify-center gap-3">
                       <span className="text-theme-text-muted font-mono text-xs">
-                        {String(activeIndex + 1).padStart(2, "0")}
+                        {String(activeIndex + 1).padStart(2, '0')}
                       </span>
                       <div className="flex gap-1.5">
                         {items.map((item, i) => (
                           <div
                             key={item.id}
                             className={`h-px transition-all duration-500 ${
-                              i === activeIndex
-                                ? "bg-theme-accent w-8"
-                                : "bg-theme-border w-3"
+                              i === activeIndex ? 'bg-theme-accent w-8' : 'bg-theme-border w-3'
                             }`}
                           />
                         ))}
                       </div>
                       <span className="text-theme-text-muted font-mono text-xs">
-                        {String(items.length).padStart(2, "0")}
+                        {String(items.length).padStart(2, '0')}
                       </span>
                     </div>
                   </motion.div>
@@ -301,20 +278,20 @@ function ProductFeaturesScroller({
 
       {/* Bottom rail is the section's border-b */}
     </ThemeSection>
-  );
+  )
 }
 
 export function ProductFeaturesBlock({ block }: ProductFeaturesBlockProps) {
-  if (!block.items || block.items.length === 0) return null;
+  if (!block.items || block.items.length === 0) return null
 
   return (
     <ProductFeaturesScroller
       items={block.items}
-      bgStyle={block.bgStyle ?? "sandstone"}
+      bgStyle={block.bgStyle ?? 'sandstone'}
       sectionLabel={block.sectionLabel}
       heading={block.heading}
       subheading={block.subheading}
       showBottomBorder={block.showBottomBorder}
     />
-  );
+  )
 }
