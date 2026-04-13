@@ -1,8 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
-
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 const scrollButtonStyle = {
   base: 'flex size-10 items-center justify-center rounded-full border transition-colors',

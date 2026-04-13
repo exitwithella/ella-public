@@ -32,7 +32,9 @@ export function PricingCloser() {
             </a>
           </div>
 
-          <p className="text-ash-400 mt-4 text-sm">Your first 3 clients are on us.</p>
+          <p className="text-ash-400 mt-4 text-sm">
+            Annual billing saves the most. Cancel anytime.
+          </p>
         </div>
       </Container>
     </section>

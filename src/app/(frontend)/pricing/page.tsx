@@ -4,19 +4,19 @@ import { getPayload } from 'payload'
 
 import { FeatureComparison } from './_components/feature-comparison'
 import { PricingCloser } from './_components/pricing-closer'
+import { PricingContent } from './_components/pricing-content'
 import { PricingFAQ } from './_components/pricing-faq'
 import { PricingHero } from './_components/pricing-hero'
-import { TierCards } from './_components/tier-cards'
-import { TrustStrip } from './_components/trust-strip'
+import { SharedFeatures } from './_components/shared-features'
 
 export const metadata: Metadata = {
   title: 'Pricing — ELLA',
   description:
-    'Simple, transparent pricing for trusted advisors. One plan for the solo practitioner. Custom solutions for teams and firms.',
+    'Simple, transparent pricing for trusted advisors. Per-user plans that scale with your practice.',
   openGraph: {
     title: 'Pricing — ELLA',
     description:
-      'Simple, transparent pricing. One plan for the solo practitioner. Custom solutions for teams and firms.',
+      'Simple, transparent pricing for trusted advisors. Per-user plans that scale with your practice.',
     url: 'https://withella.io/pricing',
   },
 }
@@ -52,8 +52,8 @@ export default async function PricingPage() {
   return (
     <>
       <PricingHero />
-      <TierCards tiers={tiers} />
-      <TrustStrip />
+      <PricingContent tiers={tiers} />
+      <SharedFeatures />
       <FeatureComparison />
       <PricingFAQ faqs={faqs} />
       <PricingCloser />

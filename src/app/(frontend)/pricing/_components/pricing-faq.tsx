@@ -33,8 +33,10 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
               <details key={faq.id} className="group">
                 <summary className="text-ash-900 flex w-full cursor-pointer list-none items-start justify-between gap-6 py-5 text-left text-base/7 font-medium [&::-webkit-details-marker]:hidden">
                   {faq.question}
-                  <PlusIcon className="text-ash-1000 h-lh shrink-0 group-open:hidden" />
-                  <MinusIcon className="text-ash-1000 hidden h-lh shrink-0 group-open:block" />
+                  <span className="relative h-lh w-[13px] shrink-0">
+                    <PlusIcon className="text-ash-1000 absolute inset-0 h-lh group-open:opacity-0" />
+                    <MinusIcon className="text-ash-1000 absolute inset-0 h-lh opacity-0 group-open:opacity-100" />
+                  </span>
                 </summary>
                 <div className="text-ash-700 -mt-2 pr-10 pb-5 text-sm/7">
                   <RichText data={faq.answer} />

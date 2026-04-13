@@ -179,27 +179,21 @@ async function seed() {
       tagline: 'For the solo advisor building a scalable practice',
       description:
         'Full access to the ELLA platform — Fact Finding, Sensemaking, and Deliverables — for the advisor ready to systematize their practice.',
-      badge: 'Most Popular',
-      price: { amount: 9900, period: 'month' as const },
+      badge: '',
+      price: { amount: 8000, period: 'year' as const },
+      pricePer: 'user' as const,
+      monthSurchargePercent: 25,
+      quarterSurchargePercent: 10,
+      maxAdvisors: '3',
+      maxClients: '30',
+      collaboratorsPerClient: '20/client',
       features: [
-        {
-          feature: 'Unlimited active client engagements',
-          included: 'yes' as const,
-        },
-        {
-          feature: 'Full Fact Finding, Sensemaking & Deliverables',
-          included: 'yes' as const,
-        },
-        {
-          feature: 'Custom templates and document generation',
-          included: 'yes' as const,
-        },
-        { feature: 'Client portal access', included: 'yes' as const },
-        { feature: 'Email support', included: 'yes' as const },
-        {
-          feature: 'SOC 2 compliant — data never used to train AI',
-          included: 'yes' as const,
-        },
+        { feature: 'Up to 30 active clients', included: 'yes' as const },
+        { feature: '20 collaborators per client', included: 'yes' as const },
+        { feature: 'All clients shared between advisors', included: 'yes' as const },
+        { feature: 'Limited Max model usage', included: 'yes' as const },
+        { feature: '20 hrs/mo/user recording included', included: 'yes' as const },
+        { feature: 'MCP & calendar sync integrations', included: 'yes' as const },
       ],
       cta: {
         label: 'Get Started',
@@ -212,31 +206,23 @@ async function seed() {
       name: 'Enterprise',
       tagline: 'For multi-advisor practices and firms',
       description:
-        'Everything in Practitioner, plus unlimited advisor seats, an admin dashboard, SSO, and a dedicated success manager.',
+        'Everything in Practitioner, plus advanced security, AI governance, custom integrations, and a dedicated success manager.',
       price: {
         amount: 0,
         period: 'custom' as const,
-        customLabel: 'Contact us',
+        customLabel: 'Custom',
       },
+      pricePer: 'user' as const,
+      maxAdvisors: 'Custom',
+      maxClients: 'Unlimited',
+      collaboratorsPerClient: 'Custom',
       features: [
-        { feature: 'Everything in Practitioner', included: 'yes' as const },
-        { feature: 'Unlimited advisor seats', included: 'yes' as const },
-        {
-          feature: 'Team workspace and admin dashboard',
-          included: 'yes' as const,
-        },
-        {
-          feature: 'SSO / SAML and custom data retention',
-          included: 'yes' as const,
-        },
-        {
-          feature: 'Priority support and dedicated success manager',
-          included: 'yes' as const,
-        },
-        {
-          feature: 'Custom onboarding and integrations',
-          included: 'yes' as const,
-        },
+        { feature: 'AI governance & decision tracing', included: 'yes' as const },
+        { feature: 'BYOK & custom AI guardrails', included: 'yes' as const },
+        { feature: 'SIEM & scheduled posture reporting', included: 'yes' as const },
+        { feature: 'Dedicated capacity & regional processing', included: 'yes' as const },
+        { feature: 'Premium support SLA', included: 'yes' as const },
+        { feature: 'Custom integration development', included: 'yes' as const },
       ],
       cta: {
         label: 'Talk to Our Team',
@@ -314,8 +300,8 @@ async function seed() {
     {
       question: 'Do I need to commit to an annual plan?',
       answer: makeRichText(
-        'No. ELLA is month-to-month with no long-term contracts. You can cancel at any time.',
-        'Annual pricing is available for those who prefer it. Contact us to learn more.',
+        'No. ELLA offers monthly, quarterly, and annual billing. You can cancel at any time with no long-term contracts.',
+        'Annual billing offers the best rate. Monthly and quarterly billing are available at a slight premium for maximum flexibility.',
       ),
       category: 'pricing' as const,
       showOnPricing: true,

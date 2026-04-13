@@ -2027,20 +2027,32 @@ export interface FaqItem {
 export interface PricingTier {
   id: number;
   /**
-   * e.g. "Free", "Practitioner", "Vanguard"
+   * e.g. "Practitioner", "Agency", "Enterprise"
    */
   name: string;
   price?: {
     /**
-     * Monthly price in cents (e.g. 9900 = $99). 0 = Free.
+     * Annual baseline price in cents per user per month (e.g. 8000 = $80). 0 = Free.
      */
     amount?: number | null;
     period?: ('month' | 'year' | 'one-time' | 'custom') | null;
     /**
-     * Override price display (e.g. "Contact us")
+     * Override price display (e.g. "Custom")
      */
     customLabel?: string | null;
   };
+  /**
+   * Whether this tier charges per user/seat or a flat monthly rate
+   */
+  pricePer?: ('user' | 'flat') | null;
+  /**
+   * Surcharge for monthly billing as a percentage (e.g. 25 = +25%). Leave blank for tiers without a toggle.
+   */
+  monthSurchargePercent?: number | null;
+  /**
+   * Surcharge for quarterly billing as a percentage (e.g. 10 = +10%). Leave blank for tiers without a toggle.
+   */
+  quarterSurchargePercent?: number | null;
   /**
    * Short descriptor shown under the tier name
    */
@@ -2050,18 +2062,21 @@ export interface PricingTier {
    */
   description?: string | null;
   /**
-   * Optional badge text (e.g. 'Most Popular')
+   * Optional badge text (e.g. 'Recommended')
    */
   badge?: string | null;
   /**
-   * Annual pricing (optional). If set, enables annual/monthly toggle on the pricing page.
+   * Max advisors allowed (e.g. "3", "20", "Custom")
    */
-  annualPrice?: {
-    /**
-     * Annual price in cents (e.g. 95040 = $950.40/yr). Leave blank if no annual pricing.
-     */
-    amount?: number | null;
-  };
+  maxAdvisors?: string | null;
+  /**
+   * Max clients allowed (e.g. "30", "Unlimited")
+   */
+  maxClients?: string | null;
+  /**
+   * Collaborators per client (e.g. "20/client", "50/client", "Custom")
+   */
+  collaboratorsPerClient?: string | null;
   features?:
     | {
         feature: string;
@@ -4087,14 +4102,15 @@ export interface PricingTiersSelect<T extends boolean = true> {
         period?: T;
         customLabel?: T;
       };
+  pricePer?: T;
+  monthSurchargePercent?: T;
+  quarterSurchargePercent?: T;
   tagline?: T;
   description?: T;
   badge?: T;
-  annualPrice?:
-    | T
-    | {
-        amount?: T;
-      };
+  maxAdvisors?: T;
+  maxClients?: T;
+  collaboratorsPerClient?: T;
   features?:
     | T
     | {

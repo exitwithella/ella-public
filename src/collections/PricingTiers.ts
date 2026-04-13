@@ -14,7 +14,7 @@ export const PricingTiers: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        description: 'e.g. "Free", "Practitioner", "Vanguard"',
+        description: 'e.g. "Practitioner", "Agency", "Enterprise"',
       },
     },
     {
@@ -25,13 +25,14 @@ export const PricingTiers: CollectionConfig = {
           name: 'amount',
           type: 'number',
           admin: {
-            description: 'Monthly price in cents (e.g. 9900 = $99). 0 = Free.',
+            description:
+              'Annual baseline price in cents per user per month (e.g. 8000 = $80). 0 = Free.',
           },
         },
         {
           name: 'period',
           type: 'select',
-          defaultValue: 'month',
+          defaultValue: 'year',
           options: [
             { label: 'Per month', value: 'month' },
             { label: 'Per year', value: 'year' },
@@ -43,11 +44,39 @@ export const PricingTiers: CollectionConfig = {
           name: 'customLabel',
           type: 'text',
           admin: {
-            description: 'Override price display (e.g. "Contact us")',
+            description: 'Override price display (e.g. "Custom")',
             condition: (_, siblingData) => siblingData.period === 'custom',
           },
         },
       ],
+    },
+    {
+      name: 'pricePer',
+      type: 'select',
+      defaultValue: 'user',
+      options: [
+        { label: 'Per user', value: 'user' },
+        { label: 'Flat rate', value: 'flat' },
+      ],
+      admin: {
+        description: 'Whether this tier charges per user/seat or a flat monthly rate',
+      },
+    },
+    {
+      name: 'monthSurchargePercent',
+      type: 'number',
+      admin: {
+        description:
+          'Surcharge for monthly billing as a percentage (e.g. 25 = +25%). Leave blank for tiers without a toggle.',
+      },
+    },
+    {
+      name: 'quarterSurchargePercent',
+      type: 'number',
+      admin: {
+        description:
+          'Surcharge for quarterly billing as a percentage (e.g. 10 = +10%). Leave blank for tiers without a toggle.',
+      },
     },
     {
       name: 'tagline',
@@ -67,26 +96,29 @@ export const PricingTiers: CollectionConfig = {
       name: 'badge',
       type: 'text',
       admin: {
-        description: "Optional badge text (e.g. 'Most Popular')",
+        description: "Optional badge text (e.g. 'Recommended')",
       },
     },
     {
-      name: 'annualPrice',
-      type: 'group',
+      name: 'maxAdvisors',
+      type: 'text',
       admin: {
-        description:
-          'Annual pricing (optional). If set, enables annual/monthly toggle on the pricing page.',
+        description: 'Max advisors allowed (e.g. "3", "20", "Custom")',
       },
-      fields: [
-        {
-          name: 'amount',
-          type: 'number',
-          admin: {
-            description:
-              'Annual price in cents (e.g. 95040 = $950.40/yr). Leave blank if no annual pricing.',
-          },
-        },
-      ],
+    },
+    {
+      name: 'maxClients',
+      type: 'text',
+      admin: {
+        description: 'Max clients allowed (e.g. "30", "Unlimited")',
+      },
+    },
+    {
+      name: 'collaboratorsPerClient',
+      type: 'text',
+      admin: {
+        description: 'Collaborators per client (e.g. "20/client", "50/client", "Custom")',
+      },
     },
     {
       name: 'features',
