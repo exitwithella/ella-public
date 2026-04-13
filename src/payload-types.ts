@@ -1428,6 +1428,132 @@ export interface Page {
             blockName?: string | null;
             blockType: 'values-grid';
           }
+        | {
+            /**
+             * HTML id for anchor links (e.g. "portfolio-analytics")
+             */
+            sectionId?: string | null;
+            /**
+             * Layout for the header area. Text-only spans full width. Split layouts pair text with a hero image.
+             */
+            headerLayout?: ('text-only' | 'text-left' | 'image-left') | null;
+            /**
+             * Text alignment within the text column (text-only layout)
+             */
+            textAlign?: ('left' | 'center') | null;
+            /**
+             * Eyebrow label above the heading (e.g. "Portfolio Analytics")
+             */
+            sectionLabel?: string | null;
+            heading?: string | null;
+            /**
+             * Visual size of the heading. Does not change the HTML tag (always h2).
+             */
+            headingSize?: ('default' | 'large' | 'small') | null;
+            /**
+             * Supporting paragraph text below the heading.
+             */
+            body?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            /**
+             * Optional CTA button or text link below the body.
+             */
+            link?: {
+              label?: string | null;
+              href?: string | null;
+              style?: ('button' | 'link') | null;
+            };
+            /**
+             * Large hero screenshot for the split header layout.
+             */
+            headerImage?: (number | null) | Media;
+            /**
+             * Optional accordion details below the body text (split layouts only).
+             */
+            accordionItems?:
+              | {
+                  question: string;
+                  answer?: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  } | null;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Number of gallery columns on desktop.
+             */
+            galleryColumns?: ('3' | '4') | null;
+            /**
+             * Gallery items. Each has a static image and an optional animated GIF that plays on hover.
+             */
+            galleryItems?:
+              | {
+                  /**
+                   * The default still image (PNG, JPG, or WebP).
+                   */
+                  staticImage: number | Media;
+                  /**
+                   * Optional animated version (GIF or WebM) shown on hover.
+                   */
+                  animatedImage?: (number | null) | Media;
+                  /**
+                   * Short caption underneath the image.
+                   */
+                  caption?: string | null;
+                  /**
+                   * Smaller description line below the caption.
+                   */
+                  subcaption?: string | null;
+                  /**
+                   * Per-card background override. Accepts any CSS variable (e.g. "var(--color-goldenrod-200)") or raw CSS color. Leave empty to inherit the section theme.
+                   */
+                  bgColor?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'ash'
+                  | 'brand-black'
+                )
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'feature-showcase';
+          }
       )[]
     | null;
   meta?: {
@@ -3529,6 +3655,46 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     title?: T;
                     description?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'feature-showcase'?:
+          | T
+          | {
+              sectionId?: T;
+              headerLayout?: T;
+              textAlign?: T;
+              sectionLabel?: T;
+              heading?: T;
+              headingSize?: T;
+              body?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    style?: T;
+                  };
+              headerImage?: T;
+              accordionItems?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              galleryColumns?: T;
+              galleryItems?:
+                | T
+                | {
+                    staticImage?: T;
+                    animatedImage?: T;
+                    caption?: T;
+                    subcaption?: T;
+                    bgColor?: T;
                     id?: T;
                   };
               bgStyle?: T;

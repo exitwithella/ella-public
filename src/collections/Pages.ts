@@ -22,6 +22,7 @@ import {
   SqueezeSectionBlock,
   DilemmaSectionBlock,
   ValuesGridBlock,
+  FeatureShowcaseBlock,
 } from '../blocks'
 import { heroField } from '../fields/hero'
 import { metaField } from '../fields/meta'
@@ -150,6 +151,7 @@ export const Pages: CollectionConfig = {
         DilemmaSectionBlock,
         AdvisorPersonasBlock,
         ValuesGridBlock,
+        FeatureShowcaseBlock,
       ],
     },
     metaField,

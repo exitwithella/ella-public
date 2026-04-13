@@ -10,6 +10,7 @@ import { CredibilityStripBlock } from './blocks/credibility-strip-block'
 import { CTASectionBlock } from './blocks/cta-section-block'
 import { DilemmaSectionBlock } from './blocks/dilemma-section-block'
 import { FeatureDeepDiveBlock } from './blocks/feature-deep-dive-block'
+import { FeatureShowcaseBlock } from './blocks/feature-showcase-block'
 import { NumberedStepsBlock } from './blocks/numbered-steps-block'
 import { ProductFeaturesBlock } from './blocks/product-features-block'
 import { SqueezeSectionBlock } from './blocks/squeeze-section-block'
@@ -55,15 +56,24 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       return <DilemmaSectionBlock block={block} />
     case 'testimonial-block':
       return <TestimonialBlockComponent block={block} />
-    default:
+    default: {
       // Handle block types not yet in payload-types.ts (regenerated on dev server restart)
-      if ((block as { blockType: string }).blockType === 'values-grid') {
+      const bt = (block as { blockType: string }).blockType
+      if (bt === 'values-grid') {
         return (
           <ValuesGridBlock
             block={block as unknown as Parameters<typeof ValuesGridBlock>[0]['block']}
           />
         )
       }
+      if (bt === 'feature-showcase') {
+        return (
+          <FeatureShowcaseBlock
+            block={block as unknown as Parameters<typeof FeatureShowcaseBlock>[0]['block']}
+          />
+        )
+      }
       return null
+    }
   }
 }
