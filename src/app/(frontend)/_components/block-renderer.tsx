@@ -15,6 +15,7 @@ import { ProductFeaturesBlock } from './blocks/product-features-block'
 import { SqueezeSectionBlock } from './blocks/squeeze-section-block'
 import { TestimonialBlockComponent } from './blocks/testimonial-block-component'
 import { TrustSecurityBlock } from './blocks/trust-security-block'
+import { ValuesGridBlock } from './blocks/values-grid-block'
 
 type Block = NonNullable<Page['layout']>[number] | NonNullable<Solution['layout']>[number]
 
@@ -55,6 +56,14 @@ export function BlockRenderer({ block }: BlockRendererProps) {
     case 'testimonial-block':
       return <TestimonialBlockComponent block={block} />
     default:
+      // Handle block types not yet in payload-types.ts (regenerated on dev server restart)
+      if ((block as { blockType: string }).blockType === 'values-grid') {
+        return (
+          <ValuesGridBlock
+            block={block as unknown as Parameters<typeof ValuesGridBlock>[0]['block']}
+          />
+        )
+      }
       return null
   }
 }

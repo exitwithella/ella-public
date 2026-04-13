@@ -6,6 +6,7 @@ export type ThemeName =
   | 'white'
   | 'mint'
   | 'goldenrod'
+  | 'ash'
   | 'forest'
   | 'tannery'
   | 'leather'

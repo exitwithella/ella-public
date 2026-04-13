@@ -1,4 +1,5 @@
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import Link from 'next/link'
 
 import { Container } from '@/components/elements/container'
 import { Heading } from '@/components/elements/heading'
@@ -64,6 +65,19 @@ export function BridgeSectionBlock({ block }: BridgeSectionBlockProps) {
             <p className="text-theme-text-secondary mt-10 text-base font-medium md:text-lg">
               {block.closer}
             </p>
+          )}
+
+          {/* Optional trailing link */}
+          {block.link?.href && block.link?.label && (
+            <div className="mt-10">
+              <Link
+                href={block.link.href}
+                className="text-moss-700 hover:text-moss-800 inline-flex items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline"
+              >
+                {block.link.label}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           )}
         </div>
       </Container>

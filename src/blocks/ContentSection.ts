@@ -10,6 +10,19 @@ export const ContentSectionBlock: Block = {
   },
   fields: [
     {
+      name: 'layout',
+      type: 'select',
+      defaultValue: 'default',
+      options: [
+        { label: 'Default', value: 'default' },
+        { label: 'Split Heading', value: 'split-heading' },
+      ],
+      admin: {
+        description:
+          'Default = standard layout. Split Heading = heading on left, body on right in a two-column grid.',
+      },
+    },
+    {
       name: 'sectionLabel',
       type: 'text',
       admin: {

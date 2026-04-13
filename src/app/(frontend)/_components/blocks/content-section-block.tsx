@@ -8,6 +8,8 @@ import { isDarkTheme, ThemeSection } from '@/components/elements/theme-section'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Page, Solution } from '@/payload-types'
 
+import { SplitHeadingLayout } from './content-section-split-heading'
+
 type ContentSectionData =
   | Extract<NonNullable<Page['layout']>[number], { blockType: 'content-section' }>
   | Extract<NonNullable<Solution['layout']>[number], { blockType: 'content-section' }>
@@ -17,6 +19,10 @@ interface ContentSectionBlockProps {
 }
 
 export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
+  if ((block as ContentSectionData & { layout?: string }).layout === 'split-heading') {
+    return <SplitHeadingLayout block={block} />
+  }
+
   const mediaPos = block.mediaPosition ?? 'none'
   const hasMedia = mediaPos !== 'none' && block.media
   const isTwoColumn = hasMedia && (mediaPos === 'left' || mediaPos === 'right')

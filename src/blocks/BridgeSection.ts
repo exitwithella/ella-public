@@ -72,6 +72,23 @@ export const BridgeSectionBlock: Block = {
         description: 'Standalone closing line after the quotes. DM Sans medium weight.',
       },
     },
+    {
+      name: 'link',
+      type: 'group',
+      admin: {
+        description: 'Optional trailing link below the content.',
+      },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+        },
+        {
+          name: 'href',
+          type: 'text',
+        },
+      ],
+    },
     bgStyleField,
   ],
 }

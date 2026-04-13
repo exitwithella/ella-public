@@ -82,6 +82,64 @@ export const heroField: GroupField = {
       relationTo: 'media',
     },
     {
+      name: 'visualFit',
+      type: 'select',
+      defaultValue: 'contain',
+      options: [
+        { label: 'Contain (show full image)', value: 'contain' },
+        { label: 'Crop (fill area, may clip)', value: 'crop' },
+        { label: 'Square (forced 1:1, cropped)', value: 'square' },
+      ],
+      admin: {
+        description:
+          'Contain: image shown in full (screenshots). Crop: image fills the column height and may clip. Square: forced 1:1 aspect ratio with cropping.',
+        width: '50%',
+        condition: (_, siblingData) => Boolean(siblingData?.visual),
+      },
+    },
+    {
+      name: 'visualPosition',
+      type: 'select',
+      defaultValue: 'center',
+      options: [
+        { label: 'Center', value: 'center' },
+        { label: 'Top', value: 'top' },
+        { label: 'Bottom', value: 'bottom' },
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' },
+        { label: 'Top Left', value: 'top left' },
+        { label: 'Top Right', value: 'top right' },
+        { label: 'Bottom Left', value: 'bottom left' },
+        { label: 'Bottom Right', value: 'bottom right' },
+      ],
+      admin: {
+        description: 'Focal point for cropping. Only applies when Visual Fit is "Crop".',
+        width: '50%',
+        condition: (_, siblingData) =>
+          Boolean(siblingData?.visual) &&
+          (siblingData?.visualFit === 'crop' || siblingData?.visualFit === 'square'),
+      },
+    },
+    {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description:
+          'Deprecated — use the page-level Page Background setting instead. Kept for backward compatibility.',
+        condition: () => false,
+      },
+    },
+    {
+      name: 'showLogoWatermark',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Show the ELLA logo mark as a subtle background watermark in the hero.',
+        condition: (_, siblingData) => siblingData?.style === 'minimal',
+      },
+    },
+    {
       name: 'style',
       type: 'select',
       defaultValue: 'default',

@@ -1,49 +1,7 @@
 import { FooterMultiColumn } from '@/components/sections/footer-multi-column'
 
 import { getFooter } from '../_lib/get-footer'
-
-/**
- * Inline SVG class styles as `fill` attributes on elements to prevent
- * CSS class name collisions (Illustrator exports generic `.cls-1`, `.cls-2`
- * names that conflict when multiple SVGs are injected into the same page).
- */
-function inlineSvgFills(svg: string): string {
-  // Extract fill rules from <style> blocks: .cls-1{fill:#fff;} → { 'cls-1': '#fff' }
-  const fillMap = new Map<string, string>()
-  const styleRegex = /\.([\w-]+)\s*\{[^}]*fill\s*:\s*([^;}]+)/g
-  let match
-  while ((match = styleRegex.exec(svg)) !== null) {
-    fillMap.set(match[1], match[2].trim())
-  }
-  if (fillMap.size === 0) return svg
-
-  // Remove the <defs>...<style>...</style>...</defs> block
-  let result = svg.replace(/<defs>[\s\S]*?<\/defs>/gi, '')
-
-  // Apply inline fill to elements with matching class attributes
-  for (const [cls, fill] of fillMap) {
-    result = result.replace(new RegExp(`class="${cls}"`, 'g'), `fill="${fill}"`)
-  }
-
-  return result
-}
-
-async function fetchSvgContent(url: string): Promise<string | null> {
-  try {
-    const absoluteUrl = url.startsWith('http')
-      ? url
-      : `${process.env.NEXT_PUBLIC_SERVER_URL ?? 'http://localhost:3000'}${url}`
-    const res = await fetch(absoluteUrl)
-    const text = await res.text()
-    const svgStart = text.indexOf('<svg')
-    if (svgStart === -1) return null
-    // Strip anything before <svg (XML declarations, comments) that React can't handle
-    // Then inline fill styles to avoid class name collisions between SVGs
-    return inlineSvgFills(text.slice(svgStart))
-  } catch {
-    return null
-  }
-}
+import { fetchSvgContent } from '../_lib/svg'
 
 const COLLECTION_PREFIX: Record<string, string> = {
   pages: '/',

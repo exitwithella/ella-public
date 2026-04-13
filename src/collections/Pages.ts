@@ -21,6 +21,7 @@ import {
   ProductFeaturesBlock,
   SqueezeSectionBlock,
   DilemmaSectionBlock,
+  ValuesGridBlock,
 } from '../blocks'
 import { heroField } from '../fields/hero'
 import { metaField } from '../fields/meta'
@@ -66,6 +67,63 @@ export const Pages: CollectionConfig = {
         description: 'Parent page for breadcrumb and URL nesting',
       },
     },
+    {
+      name: 'pageBackground',
+      type: 'group',
+      admin: {
+        description: 'Optional decorative background image positioned absolutely on the page.',
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description:
+              'Background image (SVG or raster). Rendered at low opacity as a watermark.',
+          },
+        },
+        {
+          name: 'opacity',
+          type: 'number',
+          defaultValue: 3,
+          min: 1,
+          max: 100,
+          admin: {
+            description: 'Opacity percentage (1–100). Default: 3.',
+            width: '25%',
+            condition: (_, siblingData) => Boolean(siblingData?.image),
+          },
+        },
+        {
+          name: 'top',
+          type: 'text',
+          admin: {
+            description: 'CSS top value (e.g., "-5%", "100px", "0"). Default: "0".',
+            width: '25%',
+            condition: (_, siblingData) => Boolean(siblingData?.image),
+          },
+        },
+        {
+          name: 'right',
+          type: 'text',
+          admin: {
+            description: 'CSS right value (e.g., "-10%", "2rem"). Default: "0".',
+            width: '25%',
+            condition: (_, siblingData) => Boolean(siblingData?.image),
+          },
+        },
+        {
+          name: 'width',
+          type: 'text',
+          admin: {
+            description: 'CSS width (e.g., "800px", "50vw", "60%"). Default: auto.',
+            width: '25%',
+            condition: (_, siblingData) => Boolean(siblingData?.image),
+          },
+        },
+      ],
+    },
     heroField,
     {
       name: 'layout',
@@ -91,6 +149,7 @@ export const Pages: CollectionConfig = {
         SqueezeSectionBlock,
         DilemmaSectionBlock,
         AdvisorPersonasBlock,
+        ValuesGridBlock,
       ],
     },
     metaField,

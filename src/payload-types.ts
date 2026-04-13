@@ -387,6 +387,31 @@ export interface Page {
    * Parent page for breadcrumb and URL nesting
    */
   parent?: (number | null) | Page;
+  /**
+   * Optional decorative background image positioned absolutely on the page.
+   */
+  pageBackground?: {
+    /**
+     * Background image (SVG or raster). Rendered at low opacity as a watermark.
+     */
+    image?: (number | null) | Media;
+    /**
+     * Opacity percentage (1–100). Default: 3.
+     */
+    opacity?: number | null;
+    /**
+     * CSS top value (e.g., "-5%", "100px", "0"). Default: "0".
+     */
+    top?: string | null;
+    /**
+     * CSS right value (e.g., "-10%", "2rem"). Default: "0".
+     */
+    right?: string | null;
+    /**
+     * CSS width (e.g., "800px", "50vw", "60%"). Default: auto.
+     */
+    width?: string | null;
+  };
   hero: {
     headline: string;
     /**
@@ -411,6 +436,24 @@ export interface Page {
       href?: string | null;
     };
     visual?: (number | null) | Media;
+    /**
+     * Contain: image shown in full (screenshots). Crop: image fills the column height and may clip. Square: forced 1:1 aspect ratio with cropping.
+     */
+    visualFit?: ('contain' | 'crop' | 'square') | null;
+    /**
+     * Focal point for cropping. Only applies when Visual Fit is "Crop".
+     */
+    visualPosition?:
+      | ('center' | 'top' | 'bottom' | 'left' | 'right' | 'top left' | 'top right' | 'bottom left' | 'bottom right')
+      | null;
+    /**
+     * Deprecated — use the page-level Page Background setting instead. Kept for backward compatibility.
+     */
+    backgroundImage?: (number | null) | Media;
+    /**
+     * Show the ELLA logo mark as a subtle background watermark in the hero.
+     */
+    showLogoWatermark?: boolean | null;
     style?: ('default' | 'centered' | 'split' | 'minimal') | null;
     /**
      * Substring of the headline to render in accent color. Leave empty for no highlight.
@@ -424,6 +467,10 @@ export interface Page {
   layout?:
     | (
         | {
+            /**
+             * Default = standard layout. Split Heading = heading on left, body on right in a two-column grid.
+             */
+            layout?: ('default' | 'split-heading') | null;
             /**
              * Small eyebrow label above the heading (optional)
              */
@@ -465,6 +512,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -520,6 +568,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -542,6 +591,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -578,6 +628,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -622,6 +673,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -679,6 +731,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -733,6 +786,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -806,6 +860,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -838,6 +893,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -860,6 +916,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -889,6 +946,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -918,6 +976,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -945,6 +1004,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1059,6 +1119,13 @@ export interface Page {
              * Standalone closing line after the quotes. DM Sans medium weight.
              */
             closer?: string | null;
+            /**
+             * Optional trailing link below the content.
+             */
+            link?: {
+              label?: string | null;
+              href?: string | null;
+            };
             bgStyle?:
               | (
                   | 'sandstone'
@@ -1069,6 +1136,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1117,6 +1185,7 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1317,12 +1386,47 @@ export interface Page {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'advisor-personas';
+          }
+        | {
+            /**
+             * Floating title displayed above the bordered container.
+             */
+            heading?: string | null;
+            /**
+             * Short paragraph below the heading, inside the container.
+             */
+            description?: string | null;
+            items?:
+              | {
+                  title: string;
+                  description: string;
+                  id?: string | null;
+                }[]
+              | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'ash'
+                  | 'brand-black'
+                )
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'values-grid';
           }
       )[]
     | null;
@@ -1441,6 +1545,24 @@ export interface Solution {
       href?: string | null;
     };
     visual?: (number | null) | Media;
+    /**
+     * Contain: image shown in full (screenshots). Crop: image fills the column height and may clip. Square: forced 1:1 aspect ratio with cropping.
+     */
+    visualFit?: ('contain' | 'crop' | 'square') | null;
+    /**
+     * Focal point for cropping. Only applies when Visual Fit is "Crop".
+     */
+    visualPosition?:
+      | ('center' | 'top' | 'bottom' | 'left' | 'right' | 'top left' | 'top right' | 'bottom left' | 'bottom right')
+      | null;
+    /**
+     * Deprecated — use the page-level Page Background setting instead. Kept for backward compatibility.
+     */
+    backgroundImage?: (number | null) | Media;
+    /**
+     * Show the ELLA logo mark as a subtle background watermark in the hero.
+     */
+    showLogoWatermark?: boolean | null;
     style?: ('default' | 'centered' | 'split' | 'minimal') | null;
     /**
      * Substring of the headline to render in accent color. Leave empty for no highlight.
@@ -1454,6 +1576,10 @@ export interface Solution {
   layout?:
     | (
         | {
+            /**
+             * Default = standard layout. Split Heading = heading on left, body on right in a two-column grid.
+             */
+            layout?: ('default' | 'split-heading') | null;
             /**
              * Small eyebrow label above the heading (optional)
              */
@@ -1495,6 +1621,7 @@ export interface Solution {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1550,6 +1677,7 @@ export interface Solution {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1572,6 +1700,7 @@ export interface Solution {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1608,6 +1737,7 @@ export interface Solution {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1665,6 +1795,7 @@ export interface Solution {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1697,6 +1828,7 @@ export interface Solution {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1860,6 +1992,24 @@ export interface LandingPage {
       href?: string | null;
     };
     visual?: (number | null) | Media;
+    /**
+     * Contain: image shown in full (screenshots). Crop: image fills the column height and may clip. Square: forced 1:1 aspect ratio with cropping.
+     */
+    visualFit?: ('contain' | 'crop' | 'square') | null;
+    /**
+     * Focal point for cropping. Only applies when Visual Fit is "Crop".
+     */
+    visualPosition?:
+      | ('center' | 'top' | 'bottom' | 'left' | 'right' | 'top left' | 'top right' | 'bottom left' | 'bottom right')
+      | null;
+    /**
+     * Deprecated — use the page-level Page Background setting instead. Kept for backward compatibility.
+     */
+    backgroundImage?: (number | null) | Media;
+    /**
+     * Show the ELLA logo mark as a subtle background watermark in the hero.
+     */
+    showLogoWatermark?: boolean | null;
     style?: ('default' | 'centered' | 'split' | 'minimal') | null;
     /**
      * Substring of the headline to render in accent color. Leave empty for no highlight.
@@ -1873,6 +2023,10 @@ export interface LandingPage {
   layout?:
     | (
         | {
+            /**
+             * Default = standard layout. Split Heading = heading on left, body on right in a two-column grid.
+             */
+            layout?: ('default' | 'split-heading') | null;
             /**
              * Small eyebrow label above the heading (optional)
              */
@@ -1914,6 +2068,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1969,6 +2124,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -1991,6 +2147,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -2027,6 +2184,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -2071,6 +2229,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -2128,6 +2287,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -2201,6 +2361,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -2233,6 +2394,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -2255,6 +2417,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -2284,6 +2447,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -2311,6 +2475,7 @@ export interface LandingPage {
                   | 'tannery'
                   | 'leather'
                   | 'ocean'
+                  | 'ash'
                   | 'brand-black'
                 )
               | null;
@@ -2893,6 +3058,15 @@ export interface PagesSelect<T extends boolean = true> {
   status?: T;
   publishedDate?: T;
   parent?: T;
+  pageBackground?:
+    | T
+    | {
+        image?: T;
+        opacity?: T;
+        top?: T;
+        right?: T;
+        width?: T;
+      };
   hero?:
     | T
     | {
@@ -2914,6 +3088,10 @@ export interface PagesSelect<T extends boolean = true> {
               href?: T;
             };
         visual?: T;
+        visualFit?: T;
+        visualPosition?: T;
+        backgroundImage?: T;
+        showLogoWatermark?: T;
         style?: T;
         highlightText?: T;
         highlightColor?: T;
@@ -2924,6 +3102,7 @@ export interface PagesSelect<T extends boolean = true> {
         'content-section'?:
           | T
           | {
+              layout?: T;
               sectionLabel?: T;
               heading?: T;
               body?: T;
@@ -3232,6 +3411,12 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               closer?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -3334,6 +3519,22 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        'values-grid'?:
+          | T
+          | {
+              heading?: T;
+              description?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T
@@ -3375,6 +3576,10 @@ export interface LandingPagesSelect<T extends boolean = true> {
               href?: T;
             };
         visual?: T;
+        visualFit?: T;
+        visualPosition?: T;
+        backgroundImage?: T;
+        showLogoWatermark?: T;
         style?: T;
         highlightText?: T;
         highlightColor?: T;
@@ -3385,6 +3590,7 @@ export interface LandingPagesSelect<T extends boolean = true> {
         'content-section'?:
           | T
           | {
+              layout?: T;
               sectionLabel?: T;
               heading?: T;
               body?: T;
@@ -3803,6 +4009,10 @@ export interface SolutionsSelect<T extends boolean = true> {
               href?: T;
             };
         visual?: T;
+        visualFit?: T;
+        visualPosition?: T;
+        backgroundImage?: T;
+        showLogoWatermark?: T;
         style?: T;
         highlightText?: T;
         highlightColor?: T;
@@ -3813,6 +4023,7 @@ export interface SolutionsSelect<T extends boolean = true> {
         'content-section'?:
           | T
           | {
+              layout?: T;
               sectionLabel?: T;
               heading?: T;
               body?: T;
@@ -4199,7 +4410,18 @@ export interface Navigation {
 export interface Footer {
   id: number;
   bgStyle?:
-    | ('sandstone' | 'white' | 'mint' | 'goldenrod' | 'forest' | 'tannery' | 'leather' | 'ocean' | 'brand-black')
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
     | null;
   /**
    * Logo mark shown in the top-left of the footer. Upload an SVG or PNG.

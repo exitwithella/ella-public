@@ -13,6 +13,7 @@ export const bgStyleField: SelectField = {
     { label: 'Tannery', value: 'tannery' },
     { label: 'Leather', value: 'leather' },
     { label: 'Ocean', value: 'ocean' },
+    { label: 'Ash', value: 'ash' },
     { label: 'Brand Black', value: 'brand-black' },
   ],
   admin: { width: '50%' },
