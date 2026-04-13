@@ -4370,6 +4370,32 @@ export interface Footer {
     | null;
   copyrightText?: string | null;
   /**
+   * Hidden content revealed when users pull past the bottom of the page
+   */
+  easterEgg?: {
+    enabled?: boolean | null;
+    /**
+     * Background image for the hidden section (e.g. American Dynamism illustration)
+     */
+    backgroundImage?: (number | null) | Media;
+    /**
+     * Large serif text displayed across the center of the image
+     */
+    text?: string | null;
+    /**
+     * Alternate background image shown to visitors in the Erie, PA area
+     */
+    localImage?: (number | null) | Media;
+    /**
+     * Alternate text for local visitors (leave blank to use the default text)
+     */
+    localText?: string | null;
+    /**
+     * Height of the hidden section in pixels
+     */
+    height?: number | null;
+  };
+  /**
    * Optional status page embed (e.g. Instatus, BetterStack)
    */
   statusBadge?: {
@@ -4496,6 +4522,16 @@ export interface FooterSelect<T extends boolean = true> {
         id?: T;
       };
   copyrightText?: T;
+  easterEgg?:
+    | T
+    | {
+        enabled?: T;
+        backgroundImage?: T;
+        text?: T;
+        localImage?: T;
+        localText?: T;
+        height?: T;
+      };
   statusBadge?:
     | T
     | {

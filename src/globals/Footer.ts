@@ -149,6 +149,63 @@ export const Footer: GlobalConfig = {
       defaultValue: '© ELLA. All rights reserved.',
     },
     {
+      name: 'easterEgg',
+      type: 'group',
+      admin: {
+        description: 'Hidden content revealed when users pull past the bottom of the page',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+        {
+          name: 'backgroundImage',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description:
+              'Background image for the hidden section (e.g. American Dynamism illustration)',
+          },
+        },
+        {
+          name: 'text',
+          type: 'text',
+          defaultValue: 'Believe in Main Street',
+          admin: {
+            description: 'Large serif text displayed across the center of the image',
+          },
+        },
+        {
+          name: 'localImage',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description: 'Alternate background image shown to visitors in the Erie, PA area',
+          },
+        },
+        {
+          name: 'localText',
+          type: 'text',
+          admin: {
+            description: 'Alternate text for local visitors (leave blank to use the default text)',
+          },
+        },
+        {
+          name: 'height',
+          type: 'number',
+          defaultValue: 400,
+          min: 200,
+          max: 600,
+          admin: {
+            description: 'Height of the hidden section in pixels',
+            width: '50%',
+          },
+        },
+      ],
+    },
+    {
       name: 'statusBadge',
       type: 'group',
       admin: {

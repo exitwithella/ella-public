@@ -1,35 +1,29 @@
-import { clsx } from "clsx/lite";
-import type { ComponentProps } from "react";
+import { clsx } from 'clsx/lite'
+import type { ComponentProps } from 'react'
 
-import { EllaLogo, EllaLogoMark } from "@/app/(frontend)/_assets/logo";
+import { EllaLogo, EllaLogoMark } from '@/app/(frontend)/_assets/logo'
 
-import { Container } from "../elements/container";
+import { Container } from '../elements/container'
 
 function InlineSvg({
   html,
   className,
   style,
 }: {
-  html: string;
-  className?: string;
-  style?: React.CSSProperties;
+  html: string
+  className?: string
+  style?: React.CSSProperties
 }) {
   // oxlint-disable-next-line jsx-no-new-object-as-prop -- dangerouslySetInnerHTML requires a new object per render
-  return (
-    <div
-      className={className}
-      style={style}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
+  return <div className={className} style={style} dangerouslySetInnerHTML={{ __html: html }} />
 }
 
 function FooterColumn({
   heading,
   links,
 }: {
-  heading: string;
-  links?: { label: string; href: string; id?: string | null }[] | null;
+  heading: string
+  links?: { label: string; href: string; id?: string | null }[] | null
 }) {
   return (
     <div>
@@ -43,9 +37,7 @@ function FooterColumn({
               <a
                 href={link.href}
                 className="text-theme-text-secondary hover:text-theme-text text-sm/7 transition-colors"
-                {...(link.href.startsWith("http")
-                  ? { target: "_blank", rel: "noopener" }
-                  : {})}
+                {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}
               >
                 {link.label}
               </a>
@@ -54,11 +46,11 @@ function FooterColumn({
         </ul>
       ) : null}
     </div>
-  );
+  )
 }
 
 export function FooterMultiColumn({
-  bgStyle = "brand-black",
+  bgStyle = 'brand-black',
   logomarkSvg,
   footerLogoSvg,
   footerLogoClipPercent = 25,
@@ -74,48 +66,48 @@ export function FooterMultiColumn({
   className,
   ...props
 }: {
-  bgStyle?: string;
-  logomarkSvg?: string | null;
-  footerLogoSvg?: string | null;
-  footerLogoClipPercent?: number;
-  footerLogoAspectRatio?: number;
-  footerLogoColor?: string | null;
-  footerLogoOpacity?: number | null;
-  description: string;
+  bgStyle?: string
+  logomarkSvg?: string | null
+  footerLogoSvg?: string | null
+  footerLogoClipPercent?: number
+  footerLogoAspectRatio?: number
+  footerLogoColor?: string | null
+  footerLogoOpacity?: number | null
+  description: string
   newsletter?: {
-    enabled?: boolean | null;
-    heading?: string | null;
-    placeholder?: string | null;
-    buttonLabel?: string | null;
-  } | null;
+    enabled?: boolean | null
+    heading?: string | null
+    placeholder?: string | null
+    buttonLabel?: string | null
+  } | null
   columns?:
     | {
-        heading: string;
-        links?: { label: string; href: string; id?: string | null }[] | null;
-        id?: string | null;
+        heading: string
+        links?: { label: string; href: string; id?: string | null }[] | null
+        id?: string | null
       }[]
-    | null;
-  legalLinks?: { label: string; href: string; id?: string | null }[] | null;
-  copyrightText: string;
-  statusBadgeHtml?: string | null;
-} & Omit<ComponentProps<"footer">, "children">) {
-  const opacityPct = footerLogoOpacity ?? 4;
-  const baseColor = footerLogoColor || "var(--color-theme-text)";
+    | null
+  legalLinks?: { label: string; href: string; id?: string | null }[] | null
+  copyrightText: string
+  statusBadgeHtml?: string | null
+} & Omit<ComponentProps<'footer'>, 'children'>) {
+  const opacityPct = footerLogoOpacity ?? 4
+  const baseColor = footerLogoColor || 'var(--color-theme-text)'
   // oxlint-disable-next-line jsx-no-new-object-as-prop -- style depends on props
   const watermarkColorStyle = {
     color: `color-mix(in oklch, ${baseColor} ${opacityPct}%, transparent)`,
-  };
+  }
 
   // oxlint-disable-next-line jsx-no-new-object-as-prop -- style depends on props, can't hoist to module level
   const watermarkClipStyle = {
     maxHeight: `calc(100vw * ${(footerLogoAspectRatio * (100 - footerLogoClipPercent)) / 100})`,
-    overflow: "hidden" as const,
-  };
+    overflow: 'hidden' as const,
+  }
 
   return (
     <footer
       data-theme={bgStyle}
-      className={clsx("overflow-clip bg-theme-bg", className)}
+      className={clsx('overflow-clip bg-theme-bg', className)}
       {...props}
     >
       {/* Zone 1: Main content */}
@@ -133,9 +125,7 @@ export function FooterMultiColumn({
                 ) : (
                   <EllaLogoMark className="[&_path]:fill-theme-text h-20 w-auto" />
                 )}
-                <p className="text-theme-text-secondary mt-6 max-w-xs text-sm/7">
-                  {description}
-                </p>
+                <p className="text-theme-text-secondary mt-6 max-w-xs text-sm/7">{description}</p>
               </div>
               {newsletter?.enabled ? (
                 <div className="max-w-xs">
@@ -147,9 +137,7 @@ export function FooterMultiColumn({
                   <form className="flex gap-2">
                     <input
                       type="email"
-                      placeholder={
-                        newsletter.placeholder ?? "Your email address"
-                      }
+                      placeholder={newsletter.placeholder ?? 'Your email address'}
                       className="border-theme-text/20 bg-theme-text/5 text-theme-text placeholder:text-theme-text-muted focus:border-theme-accent min-w-0 flex-1 rounded-md border px-3 py-2 text-sm outline-none"
                       required
                     />
@@ -157,7 +145,7 @@ export function FooterMultiColumn({
                       type="submit"
                       className="bg-theme-accent text-theme-bg shrink-0 rounded-md px-4 py-2 text-sm font-medium transition-opacity hover:opacity-90"
                     >
-                      {newsletter.buttonLabel ?? "Subscribe"}
+                      {newsletter.buttonLabel ?? 'Subscribe'}
                     </button>
                   </form>
                 </div>
@@ -170,11 +158,7 @@ export function FooterMultiColumn({
               aria-label="Footer"
             >
               {columns?.map((col) => (
-                <FooterColumn
-                  key={col.id ?? col.heading}
-                  heading={col.heading}
-                  links={col.links}
-                />
+                <FooterColumn key={col.id ?? col.heading} heading={col.heading} links={col.links} />
               ))}
             </nav>
           </div>
@@ -194,13 +178,8 @@ export function FooterMultiColumn({
               {legalLinks && legalLinks.length > 0 ? (
                 <div className="flex flex-wrap items-center gap-y-1">
                   {legalLinks.map((link, i) => (
-                    <span
-                      key={link.id ?? link.href}
-                      className="flex items-center"
-                    >
-                      {i > 0 ? (
-                        <span className="text-theme-text-muted/50 mx-3">|</span>
-                      ) : null}
+                    <span key={link.id ?? link.href} className="flex items-center">
+                      {i > 0 ? <span className="text-theme-text-muted/50 mx-3">|</span> : null}
                       <a
                         href={link.href}
                         target="_blank"
@@ -236,5 +215,5 @@ export function FooterMultiColumn({
         </div>
       </div>
     </footer>
-  );
+  )
 }

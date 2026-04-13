@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Main } from '@/components/elements/main'
 
+import { EasterEggWrapper } from './_components/easter-egg-wrapper'
 import { Footer } from './_components/footer'
 import { MotionProvider } from './_components/motion-provider'
 import { Navbar } from './_components/navbar'
@@ -27,12 +28,14 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-sandstone-50">
-        <MotionProvider>
-          <Navbar />
-          <Main>{children}</Main>
-          <Footer />
-        </MotionProvider>
+      <body>
+        <EasterEggWrapper>
+          <MotionProvider>
+            <Navbar />
+            <Main>{children}</Main>
+            <Footer />
+          </MotionProvider>
+        </EasterEggWrapper>
       </body>
     </html>
   )

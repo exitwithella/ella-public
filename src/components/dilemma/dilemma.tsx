@@ -8,7 +8,7 @@ import {
   AnimatePresence,
   type Variants,
   type MotionValue,
-} from 'framer-motion'
+} from 'motion/react'
 import { useState, useEffect, useRef, useMemo } from 'react'
 
 // ─── Brand colors (via CSS custom properties from global stylesheet) ───

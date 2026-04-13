@@ -243,7 +243,7 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--color-sandstone-200);
+    background-color: var(--color-ash-900);
     --scroll-padding-top: 0;
     scroll-padding-top: var(--scroll-padding-top);
   }
