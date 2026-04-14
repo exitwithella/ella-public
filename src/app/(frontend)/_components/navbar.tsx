@@ -29,11 +29,17 @@ export async function Navbar() {
     href: nav.secondaryCta?.href || fallbackNav.actions.bookDemo.href,
   }
 
+  const loginLink =
+    nav.loginLink?.enabled && nav.loginLink.href
+      ? { label: nav.loginLink.label || 'Log in', href: nav.loginLink.href }
+      : undefined
+
   return (
     <NavbarClient
       links={links}
       primaryCta={primaryCta}
       secondaryCta={secondaryCta}
+      loginLink={loginLink}
       logo={<EllaLogo className="h-14 w-auto" />}
     />
   )

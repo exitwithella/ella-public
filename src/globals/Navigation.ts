@@ -61,6 +61,34 @@ export const Navigation: GlobalConfig = {
       ],
     },
     {
+      name: 'loginLink',
+      type: 'group',
+      label: 'Login Link',
+      admin: {
+        description: 'Optional "Log in" link displayed between the secondary and primary CTAs',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+        {
+          name: 'label',
+          type: 'text',
+          defaultValue: 'Log in',
+        },
+        {
+          name: 'href',
+          type: 'text',
+          defaultValue: 'https://app.withella.io',
+          admin: {
+            description: 'URL for the login page (e.g. https://app.withella.io)',
+          },
+        },
+      ],
+    },
+    {
       name: 'primaryCta',
       type: 'group',
       label: 'Primary CTA (right side)',

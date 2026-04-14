@@ -211,11 +211,13 @@ export function NavbarClient({
   links,
   primaryCta,
   secondaryCta,
+  loginLink,
   logo,
 }: {
   links: NavLink[]
   primaryCta: NavCta
   secondaryCta: NavCta
+  loginLink?: NavCta
   logo: ReactNode
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -244,10 +246,18 @@ export function NavbarClient({
             <div className="flex shrink-0 items-center gap-5">
               <a
                 href={secondaryCta.href}
-                className="text-ash-950 hover:bg-ash-950/10 inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-3 py-1 text-sm/7 font-medium max-sm:hidden"
+                className="text-ash-950 hover:text-moss-700 inline-flex shrink-0 items-center text-sm/7 font-medium transition-colors max-sm:hidden"
               >
                 {secondaryCta.label}
               </a>
+              {loginLink && (
+                <a
+                  href={loginLink.href}
+                  className="text-ash-950 hover:text-moss-700 inline-flex shrink-0 items-center text-sm/7 font-medium transition-colors max-lg:hidden"
+                >
+                  {loginLink.label}
+                </a>
+              )}
               <a
                 href={primaryCta.href}
                 className="bg-ash-950 text-ash-100 hover:bg-ash-800 inline-flex shrink-0 items-center justify-center gap-1 rounded-full px-3 py-1 text-sm/7 font-medium"
@@ -303,10 +313,19 @@ export function NavbarClient({
               <div className="border-ash-200 mt-4 flex flex-col gap-4 border-t pt-6">
                 <a
                   href={secondaryCta.href}
-                  className="text-ash-950 hover:bg-ash-950/10 inline-flex items-center justify-center rounded-full px-4 py-2 text-base font-medium"
+                  className="text-ash-950 hover:text-moss-700 inline-flex items-center justify-center rounded-full px-4 py-2 text-base font-medium transition-colors"
                 >
                   {secondaryCta.label}
                 </a>
+                {loginLink && (
+                  <a
+                    href={loginLink.href}
+                    onClick={closeMenu}
+                    className="text-ash-950 hover:text-moss-700 inline-flex items-center justify-center rounded-full px-4 py-2 text-base font-medium transition-colors"
+                  >
+                    {loginLink.label}
+                  </a>
+                )}
                 <a
                   href={primaryCta.href}
                   className="bg-ash-950 text-ash-100 hover:bg-ash-800 inline-flex items-center justify-center rounded-full px-4 py-2 text-base font-medium"

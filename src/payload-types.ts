@@ -4659,6 +4659,17 @@ export interface Navigation {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Optional "Log in" link displayed between the secondary and primary CTAs
+   */
+  loginLink?: {
+    enabled?: boolean | null;
+    label?: string | null;
+    /**
+     * URL for the login page (e.g. https://app.withella.io)
+     */
+    href?: string | null;
+  };
   primaryCta?: {
     label?: string | null;
     href?: string | null;
@@ -4946,6 +4957,13 @@ export interface NavigationSelect<T extends boolean = true> {
               id?: T;
             };
         id?: T;
+      };
+  loginLink?:
+    | T
+    | {
+        enabled?: T;
+        label?: T;
+        href?: T;
       };
   primaryCta?:
     | T
