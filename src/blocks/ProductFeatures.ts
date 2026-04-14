@@ -49,6 +49,43 @@ export const ProductFeaturesBlock: Block = {
           required: true,
         },
         {
+          name: 'screenshotFit',
+          type: 'select',
+          defaultValue: 'contain',
+          options: [
+            { label: 'Contain (show full image)', value: 'contain' },
+            { label: 'Crop (fill area, may clip)', value: 'crop' },
+            { label: 'Square (forced 1:1, cropped)', value: 'square' },
+          ],
+          admin: {
+            description:
+              'Contain: image shown in full. Crop: image fills the frame and may clip. Square: forced 1:1 with cropping.',
+            width: '50%',
+          },
+        },
+        {
+          name: 'screenshotPosition',
+          type: 'select',
+          defaultValue: 'center',
+          options: [
+            { label: 'Center', value: 'center' },
+            { label: 'Top', value: 'top' },
+            { label: 'Bottom', value: 'bottom' },
+            { label: 'Left', value: 'left' },
+            { label: 'Right', value: 'right' },
+            { label: 'Top Left', value: 'top left' },
+            { label: 'Top Right', value: 'top right' },
+            { label: 'Bottom Left', value: 'bottom left' },
+            { label: 'Bottom Right', value: 'bottom right' },
+          ],
+          admin: {
+            description: 'Focal point for cropping. Only applies when fit is Crop or Square.',
+            width: '50%',
+            condition: (_, siblingData) =>
+              siblingData?.screenshotFit === 'crop' || siblingData?.screenshotFit === 'square',
+          },
+        },
+        {
           name: 'badges',
           type: 'array',
           maxRows: 3,

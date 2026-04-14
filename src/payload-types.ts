@@ -1168,6 +1168,26 @@ export interface Page {
                   description?: string | null;
                   screenshot: number | Media;
                   /**
+                   * Contain: image shown in full. Crop: image fills the frame and may clip. Square: forced 1:1 with cropping.
+                   */
+                  screenshotFit?: ('contain' | 'crop' | 'square') | null;
+                  /**
+                   * Focal point for cropping. Only applies when fit is Crop or Square.
+                   */
+                  screenshotPosition?:
+                    | (
+                        | 'center'
+                        | 'top'
+                        | 'bottom'
+                        | 'left'
+                        | 'right'
+                        | 'top left'
+                        | 'top right'
+                        | 'bottom left'
+                        | 'bottom right'
+                      )
+                    | null;
+                  /**
                    * Short capability labels shown as pill badges (max 3)
                    */
                   badges?:
@@ -3600,6 +3620,8 @@ export interface PagesSelect<T extends boolean = true> {
                     title?: T;
                     description?: T;
                     screenshot?: T;
+                    screenshotFit?: T;
+                    screenshotPosition?: T;
                     badges?:
                       | T
                       | {
