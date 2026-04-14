@@ -1,32 +1,8 @@
 import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
+import type { PricingPage } from '@/payload-types'
 
-const SHARED_FEATURES = [
-  {
-    icon: 'MagnifyingGlass',
-    label: 'Fact Finding with custom templates',
-  },
-  {
-    icon: 'Brain',
-    label: 'AI Sensemaking for all advisors',
-  },
-  {
-    icon: 'FileText',
-    label: 'Deliverables & custom templates',
-  },
-  {
-    icon: 'Microphone',
-    label: 'Voice recording with meeting prep',
-  },
-  {
-    icon: 'EnvelopeSimple',
-    label: 'Meeting prep & recap emails',
-  },
-  {
-    icon: 'ArrowsClockwise',
-    label: 'Calendar sync & MCP integrations',
-  },
-]
+type SharedFeature = NonNullable<PricingPage['sharedFeatures']>[number]
 
 function FeatureIcon() {
   return (
@@ -49,7 +25,9 @@ function FeatureIcon() {
   )
 }
 
-export function SharedFeatures() {
+export function SharedFeatures({ features }: { features: SharedFeature[] }) {
+  if (features.length === 0) return null
+
   return (
     <section className="bg-moss-50 py-16 md:py-20">
       <Container>
@@ -58,9 +36,11 @@ export function SharedFeatures() {
             <Eyebrow size="sm">Included in every plan</Eyebrow>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-3">
-            {SHARED_FEATURES.map((feature) => (
-              <div key={feature.label} className="flex items-start gap-2.5">
+          <div
+            className={`grid grid-cols-2 gap-x-8 gap-y-4 ${features.length > 4 ? 'md:grid-cols-3' : ''}`}
+          >
+            {features.map((feature) => (
+              <div key={feature.id} className="flex items-start gap-2.5">
                 <FeatureIcon />
                 <span className="text-ash-700 text-sm">{feature.label}</span>
               </div>

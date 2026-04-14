@@ -121,6 +121,14 @@ export const PricingTiers: CollectionConfig = {
       },
     },
     {
+      name: 'featuresHeader',
+      type: 'text',
+      admin: {
+        description:
+          'Header above the feature list (e.g. "KEY FEATURES INCLUDE:" or "EVERYTHING IN PRACTITIONER, PLUS:")',
+      },
+    },
+    {
       name: 'features',
       type: 'array',
       fields: [

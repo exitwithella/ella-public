@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 async function getPricingData() {
   const payload = await getPayload({ config })
 
-  const [tiersResult, faqsResult] = await Promise.all([
+  const [tiersResult, faqsResult, pricingPage] = await Promise.all([
     payload.find({
       collection: 'pricing-tiers',
       sort: 'sortOrder',
@@ -38,25 +38,52 @@ async function getPricingData() {
       sort: 'sortOrder',
       limit: 20,
     }),
+    payload.findGlobal({ slug: 'pricing-page' }),
   ])
 
   return {
     tiers: tiersResult.docs,
     faqs: faqsResult.docs,
+    pricingPage,
   }
 }
 
 export default async function PricingPage() {
-  const { tiers, faqs } = await getPricingData()
+  const { tiers, faqs, pricingPage } = await getPricingData()
 
   return (
     <>
-      <PricingHero />
+      <PricingHero
+        eyebrow={pricingPage.heroEyebrow ?? 'Pricing'}
+        headline={pricingPage.heroHeadline ?? 'Invest in your practice.'}
+        subtitle={pricingPage.heroSubtitle ?? ''}
+        trustBadges={pricingPage.trustBadges ?? []}
+      />
       <PricingContent tiers={tiers} />
-      <SharedFeatures />
-      <FeatureComparison />
+      <SharedFeatures features={pricingPage.sharedFeatures ?? []} />
+      <FeatureComparison
+        eyebrow={pricingPage.comparisonEyebrow ?? 'Compare Plans'}
+        heading={pricingPage.comparisonHeading ?? "Everything you need, nothing you don't."}
+        categories={pricingPage.categories ?? []}
+      />
       <PricingFAQ faqs={faqs} />
-      <PricingCloser />
+      <PricingCloser
+        headline={pricingPage.closerHeadline ?? 'Ready to systematize your practice?'}
+        subtitle={pricingPage.closerSubtitle ?? ''}
+        primaryCta={
+          pricingPage.closerPrimaryCta ?? {
+            label: 'Get Started',
+            href: 'https://app.exitwithella.io/sign-up',
+          }
+        }
+        secondaryCta={
+          pricingPage.closerSecondaryCta ?? {
+            label: 'Book a Demo',
+            href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+          }
+        }
+        footnote={pricingPage.closerFootnote ?? ''}
+      />
     </>
   )
 }

@@ -66,37 +66,6 @@ function CheckIcon() {
 }
 
 // ─────────────────────────────────────────────────────────
-// Per-tier feature data for the below-card feature lists
-// ─────────────────────────────────────────────────────────
-const TIER_FEATURES: Record<string, { header: string; items: string[] }> = {
-  Practitioner: {
-    header: "KEY FEATURES INCLUDE:",
-    items: [
-      "Up to 3 advisors, 30 active clients",
-      "All clients shared between advisors",
-      "20 collaborators per client",
-      "Limited Max model usage",
-      "20 hours/mo/user voice recording",
-      "MCP & calendar sync integrations",
-      "Email support",
-    ],
-  },
-  Enterprise: {
-    header: "EVERYTHING IN PRACTITIONER, PLUS:",
-    items: [
-      "AI governance & decision tracing",
-      "BYOK & custom AI guardrails",
-      "SIEM & scheduled posture reporting",
-      "Dedicated capacity & regional processing",
-      "Custom log retention & log drains",
-      "Custom release schedule",
-      "Premium support SLA & dedicated success manager",
-      "Custom integration development",
-    ],
-  },
-};
-
-// ─────────────────────────────────────────────────────────
 // Desktop: Unified bordered container (Fin-style)
 // ─────────────────────────────────────────────────────────
 
@@ -198,8 +167,9 @@ function DesktopTierCards({
       {/* Feature lists — continues the solid/dashed border pattern */}
       <div className="grid grid-cols-2">
         {tiers.map((tier, idx) => {
-          const data = TIER_FEATURES[tier.name];
-          if (!data) return <div key={`features-${tier.id}`} />;
+          const features = tier.features;
+          if (!features || features.length === 0)
+            return <div key={`features-${tier.id}`} />;
           const isFirst = idx === 0;
 
           return (
@@ -211,14 +181,16 @@ function DesktopTierCards({
                   : "border-r border-b border-dashed"
               }`}
             >
-              <h3 className="font-display text-ash-500 mb-4 text-xs font-semibold tracking-widest uppercase">
-                {data.header}
-              </h3>
+              {tier.featuresHeader && (
+                <h3 className="font-display text-ash-500 mb-4 text-xs font-semibold tracking-widest uppercase">
+                  {tier.featuresHeader}
+                </h3>
+              )}
               <ul className="space-y-3">
-                {data.items.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5">
+                {features.map((f) => (
+                  <li key={f.id} className="flex items-start gap-2.5">
                     <CheckIcon />
-                    <span className="text-ash-700 text-sm">{item}</span>
+                    <span className="text-ash-700 text-sm">{f.feature}</span>
                   </li>
                 ))}
               </ul>
@@ -264,7 +236,7 @@ function MobileTierCards({
         const ctaHref = tier.cta?.href ?? "https://app.exitwithella.io/sign-up";
         const ctaLabel = tier.cta?.label ?? "Get Started";
         const isFirst = idx === 0;
-        const data = TIER_FEATURES[tier.name];
+        const features = tier.features;
 
         return (
           <div
@@ -325,16 +297,18 @@ function MobileTierCards({
             </div>
 
             {/* Feature list */}
-            {data && (
+            {features && features.length > 0 && (
               <div className="border-ash-200 border-t p-6">
-                <h3 className="font-display text-ash-500 mb-4 text-xs font-semibold tracking-widest uppercase">
-                  {data.header}
-                </h3>
+                {tier.featuresHeader && (
+                  <h3 className="font-display text-ash-500 mb-4 text-xs font-semibold tracking-widest uppercase">
+                    {tier.featuresHeader}
+                  </h3>
+                )}
                 <ul className="space-y-3">
-                  {data.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5">
+                  {features.map((f) => (
+                    <li key={f.id} className="flex items-start gap-2.5">
                       <CheckIcon />
-                      <span className="text-ash-700 text-sm">{item}</span>
+                      <span className="text-ash-700 text-sm">{f.feature}</span>
                     </li>
                   ))}
                 </ul>

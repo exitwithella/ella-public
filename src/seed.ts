@@ -187,13 +187,15 @@ async function seed() {
       maxAdvisors: '3',
       maxClients: '30',
       collaboratorsPerClient: '20/client',
+      featuresHeader: 'KEY FEATURES INCLUDE:',
       features: [
-        { feature: 'Up to 30 active clients', included: 'yes' as const },
-        { feature: '20 collaborators per client', included: 'yes' as const },
+        { feature: 'Up to 3 advisors, 30 active clients', included: 'yes' as const },
         { feature: 'All clients shared between advisors', included: 'yes' as const },
+        { feature: '20 collaborators per client', included: 'yes' as const },
         { feature: 'Limited Max model usage', included: 'yes' as const },
-        { feature: '20 hrs/mo/user recording included', included: 'yes' as const },
+        { feature: '20 hours/mo/user voice recording', included: 'yes' as const },
         { feature: 'MCP & calendar sync integrations', included: 'yes' as const },
+        { feature: 'Email support', included: 'yes' as const },
       ],
       cta: {
         label: 'Get Started',
@@ -216,12 +218,15 @@ async function seed() {
       maxAdvisors: 'Custom',
       maxClients: 'Unlimited',
       collaboratorsPerClient: 'Custom',
+      featuresHeader: 'EVERYTHING IN PRACTITIONER, PLUS:',
       features: [
         { feature: 'AI governance & decision tracing', included: 'yes' as const },
         { feature: 'BYOK & custom AI guardrails', included: 'yes' as const },
         { feature: 'SIEM & scheduled posture reporting', included: 'yes' as const },
         { feature: 'Dedicated capacity & regional processing', included: 'yes' as const },
-        { feature: 'Premium support SLA', included: 'yes' as const },
+        { feature: 'Custom log retention & log drains', included: 'yes' as const },
+        { feature: 'Custom release schedule', included: 'yes' as const },
+        { feature: 'Premium support SLA & dedicated success manager', included: 'yes' as const },
         { feature: 'Custom integration development', included: 'yes' as const },
       ],
       cta: {
@@ -252,6 +257,121 @@ async function seed() {
       console.log(`  Pricing Tier updated: ${tier.name}`)
     }
   }
+
+  // ─────────────────────────────────────────────────────────
+  // Pricing Page global (shared features + comparison table)
+  // ─────────────────────────────────────────────────────────
+  await payload.updateGlobal({
+    slug: 'pricing-page',
+    data: {
+      heroEyebrow: 'Pricing',
+      heroHeadline: 'Invest in your practice.',
+      heroSubtitle:
+        'Simple, transparent pricing for trusted advisors. Annual billing by default — pay monthly or quarterly if you prefer flexibility.',
+      trustBadges: [
+        { icon: 'ShieldCheck', text: 'SOC 2 compliant' },
+        { icon: 'Clock', text: 'Cancel anytime' },
+        { icon: 'ArrowRight', text: 'Built by ei Innovations' },
+      ],
+      sharedFeatures: [
+        { label: 'Fact Finding with custom templates' },
+        { label: 'AI Sensemaking for all advisors' },
+        { label: 'Deliverables & custom templates' },
+        { label: 'Voice recording with meeting prep' },
+        { label: 'Meeting prep & recap emails' },
+        { label: 'Calendar sync & MCP integrations' },
+      ],
+      categories: [
+        {
+          name: 'Core Platform',
+          defaultOpen: true,
+          rows: [
+            { label: 'Max advisors', practitioner: { indicator: 'text', displayText: '3' }, enterprise: { indicator: 'text', displayText: 'Custom' } },
+            { label: 'Max active clients', practitioner: { indicator: 'text', displayText: '30' }, enterprise: { indicator: 'text', displayText: 'Unlimited' } },
+            { label: 'Collaborators per client', practitioner: { indicator: 'text', displayText: '20' }, enterprise: { indicator: 'text', displayText: 'Custom' } },
+            { label: 'Team visibility', practitioner: { indicator: 'text', displayText: 'All clients shared' }, enterprise: { indicator: 'text', displayText: 'Per-client & department' } },
+            { label: 'Fact Finding with custom templates', practitioner: { indicator: 'check' }, enterprise: { indicator: 'check' } },
+            { label: 'Sensemaking (AI analysis)', practitioner: { indicator: 'check' }, enterprise: { indicator: 'check' } },
+            { label: 'Deliverables & document generation', practitioner: { indicator: 'check' }, enterprise: { indicator: 'check' } },
+            { label: 'Voice recording & meeting prep', practitioner: { indicator: 'check' }, enterprise: { indicator: 'check' } },
+          ],
+        },
+        {
+          name: 'Automation & Workflows',
+          defaultOpen: true,
+          rows: [
+            { label: 'CRM & 3rd party workflow sync', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Audit logs', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'text', displayText: 'Custom retention' } },
+            { label: 'Whitelabeled collaborator portal', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Branded reports & custom PDF templates', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Excel-based templates', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+          ],
+        },
+        {
+          name: 'Security & Compliance',
+          defaultOpen: false,
+          rows: [
+            { label: 'SOC 2 compliant infrastructure', practitioner: { indicator: 'check' }, enterprise: { indicator: 'check' } },
+            { label: 'Encryption at rest and in transit', practitioner: { indicator: 'check' }, enterprise: { indicator: 'check' } },
+            { label: 'AI decision tracing', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'BYOK (Bring Your Own Key)', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Custom AI guardrails', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'SIEM integration', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Scheduled posture reporting', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Log drains', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+          ],
+        },
+        {
+          name: 'Platform & Infrastructure',
+          defaultOpen: false,
+          rows: [
+            { label: 'Dedicated capacity', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Regional processing controls', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Custom release schedule', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+          ],
+        },
+        {
+          name: 'Integrations',
+          defaultOpen: false,
+          rows: [
+            { label: 'MCP', practitioner: { indicator: 'check' }, enterprise: { indicator: 'check' } },
+            { label: 'Calendar sync', practitioner: { indicator: 'check' }, enterprise: { indicator: 'check' } },
+            { label: 'n8n / Zapier', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'HubSpot, Wealthbox, eMoney, RightCapital', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Salesforce', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Custom integration development', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+          ],
+        },
+        {
+          name: 'Support',
+          defaultOpen: false,
+          rows: [
+            { label: 'Email support', practitioner: { indicator: 'check' }, enterprise: { indicator: 'check' } },
+            { label: 'Priority support', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Dedicated success manager', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Custom onboarding', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'check' } },
+            { label: 'Custom sourcing & vendor management', practitioner: { indicator: 'cross' }, enterprise: { indicator: 'text', displayText: '$25K annual min' } },
+          ],
+        },
+        {
+          name: 'Usage Limits',
+          defaultOpen: false,
+          rows: [
+            { label: 'Max model usage', practitioner: { indicator: 'text', displayText: 'Limited' }, enterprise: { indicator: 'text', displayText: 'Custom' } },
+            { label: 'Voice recording', practitioner: { indicator: 'text', displayText: '20 hrs/mo/user' }, enterprise: { indicator: 'text', displayText: 'Custom' } },
+          ],
+        },
+      ],
+      comparisonEyebrow: 'Compare Plans',
+      comparisonHeading: "Everything you need, nothing you don't.",
+      closerHeadline: 'Ready to systematize your practice?',
+      closerSubtitle: 'Get started today. No credit card required.',
+      closerPrimaryCta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
+      closerSecondaryCta: { label: 'Book a Demo', href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true' },
+      closerFootnote: 'Annual billing saves the most. Cancel anytime.',
+    },
+  })
+  console.log('✓ Pricing Page global')
 
   // ─────────────────────────────────────────────────────────
   // FAQ Items (pricing page)

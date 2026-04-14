@@ -124,11 +124,13 @@ export interface Config {
     'site-settings': SiteSetting;
     navigation: Navigation;
     footer: Footer;
+    'pricing-page': PricingPage;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'pricing-page': PricingPageSelect<false> | PricingPageSelect<true>;
   };
   locale: null;
   user:
@@ -2113,6 +2115,10 @@ export interface PricingTier {
    * Collaborators per client (e.g. "20/client", "50/client", "Custom")
    */
   collaboratorsPerClient?: string | null;
+  /**
+   * Header above the feature list (e.g. "KEY FEATURES INCLUDE:" or "EVERYTHING IN PRACTITIONER, PLUS:")
+   */
+  featuresHeader?: string | null;
   features?:
     | {
         feature: string;
@@ -3006,6 +3012,24 @@ export interface PayloadMcpApiKey {
     update?: boolean | null;
     /**
      * Allow clients to delete testimonials.
+     */
+    delete?: boolean | null;
+  };
+  pricingTiers?: {
+    /**
+     * Allow clients to find pricing-tiers.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create pricing-tiers.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update pricing-tiers.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete pricing-tiers.
      */
     delete?: boolean | null;
   };
@@ -4161,6 +4185,7 @@ export interface PricingTiersSelect<T extends boolean = true> {
   maxAdvisors?: T;
   maxClients?: T;
   collaboratorsPerClient?: T;
+  featuresHeader?: T;
   features?:
     | T
     | {
@@ -4522,6 +4547,14 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         update?: T;
         delete?: T;
       };
+  pricingTiers?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   enableAPIKey?: T;
@@ -4767,6 +4800,101 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-page".
+ */
+export interface PricingPage {
+  id: number;
+  /**
+   * Small label above the headline
+   */
+  heroEyebrow?: string | null;
+  /**
+   * Main hero heading (H1)
+   */
+  heroHeadline?: string | null;
+  /**
+   * Paragraph below the headline
+   */
+  heroSubtitle?: string | null;
+  /**
+   * Small badges below the subtitle (e.g. "SOC 2 compliant")
+   */
+  trustBadges?:
+    | {
+        icon?: string | null;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Features shown in the "Included in every plan" section above the tier cards
+   */
+  sharedFeatures?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  comparisonEyebrow?: string | null;
+  comparisonHeading?: string | null;
+  /**
+   * Categories and rows for the full feature comparison table
+   */
+  categories?:
+    | {
+        /**
+         * Category name (e.g. "Core Platform", "Security & Compliance")
+         */
+        name: string;
+        /**
+         * Whether this category is expanded by default
+         */
+        defaultOpen?: boolean | null;
+        rows?:
+          | {
+              /**
+               * Feature name shown in the left column
+               */
+              label: string;
+              practitioner: {
+                indicator: 'check' | 'cross' | 'text';
+                /**
+                 * Shown when indicator is "Text" (e.g. "3", "Custom", "$25K annual min")
+                 */
+                displayText?: string | null;
+              };
+              enterprise: {
+                indicator: 'check' | 'cross' | 'text';
+                /**
+                 * Shown when indicator is "Text" (e.g. "3", "Custom", "$25K annual min")
+                 */
+                displayText?: string | null;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  closerHeadline?: string | null;
+  closerSubtitle?: string | null;
+  closerPrimaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  closerSecondaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Small text below the CTA buttons
+   */
+  closerFootnote?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
@@ -4895,6 +5023,73 @@ export interface FooterSelect<T extends boolean = true> {
         enabled?: T;
         embedHtml?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-page_select".
+ */
+export interface PricingPageSelect<T extends boolean = true> {
+  heroEyebrow?: T;
+  heroHeadline?: T;
+  heroSubtitle?: T;
+  trustBadges?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
+      };
+  sharedFeatures?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  comparisonEyebrow?: T;
+  comparisonHeading?: T;
+  categories?:
+    | T
+    | {
+        name?: T;
+        defaultOpen?: T;
+        rows?:
+          | T
+          | {
+              label?: T;
+              practitioner?:
+                | T
+                | {
+                    indicator?: T;
+                    displayText?: T;
+                  };
+              enterprise?:
+                | T
+                | {
+                    indicator?: T;
+                    displayText?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  closerHeadline?: T;
+  closerSubtitle?: T;
+  closerPrimaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  closerSecondaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  closerFootnote?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

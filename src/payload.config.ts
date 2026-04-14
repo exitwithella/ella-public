@@ -30,6 +30,7 @@ import { Users } from './collections/Users'
 import { VanguardEvents } from './collections/VanguardEvents'
 import { Footer } from './globals/Footer'
 import { Navigation } from './globals/Navigation'
+import { PricingPage } from './globals/PricingPage'
 import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
@@ -70,7 +71,7 @@ export default buildConfig({
     CaseStudies,
     VanguardEvents,
   ],
-  globals: [SiteSettings, Navigation, Footer],
+  globals: [SiteSettings, Navigation, Footer, PricingPage],
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   editor: lexicalEditor(),
   plugins: [
@@ -99,6 +100,9 @@ export default buildConfig({
           enabled: true,
         },
         testimonials: {
+          enabled: true,
+        },
+        'pricing-tiers': {
           enabled: true,
         },
       },
