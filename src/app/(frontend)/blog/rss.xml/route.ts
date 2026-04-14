@@ -1,16 +1,7 @@
 import { getPublishedPosts } from '../_lib/get-posts'
-import { getPostUrl } from '../_lib/utils'
+import { escapeXml, getPostUrl } from '../_lib/utils'
 
 const SITE_URL = 'https://withella.io'
-
-function escapeXml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;')
-}
 
 export async function GET() {
   const posts = await getPublishedPosts({ limit: 20 })
