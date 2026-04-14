@@ -172,15 +172,6 @@ function ProductFeaturesScroller({
     (activeItem as { screenshotPosition?: string } | undefined)
       ?.screenshotPosition ?? "center";
 
-  // Compute target aspect ratio: fixed for crop/square, natural dimensions for contain
-  const targetAspect = activeIsCropped
-    ? activeFit === "square"
-      ? 1
-      : 4 / 3
-    : activeScreenshot?.width && activeScreenshot?.height
-      ? activeScreenshot.width / activeScreenshot.height
-      : 4 / 3;
-
   const handleVisible = useCallback((i: number) => setActiveIndex(i), []);
   const hasHeader = sectionLabel || heading || subheading;
 
@@ -287,15 +278,11 @@ function ProductFeaturesScroller({
                   style={{ right: "min(0px, calc(680px - 50vw))" }}
                 >
                   <motion.div
-                    className="relative z-20 flex w-full min-h-0 flex-col"
+                    className="relative z-20 flex w-full min-h-0 flex-1 flex-col"
                     style={{ opacity: panelOpacity }}
                   >
-                    {/* Image frame — animated aspect ratio for smooth transitions */}
-                    <motion.div
-                      className="relative min-h-0 w-full overflow-hidden"
-                      animate={{ aspectRatio: targetAspect }}
-                      transition={SCREENSHOT_TRANSITION}
-                    >
+                    {/* Image frame */}
+                    <div className="relative min-h-0 w-full flex-1">
                       <AnimatePresence mode="wait">
                         {activeScreenshot?.url && (
                           <motion.div
@@ -306,64 +293,31 @@ function ProductFeaturesScroller({
                             transition={SCREENSHOT_TRANSITION}
                             className="absolute inset-0 flex items-center justify-center"
                           >
-                            {activeIsCropped ? (
-                              <div className="bg-theme-bg shadow-theme-text/[0.04] relative h-full w-full overflow-hidden rounded-l-lg shadow-lg">
-                                <Image
-                                  src={activeScreenshot.url}
-                                  alt={
-                                    activeScreenshot.alt ??
-                                    activeItem?.title ??
-                                    ""
-                                  }
-                                  fill
-                                  className="object-cover"
-                                  style={{
-                                    objectPosition: activePosition,
-                                  }}
-                                  sizes="(min-width: 1024px) 55vw, 100vw"
-                                />
-                              </div>
-                            ) : (
-                              <div className="bg-theme-bg shadow-theme-text/[0.04] max-h-full max-w-full overflow-hidden rounded-l-lg shadow-lg">
-                                <Image
-                                  src={activeScreenshot.url}
-                                  alt={
-                                    activeScreenshot.alt ??
-                                    activeItem?.title ??
-                                    ""
-                                  }
-                                  width={activeScreenshot.width ?? 800}
-                                  height={activeScreenshot.height ?? 600}
-                                  className="block h-auto max-h-full max-w-full"
-                                  sizes="(min-width: 1024px) 55vw, 100vw"
-                                />
-                              </div>
-                            )}
+                            <div className="relative h-full w-full overflow-hidden rounded-l-lg">
+                              <Image
+                                src={activeScreenshot.url}
+                                alt={
+                                  activeScreenshot.alt ??
+                                  activeItem?.title ??
+                                  ""
+                                }
+                                fill
+                                className={
+                                  activeIsCropped
+                                    ? "object-cover"
+                                    : "object-contain"
+                                }
+                                style={
+                                  activeIsCropped
+                                    ? { objectPosition: activePosition }
+                                    : undefined
+                                }
+                                sizes="(min-width: 1024px) 55vw, 100vw"
+                              />
+                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
-                    </motion.div>
-
-                    {/* Progress indicator: 01 ─── ── ── 04 */}
-                    <div className="mt-5 flex shrink-0 items-center justify-center gap-3">
-                      <span className="text-theme-text-muted font-mono text-xs">
-                        {String(activeIndex + 1).padStart(2, "0")}
-                      </span>
-                      <div className="flex gap-1.5">
-                        {items.map((item, i) => (
-                          <div
-                            key={item.id}
-                            className={`h-px transition-all duration-500 ${
-                              i === activeIndex
-                                ? "bg-theme-accent w-8"
-                                : "bg-theme-border w-3"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      <span className="text-theme-text-muted font-mono text-xs">
-                        {String(items.length).padStart(2, "0")}
-                      </span>
                     </div>
                   </motion.div>
                 </div>
