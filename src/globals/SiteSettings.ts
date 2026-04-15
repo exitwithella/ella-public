@@ -55,6 +55,14 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'llmsTxt',
+      type: 'code',
+      admin: {
+        language: 'markdown',
+        description: 'Content served at /llms.txt — describes your site for AI/LLM consumption',
+      },
+    },
+    {
       name: 'announcementBar',
       type: 'group',
       fields: [

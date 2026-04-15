@@ -4928,6 +4928,10 @@ export interface SiteSetting {
     twitter?: string | null;
     youtube?: string | null;
   };
+  /**
+   * Content served at /llms.txt — describes your site for AI/LLM consumption
+   */
+  llmsTxt?: string | null;
   announcementBar?: {
     enabled?: boolean | null;
     message?: string | null;
@@ -5252,6 +5256,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         twitter?: T;
         youtube?: T;
       };
+  llmsTxt?: T;
   announcementBar?:
     | T
     | {
