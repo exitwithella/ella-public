@@ -137,7 +137,7 @@ async function main() {
       continue
     }
 
-    await payload.create({ collection: 'faq-items', data: faq })
+    await payload.create({ collection: 'faq-items', data: faq as any })
     console.log(`✓ Created: ${faq.question.slice(0, 60)}`)
   }
 

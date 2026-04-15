@@ -1,0 +1,44 @@
+[
+  {
+    "id": 3,
+    "name": "ELLA Team",
+    "slug": "ella-team",
+    "role": null,
+    "photo": null,
+    "bio": null,
+    "isAuthor": true,
+    "linkedIn": null,
+    "twitter": null,
+    "sortOrder": 0,
+    "updatedAt": "2026-04-14T21:56:15.988Z",
+    "createdAt": "2026-04-14T21:56:15.987Z"
+  },
+  {
+    "id": 2,
+    "name": "Kevin Mallory",
+    "slug": "kevin-mallory",
+    "role": "Co-Founder & Head of Advisor Engagement",
+    "photo": null,
+    "bio": null,
+    "isAuthor": true,
+    "linkedIn": null,
+    "twitter": null,
+    "sortOrder": 0,
+    "updatedAt": "2026-04-14T21:56:00.680Z",
+    "createdAt": "2026-04-14T21:55:55.833Z"
+  },
+  {
+    "id": 1,
+    "name": "Drew Watkins",
+    "slug": "drew-watkins",
+    "role": "Founder",
+    "photo": null,
+    "bio": null,
+    "isAuthor": true,
+    "linkedIn": null,
+    "twitter": null,
+    "sortOrder": 1,
+    "updatedAt": "2026-04-13T05:44:35.404Z",
+    "createdAt": "2026-02-25T15:39:31.292Z"
+  }
+]

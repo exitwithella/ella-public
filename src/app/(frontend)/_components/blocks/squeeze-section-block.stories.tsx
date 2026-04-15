@@ -20,7 +20,6 @@ type SqueezeSectionData = Extract<
 const block: SqueezeSectionData = {
   blockType: 'squeeze-section',
   id: 'sq-1',
-  bgStyle: 'sandstone',
   label: 'The squeeze',
   heading: 'Your practice is caught between two forces',
   body: richText(

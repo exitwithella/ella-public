@@ -1,0 +1,831 @@
+[
+  {
+    "id": 1,
+    "question": "How is my client data handled?",
+    "answer": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Your client data is encrypted in transit and at rest. Our Sensemaking pipeline runs each engagement in a sandboxed workspace. ELLA never uses your data to train AI models, and you can export or delete your data at any time.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          },
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "We run on SOC 2 compliant infrastructure with granular role-based access control. Only the people you explicitly invite can access your workspace.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "category": "security",
+    "showOnPricing": true,
+    "sortOrder": 1,
+    "updatedAt": "2026-04-14T21:15:11.237Z",
+    "createdAt": "2026-02-25T15:39:30.550Z"
+  },
+  {
+    "id": 2,
+    "question": "Can I use ELLA with my existing methodology?",
+    "answer": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "ELLA is methodology-agnostic. It's designed to systematize your approach, not replace it. You customize the intake templates, discovery questions, and deliverable structures to match how you already work.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          },
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Whether you follow the Value Acceleration Methodology, a proprietary framework, or something you've developed over decades, ELLA holds your process and makes it repeatable.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "category": "platform",
+    "showOnPricing": true,
+    "sortOrder": 2,
+    "updatedAt": "2026-04-14T21:04:22.148Z",
+    "createdAt": "2026-02-25T15:39:30.563Z"
+  },
+  {
+    "id": 3,
+    "question": "How long does it take to get started?",
+    "answer": {
+      "root": {
+        "type": "root",
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": "",
+            "children": [
+              {
+                "type": "text",
+                "version": 1,
+                "text": "Most advisors are productive within their first client engagement. There's no lengthy onboarding or implementation project — you configure your templates, invite your first client, and start working.",
+                "format": 0,
+                "detail": 0,
+                "mode": "normal",
+                "style": ""
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": "",
+            "children": [
+              {
+                "type": "text",
+                "version": 1,
+                "text": "If you'd like a guided walkthrough, our team is happy to walk you through the platform and help you map your methodology into ELLA.",
+                "format": 0,
+                "detail": 0,
+                "mode": "normal",
+                "style": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "category": "onboarding",
+    "showOnPricing": true,
+    "sortOrder": 3,
+    "updatedAt": "2026-03-31T15:48:32.838Z",
+    "createdAt": "2026-02-25T15:39:30.575Z"
+  },
+  {
+    "id": 4,
+    "question": "What's included in the Practitioner plan?",
+    "answer": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The Practitioner plan gives you full access to the ELLA platform: Fact Finding (structured discovery and client intake), Sensemaking (context-aware AI analysis sandboxed to each client), and Deliverables (client-ready documents built from your actual engagement data).",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          },
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "You get unlimited active client engagements, custom templates, a client portal, and basic support — everything you need to systematize a solo practice.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "category": "pricing",
+    "showOnPricing": true,
+    "sortOrder": 4,
+    "updatedAt": "2026-04-14T21:03:54.576Z",
+    "createdAt": "2026-02-25T15:39:30.587Z"
+  },
+  {
+    "id": 5,
+    "question": "Do I need to commit to an annual plan?",
+    "answer": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "No. ELLA is month-to-month with no long-term contracts. You can cancel at any time.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          },
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Annual and quarterly pricing are available for those who prefer it. ",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "category": "pricing",
+    "showOnPricing": true,
+    "sortOrder": 5,
+    "updatedAt": "2026-04-14T21:03:37.449Z",
+    "createdAt": "2026-02-25T15:39:30.602Z"
+  },
+  {
+    "id": 6,
+    "question": "What kind of support is included?",
+    "answer": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Practitioner includes in-app, email, and Slack support.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          },
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Enterprise includes priority support, a dedicated customer success manager, and custom onboarding. Your success manager will help you map your methodology into ELLA, train your team, and be available as your practice scales.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "category": "pricing",
+    "showOnPricing": true,
+    "sortOrder": 6,
+    "updatedAt": "2026-04-14T21:03:18.429Z",
+    "createdAt": "2026-02-25T15:39:30.615Z"
+  },
+  {
+    "id": 7,
+    "question": "Can I upgrade to Enterprise later?",
+    "answer": {
+      "root": {
+        "type": "root",
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": "",
+            "children": [
+              {
+                "type": "text",
+                "version": 1,
+                "text": "Yes. When you're ready to scale beyond a solo practice, upgrading to Enterprise is seamless — your data, templates, and client history all carry over. Contact our team and we'll handle the transition.",
+                "format": 0,
+                "detail": 0,
+                "mode": "normal",
+                "style": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "category": "pricing",
+    "showOnPricing": true,
+    "sortOrder": 7,
+    "updatedAt": "2026-03-31T15:48:33.100Z",
+    "createdAt": "2026-02-25T15:39:30.628Z"
+  },
+  {
+    "id": 8,
+    "question": "Is ELLA only for exit planning?",
+    "answer": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Exit planning is our beachhead — it's where ELLA is deepest and most proven. But the platform is built for the full advisory lifecycle. Advisors use ELLA for wealth management, business advisory, tax and estate planning, and any engagement that involves guiding business owners through the most consequential decisions of their professional lives.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          },
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "We started with exit planning because that's where the workflow complexity is highest. Every other discipline benefits from the same systematized approach of structured discovery and client-ready deliverables.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "category": "platform",
+    "showOnPricing": true,
+    "sortOrder": 8,
+    "updatedAt": "2026-04-14T21:02:55.346Z",
+    "createdAt": "2026-02-25T15:39:30.641Z"
+  },
+  {
+    "id": 10,
+    "question": "What if I have multiple advisors in my practice?",
+    "answer": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "We support multiple advisors across all plans, with up to three advisors included in the base \"practitioner\" plan.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          },
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The Enterprise plan is built for complex practices and regulatory challenges. It includes unlimited advisor seats, a shared team workspace with role-based access control, and an admin dashboard for managing your practice.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          },
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Contact our team and we can scope the right setup for your practice size and structure.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "category": "pricing",
+    "showOnPricing": true,
+    "sortOrder": 10,
+    "updatedAt": "2026-04-14T21:02:04.494Z",
+    "createdAt": "2026-02-25T15:39:30.667Z"
+  },
+  {
+    "id": 12,
+    "question": "How Does ELLA Handle the Personal Side of business transitions?",
+    "answer": {
+      "root": {
+        "type": "root",
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": "",
+            "children": [
+              {
+                "type": "text",
+                "version": 1,
+                "text": "Currently, ELLA has some basic functionality for capturing personal desires to work towards the exit. For example, the Exit Goal and space to add short \"tags\" or \"badges\" on the dashboard for each owner to reflect their exit expectations.",
+                "format": 0,
+                "detail": 0,
+                "mode": "normal",
+                "style": ""
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": "",
+            "children": [
+              {
+                "type": "text",
+                "version": 1,
+                "text": "The personal side of exit planning remains a core focus for ELLA, and we're working on adding more functionality in the future.",
+                "format": 0,
+                "detail": 0,
+                "mode": "normal",
+                "style": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "category": "platform",
+    "showOnPricing": true,
+    "sortOrder": 12,
+    "updatedAt": "2026-04-14T21:14:45.461Z",
+    "createdAt": "2026-04-14T21:11:16.497Z"
+  },
+  {
+    "id": 13,
+    "question": "What is the Exit Team?",
+    "answer": {
+      "root": {
+        "type": "root",
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": "",
+            "children": [
+              {
+                "type": "text",
+                "version": 1,
+                "text": "The Exit Team is a group of advisors, collaborators, and other professionals (such as accountants, lawyers, financial advisors, and others) who are involved in the exit process.",
+                "format": 0,
+                "detail": 0,
+                "mode": "normal",
+                "style": ""
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": "",
+            "children": [
+              {
+                "type": "text",
+                "version": 1,
+                "text": "The exit team also includes the business owner(s) and people from their company or family who are involved in the exit process.",
+                "format": 0,
+                "detail": 0,
+                "mode": "normal",
+                "style": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "category": "platform",
+    "showOnPricing": true,
+    "sortOrder": 13,
+    "updatedAt": "2026-04-14T21:14:29.565Z",
+    "createdAt": "2026-04-14T21:11:16.519Z"
+  },
+  {
+    "id": 14,
+    "question": "What Counts as an Active Client?",
+    "answer": {
+      "root": {
+        "type": "root",
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": "",
+            "children": [
+              {
+                "type": "text",
+                "version": 1,
+                "text": "Each client can be enabled or disabled as needed. If you disable a client, you lose the following functionality:",
+                "format": 0,
+                "detail": 0,
+                "mode": "normal",
+                "style": ""
+              }
+            ]
+          },
+          {
+            "type": "list",
+            "listType": "bullet",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "start": 1,
+            "tag": "ul",
+            "children": [
+              {
+                "type": "listitem",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "value": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "You'll no longer be able to add or edit information about that client.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "listitem",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "value": 2,
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "Sensemaking will no longer work, but existing chats will still be accessible.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "listitem",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "value": 3,
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "The client portal will be disabled, so Collaborators and Small Business Owners will no longer be able to access any information about the client. Advisors in your organization will still be able to access them.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": "",
+            "children": [
+              {
+                "type": "text",
+                "version": 1,
+                "text": "Only active clients count towards billing limits. Inactive clients can be made active any time to regain full functionality.",
+                "format": 0,
+                "detail": 0,
+                "mode": "normal",
+                "style": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "category": "pricing",
+    "showOnPricing": true,
+    "sortOrder": 14,
+    "updatedAt": "2026-04-14T21:11:16.538Z",
+    "createdAt": "2026-04-14T21:11:16.538Z"
+  },
+  {
+    "id": 15,
+    "question": "What if I need more clients or advisors than are included on the Practitioner plan?",
+    "answer": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "We are still formalizing our mid-market program, which will include predictable pricing with enterprise features. In the meantime, reach out to discuss your specific engagement.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "category": "pricing",
+    "showOnPricing": true,
+    "sortOrder": 15,
+    "updatedAt": "2026-04-14T21:20:11.462Z",
+    "createdAt": "2026-04-14T21:11:16.562Z"
+  }
+]

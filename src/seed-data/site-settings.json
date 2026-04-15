@@ -1,0 +1,24 @@
+{
+  "id": 1,
+  "siteName": "ELLA",
+  "logo": null,
+  "logomark": null,
+  "ogImage": null,
+  "socialLinks": {
+    "linkedIn": "https://linkedin.com/company/exitwithella",
+    "twitter": "https://x.com/exitwithella",
+    "youtube": null
+  },
+  "announcementBar": {
+    "enabled": false,
+    "message": null,
+    "link": {
+      "label": null,
+      "href": null
+    },
+    "style": "forest"
+  },
+  "updatedAt": "2026-04-14T22:00:52.363Z",
+  "createdAt": "2026-02-23T22:49:06.374Z",
+  "globalType": "site-settings"
+}

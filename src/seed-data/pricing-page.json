@@ -1,0 +1,413 @@
+{
+  "id": 1,
+  "heroEyebrow": "Pricing",
+  "heroHeadline": "Invest in your methodology.",
+  "heroSubtitle": "Simple, transparent pricing for trusted advisors.",
+  "trustBadges": [
+    {
+      "id": "69dea7fa4ae24362fda5aac0",
+      "icon": "Ticket",
+      "text": "First client included at no cost"
+    },
+    {
+      "id": "69dea7f54ae24362fda5aabe",
+      "icon": "ArrowClockwise",
+      "text": "Cancel anytime"
+    }
+  ],
+  "sharedFeatures": [
+    {
+      "id": "69dea5eba3833d5dfced3795",
+      "label": "Fact Finding with custom templates"
+    },
+    {
+      "id": "69dea5eba3833d5dfced3796",
+      "label": "AI Sensemaking for all advisors"
+    },
+    {
+      "id": "69dea5eba3833d5dfced3797",
+      "label": "Deliverables & custom templates"
+    },
+    {
+      "id": "69dea5eba3833d5dfced379a",
+      "label": "Collaborative access for the entire exit team"
+    }
+  ],
+  "comparisonEyebrow": "Compare Plans",
+  "comparisonHeading": "Everything you need, nothing you don't.",
+  "categories": [
+    {
+      "id": "69dea5eba3833d5dfced37a3",
+      "name": "Core Platform",
+      "defaultOpen": true,
+      "rows": [
+        {
+          "id": "69dea5eba3833d5dfced379b",
+          "label": "Max advisors",
+          "practitioner": {
+            "indicator": "text",
+            "displayText": "3"
+          },
+          "enterprise": {
+            "indicator": "text",
+            "displayText": "Custom"
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced379c",
+          "label": "Max active clients",
+          "practitioner": {
+            "indicator": "text",
+            "displayText": "30"
+          },
+          "enterprise": {
+            "indicator": "text",
+            "displayText": "Unlimited"
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced379d",
+          "label": "Collaborators per client",
+          "practitioner": {
+            "indicator": "text",
+            "displayText": "20"
+          },
+          "enterprise": {
+            "indicator": "text",
+            "displayText": "Custom"
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced379e",
+          "label": "Team visibility",
+          "practitioner": {
+            "indicator": "text",
+            "displayText": "All clients shared"
+          },
+          "enterprise": {
+            "indicator": "text",
+            "displayText": "Per-client & department"
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced379f",
+          "label": "Fact Finding with custom templates",
+          "practitioner": {
+            "indicator": "check",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37a0",
+          "label": "Sensemaking (AI analysis)",
+          "practitioner": {
+            "indicator": "check",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37a1",
+          "label": "Deliverables & document generation",
+          "practitioner": {
+            "indicator": "check",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "69dea5eba3833d5dfced37a9",
+      "name": "Automation & Workflows",
+      "defaultOpen": true,
+      "rows": [
+        {
+          "id": "69dea5eba3833d5dfced37a6",
+          "label": "Whitelabeled collaborator portal",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37a7",
+          "label": "Branded reports & custom PDF templates",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "69dea5eba3833d5dfced37b2",
+      "name": "Security & Compliance",
+      "defaultOpen": true,
+      "rows": [
+        {
+          "id": "69dea5eba3833d5dfced37aa",
+          "label": "SOC 2 compliant infrastructure",
+          "practitioner": {
+            "indicator": "check",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37ab",
+          "label": "Encryption at rest and in transit",
+          "practitioner": {
+            "indicator": "check",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37ac",
+          "label": "AI decision tracing",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37ad",
+          "label": "BYOK (Bring Your Own Key)",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37ae",
+          "label": "Custom AI guardrails",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37af",
+          "label": "SIEM integration",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37b0",
+          "label": "Scheduled posture reporting",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37b1",
+          "label": "Log drains",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69deaa1b4ae24362fda5aac2",
+          "label": "Audit Logs",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "69dea5eba3833d5dfced37b6",
+      "name": "Platform & Infrastructure",
+      "defaultOpen": true,
+      "rows": [
+        {
+          "id": "69dea5eba3833d5dfced37b3",
+          "label": "Dedicated capacity",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37b4",
+          "label": "Regional processing controls",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37b5",
+          "label": "Custom release schedule",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "69dea5eba3833d5dfced37c3",
+      "name": "Support",
+      "defaultOpen": true,
+      "rows": [
+        {
+          "id": "69dea5eba3833d5dfced37be",
+          "label": "In-app support",
+          "practitioner": {
+            "indicator": "check",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69deaa604ae24362fda5aac4",
+          "label": "Dedicated Slack channel",
+          "practitioner": {
+            "indicator": "check",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37bf",
+          "label": "Priority support",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37c0",
+          "label": "Dedicated success manager",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37c1",
+          "label": "Custom onboarding",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "check",
+            "displayText": null
+          }
+        },
+        {
+          "id": "69dea5eba3833d5dfced37c2",
+          "label": "Custom sourcing & vendor management",
+          "practitioner": {
+            "indicator": "cross",
+            "displayText": null
+          },
+          "enterprise": {
+            "indicator": "text",
+            "displayText": "$25K annual min"
+          }
+        }
+      ]
+    }
+  ],
+  "closerHeadline": "Ready to systematize your practice?",
+  "closerSubtitle": "Try with your first client today. No credit card required.",
+  "closerPrimaryCta": {
+    "label": null,
+    "href": null
+  },
+  "closerSecondaryCta": {
+    "label": null,
+    "href": null
+  },
+  "closerFootnote": "Annual billing saves the most. Cancel anytime.",
+  "updatedAt": "2026-04-14T20:59:48.181Z",
+  "createdAt": "2026-04-14T20:39:07.328Z",
+  "globalType": "pricing-page"
+}

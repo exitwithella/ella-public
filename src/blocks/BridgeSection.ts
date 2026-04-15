@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { coverImageField } from '../fields/coverImage'
 
 export const BridgeSectionBlock: Block = {
   slug: 'bridge-section',
@@ -20,7 +21,20 @@ export const BridgeSectionBlock: Block = {
       name: 'heading',
       type: 'text',
       admin: {
-        description: 'Section headline. Rendered in Termina.',
+        description: 'Section headline.',
+      },
+    },
+    {
+      name: 'headingStyle',
+      type: 'select',
+      defaultValue: 'display',
+      options: [
+        { label: 'Display (Termina)', value: 'display' },
+        { label: 'Serif (Instrument Serif)', value: 'serif' },
+      ],
+      admin: {
+        description: 'Font style for the heading.',
+        width: '50%',
       },
     },
     {
@@ -90,5 +104,6 @@ export const BridgeSectionBlock: Block = {
       ],
     },
     bgStyleField,
+    coverImageField,
   ],
 }

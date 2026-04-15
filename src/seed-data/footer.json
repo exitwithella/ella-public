@@ -1,0 +1,65 @@
+{
+  "id": 1,
+  "bgStyle": "brand-black",
+  "logomark": 10,
+  "footerLogo": 9,
+  "footerLogoColor": "#ffffff",
+  "footerLogoOpacity": 6,
+  "footerLogoClipPercent": 23,
+  "description": "ELLA turns trust into action with tools built for advisor-led transitions.",
+  "columns": [
+    {
+      "id": "69dd3f6b844565170dc0a563",
+      "heading": "Social",
+      "links": [
+        {
+          "id": "69dd3f6f844565170dc0a565",
+          "label": "X.com",
+          "linkType": "external",
+          "href": "https://x.com/exitwithella"
+        },
+        {
+          "id": "69dd3f7b844565170dc0a567",
+          "label": "LinkedIn",
+          "linkType": "external",
+          "href": "https://linkedin.com/company/exitwithella"
+        }
+      ]
+    }
+  ],
+  "newsletterSection": {
+    "enabled": false,
+    "heading": "Stay current",
+    "subheading": null,
+    "placeholder": "Your email address",
+    "buttonLabel": "Subscribe"
+  },
+  "legalLinks": [
+    {
+      "id": "69dd3f4d844565170dc0a55f",
+      "label": "Terms of Service",
+      "href": "https://legal.exitwithella.io/legal/terms-of-service/"
+    },
+    {
+      "id": "69dd3f52844565170dc0a561",
+      "label": "Privacy Policy",
+      "href": "https://legal.exitwithella.io/legal/privacy-policy/"
+    }
+  ],
+  "copyrightText": "© 2026 ELLA. All rights reserved.",
+  "easterEgg": {
+    "enabled": true,
+    "backgroundImage": 11,
+    "text": "Believe in Main Street",
+    "localImage": 18,
+    "localText": null,
+    "height": 600
+  },
+  "statusBadge": {
+    "enabled": true,
+    "embedHtml": "<iframe src=\"https://withella.betteruptime.com/badge?theme=dark\" width=\"250\" height=\"30\" frameborder=\"0\" scrolling=\"no\" style=\"color-scheme: none; \"></iframe>"
+  },
+  "updatedAt": "2026-04-13T19:10:03.678Z",
+  "createdAt": "2026-04-13T00:21:11.725Z",
+  "globalType": "footer"
+}

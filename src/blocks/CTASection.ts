@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { coverImageField } from '../fields/coverImage'
 
 export const CTASectionBlock: Block = {
   slug: 'cta-section',
@@ -60,5 +61,6 @@ export const CTASectionBlock: Block = {
       },
     },
     { ...bgStyleField, defaultValue: 'forest' },
+    coverImageField,
   ],
 }

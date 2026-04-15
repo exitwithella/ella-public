@@ -1,0 +1,1856 @@
+[
+  {
+    "id": 1,
+    "title": "Home",
+    "slug": "home",
+    "status": "published",
+    "publishedDate": null,
+    "parent": null,
+    "pageBackground": {
+      "image": null,
+      "opacity": 3,
+      "top": null,
+      "right": null,
+      "width": null
+    },
+    "hero": {
+      "headline": "GO FROM INTAKE TO INSIGHT",
+      "headlineAnimation": "word-by-word",
+      "headlineLine2": "IN A FRACTION OF THE TIME",
+      "headlineAnimation2": "blur-fade",
+      "subheadline": "ELLA turns trust into action with tools built for advisor-led transitions.",
+      "primaryCta": {
+        "label": "Get Started",
+        "href": "https://app.exitwithella.io/sign-up"
+      },
+      "secondaryCta": {
+        "label": "Book a Demo",
+        "href": "https://cal.com/team/ella/ella-intro?overlayCalendar=true"
+      },
+      "visual": 19,
+      "visualFit": "contain",
+      "visualPosition": "center",
+      "backgroundImage": null,
+      "showLogoWatermark": false,
+      "style": "default",
+      "headlineFont": "serif",
+      "highlightText": "INTAKE TO INSIGHT",
+      "highlightColor": "goldenrod",
+      "heroWallpaper": true,
+      "heroWallpaperColor": "green"
+    },
+    "layout": [
+      {
+        "id": "69d8205aa27dfb6cf3013359",
+        "label": "The Problem",
+        "heading": "Advisors are stuck in AI's messy middle.",
+        "body": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Most advisors we talk to are already using AI in some form. They pull up their favorite AI before a client meeting to synthesize a document, draft an agenda, or make sense of a fact pattern they haven't had time to fully digest. ",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "It works well enough. But it wasn't built for client work, and the gaps show up fast: no boundaries between engagements, no audit trail, no way to carry context forward from the last conversation or between members of the advisory team.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "At the same time, business owners are arriving with more information than ever. They've asked AI what their business is worth, what questions to bring to their advisor, whether they need one at all. The information asymmetry that once defined the advisory relationship is compressing.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1
+          }
+        },
+        "closer": "The work is changing, but until now, the tools haven't.",
+        "blockName": null,
+        "quotes": [],
+        "pressureItems": [
+          {
+            "id": "69d8211ca27dfb6cf301335f",
+            "text": "More clients"
+          },
+          {
+            "id": "69d82120a27dfb6cf3013361",
+            "text": "Deeper engagements"
+          },
+          {
+            "id": "69d82122a27dfb6cf3013363",
+            "text": "Shorter timelines"
+          },
+          {
+            "id": "69d82124a27dfb6cf3013367",
+            "text": "Higher stakes"
+          },
+          {
+            "id": "69d82127a27dfb6cf301336b",
+            "text": "Regulatory scrutiny"
+          },
+          {
+            "id": "69d8212aa27dfb6cf301336d",
+            "text": "Key-person risk"
+          }
+        ],
+        "erosionItems": [
+          {
+            "id": "69d82123a27dfb6cf3013365",
+            "text": "Owners' AI valuations"
+          },
+          {
+            "id": "69d82126a27dfb6cf3013369",
+            "text": "Clients questioning fees"
+          },
+          {
+            "id": "69d8212ca27dfb6cf301336f",
+            "text": "AI leveling the field"
+          },
+          {
+            "id": "69d8212ea27dfb6cf3013371",
+            "text": "Information parity"
+          },
+          {
+            "id": "69d82130a27dfb6cf3013373",
+            "text": "Commoditized insights"
+          },
+          {
+            "id": "69d82133a27dfb6cf3013375",
+            "text": "ChatGPT-drafted exit plans"
+          }
+        ],
+        "blockType": "squeeze-section"
+      },
+      {
+        "id": "69dbfafed2618227f69e49ec",
+        "label": "The shift",
+        "heading": null,
+        "headingStyle": "display",
+        "bodyStyle": "feature",
+        "body": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The advisors who see this shift recognize that when the client shows up more informed, the conversation starts at a higher level, and the trust, judgement, and accountability they bring to the table becomes ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 2,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "even more valuable",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": ".",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "AI's messy middle is about building a practice that delivers on this new reality.",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " Most advisors are running so hard to keep up with each engagement that they haven't had the bandwidth to step back and think about their practice as a system.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 1,
+                "textStyle": ""
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1,
+            "textFormat": 1
+          }
+        },
+        "closer": null,
+        "bgStyle": "sandstone",
+        "blockName": null,
+        "quotes": [],
+        "blockType": "bridge-section",
+        "link": {
+          "label": null,
+          "href": null
+        },
+        "coverImage": {
+          "image": null,
+          "minHeight": "md",
+          "objectPosition": "center",
+          "overlayOpacity": "60"
+        }
+      },
+      {
+        "id": "69d80773ce10a7d5efc10e75",
+        "sectionLabel": "The Platform",
+        "heading": "Your methodology, from intake to insight",
+        "subheading": "Four connected capabilities that turn advisory chaos into a systematic practice.",
+        "showBottomBorder": false,
+        "bgStyle": "forest",
+        "blockName": null,
+        "items": [
+          {
+            "id": "69d807ccce10a7d5efc10e77",
+            "title": "Fact Finding",
+            "description": "Structured discovery that adapts to your process. Clients upload directly, advisors guide the conversation, and nothing gets lost in email chains.",
+            "screenshot": 24,
+            "screenshotFit": "contain",
+            "screenshotPosition": "center",
+            "badges": [
+              {
+                "id": "69d80801ce10a7d5efc10e7f",
+                "text": "Malleable Templates"
+              },
+              {
+                "id": "69d80809ce10a7d5efc10e81",
+                "text": "Client Portal"
+              },
+              {
+                "id": "69d80812ce10a7d5efc10e83",
+                "text": "Document Upload"
+              }
+            ]
+          },
+          {
+            "id": "69d807d0ce10a7d5efc10e79",
+            "title": "Sensemaking",
+            "description": "Ask questions against the full context of a client engagement. Every conversation is sandboxed — no memory bleed between clients, no data leaking across sessions.",
+            "screenshot": 25,
+            "screenshotFit": "contain",
+            "screenshotPosition": "center",
+            "badges": [
+              {
+                "id": "69d80822ce10a7d5efc10e85",
+                "text": "Contextual AI"
+              },
+              {
+                "id": "69d8082dce10a7d5efc10e87",
+                "text": "Sandboxed"
+              },
+              {
+                "id": "69d80832ce10a7d5efc10e89",
+                "text": "Full Engagement Context"
+              }
+            ]
+          },
+          {
+            "id": "69d807d5ce10a7d5efc10e7b",
+            "title": "Deliverables",
+            "description": "Client-ready documents that reflect the actual owner and business. Insight flows directly from sensemaking into branded, export-ready output.",
+            "screenshot": 26,
+            "screenshotFit": "contain",
+            "screenshotPosition": "center",
+            "badges": [
+              {
+                "id": "69d80842ce10a7d5efc10e8b",
+                "text": "Connected to Fact Finding"
+              },
+              {
+                "id": "69d80848ce10a7d5efc10e8d",
+                "text": "Generate with AI"
+              },
+              {
+                "id": "69d8084fce10a7d5efc10e8f",
+                "text": "Collaborative"
+              }
+            ]
+          },
+          {
+            "id": "69d807d7ce10a7d5efc10e7d",
+            "title": "Collaborator Portal",
+            "description": "Bring the whole exit team into one workspace. Advisors, CPAs, attorneys, and business owners — each with the right level of access and visibility.",
+            "screenshot": 27,
+            "screenshotFit": "contain",
+            "screenshotPosition": "center",
+            "badges": [
+              {
+                "id": "69d8086cce10a7d5efc10e91",
+                "text": "Role-based Access"
+              },
+              {
+                "id": "69d80872ce10a7d5efc10e93",
+                "text": "Invite advisors"
+              },
+              {
+                "id": "69d80878ce10a7d5efc10e95",
+                "text": "Share with SBO"
+              }
+            ]
+          }
+        ],
+        "blockType": "product-features"
+      },
+      {
+        "id": "69dc118200da904ca321ef36",
+        "heading": "Built for *trust*",
+        "intro": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Because ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 3,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "both",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " of our reputations ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "type": "linebreak",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 1,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "are on the line.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 1,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "We know trust is earned—and essential when you’re the steward of your clients’ most valuable asset. That’s why ELLA is built with a security-first mindset, grounded in transparency and respect for your data ",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 2,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "and",
+                    "type": "text",
+                    "version": 1
+                  },
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": " your clients’ data.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1,
+            "textFormat": 1
+          }
+        },
+        "patternSvg": 6,
+        "patternColor": "var(--color-goldenrod-600)",
+        "backgroundColor": "var(--color-moss-800)",
+        "contentBackgroundColor": "",
+        "bgStyle": "forest",
+        "blockName": null,
+        "sections": [
+          {
+            "id": "69dc11e400da904ca321ef38",
+            "title": "Your data, _always_",
+            "body": "When advisors use ELLA to support their clients, they remain in control. Only those you explicitly invite can access your organization or client workbenches. We don’t share your business information without your permission."
+          },
+          {
+            "id": "69dc120100da904ca321ef3a",
+            "title": "Privacy Built-In",
+            "body": "We follow U.S. state privacy laws and align with international standards like GDPR. Users can export or delete their data at any time. ELLA never sells your data, and only processes it to provide the services you’ve signed up for."
+          },
+          {
+            "id": "69dc121400da904ca321ef3c",
+            "title": "Secure by Design",
+            "body": "We design our systems and processes in alignment with leading security frameworks. Our practices are informed by these standards to ensure robust security, access control, and data protection."
+          },
+          {
+            "id": "69dc122c00da904ca321ef3e",
+            "title": "Enterprise-ready",
+            "body": "Strict access controls, internal policies, and multi-factor authentication (MFA) safeguard your information within our company."
+          }
+        ],
+        "blockType": "trust-security",
+        "link": {
+          "label": null,
+          "href": null
+        }
+      },
+      {
+        "id": "69d83792a27dfb6cf3013377",
+        "label": "The Advisor's Dilemma",
+        "heading": "Rigid or improvised?",
+        "headingAccent": "Those aren't the only options.",
+        "body": "Rigid platforms were built for advisors but don't respect your methodology. Consumer AI tools are powerful but weren't built for cliet work. Advisors shouldn't have to choose.",
+        "transitionLine1": "What if your tools were built for advisor work —",
+        "transitionLine2": "and adaptedto your methodology, not the other way around?",
+        "tableData": [
+          {
+            "dim": "Client intake",
+            "old": "Paper forms, email",
+            "rigid": "Their intake form, their questions, their order",
+            "patch": "Paste documents into ChatGPT and hope for the best",
+            "ella": "Malleable templates that adapt to your process"
+          },
+          {
+            "dim": "Analysis",
+            "old": "Manual, memory-based",
+            "rigid": "Locked scoring rubric — same funnel, every client",
+            "patch": "Powerful summaries — with no client boundaries",
+            "ella": "Contextual AI within a sandboxed workspace"
+          },
+          {
+            "dim": "Deliverables",
+            "old": "Handwritten in Word",
+            "rigid": "90-page template, identical for every client",
+            "patch": "AI drafts that sound generic and need heavy editing",
+            "ella": "Documents reflecting the actual owner and business"
+          },
+          {
+            "dim": "Methodology",
+            "old": "Yours, but only in your head",
+            "rigid": "Theirs — you adapt to the software",
+            "patch": "Whatever you prompt, every time, from scratch",
+            "ella": "Yours — systematized, extensible, in the platform"
+          },
+          {
+            "dim": "Knowledge",
+            "old": "Walks out the door",
+            "rigid": "Trapped in their system, their format",
+            "patch": "Vanishes when the chat window closes",
+            "ella": "Compounds across every engagement"
+          }
+        ],
+        "steps": [
+          {
+            "label": "Step 1: Intake Form",
+            "sub": "Their questions. Their order. No deviation."
+          },
+          {
+            "label": "Step 2: Financial Upload",
+            "sub": "Must use their template — your format won't work."
+          },
+          {
+            "label": "Step 3: Gap Analysis",
+            "sub": "Locked methodology. Skip nothing, customize nothing."
+          },
+          {
+            "label": "Step 4: Value Driver Scoring",
+            "sub": "Their rubric applied to your client. Same score, different business."
+          },
+          {
+            "label": "Step 5: Report Generation",
+            "sub": "90 pages. Same structure. Same jargon. Every single client."
+          }
+        ],
+        "blockName": null,
+        "blockType": "dilemma-section"
+      },
+      {
+        "id": "69dbd6803936761d39d448df",
+        "sectionLabel": "Built for your practice",
+        "heading": "Advisors who build on ELLA",
+        "subheading": "Different practices, different methodologies. The same need: a system that respects how you actually work.",
+        "image": 5,
+        "bgStyle": "leather",
+        "blockName": null,
+        "personas": [
+          {
+            "id": "69dbe3bfeb8e497c98df7c28",
+            "label": "Growing practices",
+            "title": "The CEPA with dozens of clients and their first associate",
+            "description": "Your methodology is your differentiator, but it lives in your head and a dozen Word documents. ELLA makes it repeatable without hiring a second you.",
+            "withElla": "your SOPs become templates, your intake becomes a system, and your associate can run the process you designed.",
+            "iconName": "Aperture",
+            "icon": null,
+            "accentColor": "forest"
+          },
+          {
+            "id": "69dbe3daeb8e497c98df7c2a",
+            "label": "Blending disciplines",
+            "title": "The M&A attorney running exit engagements alongside deal work",
+            "description": "You don't have hours to rebuild your process for each engagement. ELLA compresses intake and analysis so you can give exit planning the attention it deserves.",
+            "withElla": "structured fact finding feeds directly into deliverables. Prep that took days now takes hours.",
+            "iconName": "ArrowElbowLeft",
+            "icon": null,
+            "accentColor": "ocean"
+          },
+          {
+            "id": "69dc00758a3d8e604f751613",
+            "label": "Trusted generalists",
+            "title": "The wealth manager who keeps getting pulled into transition conversations",
+            "description": "Your clients trust you with their financial lives, so they bring you the exit too. You're not a full-time exit planner, and you shouldn't have to pretend.",
+            "withElla": "a workspace for the engagement, a portal for the client, and deliverables that make the conversation productive.",
+            "iconName": null,
+            "icon": null,
+            "accentColor": "goldenrod"
+          },
+          {
+            "id": "69dc008b8a3d8e604f751615",
+            "label": "Expanding strategists",
+            "title": "The CPA whose clients are asking about succession",
+            "description": "You see the financials. You know which clients haven't thought about what comes next. ELLA helps you turn those conversations into structured engagements.",
+            "withElla": "bring what you know into the workspace, and the platform helps you build the rest of the picture.",
+            "iconName": null,
+            "icon": null,
+            "accentColor": "coral"
+          },
+          {
+            "id": "69dc00a88a3d8e604f751617",
+            "label": "New advisors",
+            "title": "The advisor who just earned their CEPA and needs a practice, not just a credential",
+            "description": "You invested in the certification. Now you need to turn it into a repeatable service. Most new CEPAs spend the first year figuring out their process by trial and error.",
+            "withElla": "start with proven guide templates, customize them as you develop your methodology, and build a book of business from day one.",
+            "iconName": null,
+            "icon": null,
+            "accentColor": "forest"
+          }
+        ],
+        "blockType": "advisor-personas",
+        "imageQuote": {
+          "label": "From the field",
+          "text": "\"The first time a client uploaded their docs and I could actually ask questions against everything, I knew this was different.\"",
+          "attribution": "CEPA, 12 years in practice"
+        }
+      }
+    ],
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-15T01:36:59.670Z",
+    "createdAt": "2026-02-24T19:25:47.877Z"
+  },
+  {
+    "id": 2,
+    "title": "About",
+    "slug": "about",
+    "status": "published",
+    "publishedDate": null,
+    "parent": null,
+    "pageBackground": {
+      "image": 14,
+      "opacity": 100,
+      "top": null,
+      "right": null,
+      "width": null
+    },
+    "hero": {
+      "headline": "We're building for advisors who believe practice is more than process.",
+      "headlineAnimation": "word-by-word",
+      "headlineLine2": null,
+      "headlineAnimation2": "blur-fade",
+      "subheadline": "ELLA was built from conversations, not assumptions. Over a year of listening before a line of code was written.",
+      "primaryCta": {
+        "label": null,
+        "href": null
+      },
+      "secondaryCta": {
+        "label": null,
+        "href": null
+      },
+      "visual": 17,
+      "visualFit": "crop",
+      "visualPosition": "center",
+      "backgroundImage": 14,
+      "showLogoWatermark": false,
+      "style": "minimal",
+      "headlineFont": "display",
+      "highlightText": null,
+      "highlightColor": "goldenrod",
+      "heroWallpaper": false,
+      "heroWallpaperColor": "green"
+    },
+    "layout": [
+      {
+        "id": "69dcfdbb723f4cb8bf3f5f56",
+        "layout": "split-heading",
+        "sectionLabel": null,
+        "heading": "Our Belief",
+        "body": {
+          "root": {
+            "type": "root",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "Small businesses are more than engines of the economy. They represent the life’s work of their owners, anchors in their communities, and legacies passed through families. When it’s time to move on, they deserve more than a transaction. They deserve a future; one that carries forward what they built.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "We believe exits should honor both the business and the owner: the risks taken, the relationships forged, and the impact made. But too often, owners are pushed toward quick deals, private equity offers that won’t protect the legacy, or liquidation.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "We believe trusted advisors are the key to changing this status quo. When owners have someone who sees beyond numbers — seeing the story and legacy of the business — better exits are possible.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "We’re building ELLA to make that easier.",
+                    "format": 1,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "media": null,
+        "mediaPosition": "right",
+        "badge": null,
+        "bgStyle": "sandstone",
+        "blockName": null,
+        "blockType": "content-section",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69dcfdbb723f4cb8bf3f5f5b",
+        "heading": "The Principles We’re Built On",
+        "description": "We’re different for many reasons, but the biggest reason are the principles that serve as the bedrock of our experience.",
+        "bgStyle": "sandstone",
+        "blockName": null,
+        "items": [
+          {
+            "id": "69dcfdbb723f4cb8bf3f5f57",
+            "title": "Actionable Illumination",
+            "description": "Inspire confidence by proactively surfacing education that promotes business owners’ understanding of and ability to navigate the end-to-end process."
+          },
+          {
+            "id": "69dcfdbb723f4cb8bf3f5f58",
+            "title": "Effortless Orchestration",
+            "description": "Facilitate collaboration and coordination among all parties involved; giving everyone visibility into their progress, goals, and responsibilities at all times."
+          },
+          {
+            "id": "69dcfdbb723f4cb8bf3f5f59",
+            "title": "Malleable Guidance",
+            "description": "Embrace the idiosyncrasies that are inherent in the uniqueness of each party’s situation and adapt the expert guidance delivered by our service to these unique needs."
+          },
+          {
+            "id": "69dcfdbb723f4cb8bf3f5f5a",
+            "title": "Do Right",
+            "description": "Err on the side of transparency in goals, intentions, and processes every step of the way."
+          }
+        ],
+        "blockType": "values-grid"
+      },
+      {
+        "id": "69dcfdbb723f4cb8bf3f5f5c",
+        "label": null,
+        "heading": "We started with conversations, not code.",
+        "headingStyle": "display",
+        "bodyStyle": "body",
+        "body": {
+          "root": {
+            "type": "root",
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "Before we built anything, we spent a year in conversation with the advisors who would use it. CEPAs running solo practices. CPAs doing exit work alongside their tax practice. Wealth managers thinking ten years ahead. M&A brokers who’ve been through hundreds of deals.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "We asked the same question every time: where do you get stuck?",
+                    "format": 2,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "The answer shifted. Twice.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "First, we learned advisors didn’t need another monolithic platform. They needed a system that could hold context across their entire practice while letting them work the way they already work.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "Second, we learned “exit planning” was the starting point, not the ceiling. The advisors we kept meeting were guiding business owners through consequential decisions across every stage of building a significant business. The common thread was trust as the foundation.",
+                    "format": 0,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": "",
+                "children": [
+                  {
+                    "type": "text",
+                    "version": 1,
+                    "text": "We built ELLA around both of those lessons.",
+                    "format": 2,
+                    "detail": 0,
+                    "mode": "normal",
+                    "style": ""
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "closer": null,
+        "bgStyle": "ash",
+        "blockName": null,
+        "quotes": [],
+        "blockType": "bridge-section",
+        "link": {
+          "label": "Read the full story",
+          "href": "/blog/with-ella"
+        },
+        "coverImage": {
+          "image": null,
+          "minHeight": "md",
+          "objectPosition": "center",
+          "overlayOpacity": "60"
+        }
+      },
+      {
+        "id": "69dcfdbb723f4cb8bf3f5f5d",
+        "headline": "Believe what we believe?",
+        "body": "ELLA is for advisors who want to systematize what makes them unique — without sacrificing the relationships that make their practice worth building.",
+        "closingLine": null,
+        "microcopy": "Your first 3 clients are on us.",
+        "bgStyle": "forest",
+        "blockName": null,
+        "blockType": "cta-section",
+        "primaryCta": {
+          "label": "Get Started",
+          "href": "https://app.exitwithella.io/sign-up"
+        },
+        "secondaryCta": {
+          "label": "Book a Demo",
+          "href": "https://cal.com/team/ella/ella-intro?overlayCalendar=true"
+        },
+        "coverImage": {
+          "image": null,
+          "minHeight": "md",
+          "objectPosition": "center",
+          "overlayOpacity": "60"
+        }
+      }
+    ],
+    "meta": {
+      "title": "About — ELLA",
+      "description": "ELLA was built by advisors, for advisors. We started with conversations, not code — 100+ real advisor conversations before writing a line.",
+      "image": null
+    },
+    "updatedAt": "2026-04-13T14:29:15.688Z",
+    "createdAt": "2026-04-13T06:04:13.725Z"
+  },
+  {
+    "id": 3,
+    "title": "Platform",
+    "slug": "platform",
+    "status": "published",
+    "publishedDate": null,
+    "parent": null,
+    "pageBackground": {
+      "image": null,
+      "opacity": 3,
+      "top": null,
+      "right": null,
+      "width": null
+    },
+    "hero": {
+      "headline": "The workbench for guiding consequential decisions.",
+      "headlineAnimation": "blur-fade",
+      "headlineLine2": null,
+      "headlineAnimation2": "blur-fade",
+      "subheadline": "Structured fact finding, context-aware analysis, and client-ready deliverables in a single workspace for each engagement. Built around how you actually work, backed by your methodology and connected by context.",
+      "primaryCta": {
+        "label": "",
+        "href": ""
+      },
+      "secondaryCta": {
+        "label": "",
+        "href": ""
+      },
+      "visual": 28,
+      "visualFit": "contain",
+      "visualPosition": "center",
+      "backgroundImage": null,
+      "showLogoWatermark": false,
+      "style": "split",
+      "headlineFont": "serif",
+      "highlightText": null,
+      "highlightColor": "moss",
+      "heroWallpaper": true,
+      "heroWallpaperColor": "ash"
+    },
+    "layout": [
+      {
+        "id": "69df0360359ca82e52aabdbf",
+        "sectionId": "platform-overview",
+        "headerLayout": "text-only",
+        "textAlign": "right",
+        "sectionLabel": "Meet the ELLA Platform",
+        "heading": "Built around the advisor's methodology, with tools that match how you actually work with clients.",
+        "headingFont": "serif",
+        "headingSize": "large",
+        "body": null,
+        "headerImage": null,
+        "headerImageFit": "cover",
+        "galleryColumns": "4",
+        "galleryAspect": "square",
+        "galleryAlign": "left",
+        "galleryImageRadius": "sharp",
+        "galleryWidth": "wide",
+        "wideHeader": false,
+        "sectionPadding": "default",
+        "bgColorOverride": null,
+        "bgStyle": "sandstone",
+        "blockName": "Platform Overview",
+        "accordionItems": [],
+        "galleryItems": [
+          {
+            "id": "69df0579359ca82e52aabdc3",
+            "staticImage": 29,
+            "animatedImage": null,
+            "caption": "Fact Finding",
+            "subcaption": "Your discovery process is one of the most valuable things you've built. ELLA's Fact Finder gives it structure that holds as your practice scales — without stripping away the flexibility that makes it yours. Templates, notes, documents, and questions all in one connected space.",
+            "bgColor": "var(--color-moss-300)",
+            "frameImage": true,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df05bc359ca82e52aabdc5",
+            "staticImage": 30,
+            "animatedImage": null,
+            "caption": "Sensemaking",
+            "subcaption": "Most AI gives you a chatbot and calls it analysis. Sensemaking assembles context from your entire workspace and applies domain-specific analytical skills built for how advisors actually evaluate a business. The more you use it, the more it adapts to how you think.",
+            "bgColor": "var(--color-ocean-400)",
+            "frameImage": false,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df05dd359ca82e52aabdc7",
+            "staticImage": 31,
+            "animatedImage": null,
+            "caption": "Deliverables",
+            "subcaption": "Every document should reflect the specific client, the specific engagement, and the advisor's actual thinking. We built a block-based editor that's connected to your workspace data but works like a doc. Start from a template, pull in sensemaking insights, and invite collaborators to review.",
+            "bgColor": "var(--color-moss-200)",
+            "frameImage": true,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df05ee359ca82e52aabdc9",
+            "staticImage": 16,
+            "animatedImage": null,
+            "caption": "Collaboration",
+            "subcaption": "Exit planning is a team effort, and the whole team needs a place to work. The collaborator interface gives CPAs, attorneys, wealth managers, and business owners a scoped view of exactly what they need to see, contribute to, and review. No clutter, no learning curve.",
+            "bgColor": null,
+            "frameImage": false,
+            "anchorTarget": null
+          }
+        ],
+        "blockType": "feature-showcase",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69dd105d92850c1afb4fc67e",
+        "sectionId": "fact-finding",
+        "headerLayout": "text-left-even",
+        "textAlign": "left",
+        "sectionLabel": "Fact Finding",
+        "heading": "Structured discovery built around your priorities.",
+        "headingFont": "display",
+        "headingSize": "default",
+        "body": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "What makes you unique? We think part of it is your methodology: the questions you ask, the order you ask them, the way you read between the lines of a balance sheet and a conversation. We built fact finding so it holds that structure without flattening it into someone else's process.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Start with research-calibrated templates across M&A readiness, succession planning, personal readiness, and vertical-specific domains. Or build your own from scratch. Group business factors by the categories that match how you think, add questions, reorder them, and layer in notes that link directly to each discovery item. As documents come in, the system cross-references uploaded files against your open questions and surfaces suggested answers for your review.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Every answer, every note, and every document becomes context that carries forward into Sensemaking and Deliverables. Nothing gets lost between intake and analysis.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1
+          }
+        },
+        "headerImage": 36,
+        "headerImageFit": "square",
+        "galleryColumns": "3",
+        "galleryAspect": "square",
+        "galleryAlign": "left",
+        "galleryImageRadius": "sharp",
+        "galleryWidth": "default",
+        "wideHeader": false,
+        "sectionPadding": "default",
+        "bgColorOverride": null,
+        "bgStyle": "sandstone",
+        "blockName": "Fact Finding",
+        "accordionItems": [
+          {
+            "id": "69df07de359ca82e52aabdcb",
+            "question": "Modular templates built around your methodology",
+            "answer": {
+              "root": {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Start with production-ready templates across advisory domains, or build your own from scratch. Group business factors, customize question types, and structure discovery the way you think about it.",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "",
+                    "indent": 0,
+                    "type": "paragraph",
+                    "version": 1,
+                    "textFormat": 0,
+                    "textStyle": ""
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "root",
+                "version": 1
+              }
+            }
+          },
+          {
+            "id": "69df07eb359ca82e52aabdcd",
+            "question": "Linked notes and supporting documents",
+            "answer": {
+              "root": {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Notes attach directly to discovery questions. Documents cross-reference against open questions so every piece of evidence connects to the question it answers.",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "",
+                    "indent": 0,
+                    "type": "paragraph",
+                    "version": 1,
+                    "textFormat": 0,
+                    "textStyle": ""
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "root",
+                "version": 1
+              }
+            }
+          },
+          {
+            "id": "69df07ee359ca82e52aabdcf",
+            "question": "Document ingestion and extraction",
+            "answer": {
+              "root": {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Upload financials, legal documents, or operational records. The system reads them, identifies relevant answers to your open questions, and surfaces suggestions you review and approve.",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "",
+                    "indent": 0,
+                    "type": "paragraph",
+                    "version": 1,
+                    "textFormat": 0,
+                    "textStyle": ""
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "root",
+                "version": 1
+              }
+            }
+          }
+        ],
+        "galleryItems": [
+          {
+            "id": "69df082a359ca82e52aabdd1",
+            "staticImage": 34,
+            "animatedImage": null,
+            "caption": "Modular Templates",
+            "subcaption": "Start with research-calibrated templates or build your own. Group business factors your way, customize question types, and add as many as you need.",
+            "bgColor": "var(--color-sandstone-200)",
+            "frameImage": false,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df083e359ca82e52aabdd3",
+            "staticImage": 39,
+            "animatedImage": null,
+            "caption": "Linked Notes & Documents",
+            "subcaption": "Notes attach directly to discovery questions. Supporting documents are cross-referenced so every piece of evidence connects to the question it answers.",
+            "bgColor": "var(--color-goldenrod-600)",
+            "frameImage": false,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df085e359ca82e52aabdd5",
+            "staticImage": 38,
+            "animatedImage": null,
+            "caption": "Impact Gap",
+            "subcaption": "Track completion across business factors and see where the gaps are. Understand the current state of the company at a glance and know where to focus next.",
+            "bgColor": "var(--color-moss-600)",
+            "frameImage": false,
+            "anchorTarget": null
+          }
+        ],
+        "blockType": "feature-showcase",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69dd105d92850c1afb4fc685",
+        "sectionId": "sensemaking",
+        "headerLayout": "text-only",
+        "textAlign": "center",
+        "sectionLabel": "SENSEMAKING",
+        "heading": "Insight grounded in context.",
+        "headingFont": "display",
+        "headingSize": "default",
+        "body": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "When you open a sensemaking session, the system already knows your client. It assembles context from everything in the workspace: fact finding answers, uploaded documents, prior conversations, and the specific business factors you scope in. We call this prompt composition. Rather than dumping everything into a single context window, the system selects, structures, and layers relevant data alongside domain-specific analytical skills: financial hygiene, owner readiness, risk breakdown, document analysis, valuation prep. These are structured frameworks calibrated to how advisors evaluate a business, not generic prompts dressed up with a label.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "This is what separates purpose-built sensemaking from dropping files into a Claude project or a ChatGPT thread. A general-purpose AI doesn't know what a normalized EBITDA add-back is, doesn't understand why owner dependency is a value driver, and can't tell a succession plan that's been operationalized from one that exists only on paper. We built that domain intelligence into the system so you don't have to prompt-engineer your way to useful output every time you sit down.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1
+          }
+        },
+        "headerImage": 16,
+        "headerImageFit": "cover",
+        "galleryColumns": "3",
+        "galleryAspect": "square",
+        "galleryAlign": "end",
+        "galleryImageRadius": "sharp",
+        "galleryWidth": "default",
+        "wideHeader": false,
+        "sectionPadding": "extra",
+        "bgColorOverride": "var(--color-sandstone-200)",
+        "bgStyle": "sandstone",
+        "blockName": "Sensemaking",
+        "accordionItems": [],
+        "galleryItems": [
+          {
+            "id": "69df09fb359ca82e52aabdd7",
+            "staticImage": 40,
+            "animatedImage": null,
+            "caption": "Context-Aware Analysis",
+            "subcaption": "Every session draws from the full workspace. Select specific business factor groups or analyze everything at once. The system knows what you've collected and structures it before the model ever sees it.",
+            "bgColor": "var(--color-sandstone-400)",
+            "frameImage": true,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df0a0f359ca82e52aabdd9",
+            "staticImage": 41,
+            "animatedImage": null,
+            "caption": "Domain-Specific Analytical Skills",
+            "subcaption": "Financial hygiene, owner readiness, risk breakdown, document analysis, and valuation prep. These run based on what you ask, calibrated to how advisors evaluate a business.",
+            "bgColor": "var(--color-ash-400)",
+            "frameImage": false,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df0a2a359ca82e52aabddb",
+            "staticImage": 43,
+            "animatedImage": null,
+            "caption": "Memory",
+            "subcaption": "When you correct the AI, those corrections persist. The system remembers details about each engagement and adapts to your judgment over time, so you stop repeating yourself across sessions.",
+            "bgColor": null,
+            "frameImage": false,
+            "anchorTarget": null
+          }
+        ],
+        "blockType": "feature-showcase",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69df1aff12aa6a397fe19a60",
+        "sectionId": "anatomy-of-a-prompt",
+        "sectionLabel": "Anatomy of a prompt",
+        "heading": "Adding context with every input",
+        "description": "A fully-enriched sensemaking response",
+        "promptText": "What are the biggest risks to this exit timeline?",
+        "responseLabel": "RISK BREAKDOWN",
+        "responseMetadata": "5 sources referenced",
+        "footerLeft": "One question. Five ingredients. Six months of structured engagement data.",
+        "footerRight": "Sensemaking",
+        "bgColorOverride": "var(--color-sandstone-200)",
+        "bgStyle": "sandstone",
+        "blockName": "Anatomy of a Prompt",
+        "items": [
+          {
+            "id": "69df1bd512aa6a397fe19a62",
+            "heading": "Owner dependency is the primary risk factor.",
+            "body": "Turner holds all key client relationships and sole vendor signatory authority. No documented succession for operations.",
+            "annotationLabel": "Fact Finding",
+            "annotationDetail": "Management team assessment and key-person dependency, answered during discovery.",
+            "color": "goldenrod"
+          },
+          {
+            "id": "69df1bee12aa6a397fe19a64",
+            "heading": "Revenue concentration creates buyer risk.",
+            "body": "Three clients at 62% of trailing revenue. Stress-scenario EBITDA impact: -$160K.",
+            "annotationLabel": "Uploaded Documents",
+            "annotationDetail": "Three years of financial statements, analyzed via Financial Hygiene.",
+            "color": "moss"
+          },
+          {
+            "id": "69df1c0512aa6a397fe19a66",
+            "heading": "Exit timeline is constrained by buyer pool.",
+            "body": "18-month target assumes broad buyer access, but no-earn-out preference narrows viable acquirers.",
+            "annotationLabel": "Engagement Memory",
+            "annotationDetail": "Advisor correction: owner prefers no earn-out structures.",
+            "color": "goldenrod"
+          },
+          {
+            "id": "69df1c1f12aa6a397fe19a68",
+            "heading": "Wealth gap is manageable but timeline-sensitive.",
+            "body": "$1.2M desired vs. $160K gap at current FMV. Achievable in 24 months; compressed timeline raises execution risk.",
+            "annotationLabel": "Cross-Referenced Analysis",
+            "annotationDetail": "Owner Readiness calculated the wealth gap. Risk Breakdown linked it to timeline.",
+            "color": "moss"
+          },
+          {
+            "id": "69df1c3112aa6a397fe19a6a",
+            "heading": "Buy-sell agreement requires immediate attention.",
+            "body": "Life-insurance funded, unreviewed for three years. Valuation methodology clause outdated.",
+            "annotationLabel": "Prior Session",
+            "annotationDetail": "Valuation prep flagged the outdated buy-sell clause two weeks prior.",
+            "color": "moss"
+          }
+        ],
+        "blockType": "prompt-anatomy"
+      },
+      {
+        "id": "69dfad6e2980901b507930ed",
+        "label": null,
+        "heading": "Built to make sense of the work that happens beyond the desk",
+        "headingStyle": "serif",
+        "bodyStyle": "body",
+        "body": null,
+        "closer": null,
+        "bgStyle": "brand-black",
+        "blockName": null,
+        "quotes": [],
+        "blockType": "bridge-section",
+        "link": {
+          "label": null,
+          "href": null
+        },
+        "coverImage": {
+          "image": 51,
+          "minHeight": "lg",
+          "objectPosition": "center",
+          "overlayOpacity": "40"
+        }
+      },
+      {
+        "id": "69dd105d92850c1afb4fc68a",
+        "sectionId": "deliverables",
+        "headerLayout": "text-left",
+        "textAlign": "left",
+        "sectionLabel": "DELIVERABLES",
+        "heading": "From analysis to understanding. ",
+        "headingFont": "display",
+        "headingSize": "default",
+        "body": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The last thing an advisor needs is another tool that produces generic 90-page reports nobody reads. Deliverables live inside the same workspace as your fact finding and sensemaking, so every document is grounded in real data from the engagement, not copy-pasted from a chat window.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Pull insights directly from a sensemaking conversation into a document. Use the block-based editor to compose, rearrange, and refine, and invite collaborators to review and comment in real time. AI assists with drafting, but the advisor controls the final word, because these documents carry your name and your reputation.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1
+          }
+        },
+        "headerImage": 15,
+        "headerImageFit": "cover",
+        "galleryColumns": "4",
+        "galleryAspect": "square",
+        "galleryAlign": "left",
+        "galleryImageRadius": "sharp",
+        "galleryWidth": "wide",
+        "wideHeader": false,
+        "sectionPadding": "default",
+        "bgColorOverride": null,
+        "bgStyle": "leather",
+        "blockName": "Deliverables",
+        "accordionItems": [],
+        "galleryItems": [
+          {
+            "id": "69df0c1e359ca82e52aabddd",
+            "staticImage": 42,
+            "animatedImage": null,
+            "caption": "Block-Based Editor",
+            "subcaption": "Type / to insert blocks for formatting or referencing client data. Press space to draft with Sensemaking inline. It works like a doc you already know, connected to the data you've already collected.",
+            "bgColor": "",
+            "frameImage": false,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df0c2c359ca82e52aabddf",
+            "staticImage": 47,
+            "animatedImage": null,
+            "caption": "Templates",
+            "subcaption": "Start from deliverable templates that match your practice: exit readiness scorecards, preliminary financial audits, value acceleration plans. Customize the structure and reuse across engagements.",
+            "bgColor": "var(--color-sandstone-200)",
+            "frameImage": false,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df0c3d359ca82e52aabde1",
+            "staticImage": 45,
+            "animatedImage": null,
+            "caption": "Multiplayer & Comments",
+            "subcaption": "Invite collaborators to review deliverables and leave comments directly in the document. Threaded conversations keep feedback organized and connected to the specific content it references.",
+            "bgColor": "var(--color-moss-300)",
+            "frameImage": false,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df0c52359ca82e52aabde3",
+            "staticImage": 46,
+            "animatedImage": null,
+            "caption": "Connected to Context",
+            "subcaption": "Turn a sensemaking response into a deliverable with one action. Embed upload fields that connect directly to fact finding, so clients can contribute data from inside the document itself. The data flows both ways.",
+            "bgColor": "var(--color-ocean-500)",
+            "frameImage": true,
+            "anchorTarget": null
+          }
+        ],
+        "blockType": "feature-showcase",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69df0cba359ca82e52aabde5",
+        "sectionId": "collaboration",
+        "headerLayout": "image-left",
+        "textAlign": "left",
+        "sectionLabel": "Collaboration",
+        "heading": "The whole team, one workspace",
+        "headingFont": "display",
+        "headingSize": "default",
+        "body": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "The CPA running tax analysis, the attorney reviewing the buy-sell agreement, the wealth manager stress-testing retirement projections, and the business owner contributing context only they can provide. They all need to see the right information, contribute in the right places, and trust that their data stays where it belongs.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "We built the collaborator interface as a purpose-built experience for everyone on the exit team who isn't the lead advisor. Collaborators see only what's been shared with them: the fact finding questions assigned to them, the published deliverables relevant to their role, and the documents that require their input. No sidebar clutter. No billing screens. No features they don't need.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              },
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "For business owners, this is where they contribute financial data during fact finding, review deliverables as the engagement progresses, and comment on documents that directly affect their business. How they experience the platform reflects directly on the advisor who invited them.",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1
+          }
+        },
+        "headerImage": 35,
+        "headerImageFit": "cover",
+        "galleryColumns": "3",
+        "galleryAspect": "landscape",
+        "galleryAlign": "left",
+        "galleryImageRadius": "sharp",
+        "galleryWidth": "default",
+        "wideHeader": false,
+        "sectionPadding": "default",
+        "bgColorOverride": null,
+        "bgStyle": "sandstone",
+        "blockName": "Collaboration",
+        "accordionItems": [],
+        "galleryItems": [
+          {
+            "id": "69df0d26359ca82e52aabde7",
+            "staticImage": 48,
+            "animatedImage": null,
+            "caption": "Role-Scoped Access",
+            "subcaption": "Collaborators see only what's shared with them. Fact finding questions, published deliverables, and relevant documents, scoped by workspace role. No access to advisor-only features like sensemaking or billing.",
+            "bgColor": "var(--color-sandstone-200)",
+            "frameImage": true,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df0d3d359ca82e52aabde9",
+            "staticImage": 49,
+            "animatedImage": null,
+            "caption": "Direct Data Contribution",
+            "subcaption": "Business owners and team members answer fact finding questions directly in the platform. Their answers flow into the same structured data the advisor uses for sensemaking and deliverables.",
+            "bgColor": "var(--color-sandstone-200)",
+            "frameImage": true,
+            "anchorTarget": null
+          },
+          {
+            "id": "69df0d4d359ca82e52aabdeb",
+            "staticImage": 50,
+            "animatedImage": null,
+            "caption": "Deliverable Review & Comments",
+            "subcaption": "Collaborators review published deliverables and leave comments directly in the document. Threaded conversations keep feedback organized and connected to the content it references.",
+            "bgColor": "var(--color-sandstone-200)",
+            "frameImage": true,
+            "anchorTarget": null
+          }
+        ],
+        "blockType": "feature-showcase",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69df155912aa6a397fe19a5e",
+        "headline": "",
+        "body": "",
+        "closingLine": "Built for the work that matters most",
+        "microcopy": "Your first client is on us",
+        "bgStyle": "forest",
+        "blockName": "CTA",
+        "blockType": "cta-section",
+        "primaryCta": {
+          "label": "Add your first client",
+          "href": "https://app.exitwithella.io"
+        },
+        "secondaryCta": {
+          "label": "Book a demo",
+          "href": "http://localhost:3000/demo"
+        },
+        "coverImage": {
+          "image": null,
+          "minHeight": "md",
+          "objectPosition": "center",
+          "overlayOpacity": "60"
+        }
+      }
+    ],
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-15T15:26:32.583Z",
+    "createdAt": "2026-04-13T15:48:45.040Z"
+  }
+]

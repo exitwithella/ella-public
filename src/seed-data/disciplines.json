@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Exit Planning",
+    "slug": "exit-planning",
+    "description": "Comprehensive exit strategy development for business owners and their advisors.",
+    "sortOrder": 1,
+    "updatedAt": "2026-02-23T22:49:05.951Z",
+    "createdAt": "2026-02-23T22:49:05.951Z"
+  },
+  {
+    "id": 2,
+    "name": "Wealth Management",
+    "slug": "wealth-management",
+    "description": "Integrated wealth planning for high-net-worth individuals and families.",
+    "sortOrder": 2,
+    "updatedAt": "2026-02-23T22:49:05.979Z",
+    "createdAt": "2026-02-23T22:49:05.979Z"
+  },
+  {
+    "id": 3,
+    "name": "Business Advisory",
+    "slug": "business-advisory",
+    "description": "Strategic advisory services for closely held business owners.",
+    "sortOrder": 3,
+    "updatedAt": "2026-02-23T22:49:05.997Z",
+    "createdAt": "2026-02-23T22:49:05.997Z"
+  },
+  {
+    "id": 4,
+    "name": "Tax & Estate Planning",
+    "slug": "tax-estate-planning",
+    "description": "Coordinated tax and estate planning to preserve and transfer wealth.",
+    "sortOrder": 4,
+    "updatedAt": "2026-02-23T22:49:06.009Z",
+    "createdAt": "2026-02-23T22:49:06.009Z"
+  }
+]

@@ -1,0 +1,135 @@
+[
+  {
+    "id": 2,
+    "name": "Practitioner",
+    "price": {
+      "amount": 8500,
+      "period": "month",
+      "customLabel": null
+    },
+    "pricePer": "user",
+    "monthSurchargePercent": 16,
+    "quarterSurchargePercent": 5,
+    "tagline": "For the solo advisor building a scalable practice",
+    "description": "Full access to the ELLA platform — Fact Finding, Sensemaking, and Deliverables — for the advisor ready to systematize their practice.",
+    "badge": "Most Popular",
+    "maxAdvisors": "max_advisors",
+    "maxClients": "max_clients",
+    "collaboratorsPerClient": "collaborators_per_client",
+    "featuresHeader": "KEY FEATURES INCLUDE:",
+    "features": [
+      {
+        "id": "69dea58aa8ee834cedd4feda",
+        "feature": "Up to 3 advisors, 30 active clients",
+        "included": "yes"
+      },
+      {
+        "id": "69dea58aa8ee834cedd4fedb",
+        "feature": "All clients shared between advisors",
+        "included": "yes"
+      },
+      {
+        "id": "69dea58aa8ee834cedd4fedc",
+        "feature": "20 collaborators per client",
+        "included": "yes"
+      },
+      {
+        "id": "69dea58aa8ee834cedd4fedd",
+        "feature": "Limited Max model usage",
+        "included": "yes"
+      },
+      {
+        "id": "69dea58aa8ee834cedd4fede",
+        "feature": "20 hours/mo/user voice recording",
+        "included": "yes"
+      },
+      {
+        "id": "69dea58aa8ee834cedd4fedf",
+        "feature": "MCP & calendar sync integrations",
+        "included": "yes"
+      },
+      {
+        "id": "69dea58aa8ee834cedd4fee0",
+        "feature": "Email support",
+        "included": "yes"
+      }
+    ],
+    "cta": {
+      "label": "Get Started",
+      "href": "https://app.exitwithella.io/sign-up"
+    },
+    "highlighted": true,
+    "sortOrder": 1,
+    "updatedAt": "2026-04-14T20:37:30.835Z",
+    "createdAt": "2026-02-23T22:49:06.140Z"
+  },
+  {
+    "id": 6,
+    "name": "Enterprise",
+    "price": {
+      "amount": 0,
+      "period": "custom",
+      "customLabel": "Contact us"
+    },
+    "pricePer": "flat",
+    "monthSurchargePercent": null,
+    "quarterSurchargePercent": null,
+    "tagline": "For multi-advisor practices and firms",
+    "description": "Everything in Practitioner, plus unlimited advisor seats, an admin dashboard, SSO, and a dedicated success manager.",
+    "badge": null,
+    "maxAdvisors": "max_advisors",
+    "maxClients": "max_clients",
+    "collaboratorsPerClient": "collaborators_per_client",
+    "featuresHeader": "EVERYTHING IN PRACTITIONER, PLUS:",
+    "features": [
+      {
+        "id": "69dea59ca8ee834cedd4fee9",
+        "feature": "AI governance & decision tracing",
+        "included": "yes"
+      },
+      {
+        "id": "69dea59ca8ee834cedd4feea",
+        "feature": "BYOK & custom AI guardrails",
+        "included": "yes"
+      },
+      {
+        "id": "69dea59ca8ee834cedd4feeb",
+        "feature": "SIEM & scheduled posture reporting",
+        "included": "yes"
+      },
+      {
+        "id": "69dea59ca8ee834cedd4feec",
+        "feature": "Dedicated capacity & regional processing",
+        "included": "yes"
+      },
+      {
+        "id": "69dea59ca8ee834cedd4feed",
+        "feature": "Custom log retention & log drains",
+        "included": "yes"
+      },
+      {
+        "id": "69dea59ca8ee834cedd4feee",
+        "feature": "Custom release schedule",
+        "included": "yes"
+      },
+      {
+        "id": "69dea59ca8ee834cedd4feef",
+        "feature": "Premium support SLA & dedicated success manager",
+        "included": "yes"
+      },
+      {
+        "id": "69dea59ca8ee834cedd4fef0",
+        "feature": "Custom integration development",
+        "included": "yes"
+      }
+    ],
+    "cta": {
+      "label": "Talk to Our Team",
+      "href": "https://cal.com/team/ella/ella-intro?overlayCalendar=true"
+    },
+    "highlighted": false,
+    "sortOrder": 2,
+    "updatedAt": "2026-04-14T20:37:48.541Z",
+    "createdAt": "2026-02-25T15:39:30.535Z"
+  }
+]

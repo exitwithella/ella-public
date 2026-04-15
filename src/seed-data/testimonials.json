@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "quote": "ELLA allows me to create more revenue opportunities. I’m able to create more of a consulting relationship where it leads to more business.",
+    "name": "Kevin",
+    "title": "Certified Exit Planning Advisor",
+    "company": null,
+    "photo": null,
+    "metrics": {
+      "value": null,
+      "label": null
+    },
+    "approved": true,
+    "disciplines": [],
+    "updatedAt": "2026-03-31T15:48:33.326Z",
+    "createdAt": "2026-02-24T19:14:27.808Z"
+  },
+  {
+    "id": 2,
+    "quote": "Typically our deliverable would just be a standard EBITDA. ELLA is a value add and we can show that we aren’t just pulling these numbers out of a hat.",
+    "name": "Lisa",
+    "title": "M&A Advisor, Small Business Alternatives",
+    "company": null,
+    "photo": null,
+    "metrics": {
+      "value": null,
+      "label": null
+    },
+    "approved": true,
+    "disciplines": [],
+    "updatedAt": "2026-03-31T15:48:33.367Z",
+    "createdAt": "2026-02-24T19:14:27.824Z"
+  }
+]

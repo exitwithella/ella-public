@@ -646,6 +646,27 @@ export interface Page {
                   | 'brand-black'
                 )
               | null;
+            /**
+             * Optional full-width background image. Content overlays on top with a scrim for readability.
+             */
+            coverImage?: {
+              /**
+               * Lifestyle or background image. Displayed as object-fit: cover.
+               */
+              image?: (number | null) | Media;
+              /**
+               * Minimum height of the section when a cover image is active.
+               */
+              minHeight?: ('sm' | 'md' | 'lg') | null;
+              /**
+               * Vertical focal point of the image.
+               */
+              objectPosition?: ('top' | 'center' | 'bottom') | null;
+              /**
+               * Darkness of the scrim overlay for text readability.
+               */
+              overlayOpacity?: ('40' | '60' | '80') | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta-section';
@@ -1091,9 +1112,13 @@ export interface Page {
              */
             label?: string | null;
             /**
-             * Section headline. Rendered in Termina.
+             * Section headline.
              */
             heading?: string | null;
+            /**
+             * Font style for the heading.
+             */
+            headingStyle?: ('display' | 'serif') | null;
             /**
              * Body = standard DM Sans body text. Feature = larger serif text.
              */
@@ -1154,6 +1179,27 @@ export interface Page {
                   | 'brand-black'
                 )
               | null;
+            /**
+             * Optional full-width background image. Content overlays on top with a scrim for readability.
+             */
+            coverImage?: {
+              /**
+               * Lifestyle or background image. Displayed as object-fit: cover.
+               */
+              image?: (number | null) | Media;
+              /**
+               * Minimum height of the section when a cover image is active.
+               */
+              minHeight?: ('sm' | 'md' | 'lg') | null;
+              /**
+               * Vertical focal point of the image.
+               */
+              objectPosition?: ('top' | 'center' | 'bottom') | null;
+              /**
+               * Darkness of the scrim overlay for text readability.
+               */
+              overlayOpacity?: ('40' | '60' | '80') | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'bridge-section';
@@ -2044,6 +2090,27 @@ export interface Solution {
                   | 'brand-black'
                 )
               | null;
+            /**
+             * Optional full-width background image. Content overlays on top with a scrim for readability.
+             */
+            coverImage?: {
+              /**
+               * Lifestyle or background image. Displayed as object-fit: cover.
+               */
+              image?: (number | null) | Media;
+              /**
+               * Minimum height of the section when a cover image is active.
+               */
+              minHeight?: ('sm' | 'md' | 'lg') | null;
+              /**
+               * Vertical focal point of the image.
+               */
+              objectPosition?: ('top' | 'center' | 'bottom') | null;
+              /**
+               * Darkness of the scrim overlay for text readability.
+               */
+              overlayOpacity?: ('40' | '60' | '80') | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta-section';
@@ -2522,6 +2589,27 @@ export interface LandingPage {
                   | 'brand-black'
                 )
               | null;
+            /**
+             * Optional full-width background image. Content overlays on top with a scrim for readability.
+             */
+            coverImage?: {
+              /**
+               * Lifestyle or background image. Displayed as object-fit: cover.
+               */
+              image?: (number | null) | Media;
+              /**
+               * Minimum height of the section when a cover image is active.
+               */
+              minHeight?: ('sm' | 'md' | 'lg') | null;
+              /**
+               * Vertical focal point of the image.
+               */
+              objectPosition?: ('top' | 'center' | 'bottom') | null;
+              /**
+               * Darkness of the scrim overlay for text readability.
+               */
+              overlayOpacity?: ('40' | '60' | '80') | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta-section';
@@ -3540,6 +3628,14 @@ export interface PagesSelect<T extends boolean = true> {
               closingLine?: T;
               microcopy?: T;
               bgStyle?: T;
+              coverImage?:
+                | T
+                | {
+                    image?: T;
+                    minHeight?: T;
+                    objectPosition?: T;
+                    overlayOpacity?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -3756,6 +3852,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               label?: T;
               heading?: T;
+              headingStyle?: T;
               bodyStyle?: T;
               body?: T;
               quotes?:
@@ -3773,6 +3870,14 @@ export interface PagesSelect<T extends boolean = true> {
                     href?: T;
                   };
               bgStyle?: T;
+              coverImage?:
+                | T
+                | {
+                    image?: T;
+                    minHeight?: T;
+                    objectPosition?: T;
+                    overlayOpacity?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -4111,6 +4216,14 @@ export interface LandingPagesSelect<T extends boolean = true> {
               closingLine?: T;
               microcopy?: T;
               bgStyle?: T;
+              coverImage?:
+                | T
+                | {
+                    image?: T;
+                    minHeight?: T;
+                    objectPosition?: T;
+                    overlayOpacity?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -4549,6 +4662,14 @@ export interface SolutionsSelect<T extends boolean = true> {
               closingLine?: T;
               microcopy?: T;
               bgStyle?: T;
+              coverImage?:
+                | T
+                | {
+                    image?: T;
+                    minHeight?: T;
+                    objectPosition?: T;
+                    overlayOpacity?: T;
+                  };
               id?: T;
               blockName?: T;
             };

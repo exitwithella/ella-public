@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Navigation } from '@/payload-types'
 
 import { NavbarClient } from './navbar-client'
 
@@ -25,11 +26,11 @@ const links = [
     dropdownItems: [
       { label: 'Exit Planning', href: '/solutions/exit-planning' },
       { label: 'Practice Management', href: '/solutions/practice-management' },
-    ],
+    ] as Navigation['primaryNav'][number]['dropdownItems'],
   },
-  { label: 'Pricing', href: '/pricing', type: 'link' as const, dropdownItems: [] },
-  { label: 'Blog', href: '/blog', type: 'link' as const, dropdownItems: [] },
-  { label: 'About', href: '/about', type: 'link' as const, dropdownItems: [] },
+  { label: 'Pricing', href: '/pricing', type: 'link' as const, dropdownItems: [] as Navigation['primaryNav'][number]['dropdownItems'] },
+  { label: 'Blog', href: '/blog', type: 'link' as const, dropdownItems: [] as Navigation['primaryNav'][number]['dropdownItems'] },
+  { label: 'About', href: '/about', type: 'link' as const, dropdownItems: [] as Navigation['primaryNav'][number]['dropdownItems'] },
 ]
 
 const logo = (

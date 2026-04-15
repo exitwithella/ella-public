@@ -1,0 +1,558 @@
+[
+  {
+    "id": 1,
+    "title": "Exit Planning",
+    "slug": "exit-planning",
+    "discipline": 1,
+    "tagline": "From document stack to client conversation — in hours, not weeks",
+    "status": "published",
+    "isBeachhead": true,
+    "hero": {
+      "headline": "From document stack to client conversation — in hours, not weeks.",
+      "headlineAnimation": "word-by-word",
+      "headlineLine2": null,
+      "headlineAnimation2": "blur-fade",
+      "subheadline": "ELLA gives exit planning advisors a systematized workflow that turns complex engagements into repeatable, high-quality client experiences.",
+      "primaryCta": {
+        "label": "Get Started Free",
+        "href": "https://app.exitwithella.io/sign-up"
+      },
+      "secondaryCta": {
+        "label": "See ELLA in Action",
+        "href": "https://cal.com/team/ella/ella-intro?overlayCalendar=true"
+      },
+      "visual": null,
+      "visualFit": "contain",
+      "visualPosition": "center",
+      "backgroundImage": null,
+      "showLogoWatermark": false,
+      "style": "default",
+      "headlineFont": "display",
+      "highlightText": "in hours, not weeks",
+      "highlightColor": "goldenrod",
+      "heroWallpaper": false,
+      "heroWallpaperColor": "green"
+    },
+    "layout": [
+      {
+        "id": "69dd252b2a884f7a6d755713",
+        "layout": "default",
+        "sectionLabel": "The Problem",
+        "heading": "The Exit Readiness Gap",
+        "body": {
+          "root": {
+            "type": "root",
+            "children": [
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "Most business owners aren't ready to exit. Not because they don't want to — because no one has shown them what ready looks like. The data is stark: fewer than 30% of businesses listed for sale actually close. The gap isn't ambition. It's preparation.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              },
+              {
+                "type": "quote",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "I haven't come across enough people that really are banging down the door to find someone to build value. Usually, they're just at their wits' end, ready to sell.",
+                    "version": 1,
+                    "format": 2
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              },
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "That's a business broker describing what they see every day. By the time most owners reach an advisor, years of value-building opportunity have already passed. The advisors who engage earlier — with the right tools — change that trajectory entirely.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        },
+        "media": null,
+        "mediaPosition": "none",
+        "badge": null,
+        "bgStyle": "sandstone",
+        "blockName": "Problem: Readiness Gap",
+        "blockType": "content-section",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69dd252b2a884f7a6d755714",
+        "layout": "default",
+        "sectionLabel": null,
+        "heading": "AI Without Guardrails Is a Liability",
+        "body": {
+          "root": {
+            "type": "root",
+            "children": [
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "Your clients trust you with their most sensitive business data — financial statements, ownership structures, succession plans, family dynamics. Every one of those details is one prompt away from being mixed into a general-purpose AI’s training data.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              },
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "Generic AI tools weren't built for fiduciary work. They don't understand compliance boundaries, can't enforce data isolation between clients, and offer no audit trail. For advisors who stake their reputation on trust, that's not a tool — it's a risk.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              },
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "ELLA is purpose-built for advisory work. Client data stays isolated. Every interaction is auditable. The AI works within your methodology, not around it.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        },
+        "media": null,
+        "mediaPosition": "none",
+        "badge": null,
+        "bgStyle": "ash",
+        "blockName": "Problem: Unsafe AI",
+        "blockType": "content-section",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69dd252b2a884f7a6d755715",
+        "layout": "default",
+        "sectionLabel": null,
+        "heading": "The Manual Workflow Is Breaking",
+        "body": {
+          "root": {
+            "type": "root",
+            "children": [
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "You know the sequence: receive documents, manually extract the relevant data, cross-reference against benchmarks, synthesize your analysis, draft the deliverable, send it for review. Weeks pass. The client wonders what's happening. You're buried in spreadsheets.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              },
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "Each step depends on the last. One bottleneck cascades through the entire engagement. And when you're managing multiple clients at different stages, the cognitive overhead compounds. The work that matters most — the strategic conversation with your client — keeps getting pushed back.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              },
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "This isn't a discipline problem. It's a tooling problem. The methodology is sound. The execution infrastructure hasn't kept up.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        },
+        "media": null,
+        "mediaPosition": "none",
+        "badge": null,
+        "bgStyle": "sandstone",
+        "blockName": "Problem: Workflow Friction",
+        "blockType": "content-section",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69dd252b2a884f7a6d755716",
+        "sectionLabel": "How ELLA Works",
+        "heading": "From Intake to Deliverable in Five Steps",
+        "subheading": "ELLA compresses what used to take weeks into a systematic workflow that keeps you in control and your clients informed.",
+        "bgStyle": "ash",
+        "blockName": "How ELLA Solves It",
+        "steps": [],
+        "blockType": "numbered-steps"
+      },
+      {
+        "id": "69dd252b2a884f7a6d755717",
+        "layout": "default",
+        "sectionLabel": "The Opportunity",
+        "heading": "What If You Could Engage Earlier?",
+        "body": {
+          "root": {
+            "type": "root",
+            "children": [
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "The conventional exit planning engagement starts too late. By the time most advisors get involved, the owner has already decided to sell — and years of value-building opportunity have passed. What if the engagement could start when it actually matters?",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              },
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "When your tools make the first engagement effortless — a quick assessment, a preliminary conversation, a clear picture of where the business stands — you can meet owners years before they're ready to transact. Context compounds. Relationships deepen. And when the time comes, you're not starting from scratch.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              },
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "ELLA makes early engagement practical by reducing the overhead of every touchpoint. What used to require a full engagement's worth of prep work becomes a conversation starter. That's how you build a practice around relationships, not transactions.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        },
+        "media": null,
+        "mediaPosition": "none",
+        "badge": null,
+        "bgStyle": "sandstone",
+        "blockName": "Opportunity: Engaging Earlier",
+        "blockType": "content-section",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69dd252b2a884f7a6d755718",
+        "sectionLabel": "Who It's For",
+        "heading": "Built for Every Exit Planning Professional",
+        "subheading": "Whether exit planning is your entire practice or one part of a broader advisory role, ELLA adapts to how you work.",
+        "variant": "feature",
+        "columns": "3",
+        "bgStyle": "ash",
+        "blockName": "Who It's For",
+        "cards": [],
+        "blockType": "card-grid"
+      },
+      {
+        "id": "69dd252b2a884f7a6d755719",
+        "layout": "default",
+        "sectionLabel": "The Stakes",
+        "heading": "A Generation of Businesses Is Approaching Transition",
+        "body": {
+          "root": {
+            "type": "root",
+            "children": [
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "Over the next decade, an estimated 12 million businesses in the United States will change hands as baby boomer owners retire. Most don't have succession plans. Many won't find qualified buyers. The advisors who can systematically guide these transitions will define the future of exit planning.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              },
+              {
+                "type": "paragraph",
+                "version": 1,
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "This isn't a future problem — it's happening now. The question isn't whether the demand exists. It's whether the advisory profession has the tools to meet it at scale. That's what ELLA is built for.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        },
+        "media": null,
+        "mediaPosition": "none",
+        "badge": null,
+        "bgStyle": "sandstone",
+        "blockName": "Silver Tsunami",
+        "blockType": "content-section",
+        "link": {
+          "label": null,
+          "href": null,
+          "style": "button"
+        }
+      },
+      {
+        "id": "69dd252b2a884f7a6d75571a",
+        "headline": "Ready to systematize your exit planning practice?",
+        "body": "Whether you're a solo CEPA or leading a team of advisors, ELLA gives you the infrastructure to deliver consistent, high-quality exit planning engagements — without the manual overhead.\n\nStart with your first three clients free. No credit card required.",
+        "closingLine": "Your practice deserves better tools.",
+        "microcopy": "Your first 3 clients are on us.",
+        "bgStyle": "forest",
+        "blockName": "Final CTA",
+        "blockType": "cta-section",
+        "primaryCta": {
+          "label": "Get Started Free",
+          "href": "https://app.exitwithella.io/sign-up"
+        },
+        "secondaryCta": {
+          "label": "Book a Demo",
+          "href": "https://cal.com/team/ella/ella-intro?overlayCalendar=true"
+        },
+        "coverImage": {
+          "image": null,
+          "minHeight": "md",
+          "objectPosition": "center",
+          "overlayOpacity": "60"
+        }
+      }
+    ],
+    "meta": {
+      "title": "Exit Planning Solutions — ELLA",
+      "description": "Systematize your exit planning practice. ELLA turns complex advisory engagements into repeatable, high-quality client experiences — from intake to deliverable.",
+      "image": null
+    },
+    "updatedAt": "2026-04-13T17:17:31.328Z",
+    "createdAt": "2026-02-23T22:49:06.256Z"
+  },
+  {
+    "id": 2,
+    "title": "Wealth Management",
+    "slug": "wealth-management",
+    "discipline": 2,
+    "tagline": "Integrated planning for business wealth.",
+    "status": "waitlist",
+    "isBeachhead": false,
+    "hero": {
+      "headline": "Wealth Management",
+      "headlineAnimation": "word-by-word",
+      "headlineLine2": null,
+      "headlineAnimation2": "blur-fade",
+      "subheadline": null,
+      "primaryCta": {
+        "label": null,
+        "href": null
+      },
+      "secondaryCta": {
+        "label": null,
+        "href": null
+      },
+      "visual": null,
+      "visualFit": "contain",
+      "visualPosition": "center",
+      "backgroundImage": null,
+      "showLogoWatermark": false,
+      "style": "default",
+      "headlineFont": "display",
+      "highlightText": null,
+      "highlightColor": "goldenrod",
+      "heroWallpaper": false,
+      "heroWallpaperColor": "green"
+    },
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-23T22:49:06.283Z",
+    "createdAt": "2026-02-23T22:49:06.283Z",
+    "layout": []
+  },
+  {
+    "id": 3,
+    "title": "Business Advisory",
+    "slug": "business-advisory",
+    "discipline": 3,
+    "tagline": "Strategic counsel, systematically delivered.",
+    "status": "waitlist",
+    "isBeachhead": false,
+    "hero": {
+      "headline": "Business Advisory",
+      "headlineAnimation": "word-by-word",
+      "headlineLine2": null,
+      "headlineAnimation2": "blur-fade",
+      "subheadline": null,
+      "primaryCta": {
+        "label": null,
+        "href": null
+      },
+      "secondaryCta": {
+        "label": null,
+        "href": null
+      },
+      "visual": null,
+      "visualFit": "contain",
+      "visualPosition": "center",
+      "backgroundImage": null,
+      "showLogoWatermark": false,
+      "style": "default",
+      "headlineFont": "display",
+      "highlightText": null,
+      "highlightColor": "goldenrod",
+      "heroWallpaper": false,
+      "heroWallpaperColor": "green"
+    },
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-23T22:49:06.305Z",
+    "createdAt": "2026-02-23T22:49:06.305Z",
+    "layout": []
+  },
+  {
+    "id": 4,
+    "title": "Tax & Estate Planning",
+    "slug": "tax-estate-planning",
+    "discipline": 4,
+    "tagline": "Coordinated planning across generations.",
+    "status": "waitlist",
+    "isBeachhead": false,
+    "hero": {
+      "headline": "Tax & Estate Planning",
+      "headlineAnimation": "word-by-word",
+      "headlineLine2": null,
+      "headlineAnimation2": "blur-fade",
+      "subheadline": null,
+      "primaryCta": {
+        "label": null,
+        "href": null
+      },
+      "secondaryCta": {
+        "label": null,
+        "href": null
+      },
+      "visual": null,
+      "visualFit": "contain",
+      "visualPosition": "center",
+      "backgroundImage": null,
+      "showLogoWatermark": false,
+      "style": "default",
+      "headlineFont": "display",
+      "highlightText": null,
+      "highlightColor": "goldenrod",
+      "heroWallpaper": false,
+      "heroWallpaperColor": "green"
+    },
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-23T22:49:06.331Z",
+    "createdAt": "2026-02-23T22:49:06.331Z",
+    "layout": []
+  }
+]

@@ -12,6 +12,7 @@ export const mockPost: Post = {
   author: {
     id: 1,
     name: 'Drew Watkins',
+    slug: 'drew-watkins',
     role: 'Co-founder & CEO',
     bio: richText('Co-founder and CEO of ELLA.') as Post['content'],
     photo: null,

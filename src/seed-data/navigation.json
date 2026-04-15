@@ -1,0 +1,49 @@
+{
+  "id": 1,
+  "primaryNav": [
+    {
+      "id": "69cbecd1ef055667af3dc161",
+      "label": "Platform",
+      "href": "/platform",
+      "type": "link",
+      "dropdownItems": []
+    },
+    {
+      "id": "69cbecd1ef055667af3dc166",
+      "label": "Pricing",
+      "href": "/pricing",
+      "type": "link",
+      "dropdownItems": []
+    },
+    {
+      "id": "69cbecd1ef055667af3dc167",
+      "label": "About",
+      "href": "/about",
+      "type": "link",
+      "dropdownItems": []
+    },
+    {
+      "id": "69cbecd1ef055667af3dc168",
+      "label": "Blog",
+      "href": "/blog",
+      "type": "link",
+      "dropdownItems": []
+    }
+  ],
+  "loginLink": {
+    "enabled": true,
+    "label": "Sign in",
+    "href": "https://app.exitwithella.io/"
+  },
+  "primaryCta": {
+    "label": "Get Started",
+    "href": "https://app.exitwithella.io/sign-up"
+  },
+  "secondaryCta": {
+    "label": "Book a Demo",
+    "href": "/demo"
+  },
+  "updatedAt": "2026-04-15T04:26:46.072Z",
+  "createdAt": "2026-02-23T22:49:06.352Z",
+  "globalType": "navigation"
+}

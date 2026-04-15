@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "title": "Exit Planning",
+    "slug": "exit-planning",
+    "internalLabel": null,
+    "description": null,
+    "pathPrefix": null,
+    "sortOrder": 1,
+    "updatedAt": "2026-02-23T22:49:06.022Z",
+    "createdAt": "2026-02-23T22:49:06.021Z"
+  },
+  {
+    "id": 2,
+    "title": "Practice Management",
+    "slug": "practice-management",
+    "internalLabel": null,
+    "description": null,
+    "pathPrefix": null,
+    "sortOrder": 2,
+    "updatedAt": "2026-02-23T22:49:06.039Z",
+    "createdAt": "2026-02-23T22:49:06.039Z"
+  },
+  {
+    "id": 3,
+    "title": "Wealth Strategy",
+    "slug": "wealth-strategy",
+    "internalLabel": null,
+    "description": null,
+    "pathPrefix": null,
+    "sortOrder": 3,
+    "updatedAt": "2026-02-23T22:49:06.051Z",
+    "createdAt": "2026-02-23T22:49:06.051Z"
+  },
+  {
+    "id": 4,
+    "title": "Client Experience",
+    "slug": "client-experience",
+    "internalLabel": null,
+    "description": null,
+    "pathPrefix": null,
+    "sortOrder": 4,
+    "updatedAt": "2026-02-23T22:49:06.064Z",
+    "createdAt": "2026-02-23T22:49:06.064Z"
+  },
+  {
+    "id": 5,
+    "title": "Industry Trends",
+    "slug": "industry-trends",
+    "internalLabel": null,
+    "description": null,
+    "pathPrefix": null,
+    "sortOrder": 5,
+    "updatedAt": "2026-02-23T22:49:06.075Z",
+    "createdAt": "2026-02-23T22:49:06.075Z"
+  },
+  {
+    "id": 6,
+    "title": "About ELLA",
+    "slug": "about-ella",
+    "internalLabel": null,
+    "description": null,
+    "pathPrefix": null,
+    "sortOrder": 6,
+    "updatedAt": "2026-02-25T00:09:43.516Z",
+    "createdAt": "2026-02-25T00:09:43.515Z"
+  },
+  {
+    "id": 7,
+    "title": "Changelog",
+    "slug": "changelog",
+    "internalLabel": null,
+    "description": null,
+    "pathPrefix": "changelog",
+    "sortOrder": 7,
+    "updatedAt": "2026-02-25T00:09:43.539Z",
+    "createdAt": "2026-02-25T00:09:43.539Z"
+  },
+  {
+    "id": 8,
+    "title": "Updates",
+    "slug": "updates",
+    "internalLabel": null,
+    "description": null,
+    "pathPrefix": null,
+    "sortOrder": 8,
+    "updatedAt": "2026-02-25T00:09:43.558Z",
+    "createdAt": "2026-02-25T00:09:43.558Z"
+  }
+]
