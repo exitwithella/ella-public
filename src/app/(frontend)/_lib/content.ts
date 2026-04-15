@@ -4,7 +4,7 @@ export const siteConfig = {
   appUrl: 'https://app.exitwithella.io',
   description: 'ELLA turns trust into action with tools built for advisor-led transitions.',
   name: 'ELLA',
-  url: 'https://withella.io',
+  url: process.env.SITE_URL ?? 'https://withella.io',
 }
 
 export const navigation = {

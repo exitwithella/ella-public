@@ -4929,6 +4929,12 @@ export interface SiteSetting {
     youtube?: string | null;
   };
   /**
+   * IndexNow pings search engines when content is published or updated
+   */
+  indexNow?: {
+    enabled?: boolean | null;
+  };
+  /**
    * Content served at /llms.txt — describes your site for AI/LLM consumption
    */
   llmsTxt?: string | null;
@@ -5255,6 +5261,11 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         linkedIn?: T;
         twitter?: T;
         youtube?: T;
+      };
+  indexNow?:
+    | T
+    | {
+        enabled?: T;
       };
   llmsTxt?: T;
   announcementBar?:

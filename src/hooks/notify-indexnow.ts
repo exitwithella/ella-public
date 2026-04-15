@@ -1,9 +1,12 @@
 import type { CollectionAfterChangeHook } from 'payload'
 
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow'
-const SITE_HOST = 'withella.io'
-const SITE_URL = `https://${SITE_HOST}`
-const KEY_LOCATION = `${SITE_URL}/indexnow-key.txt`
+
+function getSiteUrl(): { host: string; url: string } {
+  const url = process.env.SITE_URL ?? 'https://withella.io'
+  const host = new URL(url).host
+  return { host, url }
+}
 
 export function createIndexNowHook(
   getPath: (doc: Record<string, unknown>) => string | null,
@@ -18,16 +21,18 @@ export function createIndexNowHook(
     const path = getPath(doc)
     if (!path) return doc
 
-    const url = `${SITE_URL}${path}`
+    const { host, url: siteUrl } = getSiteUrl()
+    const url = `${siteUrl}${path}`
+    const keyLocation = `${siteUrl}/indexnow-key.txt`
 
     try {
       await fetch(INDEXNOW_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          host: SITE_HOST,
+          host,
           key,
-          keyLocation: KEY_LOCATION,
+          keyLocation,
           urlList: [url],
         }),
       })

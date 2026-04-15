@@ -1,7 +1,8 @@
+import { siteConfig } from '../../_lib/content'
 import { getPublishedPosts } from '../_lib/get-posts'
 import { escapeXml, getPostUrl } from '../_lib/utils'
 
-const SITE_URL = 'https://withella.io'
+const SITE_URL = siteConfig.url
 
 export async function GET() {
   const posts = await getPublishedPosts({ limit: 20 })
