@@ -8,9 +8,12 @@ const KEY_LOCATION = `${SITE_URL}/indexnow-key.txt`
 export function createIndexNowHook(
   getPath: (doc: Record<string, unknown>) => string | null,
 ): CollectionAfterChangeHook {
-  return async ({ doc }) => {
+  return async ({ doc, req }) => {
     const key = process.env.INDEXNOW_API_KEY
     if (!key) return doc
+
+    const settings = await req.payload.findGlobal({ slug: 'site-settings' })
+    if (!settings.indexNow?.enabled) return doc
 
     const path = getPath(doc)
     if (!path) return doc

@@ -55,6 +55,20 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'indexNow',
+      type: 'group',
+      admin: {
+        description: 'IndexNow pings search engines when content is published or updated',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+      ],
+    },
+    {
       name: 'llmsTxt',
       type: 'code',
       admin: {
