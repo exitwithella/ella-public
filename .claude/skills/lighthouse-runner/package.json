@@ -1,0 +1,30 @@
+{
+  "name": "lighthouse-runner",
+  "version": "2.0.0",
+  "description": "Lighthouse audits via Playwright for SEO, Performance, Accessibility analysis",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "lighthouse-runner": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsdown src/index.ts --format esm --dts",
+    "prepare": "npm run build",
+    "start": "node dist/index.js",
+    "postinstall": "npx playwright install chromium"
+  },
+  "dependencies": {
+    "lighthouse": "^12.0.0",
+    "playwright": "^1.40.0",
+    "serve": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsdown": "^0.9.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

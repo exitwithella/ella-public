@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "frontend-performance",
+  "owner": "rnavarych",
+  "repo": "alpha-engineer",
+  "path": "plugins/roles/role-frontend/skills/frontend-performance",
+  "branch": "main",
+  "sha": "5ac416201639d5fade131b18c591e0a9b7f77736",
+  "source": "manual"
+}
