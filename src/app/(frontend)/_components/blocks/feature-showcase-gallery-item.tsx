@@ -15,6 +15,7 @@ interface GalleryItemProps {
   caption?: string | null
   subcaption?: string | null
   bgColor?: string | null
+  frameImage?: boolean | null
   anchorTarget?: string | null
   sizes: string
   aspect?: 'landscape' | 'portrait' | 'square'
@@ -28,6 +29,7 @@ export function GalleryItem({
   caption,
   subcaption,
   bgColor,
+  frameImage,
   anchorTarget,
   sizes,
   aspect = 'landscape',
@@ -38,6 +40,7 @@ export function GalleryItem({
 
   const animatedUrl = animatedImage && typeof animatedImage === 'object' ? animatedImage.url : null
 
+  const showFrame = bgColor && frameImage
   const containerStyle = bgColor ? { backgroundColor: bgColor } : undefined
 
   const Wrapper = anchorTarget ? 'a' : 'div'
@@ -53,27 +56,43 @@ export function GalleryItem({
         )}
         style={containerStyle}
       >
-        {/* Static image — zooms on hover */}
-        <Image
-          src={staticImage.url}
-          alt={staticImage.alt ?? caption ?? ''}
-          width={staticImage.width ?? 800}
-          height={staticImage.height ?? 600}
-          className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-          sizes={sizes}
-        />
-
-        {/* Animated overlay — fades in on hover */}
-        {animatedUrl && (
-          // eslint-disable-next-line @next/next/no-img-element -- GIFs should bypass next/image optimization
-          <img
-            src={animatedUrl}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover opacity-0 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100"
-            loading="lazy"
-            aria-hidden="true"
+        {/* Image wrapper — inset from edges when framed, grows to fill on hover */}
+        <div
+          className={clsx(
+            'absolute overflow-hidden transition-[inset] duration-500 ease-out',
+            showFrame
+              ? 'inset-[0.75rem] sm:inset-[1rem] group-hover:inset-0'
+              : 'inset-0',
+            showFrame && !sharp && 'rounded-md group-hover:rounded-none',
+          )}
+        >
+          <Image
+            src={staticImage.url}
+            alt={staticImage.alt ?? caption ?? ''}
+            width={staticImage.width ?? 800}
+            height={staticImage.height ?? 600}
+            className={clsx(
+              'h-full w-full object-cover transition-transform duration-500 ease-out',
+              !showFrame && 'group-hover:scale-105',
+            )}
+            sizes={sizes}
           />
-        )}
+
+          {/* Animated overlay — fades in on hover */}
+          {animatedUrl && (
+            // eslint-disable-next-line @next/next/no-img-element -- GIFs should bypass next/image optimization
+            <img
+              src={animatedUrl}
+              alt=""
+              className={clsx(
+                'absolute inset-0 h-full w-full object-cover opacity-0 transition-all duration-300 group-hover:opacity-100',
+                !showFrame && 'group-hover:scale-105',
+              )}
+              loading="lazy"
+              aria-hidden="true"
+            />
+          )}
+        </div>
       </div>
 
       {caption && <h3 className="text-theme-text mt-3 text-sm font-medium">{caption}</h3>}

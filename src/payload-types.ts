@@ -1474,7 +1474,7 @@ export interface Page {
             /**
              * Text alignment within the text column (text-only layout)
              */
-            textAlign?: ('left' | 'center') | null;
+            textAlign?: ('left' | 'center' | 'right') | null;
             /**
              * Eyebrow label above the heading (e.g. "Portfolio Analytics")
              */
@@ -1595,6 +1595,10 @@ export interface Page {
                    * Per-card background override. Accepts any CSS variable (e.g. "var(--color-goldenrod-200)") or raw CSS color. Leave empty to inherit the section theme.
                    */
                   bgColor?: string | null;
+                  /**
+                   * Add padding around the image so the background color shows as a frame. Only visible when a background color is set.
+                   */
+                  frameImage?: boolean | null;
                   /**
                    * ID of a section to scroll to when this card is clicked (without #). Makes the card a link.
                    */
@@ -3929,6 +3933,7 @@ export interface PagesSelect<T extends boolean = true> {
                     caption?: T;
                     subcaption?: T;
                     bgColor?: T;
+                    frameImage?: T;
                     anchorTarget?: T;
                     id?: T;
                   };

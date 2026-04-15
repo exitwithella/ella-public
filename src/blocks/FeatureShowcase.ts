@@ -41,6 +41,7 @@ export const FeatureShowcaseBlock: Block = {
       options: [
         { label: 'Left', value: 'left' },
         { label: 'Center', value: 'center' },
+        { label: 'Right', value: 'right' },
       ],
       admin: {
         description: 'Text alignment within the text column (text-only layout)',
@@ -284,6 +285,16 @@ export const FeatureShowcaseBlock: Block = {
           admin: {
             description:
               'Per-card background override. Accepts any CSS variable (e.g. "var(--color-goldenrod-200)") or raw CSS color. Leave empty to inherit the section theme.',
+          },
+        },
+        {
+          name: 'frameImage',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description:
+              'Add padding around the image so the background color shows as a frame. Only visible when a background color is set.',
+            condition: (_, siblingData) => !!siblingData?.bgColor,
           },
         },
         {
