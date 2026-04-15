@@ -4,10 +4,11 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const nextConfig = {
   // Packages with Cloudflare Workers (workerd) specific code
   // Read more: https://opennext.js.org/cloudflare/howtos/workerd
-  serverExternalPackages: ['jose', 'pg-cloudflare'],
+  serverExternalPackages: ['jose', 'pg-cloudflare', 'drizzle-kit', 'typescript'],
 
   images: {
-    unoptimized: true,
+    loader: 'custom' as const,
+    loaderFile: './src/image-loader.ts',
   },
 
   // Your Next.js config here
