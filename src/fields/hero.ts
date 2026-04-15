@@ -147,8 +147,24 @@ export const heroField: GroupField = {
         { label: 'Default', value: 'default' },
         { label: 'Centered', value: 'centered' },
         { label: 'Split', value: 'split' },
+        { label: 'Split Full', value: 'split-full' },
         { label: 'Minimal', value: 'minimal' },
       ],
+    },
+    {
+      name: 'headlineFont',
+      type: 'select',
+      defaultValue: 'display',
+      options: [
+        { label: 'Display (Termina)', value: 'display' },
+        { label: 'Sans (DM Sans)', value: 'sans' },
+        { label: 'Serif (Instrument Serif)', value: 'serif' },
+        { label: 'Data (Manrope)', value: 'data' },
+      ],
+      admin: {
+        description: 'Font family override for the hero headline.',
+        width: '50%',
+      },
     },
     {
       name: 'highlightText',
@@ -189,6 +205,8 @@ export const heroField: GroupField = {
         { label: 'Blue', value: 'blue' },
         { label: 'Purple', value: 'purple' },
         { label: 'Brown', value: 'brown' },
+        { label: 'Sandstone', value: 'sandstone' },
+        { label: 'Ash (Dark)', value: 'ash' },
       ],
       admin: {
         description: 'Gradient color for the hero wallpaper.',

@@ -11,6 +11,7 @@ import { CTASectionBlock } from './blocks/cta-section-block'
 import { DilemmaSectionBlock } from './blocks/dilemma-section-block'
 import { FeatureDeepDiveBlock } from './blocks/feature-deep-dive-block'
 import { FeatureShowcaseBlock } from './blocks/feature-showcase-block'
+import { PromptAnatomyBlock } from './blocks/prompt-anatomy-block'
 import { NumberedStepsBlock } from './blocks/numbered-steps-block'
 import { ProductFeaturesBlock } from './blocks/product-features-block'
 import { SqueezeSectionBlock } from './blocks/squeeze-section-block'
@@ -63,6 +64,13 @@ export function BlockRenderer({ block }: BlockRendererProps) {
         return (
           <ValuesGridBlock
             block={block as unknown as Parameters<typeof ValuesGridBlock>[0]['block']}
+          />
+        )
+      }
+      if (bt === 'prompt-anatomy') {
+        return (
+          <PromptAnatomyBlock
+            block={block as unknown as Parameters<typeof PromptAnatomyBlock>[0]['block']}
           />
         )
       }

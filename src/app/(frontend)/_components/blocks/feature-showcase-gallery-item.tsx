@@ -1,6 +1,13 @@
+import { clsx } from 'clsx/lite'
 import Image from 'next/image'
 
 import type { Media } from '@/payload-types'
+
+const ASPECT_CLASS: Record<string, string> = {
+  landscape: 'aspect-[4/3]',
+  portrait: 'aspect-[3/4]',
+  square: 'aspect-square',
+}
 
 interface GalleryItemProps {
   staticImage: Media
@@ -8,7 +15,11 @@ interface GalleryItemProps {
   caption?: string | null
   subcaption?: string | null
   bgColor?: string | null
+  anchorTarget?: string | null
   sizes: string
+  aspect?: 'landscape' | 'portrait' | 'square'
+  sharp?: boolean
+  style?: React.CSSProperties
 }
 
 export function GalleryItem({
@@ -17,7 +28,11 @@ export function GalleryItem({
   caption,
   subcaption,
   bgColor,
+  anchorTarget,
   sizes,
+  aspect = 'landscape',
+  sharp = false,
+  style,
 }: GalleryItemProps) {
   if (!staticImage?.url) return null
 
@@ -25,10 +40,17 @@ export function GalleryItem({
 
   const containerStyle = bgColor ? { backgroundColor: bgColor } : undefined
 
+  const Wrapper = anchorTarget ? 'a' : 'div'
+  const wrapperProps = anchorTarget ? { href: `#${anchorTarget}` } : {}
+
   return (
-    <div>
+    <Wrapper {...wrapperProps} style={style}>
       <div
-        className="group bg-theme-surface relative aspect-[4/3] overflow-hidden rounded-lg"
+        className={clsx(
+          'group bg-theme-surface relative overflow-hidden',
+          !sharp && 'rounded-lg',
+          ASPECT_CLASS[aspect],
+        )}
         style={containerStyle}
       >
         {/* Static image — zooms on hover */}
@@ -56,6 +78,6 @@ export function GalleryItem({
 
       {caption && <h3 className="text-theme-text mt-3 text-sm font-medium">{caption}</h3>}
       {subcaption && <p className="text-theme-text-secondary mt-1 text-sm">{subcaption}</p>}
-    </div>
+    </Wrapper>
   )
 }

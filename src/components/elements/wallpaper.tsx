@@ -37,6 +37,8 @@ const COLOR_CLASSES = {
   blue: 'from-ocean-600 to-ocean-400',
   brown: 'from-goldenrod-600 to-goldenrod-800',
   purple: 'from-coral-600 to-coral-800',
+  sandstone: 'from-sandstone-200 to-sandstone-400',
+  ash: 'from-ash-800 to-ash-950',
 } as const
 
 export type WallpaperColor = keyof typeof COLOR_CLASSES

@@ -25,7 +25,9 @@ export const FeatureShowcaseBlock: Block = {
       options: [
         { label: 'Text Only', value: 'text-only' },
         { label: 'Text Left / Image Right (1fr / 2fr)', value: 'text-left' },
+        { label: 'Text Left / Image Right (1fr / 1fr)', value: 'text-left-even' },
         { label: 'Image Left / Text Right (2fr / 1fr)', value: 'image-left' },
+        { label: 'Eyebrow Left / Heading Right', value: 'eyebrow-left' },
       ],
       admin: {
         description:
@@ -57,6 +59,19 @@ export const FeatureShowcaseBlock: Block = {
     {
       name: 'heading',
       type: 'text',
+    },
+    {
+      name: 'headingFont',
+      type: 'select',
+      defaultValue: 'display',
+      options: [
+        { label: 'Display (Termina)', value: 'display' },
+        { label: 'Serif (Instrument Serif)', value: 'serif' },
+      ],
+      admin: {
+        description: 'Font family for the heading.',
+        width: '50%',
+      },
     },
     {
       name: 'headingSize',
@@ -107,7 +122,9 @@ export const FeatureShowcaseBlock: Block = {
       admin: {
         description: 'Large hero screenshot for the split header layout.',
         condition: (_, siblingData) =>
-          siblingData?.headerLayout === 'text-left' || siblingData?.headerLayout === 'image-left',
+          siblingData?.headerLayout === 'text-left' ||
+          siblingData?.headerLayout === 'text-left-even' ||
+          siblingData?.headerLayout === 'image-left',
       },
     },
 
@@ -118,7 +135,9 @@ export const FeatureShowcaseBlock: Block = {
       admin: {
         description: 'Optional accordion details below the body text (split layouts only).',
         condition: (_, siblingData) =>
-          siblingData?.headerLayout === 'text-left' || siblingData?.headerLayout === 'image-left',
+          siblingData?.headerLayout === 'text-left' ||
+          siblingData?.headerLayout === 'text-left-even' ||
+          siblingData?.headerLayout === 'image-left',
       },
       fields: [
         { name: 'question', type: 'text', required: true },
@@ -137,6 +156,66 @@ export const FeatureShowcaseBlock: Block = {
       ],
       admin: {
         description: 'Number of gallery columns on desktop.',
+      },
+    },
+    {
+      name: 'galleryAspect',
+      type: 'select',
+      defaultValue: 'landscape',
+      options: [
+        { label: 'Landscape (4:3)', value: 'landscape' },
+        { label: 'Portrait (3:4)', value: 'portrait' },
+        { label: 'Square (1:1)', value: 'square' },
+      ],
+      admin: {
+        description: 'Aspect ratio for gallery item images.',
+      },
+    },
+    {
+      name: 'galleryAlign',
+      type: 'select',
+      defaultValue: 'left',
+      options: [
+        { label: 'Left (default)', value: 'left' },
+        { label: 'Right (push items to end)', value: 'end' },
+      ],
+      admin: {
+        description:
+          'Alignment of gallery items within the grid. "Right" leaves empty columns on the left when there are fewer items than columns.',
+      },
+    },
+    {
+      name: 'galleryImageRadius',
+      type: 'select',
+      defaultValue: 'rounded',
+      options: [
+        { label: 'Rounded', value: 'rounded' },
+        { label: 'Sharp (no radius)', value: 'sharp' },
+      ],
+      admin: {
+        description: 'Border radius on gallery card images.',
+      },
+    },
+    {
+      name: 'galleryWidth',
+      type: 'select',
+      defaultValue: 'default',
+      options: [
+        { label: 'Default (contained)', value: 'default' },
+        { label: 'Wide (edge-to-edge feel)', value: 'wide' },
+      ],
+      admin: {
+        description:
+          'Gallery container width. "Wide" uses a 1680px max-width with minimal padding.',
+      },
+    },
+    {
+      name: 'wideHeader',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Match the header width to the wide gallery container instead of the default container.',
+        condition: (_, siblingData) => siblingData?.galleryWidth === 'wide',
       },
     },
     {
@@ -188,9 +267,37 @@ export const FeatureShowcaseBlock: Block = {
               'Per-card background override. Accepts any CSS variable (e.g. "var(--color-goldenrod-200)") or raw CSS color. Leave empty to inherit the section theme.',
           },
         },
+        {
+          name: 'anchorTarget',
+          type: 'text',
+          admin: {
+            description:
+              'ID of a section to scroll to when this card is clicked (without #). Makes the card a link.',
+          },
+        },
       ],
     },
 
+    {
+      name: 'sectionPadding',
+      type: 'select',
+      defaultValue: 'default',
+      options: [
+        { label: 'Default', value: 'default' },
+        { label: 'Extra (160px)', value: 'extra' },
+      ],
+      admin: {
+        description: 'Vertical padding for this section. "Extra" adds generous 160px top/bottom.',
+      },
+    },
+    {
+      name: 'bgColorOverride',
+      type: 'text',
+      admin: {
+        description:
+          'CSS color override for the section background (e.g. "var(--color-sandstone-200)"). Overrides bgStyle when set.',
+      },
+    },
     bgStyleField,
   ],
 }

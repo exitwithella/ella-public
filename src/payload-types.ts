@@ -456,7 +456,11 @@ export interface Page {
      * Show the ELLA logo mark as a subtle background watermark in the hero.
      */
     showLogoWatermark?: boolean | null;
-    style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+    style?: ('default' | 'centered' | 'split' | 'split-full' | 'minimal') | null;
+    /**
+     * Font family override for the hero headline.
+     */
+    headlineFont?: ('display' | 'sans' | 'serif' | 'data') | null;
     /**
      * Substring of the headline to render in accent color. Leave empty for no highlight.
      */
@@ -472,7 +476,7 @@ export interface Page {
     /**
      * Gradient color for the hero wallpaper.
      */
-    heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown') | null;
+    heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown' | 'sandstone' | 'ash') | null;
   };
   layout?:
     | (
@@ -1466,7 +1470,7 @@ export interface Page {
             /**
              * Layout for the header area. Text-only spans full width. Split layouts pair text with a hero image.
              */
-            headerLayout?: ('text-only' | 'text-left' | 'image-left') | null;
+            headerLayout?: ('text-only' | 'text-left' | 'text-left-even' | 'image-left' | 'eyebrow-left') | null;
             /**
              * Text alignment within the text column (text-only layout)
              */
@@ -1476,6 +1480,10 @@ export interface Page {
              */
             sectionLabel?: string | null;
             heading?: string | null;
+            /**
+             * Font family for the heading.
+             */
+            headingFont?: ('display' | 'serif') | null;
             /**
              * Visual size of the heading. Does not change the HTML tag (always h2).
              */
@@ -1539,6 +1547,26 @@ export interface Page {
              */
             galleryColumns?: ('3' | '4') | null;
             /**
+             * Aspect ratio for gallery item images.
+             */
+            galleryAspect?: ('landscape' | 'portrait' | 'square') | null;
+            /**
+             * Alignment of gallery items within the grid. "Right" leaves empty columns on the left when there are fewer items than columns.
+             */
+            galleryAlign?: ('left' | 'end') | null;
+            /**
+             * Border radius on gallery card images.
+             */
+            galleryImageRadius?: ('rounded' | 'sharp') | null;
+            /**
+             * Gallery container width. "Wide" uses a 1680px max-width with minimal padding.
+             */
+            galleryWidth?: ('default' | 'wide') | null;
+            /**
+             * Match the header width to the wide gallery container instead of the default container.
+             */
+            wideHeader?: boolean | null;
+            /**
              * Gallery items. Each has a static image and an optional animated GIF that plays on hover.
              */
             galleryItems?:
@@ -1563,9 +1591,21 @@ export interface Page {
                    * Per-card background override. Accepts any CSS variable (e.g. "var(--color-goldenrod-200)") or raw CSS color. Leave empty to inherit the section theme.
                    */
                   bgColor?: string | null;
+                  /**
+                   * ID of a section to scroll to when this card is clicked (without #). Makes the card a link.
+                   */
+                  anchorTarget?: string | null;
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Vertical padding for this section. "Extra" adds generous 160px top/bottom.
+             */
+            sectionPadding?: ('default' | 'extra') | null;
+            /**
+             * CSS color override for the section background (e.g. "var(--color-sandstone-200)"). Overrides bgStyle when set.
+             */
+            bgColorOverride?: string | null;
             bgStyle?:
               | (
                   | 'sandstone'
@@ -1583,6 +1623,93 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'feature-showcase';
+          }
+        | {
+            /**
+             * HTML id for anchor links (e.g. "anatomy-of-a-prompt")
+             */
+            sectionId?: string | null;
+            /**
+             * Eyebrow label above the heading (e.g. "ANATOMY OF A PROMPT")
+             */
+            sectionLabel?: string | null;
+            /**
+             * Section headline, rendered in Termina.
+             */
+            heading?: string | null;
+            /**
+             * Optional supporting text, right-aligned on desktop (e.g. "A Sensemaking response, annotated to show where each conclusion originates.")
+             */
+            description?: string | null;
+            /**
+             * The advisor's question displayed in italic serif at the top of the response card.
+             */
+            promptText?: string | null;
+            /**
+             * Label in the response header bar (e.g. "RISK BREAKDOWN").
+             */
+            responseLabel?: string | null;
+            /**
+             * Right-side metadata in the response header (e.g. "5 sources referenced").
+             */
+            responseMetadata?: string | null;
+            /**
+             * Each item is a finding (shown in the central card) paired with its source annotation (shown in the margin). Items auto-alternate between left and right margins.
+             */
+            items?:
+              | {
+                  /**
+                   * Finding heading shown in the response card.
+                   */
+                  heading: string;
+                  /**
+                   * Finding body text.
+                   */
+                  body: string;
+                  /**
+                   * Short label for the margin annotation (e.g. "Fact Finding", "Uploaded Documents").
+                   */
+                  annotationLabel: string;
+                  /**
+                   * Longer explanation for the annotation source.
+                   */
+                  annotationDetail?: string | null;
+                  /**
+                   * Accent color for the connector line, dot, and annotation highlight.
+                   */
+                  color: 'moss' | 'goldenrod';
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Footer left text (e.g. "One question. Five conclusions. Six months of structured engagement data.")
+             */
+            footerLeft?: string | null;
+            /**
+             * Footer right text (e.g. "Sensemaking"), rendered in italic.
+             */
+            footerRight?: string | null;
+            /**
+             * CSS color override for the section background (e.g. "var(--color-sandstone-200)"). Overrides bgStyle when set.
+             */
+            bgColorOverride?: string | null;
+            bgStyle?:
+              | (
+                  | 'sandstone'
+                  | 'white'
+                  | 'mint'
+                  | 'goldenrod'
+                  | 'forest'
+                  | 'tannery'
+                  | 'leather'
+                  | 'ocean'
+                  | 'ash'
+                  | 'brand-black'
+                )
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'prompt-anatomy';
           }
       )[]
     | null;
@@ -1719,7 +1846,11 @@ export interface Solution {
      * Show the ELLA logo mark as a subtle background watermark in the hero.
      */
     showLogoWatermark?: boolean | null;
-    style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+    style?: ('default' | 'centered' | 'split' | 'split-full' | 'minimal') | null;
+    /**
+     * Font family override for the hero headline.
+     */
+    headlineFont?: ('display' | 'sans' | 'serif' | 'data') | null;
     /**
      * Substring of the headline to render in accent color. Leave empty for no highlight.
      */
@@ -1735,7 +1866,7 @@ export interface Solution {
     /**
      * Gradient color for the hero wallpaper.
      */
-    heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown') | null;
+    heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown' | 'sandstone' | 'ash') | null;
   };
   layout?:
     | (
@@ -2193,7 +2324,11 @@ export interface LandingPage {
      * Show the ELLA logo mark as a subtle background watermark in the hero.
      */
     showLogoWatermark?: boolean | null;
-    style?: ('default' | 'centered' | 'split' | 'minimal') | null;
+    style?: ('default' | 'centered' | 'split' | 'split-full' | 'minimal') | null;
+    /**
+     * Font family override for the hero headline.
+     */
+    headlineFont?: ('display' | 'sans' | 'serif' | 'data') | null;
     /**
      * Substring of the headline to render in accent color. Leave empty for no highlight.
      */
@@ -2209,7 +2344,7 @@ export interface LandingPage {
     /**
      * Gradient color for the hero wallpaper.
      */
-    heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown') | null;
+    heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown' | 'sandstone' | 'ash') | null;
   };
   layout?:
     | (
@@ -3302,6 +3437,7 @@ export interface PagesSelect<T extends boolean = true> {
         backgroundImage?: T;
         showLogoWatermark?: T;
         style?: T;
+        headlineFont?: T;
         highlightText?: T;
         highlightColor?: T;
         heroWallpaper?: T;
@@ -3756,6 +3892,7 @@ export interface PagesSelect<T extends boolean = true> {
               textAlign?: T;
               sectionLabel?: T;
               heading?: T;
+              headingFont?: T;
               headingSize?: T;
               body?: T;
               link?:
@@ -3774,6 +3911,11 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               galleryColumns?: T;
+              galleryAspect?: T;
+              galleryAlign?: T;
+              galleryImageRadius?: T;
+              galleryWidth?: T;
+              wideHeader?: T;
               galleryItems?:
                 | T
                 | {
@@ -3782,8 +3924,38 @@ export interface PagesSelect<T extends boolean = true> {
                     caption?: T;
                     subcaption?: T;
                     bgColor?: T;
+                    anchorTarget?: T;
                     id?: T;
                   };
+              sectionPadding?: T;
+              bgColorOverride?: T;
+              bgStyle?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'prompt-anatomy'?:
+          | T
+          | {
+              sectionId?: T;
+              sectionLabel?: T;
+              heading?: T;
+              description?: T;
+              promptText?: T;
+              responseLabel?: T;
+              responseMetadata?: T;
+              items?:
+                | T
+                | {
+                    heading?: T;
+                    body?: T;
+                    annotationLabel?: T;
+                    annotationDetail?: T;
+                    color?: T;
+                    id?: T;
+                  };
+              footerLeft?: T;
+              footerRight?: T;
+              bgColorOverride?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -3834,6 +4006,7 @@ export interface LandingPagesSelect<T extends boolean = true> {
         backgroundImage?: T;
         showLogoWatermark?: T;
         style?: T;
+        headlineFont?: T;
         highlightText?: T;
         highlightColor?: T;
         heroWallpaper?: T;
@@ -4271,6 +4444,7 @@ export interface SolutionsSelect<T extends boolean = true> {
         backgroundImage?: T;
         showLogoWatermark?: T;
         style?: T;
+        headlineFont?: T;
         highlightText?: T;
         highlightColor?: T;
         heroWallpaper?: T;

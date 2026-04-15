@@ -22,10 +22,11 @@ type FeatureShowcaseData =
         blockType: 'feature-showcase'
         id?: string
         sectionId?: string | null
-        headerLayout?: 'text-only' | 'text-left' | 'image-left' | null
+        headerLayout?: 'text-only' | 'text-left' | 'text-left-even' | 'image-left' | 'eyebrow-left' | null
         textAlign?: 'left' | 'center' | null
         sectionLabel?: string | null
         heading?: string | null
+        headingFont?: 'display' | 'serif' | null
         headingSize?: 'default' | 'large' | 'small' | null
         body?: SerializedEditorState | null
         link?: { label?: string | null; href?: string | null; style?: string | null } | null
@@ -34,6 +35,11 @@ type FeatureShowcaseData =
           | { id?: string; question: string; answer?: SerializedEditorState | null }[]
           | null
         galleryColumns?: '3' | '4' | null
+        galleryAspect?: 'landscape' | 'portrait' | 'square' | null
+        galleryAlign?: 'left' | 'end' | null
+        galleryImageRadius?: 'rounded' | 'sharp' | null
+        galleryWidth?: 'default' | 'wide' | null
+        wideHeader?: boolean | null
         galleryItems?:
           | {
               id?: string
@@ -42,8 +48,11 @@ type FeatureShowcaseData =
               caption?: string | null
               subcaption?: string | null
               bgColor?: string | null
+              anchorTarget?: string | null
             }[]
           | null
+        sectionPadding?: 'default' | 'extra' | null
+        bgColorOverride?: string | null
         bgStyle?: string | null
       }
     : Extract<NonNullable<Page['layout']>[number], { blockType: 'feature-showcase' }>
@@ -56,6 +65,17 @@ const HEADING_SIZE_CLASS: Record<string, string> = {
   large: 'text-4xl font-semibold md:text-5xl',
   default: 'text-4xl font-bold',
   small: 'text-xl font-semibold md:text-2xl',
+}
+
+const HEADING_FONT_CLASS: Record<string, string> = {
+  display: 'font-display',
+  serif: 'font-serif font-normal',
+}
+
+function headingClasses(block: { headingFont?: string | null; headingSize?: string | null }) {
+  const font = HEADING_FONT_CLASS[block.headingFont ?? 'display'] ?? HEADING_FONT_CLASS.display
+  const size = HEADING_SIZE_CLASS[block.headingSize ?? 'default']
+  return clsx(font, 'tracking-tight', size)
 }
 
 const GALLERY_COL_CLASS: Record<string, string> = {
@@ -76,12 +96,7 @@ function HeaderTextContent({ block }: { block: FeatureShowcaseData }) {
       {block.sectionLabel && <Eyebrow className="mb-4">{block.sectionLabel}</Eyebrow>}
 
       {block.heading && (
-        <Heading
-          className={clsx(
-            'font-display tracking-tight',
-            HEADING_SIZE_CLASS[block.headingSize ?? 'default'],
-          )}
-        >
+        <Heading className={headingClasses(block)}>
           {block.heading}
         </Heading>
       )}
@@ -115,13 +130,13 @@ function HeaderTextContent({ block }: { block: FeatureShowcaseData }) {
         <div className="divide-theme-border border-theme-border mt-8 divide-y border-y">
           {block.accordionItems!.map((item) => (
             <details key={item.id} className="group">
-              <summary className="text-theme-text flex w-full cursor-pointer list-none items-start justify-between gap-6 py-5 text-left text-base/7 font-medium [&::-webkit-details-marker]:hidden">
+              <summary className="text-theme-text flex w-full cursor-pointer list-none items-start justify-between gap-6 py-4 text-left text-base/7 [&::-webkit-details-marker]:hidden">
                 {item.question}
-                <PlusIcon className="text-theme-text-muted h-lh shrink-0 group-open:hidden" />
-                <MinusIcon className="text-theme-text-muted hidden h-lh shrink-0 group-open:block" />
+                <span className="shrink-0 group-open:hidden"><PlusIcon className="h-lh" /></span>
+                <span className="hidden shrink-0 group-open:inline"><MinusIcon className="h-lh" /></span>
               </summary>
               {item.answer && (
-                <div className="text-theme-text-secondary -mt-2 pr-10 pb-5 text-sm/7">
+                <div className="prose prose-sm text-theme-text-secondary pr-12 pb-4 text-sm/7 [&_p+p]:mt-3">
                   <RichText data={item.answer} />
                 </div>
               )}
@@ -147,38 +162,47 @@ function TextOnlyHeader({ block }: { block: FeatureShowcaseData }) {
 
 function SplitHeader({ block }: { block: FeatureShowcaseData }) {
   const imageLeft = block.headerLayout === 'image-left'
+  const even = block.headerLayout === 'text-left-even'
   const headerImage = block.headerImage as Media | null
+  const sharp = block.galleryImageRadius === 'sharp'
+
+  const gridClass = imageLeft
+    ? 'lg:grid-cols-[2fr_1fr]'
+    : even
+      ? 'lg:grid-cols-2'
+      : 'lg:grid-cols-[1fr_2fr]'
+
+  const imageSizes = even
+    ? '(min-width: 1024px) 50vw, 100vw'
+    : '(min-width: 1024px) 66vw, 100vw'
 
   return (
     <div
       className={clsx(
-        'mb-12 flex flex-col gap-10 md:mb-16 lg:items-center lg:gap-16',
-        imageLeft ? 'lg:grid lg:grid-cols-[2fr_1fr]' : 'lg:grid lg:grid-cols-[1fr_2fr]',
+        'mb-12 flex flex-col gap-10 md:mb-16 lg:gap-16',
+        `lg:grid ${gridClass}`,
       )}
     >
       {/* Text column — always first in DOM for mobile, grid reorders on desktop */}
-      <div className={clsx(imageLeft && 'lg:order-2')}>
+      <div className={clsx('lg:self-start', imageLeft && 'lg:order-2')}>
         <HeaderTextContent block={block} />
       </div>
 
-      {/* Image column */}
-      <div className={clsx(imageLeft && 'lg:order-1')}>
+      {/* Image column — sticky so it stays in place when accordion opens */}
+      <div className={clsx('lg:self-start lg:sticky lg:top-24', imageLeft && 'lg:order-1')}>
         {headerImage?.url ? (
-          <div className="overflow-hidden rounded-lg">
+          <div className={clsx('relative aspect-[4/3] overflow-hidden', !sharp && 'rounded-lg')}>
             <Image
               src={headerImage.url}
               alt={headerImage.alt ?? block.heading ?? ''}
-              width={headerImage.width ?? 1200}
-              height={headerImage.height ?? 800}
-              className="h-auto w-full object-cover"
-              sizes={
-                imageLeft ? '(min-width: 1024px) 66vw, 100vw' : '(min-width: 1024px) 66vw, 100vw'
-              }
+              fill
+              className="object-cover"
+              sizes={imageSizes}
             />
           </div>
         ) : (
           <div
-            className="bg-theme-surface flex aspect-video items-center justify-center rounded-lg"
+            className={clsx('bg-theme-surface flex aspect-video items-center justify-center', !sharp && 'rounded-lg')}
             aria-hidden="true"
           >
             <span className="text-theme-text-muted text-sm">Product visual</span>
@@ -189,15 +213,42 @@ function SplitHeader({ block }: { block: FeatureShowcaseData }) {
   )
 }
 
+function EyebrowLeftHeader({ block }: { block: FeatureShowcaseData }) {
+  return (
+    <div className="mb-12 grid grid-cols-1 gap-6 md:mb-16 lg:grid-cols-[1fr_3fr] lg:items-baseline lg:gap-10">
+      <div>
+        {block.sectionLabel && <Eyebrow>{block.sectionLabel}</Eyebrow>}
+      </div>
+      <div>
+        {block.heading && (
+          <Heading className={headingClasses(block)}>
+            {block.heading}
+          </Heading>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function Gallery({ block }: { block: FeatureShowcaseData }) {
   if (!block.galleryItems || block.galleryItems.length === 0) return null
 
   const cols = block.galleryColumns ?? '3'
+  const colCount = Number(cols)
   const sizes = GALLERY_SIZES[cols] ?? GALLERY_SIZES['3']
+  const aspect = block.galleryAspect ?? 'landscape'
+  const sharp = block.galleryImageRadius === 'sharp'
+  const isWide = block.galleryWidth === 'wide'
+  const alignEnd = block.galleryAlign === 'end'
+
+  // When right-aligned with fewer items than columns, offset the first item
+  const itemCount = block.galleryItems.length
+  const startCol = alignEnd && itemCount < colCount ? colCount - itemCount + 1 : 0
+  const firstItemStyle = startCol > 0 ? { gridColumnStart: startCol } as const : undefined
 
   return (
-    <div className={clsx('grid gap-6', GALLERY_COL_CLASS[cols])}>
-      {block.galleryItems.map((item) => {
+    <div className={clsx('grid', isWide ? 'gap-4' : 'gap-6', GALLERY_COL_CLASS[cols])}>
+      {block.galleryItems.map((item, index) => {
         const staticImage = item.staticImage as Media | null
         const animatedImage = item.animatedImage as Media | null
 
@@ -211,7 +262,11 @@ function Gallery({ block }: { block: FeatureShowcaseData }) {
             caption={item.caption}
             subcaption={item.subcaption}
             bgColor={item.bgColor}
+            anchorTarget={(item as { anchorTarget?: string | null }).anchorTarget}
             sizes={sizes}
+            aspect={aspect}
+            sharp={sharp}
+            style={index === 0 ? firstItemStyle : undefined}
           />
         )
       })}
@@ -219,25 +274,52 @@ function Gallery({ block }: { block: FeatureShowcaseData }) {
   )
 }
 
+const SECTION_PADDING_CLASS: Record<string, string> = {
+  default: 'py-20 md:py-28',
+  extra: 'py-28 md:py-40',
+}
+
 export function FeatureShowcaseBlock({ block }: FeatureShowcaseBlockProps) {
   const layout = block.headerLayout ?? 'text-only'
   const hasHeader = block.sectionLabel || block.heading || block.body
+  const isWideGallery = block.galleryWidth === 'wide'
+  const isWideHeader = isWideGallery && Boolean(block.wideHeader)
+  const paddingClass = SECTION_PADDING_CLASS[block.sectionPadding ?? 'default']
+  const bgOverrideStyle = block.bgColorOverride
+    ? ({ backgroundColor: block.bgColorOverride } as const)
+    : undefined
 
   return (
     <ThemeSection
       bgStyle={block.bgStyle}
       id={block.sectionId ?? undefined}
-      className="py-20 md:py-28"
+      className={paddingClass}
+      style={bgOverrideStyle}
     >
-      <Container>
-        {hasHeader && (
-          <>
+      {hasHeader && (
+        isWideHeader ? (
+          <div className="mx-auto w-full max-w-[1680px] px-6">
             {layout === 'text-only' && <TextOnlyHeader block={block} />}
-            {(layout === 'text-left' || layout === 'image-left') && <SplitHeader block={block} />}
-          </>
-        )}
-        <Gallery block={block} />
-      </Container>
+            {(layout === 'text-left' || layout === 'text-left-even' || layout === 'image-left') && <SplitHeader block={block} />}
+            {layout === 'eyebrow-left' && <EyebrowLeftHeader block={block} />}
+          </div>
+        ) : (
+          <Container>
+            {layout === 'text-only' && <TextOnlyHeader block={block} />}
+            {(layout === 'text-left' || layout === 'text-left-even' || layout === 'image-left') && <SplitHeader block={block} />}
+            {layout === 'eyebrow-left' && <EyebrowLeftHeader block={block} />}
+          </Container>
+        )
+      )}
+      {isWideGallery ? (
+        <div className="mx-auto w-full max-w-[1680px] px-6">
+          <Gallery block={block} />
+        </div>
+      ) : (
+        <Container>
+          <Gallery block={block} />
+        </Container>
+      )}
     </ThemeSection>
   )
 }

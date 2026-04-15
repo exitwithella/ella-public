@@ -7,6 +7,7 @@ import config from '@/payload.config'
 import { BlockRenderer } from '../_components/block-renderer'
 import { MinimalHero } from '../_components/minimal-hero'
 import { PageBackground } from '../_components/page-background'
+import { SplitHero } from '../_components/split-hero'
 
 export const dynamic = 'force-dynamic'
 
@@ -59,6 +60,9 @@ export default async function Page({ params }: PageProps) {
     <div className={hasPageBackground ? 'relative' : undefined}>
       {hasPageBackground && <PageBackground data={page.pageBackground} />}
       {page.hero?.style === 'minimal' && <MinimalHero hero={page.hero} />}
+      {(page.hero?.style === 'split' || page.hero?.style === 'split-full') && (
+        <SplitHero hero={page.hero} variant={page.hero.style} />
+      )}
       {page.layout?.map((block, index) => (
         <BlockRenderer key={block.id || index} block={block} />
       ))}
