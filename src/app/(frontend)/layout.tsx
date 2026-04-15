@@ -6,6 +6,7 @@ import { EasterEggWrapper } from './_components/easter-egg-wrapper'
 import { Footer } from './_components/footer'
 import { MotionProvider } from './_components/motion-provider'
 import { Navbar } from './_components/navbar'
+import { getScriptInjection } from './_lib/get-scripts'
 
 import './styles.css'
 
@@ -17,8 +18,28 @@ export const metadata = {
   title: 'ELLA | Practice Systematization for Trusted Advisors',
 }
 
+function InjectedScripts({
+  scripts,
+}: {
+  scripts: ReadonlyArray<{ code: string; id?: string | null }>
+}) {
+  if (scripts.length === 0) return null
+  return (
+    <>
+      {scripts.map((script) => (
+        <div key={script.id} dangerouslySetInnerHTML={{ __html: script.code }} />
+      ))}
+    </>
+  )
+}
+
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
+  const scriptInjection = await getScriptInjection()
+  const enabled = scriptInjection.scripts?.filter((s) => s.enabled) ?? []
+  const headScripts = enabled.filter((s) => s.placement === 'head')
+  const bodyStartScripts = enabled.filter((s) => s.placement === 'body-start')
+  const bodyEndScripts = enabled.filter((s) => s.placement === 'body-end')
 
   return (
     <html lang="en">
@@ -29,8 +50,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&display=swap"
           rel="stylesheet"
         />
+        <InjectedScripts scripts={headScripts} />
       </head>
       <body>
+        <InjectedScripts scripts={bodyStartScripts} />
         <EasterEggWrapper>
           <MotionProvider>
             <Navbar />
@@ -38,6 +61,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <Footer />
           </MotionProvider>
         </EasterEggWrapper>
+        <InjectedScripts scripts={bodyEndScripts} />
       </body>
     </html>
   )

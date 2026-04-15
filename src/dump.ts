@@ -133,7 +133,7 @@ async function dump() {
 
   // ── Globals ──────────────────────────────────────────────
 
-  const globalSlugs = ['site-settings', 'navigation', 'footer', 'pricing-page']
+  const globalSlugs = ['site-settings', 'navigation', 'footer', 'pricing-page', 'script-injection']
 
   console.log('\nGlobals:')
   for (const slug of globalSlugs) {
