@@ -1,10 +1,19 @@
 import type { CollectionConfig } from 'payload'
 
+import { createIndexNowHook } from '../hooks/notify-indexnow'
 import { metaField } from '../fields/meta'
 
 export const Posts: CollectionConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      createIndexNowHook((doc) => {
+        if (doc.status !== 'published') return null
+        return `/blog/${doc.slug}`
+      }),
+    ],
   },
   admin: {
     defaultColumns: ['title', 'publishedDate', 'tier', 'status'],

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { createIndexNowHook } from '../hooks/notify-indexnow'
 import {
   AdvisorPersonasBlock,
   BeforeAfterPanelBlock,
@@ -31,6 +32,14 @@ import { metaField } from '../fields/meta'
 export const Pages: CollectionConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      createIndexNowHook((doc) => {
+        if (doc.status !== 'published') return null
+        return doc.slug === 'home' ? '/' : `/${doc.slug}`
+      }),
+    ],
   },
   admin: {
     defaultColumns: ['title', 'slug', 'status', 'publishedDate'],

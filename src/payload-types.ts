@@ -125,12 +125,14 @@ export interface Config {
     navigation: Navigation;
     footer: Footer;
     'pricing-page': PricingPage;
+    'script-injection': ScriptInjection;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'pricing-page': PricingPageSelect<false> | PricingPageSelect<true>;
+    'script-injection': ScriptInjectionSelect<false> | ScriptInjectionSelect<true>;
   };
   locale: null;
   widgets: {
@@ -5209,6 +5211,32 @@ export interface PricingPage {
   createdAt?: string | null;
 }
 /**
+ * Manage third-party scripts injected into all pages (analytics, pixels, etc.)
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "script-injection".
+ */
+export interface ScriptInjection {
+  id: number;
+  scripts?:
+    | {
+        /**
+         * Label for this script (e.g., "Google Analytics")
+         */
+        name: string;
+        enabled?: boolean | null;
+        placement: 'head' | 'body-start' | 'body-end';
+        /**
+         * Paste the full script tag(s) including <script> wrappers
+         */
+        code: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
@@ -5412,6 +5440,24 @@ export interface PricingPageSelect<T extends boolean = true> {
         href?: T;
       };
   closerFootnote?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "script-injection_select".
+ */
+export interface ScriptInjectionSelect<T extends boolean = true> {
+  scripts?:
+    | T
+    | {
+        name?: T;
+        enabled?: T;
+        placement?: T;
+        code?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

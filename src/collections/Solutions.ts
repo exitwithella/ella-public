@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { createIndexNowHook } from '../hooks/notify-indexnow'
 import {
   CardGridBlock,
   ContentSectionBlock,
@@ -15,6 +16,14 @@ import { metaField } from '../fields/meta'
 export const Solutions: CollectionConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      createIndexNowHook((doc) => {
+        if (doc.status !== 'published') return null
+        return `/solutions/${doc.slug}`
+      }),
+    ],
   },
   admin: {
     defaultColumns: ['title', 'discipline', 'status', 'isBeachhead'],
