@@ -36,11 +36,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const [allPosts, categories] = await Promise.all([getPublishedPosts(), getAllCategories()])
 
   // Partition into tiers — editorial placements ignore category filter
-  const heroPosts = allPosts.filter((p) => p.tier === 'hero')
+  const heroPost = allPosts.find((p) => p.tier === 'hero') ?? null
   const featuredPosts = allPosts.filter((p) => p.tier === 'featured')
 
-  // Standard tier: remaining posts, optionally filtered by category
-  let standardPosts = allPosts.filter((p) => p.tier === 'standard' || !p.tier)
+  // All posts except the hero appear in the standard grid
+  let standardPosts = allPosts.filter((p) => p.id !== heroPost?.id)
   if (categorySlug) {
     standardPosts = standardPosts.filter(
       (p) =>
@@ -49,7 +49,15 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     )
   }
 
-  const heroPost = heroPosts[0] ?? null
+  // Only show categories that have at least one non-hero post
+  const categoriesWithPosts = categories.filter((cat) =>
+    allPosts.some(
+      (p) =>
+        p.id !== heroPost?.id &&
+        Array.isArray(p.categories) &&
+        p.categories.some((c) => typeof c === 'object' && c.slug === cat.slug),
+    ),
+  )
 
   // Paginate standard stream
   const totalStandard = standardPosts.length
@@ -108,8 +116,8 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             <h2 className="font-display text-ash-700 text-sm font-semibold tracking-widest uppercase">
               All Posts
             </h2>
-            {categories.length > 0 && (
-              <CategoryFilter categories={categories} activeSlug={categorySlug} />
+            {categoriesWithPosts.length > 0 && (
+              <CategoryFilter categories={categoriesWithPosts} activeSlug={categorySlug} />
             )}
           </div>
 
