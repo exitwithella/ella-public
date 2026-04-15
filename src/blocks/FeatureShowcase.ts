@@ -127,6 +127,24 @@ export const FeatureShowcaseBlock: Block = {
           siblingData?.headerLayout === 'image-left',
       },
     },
+    {
+      name: 'headerImageFit',
+      type: 'select',
+      defaultValue: 'cover',
+      options: [
+        { label: 'Cover (fill, crop edges)', value: 'cover' },
+        { label: 'Contain (fit entire image)', value: 'contain' },
+        { label: 'Square (1:1 crop)', value: 'square' },
+      ],
+      admin: {
+        description: 'How the header image is sized within its container.',
+        width: '50%',
+        condition: (_, siblingData) =>
+          siblingData?.headerLayout === 'text-left' ||
+          siblingData?.headerLayout === 'text-left-even' ||
+          siblingData?.headerLayout === 'image-left',
+      },
+    },
 
     // ── Accordion (split layouts only) ──
     {
@@ -214,7 +232,8 @@ export const FeatureShowcaseBlock: Block = {
       type: 'checkbox',
       defaultValue: false,
       admin: {
-        description: 'Match the header width to the wide gallery container instead of the default container.',
+        description:
+          'Match the header width to the wide gallery container instead of the default container.',
         condition: (_, siblingData) => siblingData?.galleryWidth === 'wide',
       },
     },

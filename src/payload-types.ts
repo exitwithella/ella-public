@@ -1519,6 +1519,10 @@ export interface Page {
              */
             headerImage?: (number | null) | Media;
             /**
+             * How the header image is sized within its container.
+             */
+            headerImageFit?: ('cover' | 'contain' | 'square') | null;
+            /**
              * Optional accordion details below the body text (split layouts only).
              */
             accordionItems?:
@@ -3903,6 +3907,7 @@ export interface PagesSelect<T extends boolean = true> {
                     style?: T;
                   };
               headerImage?: T;
+              headerImageFit?: T;
               accordionItems?:
                 | T
                 | {
