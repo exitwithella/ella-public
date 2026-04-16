@@ -9,8 +9,6 @@ import { MinimalHero } from '../_components/minimal-hero'
 import { PageBackground } from '../_components/page-background'
 import { SplitHero } from '../_components/split-hero'
 
-export const dynamic = 'force-dynamic'
-
 interface PageProps {
   params: Promise<{ slug: string }>
 }

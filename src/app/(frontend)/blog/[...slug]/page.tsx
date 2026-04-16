@@ -20,8 +20,6 @@ interface SlugPageProps {
 
 const STANDARD_PAGE_SIZE = 10
 
-export const dynamic = 'force-dynamic'
-
 export async function generateMetadata({ params }: SlugPageProps): Promise<Metadata> {
   const { slug: segments } = await params
 

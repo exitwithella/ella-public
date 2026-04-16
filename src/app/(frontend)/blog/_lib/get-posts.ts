@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from 'next/cache'
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
@@ -11,6 +12,10 @@ interface GetPublishedPostsOptions {
 }
 
 export async function getPublishedPosts(options: GetPublishedPostsOptions = {}): Promise<Post[]> {
+  'use cache'
+  cacheLife('minutes')
+  cacheTag('posts')
+
   const payload = await getPayload({ config })
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,6 +44,10 @@ export async function getPublishedPosts(options: GetPublishedPostsOptions = {}):
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
+  'use cache'
+  cacheLife('minutes')
+  cacheTag('posts')
+
   const payload = await getPayload({ config })
 
   const result = await payload.find({
@@ -68,6 +77,10 @@ export async function getPostByPath(segments: string[]): Promise<Post | null> {
 }
 
 export async function getAllPostSlugs(): Promise<string[][]> {
+  'use cache'
+  cacheLife('minutes')
+  cacheTag('posts')
+
   const payload = await getPayload({ config })
 
   const result = await payload.find({

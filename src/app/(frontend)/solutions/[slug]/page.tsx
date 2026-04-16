@@ -7,8 +7,6 @@ import config from '@/payload.config'
 import { BlockRenderer } from '../../_components/block-renderer'
 import { SolutionHero } from './_components/solution-hero'
 
-export const dynamic = 'force-dynamic'
-
 interface PageProps {
   params: Promise<{ slug: string }>
 }
