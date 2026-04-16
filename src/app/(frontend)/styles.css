@@ -1,77 +1,7 @@
 @import 'tailwindcss';
 
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/termina/Termina-Thin.woff2') format('woff2');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/termina/Termina-ExtraLight.woff2') format('woff2');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/termina/Termina-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/termina/Termina-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/termina/Termina-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/termina/Termina-Demi.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/termina/Termina-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/termina/Termina-Heavy.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Termina';
-  src: url('/fonts/termina/Termina-Black.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* Manrope is only used for data displays — keep as CSS @font-face since next/font
+   handles the primary fonts (DM Sans, Instrument Serif, Termina) */
 @font-face {
   font-family: 'Manrope';
   src: url('/fonts/manrope/ManropeV5VF.woff2') format('woff2');
@@ -81,11 +11,12 @@
 }
 
 @theme {
-  /* Font families */
-  --font-display: 'Termina', Impact, 'Arial Narrow Bold', sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-data: 'Manrope', 'DM Sans', system-ui, sans-serif;
+  /* Font families — DM Sans, Instrument Serif, and Termina are managed by next/font
+     via CSS variables set on <html>. Fallback stacks here for graceful degradation. */
+  --font-display: var(--font-termina), Impact, 'Arial Narrow Bold', sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-data: 'Manrope', var(--font-dm-sans), system-ui, sans-serif;
 
   /* Text sizes — static for body, fluid (clamp) for headings/display
        Fluid range: 375px → 1440px using clamp(min, calc(rem + vw), max) */
