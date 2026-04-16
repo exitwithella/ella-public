@@ -277,7 +277,7 @@ export function NavbarClient({
             <button
               onClick={openMenu}
               aria-label="Open menu"
-              className="text-ash-950 hover:bg-ash-950/10 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700 lg:hidden"
+              className="text-ash-950 hover:bg-ash-950/10 focus-visible:outline-moss-700 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 lg:hidden"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="size-6" aria-hidden="true">
                 <path
@@ -297,7 +297,7 @@ export function NavbarClient({
               <button
                 onClick={closeMenu}
                 aria-label="Close menu"
-                className="text-ash-950 hover:bg-ash-950/10 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700"
+                className="text-ash-950 hover:bg-ash-950/10 focus-visible:outline-moss-700 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2.5 focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 <svg
                   fill="none"

@@ -251,7 +251,7 @@ export function Hero({ hero }: HeroProps) {
           >
             <Container>
               <Wallpaper
-                color={((hero.heroWallpaperColor ?? 'green') as WallpaperColor)}
+                color={(hero.heroWallpaperColor ?? 'green') as WallpaperColor}
                 className="mt-8 rounded-t-2xl"
               >
                 <div className="px-6 pt-8 sm:px-10 sm:pt-12">

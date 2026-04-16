@@ -1,7 +1,5 @@
 import type { CollectionConfig } from 'payload'
 
-import { createIndexNowHook } from '../hooks/notify-indexnow'
-import { createRevalidateHook } from '../hooks/revalidate-cache'
 import {
   AdvisorPersonasBlock,
   BeforeAfterPanelBlock,
@@ -29,6 +27,8 @@ import {
 } from '../blocks'
 import { heroField } from '../fields/hero'
 import { metaField } from '../fields/meta'
+import { createIndexNowHook } from '../hooks/notify-indexnow'
+import { createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const Pages: CollectionConfig = {
   access: {

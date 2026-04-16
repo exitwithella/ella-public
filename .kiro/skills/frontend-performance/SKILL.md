@@ -11,6 +11,7 @@ allowed-tools: Read, Grep, Glob, Bash
 # Frontend Performance
 
 ## When to use
+
 - Diagnosing or improving Core Web Vitals scores (LCP, INP, CLS)
 - Reducing JavaScript bundle size or fixing slow load times
 - Optimizing images, fonts, or network resource loading
@@ -19,6 +20,7 @@ allowed-tools: Read, Grep, Glob, Bash
 - Setting up performance monitoring and budgets in CI
 
 ## Core principles
+
 1. **Measure before optimizing** — profile first, then fix the specific bottleneck
 2. **LCP image must never be lazy-loaded** — `fetchpriority="high"` + `loading="eager"` always
 3. **Budget enforced in CI** — `size-limit` or Lighthouse CI blocks regressions before they ship

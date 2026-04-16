@@ -1,5 +1,5 @@
-import type { MetadataRoute } from 'next'
 import config from '@payload-config'
+import type { MetadataRoute } from 'next'
 import { getPayload } from 'payload'
 
 import type { Post } from '@/payload-types'

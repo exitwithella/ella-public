@@ -17,7 +17,11 @@ export const instrumentSerif = Instrument_Serif({
 
 export const termina = localFont({
   src: [
-    { path: '../../../../public/fonts/termina/Termina-Medium.woff2', weight: '500', style: 'normal' },
+    {
+      path: '../../../../public/fonts/termina/Termina-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
     { path: '../../../../public/fonts/termina/Termina-Demi.woff2', weight: '600', style: 'normal' },
     { path: '../../../../public/fonts/termina/Termina-Bold.woff2', weight: '700', style: 'normal' },
   ],

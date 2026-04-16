@@ -30,8 +30,7 @@ export function BridgeSectionBlock({ block }: BridgeSectionBlockProps) {
     objectPosition?: 'top' | 'center' | 'bottom' | null
     overlayOpacity?: '40' | '60' | '80' | null
   } | null
-  const hasCover =
-    coverImg?.image && typeof coverImg.image === 'object' && coverImg.image?.url
+  const hasCover = coverImg?.image && typeof coverImg.image === 'object' && coverImg.image?.url
 
   const content = (
     <Container>

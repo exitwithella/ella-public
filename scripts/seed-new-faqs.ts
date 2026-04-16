@@ -42,7 +42,15 @@ function makeBulletList(...items: string[]) {
       version: 1,
       value: i + 1,
       children: [
-        { type: 'text', version: 1, text, format: 0, detail: 0, mode: 'normal' as const, style: '' },
+        {
+          type: 'text',
+          version: 1,
+          text,
+          format: 0,
+          detail: 0,
+          mode: 'normal' as const,
+          style: '',
+        },
       ],
     })),
   }
@@ -99,13 +107,17 @@ const NEW_FAQS = [
   {
     question: 'What Counts as an Active Client?',
     answer: richText(
-      makeParagraph('Each client can be enabled or disabled as needed. If you disable a client, you lose the following functionality:'),
+      makeParagraph(
+        'Each client can be enabled or disabled as needed. If you disable a client, you lose the following functionality:',
+      ),
       makeBulletList(
         "You'll no longer be able to add or edit information about that client.",
         'Sensemaking will no longer work, but existing chats will still be accessible.',
         'The client portal will be disabled, so Collaborators and Small Business Owners will no longer be able to access any information about the client. Advisors in your organization will still be able to access them.',
       ),
-      makeParagraph('Only active clients count towards billing limits. Inactive clients can be made active any time to regain full functionality.'),
+      makeParagraph(
+        'Only active clients count towards billing limits. Inactive clients can be made active any time to regain full functionality.',
+      ),
     ),
     category: 'pricing' as const,
     showOnPricing: true,

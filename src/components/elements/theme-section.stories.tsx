@@ -37,9 +37,7 @@ export const AllThemes: Story = {
             <p className="text-theme-text-secondary mb-1 text-sm">
               Secondary text on {theme} background
             </p>
-            <p className="text-theme-text-muted text-xs">
-              Muted text for captions and labels
-            </p>
+            <p className="text-theme-text-muted text-xs">Muted text for captions and labels</p>
             <div className="bg-theme-surface border-theme-border mt-4 rounded border p-4">
               <p className="text-theme-text text-sm">Surface + border</p>
             </div>

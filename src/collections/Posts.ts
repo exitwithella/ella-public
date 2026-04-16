@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { metaField } from '../fields/meta'
 import { createIndexNowHook } from '../hooks/notify-indexnow'
 import { createRevalidateHook } from '../hooks/revalidate-cache'
-import { metaField } from '../fields/meta'
 
 export const Posts: CollectionConfig = {
   access: {

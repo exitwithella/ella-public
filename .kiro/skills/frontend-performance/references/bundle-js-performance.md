@@ -1,6 +1,7 @@
 # Bundle and JavaScript Performance
 
 ## When to load
+
 Load when reducing JavaScript payload (code splitting, tree shaking, dynamic imports) or optimizing main-thread work (Web Workers, scheduler APIs, virtualization).
 
 ## Code Splitting
@@ -24,18 +25,24 @@ async function handleExport() {
 
 ```tsx
 // Prefetch on hover (load before user clicks)
-<Link to="/dashboard" onMouseEnter={() => import('./pages/Dashboard')}>
+;<Link to="/dashboard" onMouseEnter={() => import('./pages/Dashboard')}>
   Dashboard
 </Link>
 
 // Load on interaction
 function CommentSection() {
   const [Editor, setEditor] = useState<ComponentType | null>(null)
-  return Editor ? <Editor /> : (
-    <button onClick={async () => {
-      const { RichEditor } = await import('./RichEditor')
-      setEditor(() => RichEditor)
-    }}>Write a comment</button>
+  return Editor ? (
+    <Editor />
+  ) : (
+    <button
+      onClick={async () => {
+        const { RichEditor } = await import('./RichEditor')
+        setEditor(() => RichEditor)
+      }}
+    >
+      Write a comment
+    </button>
   )
 }
 ```
@@ -83,11 +90,11 @@ async function handleUserClick() {
 ```tsx
 // React.memo: skip re-render when props haven't changed
 const ExpensiveList = memo(function ExpensiveList({ items }: { items: Item[] }) {
-  return items.map(item => <ExpensiveItem key={item.id} item={item} />)
+  return items.map((item) => <ExpensiveItem key={item.id} item={item} />)
 })
 
 // useMemo / useCallback
-const filteredItems = useMemo(() => items.filter(i => i.name.includes(search)), [items, search])
+const filteredItems = useMemo(() => items.filter((i) => i.name.includes(search)), [items, search])
 const handleClick = useCallback((id: string) => setSelected(id), [])
 
 // useTransition: mark state updates as non-urgent
@@ -97,7 +104,12 @@ function SearchResults() {
     setQuery(e.target.value)
     startTransition(() => setFilteredResults(filterLargeList(e.target.value)))
   }
-  return <>{isPending && <Spinner />}<ResultsList results={filteredResults} /></>
+  return (
+    <>
+      {isPending && <Spinner />}
+      <ResultsList results={filteredResults} />
+    </>
+  )
 }
 ```
 
@@ -120,7 +132,15 @@ function VirtualList({ items }: { items: Item[] }) {
     <div ref={parentRef} style={{ height: '400px', overflow: 'auto' }}>
       <div style={{ height: `${virtualizer.getTotalSize()}px`, position: 'relative' }}>
         {virtualizer.getVirtualItems().map((row) => (
-          <div key={row.key} style={{ position: 'absolute', top: 0, transform: `translateY(${row.start}px)`, height: `${row.size}px` }}>
+          <div
+            key={row.key}
+            style={{
+              position: 'absolute',
+              top: 0,
+              transform: `translateY(${row.start}px)`,
+              height: `${row.size}px`,
+            }}
+          >
             {items[row.index].name}
           </div>
         ))}
@@ -142,11 +162,11 @@ function VirtualList({ items }: { items: Item[] }) {
 }
 ```
 
-| Resource Type | Budget (gzipped) |
-|---|---|
-| Total JavaScript | < 200 KB |
-| Single route bundle | < 80 KB |
-| Total CSS | < 50 KB |
-| Hero image | < 100 KB |
-| Web fonts | < 100 KB |
-| Total page weight | < 1 MB |
+| Resource Type       | Budget (gzipped) |
+| ------------------- | ---------------- |
+| Total JavaScript    | < 200 KB         |
+| Single route bundle | < 80 KB          |
+| Total CSS           | < 50 KB          |
+| Hero image          | < 100 KB         |
+| Web fonts           | < 100 KB         |
+| Total page weight   | < 1 MB           |

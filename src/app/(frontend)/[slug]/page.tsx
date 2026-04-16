@@ -1,5 +1,5 @@
-import { unstable_cache } from 'next/cache'
 import type { Metadata } from 'next'
+import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 

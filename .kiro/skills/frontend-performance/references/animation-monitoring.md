@@ -1,6 +1,7 @@
 # Animation Performance and Monitoring
 
 ## When to load
+
 Load when implementing performant animations (GPU-accelerated, View Transitions, layout thrashing) or setting up performance monitoring (Lighthouse CI, budgets, anti-patterns).
 
 ## GPU-Accelerated Animation
@@ -16,8 +17,8 @@ Load when implementing performant animations (GPU-accelerated, View Transitions,
 
 /* Bad: triggers layout and paint */
 .card:hover {
-  top: -4px;       /* triggers layout */
-  width: 102%;     /* triggers layout */
+  top: -4px; /* triggers layout */
+  width: 102%; /* triggers layout */
 }
 ```
 
@@ -27,7 +28,7 @@ Load when implementing performant animations (GPU-accelerated, View Transitions,
 // Use requestAnimationFrame to batch DOM updates
 function animateElements(elements: HTMLElement[]) {
   requestAnimationFrame(() => {
-    elements.forEach(el => {
+    elements.forEach((el) => {
       el.style.transform = `translateX(${el.dataset.targetX}px)`
     })
   })
@@ -45,11 +46,17 @@ if (document.startViewTransition) {
 ```
 
 ```css
-::view-transition-old(root) { animation: fade-out 200ms ease-out; }
-::view-transition-new(root) { animation: fade-in 200ms ease-in; }
+::view-transition-old(root) {
+  animation: fade-out 200ms ease-out;
+}
+::view-transition-new(root) {
+  animation: fade-in 200ms ease-in;
+}
 
 /* Named transitions for specific elements */
-.hero-image { view-transition-name: hero; }
+.hero-image {
+  view-transition-name: hero;
+}
 ```
 
 ## Lighthouse CI
@@ -66,7 +73,7 @@ module.exports = {
       assertions: {
         'categories:performance': ['error', { minScore: 0.9 }],
         'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
-        'interactive': ['error', { maxNumericValue: 3500 }],
+        interactive: ['error', { maxNumericValue: 3500 }],
         'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
       },
     },
@@ -77,13 +84,13 @@ module.exports = {
 
 ## Anti-Patterns
 
-| Anti-Pattern | Problem | Solution |
-|---|---|---|
-| Lazy-loading the LCP image | Delays largest paint | Use `loading="eager"` + `fetchpriority="high"` |
-| No image dimensions | Causes layout shifts (CLS) | Always set `width`/`height` or `aspect-ratio` |
-| Synchronous third-party scripts | Blocks rendering | Use `async`/`defer`, Partytown, or facade pattern |
-| Manual memoization everywhere | Code noise, often wrong deps | Use React Compiler, or memo only measured bottlenecks |
-| Animating layout properties | Janky animations | Animate `transform` and `opacity` only |
-| No performance budget | Silent regression | `size-limit` or Lighthouse CI in CI pipeline |
-| Loading all fonts upfront | Slow first paint | Subset fonts, use `font-display`, preload critical only |
-| Full hydration on static pages | Unnecessary JavaScript | Islands architecture (Astro), RSC, partial hydration |
+| Anti-Pattern                    | Problem                      | Solution                                                |
+| ------------------------------- | ---------------------------- | ------------------------------------------------------- |
+| Lazy-loading the LCP image      | Delays largest paint         | Use `loading="eager"` + `fetchpriority="high"`          |
+| No image dimensions             | Causes layout shifts (CLS)   | Always set `width`/`height` or `aspect-ratio`           |
+| Synchronous third-party scripts | Blocks rendering             | Use `async`/`defer`, Partytown, or facade pattern       |
+| Manual memoization everywhere   | Code noise, often wrong deps | Use React Compiler, or memo only measured bottlenecks   |
+| Animating layout properties     | Janky animations             | Animate `transform` and `opacity` only                  |
+| No performance budget           | Silent regression            | `size-limit` or Lighthouse CI in CI pipeline            |
+| Loading all fonts upfront       | Slow first paint             | Subset fonts, use `font-display`, preload critical only |
+| Full hydration on static pages  | Unnecessary JavaScript       | Islands architecture (Astro), RSC, partial hydration    |

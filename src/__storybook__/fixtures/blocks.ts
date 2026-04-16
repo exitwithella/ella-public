@@ -2,10 +2,7 @@ import type { Page } from '@/payload-types'
 
 import { richText } from './richtext'
 
-type Block<T extends string> = Extract<
-  NonNullable<Page['layout']>[number],
-  { blockType: T }
->
+type Block<T extends string> = Extract<NonNullable<Page['layout']>[number], { blockType: T }>
 
 // ─── CTA Section ──────────────────────────────────────────────
 
@@ -35,7 +32,8 @@ export const cardGrid3Col: Block<'card-grid'> = {
   bgStyle: 'sandstone',
   sectionLabel: 'Platform',
   heading: 'Three pillars of practice systematization',
-  subheading: 'ELLA brings together the tools, workflows, and intelligence that trusted advisors need.',
+  subheading:
+    'ELLA brings together the tools, workflows, and intelligence that trusted advisors need.',
   columns: '3',
   cards: [
     {
@@ -91,18 +89,59 @@ export const comparisonTable: Block<'comparison-table'> = {
   bgStyle: 'sandstone',
   sectionLabel: 'How ELLA compares',
   heading: 'Built different, on purpose',
-  subheading: 'Most tools treat advisory practices like any other SaaS user. ELLA was designed for how you actually work.',
+  subheading:
+    'Most tools treat advisory practices like any other SaaS user. ELLA was designed for how you actually work.',
   columns: [
     { id: 'col1', heading: 'Generic CRM', subheading: 'Salesforce, HubSpot', highlighted: false },
     { id: 'col2', heading: 'Legacy Tools', subheading: 'Redtail, Wealthbox', highlighted: false },
     { id: 'col3', heading: 'ELLA', subheading: 'Purpose-built', highlighted: true },
   ],
   rows: [
-    { id: 'r1', label: 'Exit planning workflows', values: [{ text: '', indicator: 'cross' }, { text: '', indicator: 'partial' }, { text: '', indicator: 'check' }] },
-    { id: 'r2', label: 'Practice valuation tools', values: [{ text: '', indicator: 'cross' }, { text: '', indicator: 'cross' }, { text: '', indicator: 'check' }] },
-    { id: 'r3', label: 'Client relationship scoring', values: [{ text: '', indicator: 'partial' }, { text: '', indicator: 'cross' }, { text: '', indicator: 'check' }] },
-    { id: 'r4', label: 'Knowledge base automation', values: [{ text: '', indicator: 'cross' }, { text: '', indicator: 'cross' }, { text: '', indicator: 'check' }] },
-    { id: 'r5', label: 'Succession planning', values: [{ text: '', indicator: 'cross' }, { text: '', indicator: 'partial' }, { text: '', indicator: 'check' }] },
+    {
+      id: 'r1',
+      label: 'Exit planning workflows',
+      values: [
+        { text: '', indicator: 'cross' },
+        { text: '', indicator: 'partial' },
+        { text: '', indicator: 'check' },
+      ],
+    },
+    {
+      id: 'r2',
+      label: 'Practice valuation tools',
+      values: [
+        { text: '', indicator: 'cross' },
+        { text: '', indicator: 'cross' },
+        { text: '', indicator: 'check' },
+      ],
+    },
+    {
+      id: 'r3',
+      label: 'Client relationship scoring',
+      values: [
+        { text: '', indicator: 'partial' },
+        { text: '', indicator: 'cross' },
+        { text: '', indicator: 'check' },
+      ],
+    },
+    {
+      id: 'r4',
+      label: 'Knowledge base automation',
+      values: [
+        { text: '', indicator: 'cross' },
+        { text: '', indicator: 'cross' },
+        { text: '', indicator: 'check' },
+      ],
+    },
+    {
+      id: 'r5',
+      label: 'Succession planning',
+      values: [
+        { text: '', indicator: 'cross' },
+        { text: '', indicator: 'partial' },
+        { text: '', indicator: 'check' },
+      ],
+    },
   ],
 }
 
@@ -116,7 +155,8 @@ export const testimonialSingle: Block<'testimonial-block'> = {
   testimonials: [
     {
       id: 1,
-      quote: 'ELLA changed how we think about practice continuity. It is not just a tool — it is a framework for building something that lasts.',
+      quote:
+        'ELLA changed how we think about practice continuity. It is not just a tool — it is a framework for building something that lasts.',
       name: 'Sarah Mitchell',
       title: 'Principal',
       company: 'Mitchell Wealth Advisory',
@@ -157,7 +197,8 @@ export const testimonialGrid: Block<'testimonial-block'> = {
     },
     {
       id: 3,
-      quote: 'We went from scattered spreadsheets to a single source of truth. Our team is more confident.',
+      quote:
+        'We went from scattered spreadsheets to a single source of truth. Our team is more confident.',
       name: 'Rebecca Torres',
       title: 'Senior Advisor',
       company: 'Torres Financial',
@@ -201,9 +242,21 @@ export const numberedSteps: Block<'numbered-steps'> = {
   heading: 'Get started in three steps',
   subheading: 'ELLA is designed to fit into your existing workflow — not replace it.',
   steps: [
-    { id: 'st1', heading: 'Connect your practice', body: 'Import your client data and connect your existing tools. ELLA integrates with the platforms you already use.' },
-    { id: 'st2', heading: 'Build your workflows', body: 'Choose from pre-built templates or create custom workflows tailored to your practice. Every process becomes repeatable.' },
-    { id: 'st3', heading: 'Scale with confidence', body: 'As your practice grows, ELLA grows with you. Add team members, delegate tasks, and maintain quality at every scale.' },
+    {
+      id: 'st1',
+      heading: 'Connect your practice',
+      body: 'Import your client data and connect your existing tools. ELLA integrates with the platforms you already use.',
+    },
+    {
+      id: 'st2',
+      heading: 'Build your workflows',
+      body: 'Choose from pre-built templates or create custom workflows tailored to your practice. Every process becomes repeatable.',
+    },
+    {
+      id: 'st3',
+      heading: 'Scale with confidence',
+      body: 'As your practice grows, ELLA grows with you. Add team members, delegate tasks, and maintain quality at every scale.',
+    },
   ],
 }
 
@@ -244,10 +297,29 @@ export const valuesGrid: Block<'values-grid'> = {
   heading: 'What we believe',
   description: 'The principles that guide every decision we make at ELLA.',
   items: [
-    { id: 'v1', title: 'Trust is earned', description: 'We build technology that helps advisors earn and maintain the trust their clients place in them.' },
-    { id: 'v2', title: 'Simplicity scales', description: 'Complex problems deserve simple solutions. We eliminate friction, not add features.' },
-    { id: 'v3', title: 'Advisors know best', description: 'Technology should amplify human judgment, not replace it. ELLA supports the advisor.' },
-    { id: 'v4', title: 'Legacy matters', description: 'Every practice tells a story. We help advisors write endings worth reading.' },
+    {
+      id: 'v1',
+      title: 'Trust is earned',
+      description:
+        'We build technology that helps advisors earn and maintain the trust their clients place in them.',
+    },
+    {
+      id: 'v2',
+      title: 'Simplicity scales',
+      description:
+        'Complex problems deserve simple solutions. We eliminate friction, not add features.',
+    },
+    {
+      id: 'v3',
+      title: 'Advisors know best',
+      description:
+        'Technology should amplify human judgment, not replace it. ELLA supports the advisor.',
+    },
+    {
+      id: 'v4',
+      title: 'Legacy matters',
+      description: 'Every practice tells a story. We help advisors write endings worth reading.',
+    },
   ],
 } as Block<'values-grid'>
 
@@ -265,7 +337,11 @@ export const bridgeSection: Block<'bridge-section'> = {
   ) as Block<'bridge-section'>['body'],
   bodyStyle: 'body',
   quotes: [
-    { id: 'q1', text: 'I realized my practice was worth millions on paper but fragile in reality.', attribution: 'RIA Principal, 25 years in practice' },
+    {
+      id: 'q1',
+      text: 'I realized my practice was worth millions on paper but fragile in reality.',
+      attribution: 'RIA Principal, 25 years in practice',
+    },
   ],
   closer: 'This is the gap ELLA was built to close.',
 }
@@ -333,7 +409,8 @@ export const advisorPersonas: Block<'advisor-personas'> = {
       iconName: 'Briefcase',
       label: 'Solo Practitioner',
       title: 'Building the foundation',
-      description: 'You are running every aspect of your practice yourself. ELLA helps you systematize early so you can scale later.',
+      description:
+        'You are running every aspect of your practice yourself. ELLA helps you systematize early so you can scale later.',
       withElla: 'Automated workflows free up 10+ hours per week for client-facing work.',
       accentColor: 'forest',
     },
@@ -343,7 +420,8 @@ export const advisorPersonas: Block<'advisor-personas'> = {
       iconName: 'Users',
       label: 'Growing Team',
       title: 'Scaling with consistency',
-      description: 'Your team is expanding but processes are still in your head. ELLA captures institutional knowledge.',
+      description:
+        'Your team is expanding but processes are still in your head. ELLA captures institutional knowledge.',
       withElla: 'Onboard new team members in days instead of months.',
       accentColor: 'moss',
     },
@@ -353,7 +431,8 @@ export const advisorPersonas: Block<'advisor-personas'> = {
       iconName: 'Handshake',
       label: 'Succession Planning',
       title: 'Building lasting value',
-      description: 'You are thinking about the next chapter. ELLA ensures your practice value transfers with you.',
+      description:
+        'You are thinking about the next chapter. ELLA ensures your practice value transfers with you.',
       withElla: 'Complete succession readiness assessment in under 30 minutes.',
       accentColor: 'goldenrod',
     },
@@ -367,14 +446,15 @@ export const productFeatures: Block<'product-features'> = {
   id: 'pf-1',
   bgStyle: 'sandstone',
   sectionLabel: 'Features',
-  heading: 'Everything you need, nothing you don\'t',
+  heading: "Everything you need, nothing you don't",
   subheading: 'Purpose-built tools for the modern advisory practice.',
   showBottomBorder: true,
   items: [
     {
       id: 'pf-i1',
       title: 'Client Relationship Hub',
-      description: 'A single dashboard for every client interaction, document, and milestone. Never lose context again.',
+      description:
+        'A single dashboard for every client interaction, document, and milestone. Never lose context again.',
       screenshot: null as unknown as number,
       screenshotFit: 'contain',
       screenshotPosition: 'center',
@@ -404,9 +484,25 @@ export const trustSecurity: Block<'trust-security'> = {
   ) as Block<'trust-security'>['intro'],
   link: { href: '#', label: 'Read our security whitepaper' },
   sections: [
-    { id: 'ts-s1', title: 'SOC 2 Type II', body: 'Independently audited and certified. Your data is protected by enterprise-grade controls.' },
-    { id: 'ts-s2', title: 'End-to-end encryption', body: 'All data encrypted in transit and at rest. Zero-knowledge architecture for sensitive fields.' },
-    { id: 'ts-s3', title: 'Role-based access', body: 'Granular permissions ensure team members only see what they need.' },
-    { id: 'ts-s4', title: 'Audit logging', body: 'Complete audit trail for every action. Meet compliance requirements effortlessly.' },
+    {
+      id: 'ts-s1',
+      title: 'SOC 2 Type II',
+      body: 'Independently audited and certified. Your data is protected by enterprise-grade controls.',
+    },
+    {
+      id: 'ts-s2',
+      title: 'End-to-end encryption',
+      body: 'All data encrypted in transit and at rest. Zero-knowledge architecture for sensitive fields.',
+    },
+    {
+      id: 'ts-s3',
+      title: 'Role-based access',
+      body: 'Granular permissions ensure team members only see what they need.',
+    },
+    {
+      id: 'ts-s4',
+      title: 'Audit logging',
+      body: 'Complete audit trail for every action. Meet compliance requirements effortlessly.',
+    },
   ],
 }

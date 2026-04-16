@@ -28,10 +28,10 @@ export const ColorVariants: Story = {
     <div className="flex flex-col gap-6 p-10">
       <Heading color="auto">Auto (theme-text)</Heading>
       <Heading color="dark">Dark (ash-900)</Heading>
-      <div className="bg-ash-900 p-6 rounded">
+      <div className="bg-ash-900 rounded p-6">
         <Heading color="light">Light (ash-100)</Heading>
       </div>
-      <div className="bg-ash-900 p-6 rounded">
+      <div className="bg-ash-900 rounded p-6">
         <Heading color="cream">Cream (ash-100)</Heading>
       </div>
     </div>

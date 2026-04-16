@@ -18,12 +18,7 @@ export const Default: Story = {
         </p>
       }
       img={
-        <img
-          src="https://placehold.co/96x96/e8e4df/5A6B4A?text=JR"
-          alt=""
-          width={96}
-          height={96}
-        />
+        <img src="https://placehold.co/96x96/e8e4df/5A6B4A?text=JR" alt="" width={96} height={96} />
       }
       name="James Richardson"
       byline="Founder & CEO, Richardson Advisory Group"

@@ -9,7 +9,13 @@ export default meta
 type Story = StoryObj
 
 const categories = [
-  { id: 1, title: 'Practice Management', slug: 'practice-management', updatedAt: '', createdAt: '' },
+  {
+    id: 1,
+    title: 'Practice Management',
+    slug: 'practice-management',
+    updatedAt: '',
+    createdAt: '',
+  },
   { id: 2, title: 'Efficiency', slug: 'efficiency', updatedAt: '', createdAt: '' },
   { id: 3, title: 'Industry Trends', slug: 'industry-trends', updatedAt: '', createdAt: '' },
   { id: 4, title: 'Exit Planning', slug: 'exit-planning', updatedAt: '', createdAt: '' },

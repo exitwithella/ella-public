@@ -11,10 +11,7 @@ type Story = StoryObj
 export const ThreeColumns: Story = {
   name: '3 columns',
   render: () => (
-    <BrandsCardsMultiColumn
-      eyebrow="Trusted by"
-      headline="Built alongside the advisors we serve"
-    >
+    <BrandsCardsMultiColumn eyebrow="Trusted by" headline="Built alongside the advisors we serve">
       <BrandCard
         logo={<span className="font-display text-lg font-bold tracking-tight">Meridian</span>}
         text="A multi-family office that manages $2B+ in assets across three generations of families."

@@ -35,7 +35,7 @@
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "ella-public"
+      "service": "ella-public",
     },
   ],
   "r2_buckets": [

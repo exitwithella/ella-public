@@ -25,7 +25,10 @@ export const Default: Story = {
           <BlogCard post={mockPost3} variant="featured" />
         </CarouselItem>
         <CarouselItem>
-          <BlogCard post={{ ...mockPost, id: 4, title: 'Building Trust Through Transparency' }} variant="featured" />
+          <BlogCard
+            post={{ ...mockPost, id: 4, title: 'Building Trust Through Transparency' }}
+            variant="featured"
+          />
         </CarouselItem>
       </EditorsPicksCarousel>
     </div>

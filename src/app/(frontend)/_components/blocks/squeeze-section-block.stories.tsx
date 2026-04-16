@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import type { Page } from '@/payload-types'
-
 import { richText } from '@/__storybook__/fixtures/richtext'
+import type { Page } from '@/payload-types'
 
 import { SqueezeSectionBlock } from './squeeze-section-block'
 
@@ -27,7 +26,11 @@ const block: SqueezeSectionData = {
     'The advisors who thrive will be the ones who systematize what makes them irreplaceable.',
   ) as SqueezeSectionData['body'],
   quotes: [
-    { id: 'q1', text: 'I felt like I was running faster just to stay in place.', attribution: 'RIA Managing Director' },
+    {
+      id: 'q1',
+      text: 'I felt like I was running faster just to stay in place.',
+      attribution: 'RIA Managing Director',
+    },
   ],
   closer: 'This is the reality ELLA was built for.',
   pressureItems: [],

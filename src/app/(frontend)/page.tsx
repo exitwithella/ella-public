@@ -21,7 +21,11 @@ export default async function HomePage() {
         {page.layout?.map((block, index) => (
           <div
             key={block.id}
-            style={index > 1 ? { contentVisibility: 'auto', containIntrinsicSize: 'auto 500px' } : undefined}
+            style={
+              index > 1
+                ? { contentVisibility: 'auto', containIntrinsicSize: 'auto 500px' }
+                : undefined
+            }
           >
             <BlockRenderer block={block} />
           </div>

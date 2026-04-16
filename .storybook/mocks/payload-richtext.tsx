@@ -62,9 +62,5 @@ function renderNode(node: LexicalNode, index: number): React.ReactNode {
 export function RichText({ data, className }: RichTextProps) {
   if (!data?.root?.children) return null
 
-  return (
-    <div className={className}>
-      {data.root.children.map((node, i) => renderNode(node, i))}
-    </div>
-  )
+  return <div className={className}>{data.root.children.map((node, i) => renderNode(node, i))}</div>
 }

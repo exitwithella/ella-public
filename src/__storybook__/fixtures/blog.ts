@@ -6,7 +6,8 @@ export const mockPost: Post = {
   id: 1,
   title: 'Why Every Advisory Practice Needs a Succession Plan',
   slug: 'succession-plan-advisory-practice',
-  excerpt: 'Most financial advisors build practices worth millions but have no plan for what happens when they step away. Here is why that needs to change — and how to start.',
+  excerpt:
+    'Most financial advisors build practices worth millions but have no plan for what happens when they step away. Here is why that needs to change — and how to start.',
   publishedDate: '2026-03-15',
   status: 'published',
   author: {
@@ -44,7 +45,8 @@ export const mockPost2: Post = {
   id: 2,
   title: 'The Hidden Cost of Manual Client Onboarding',
   slug: 'hidden-cost-manual-onboarding',
-  excerpt: 'You are spending 15+ hours per new client on tasks that could be automated. Here is what that really costs your practice.',
+  excerpt:
+    'You are spending 15+ hours per new client on tasks that could be automated. Here is what that really costs your practice.',
   publishedDate: '2026-03-08',
   categories: [
     {
@@ -63,7 +65,8 @@ export const mockPost3: Post = {
   id: 3,
   title: 'AI in Financial Advisory: Threat or Opportunity?',
   slug: 'ai-financial-advisory',
-  excerpt: 'Artificial intelligence is reshaping every industry. Here is how forward-thinking advisors are using it as a competitive advantage.',
+  excerpt:
+    'Artificial intelligence is reshaping every industry. Here is how forward-thinking advisors are using it as a competitive advantage.',
   publishedDate: '2026-02-28',
   categories: [
     {

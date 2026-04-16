@@ -24,7 +24,7 @@ export function NewsletterCaptureBlock({ block }: NewsletterCaptureBlockProps) {
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           {block.heading && (
-            <h2 className="text-theme-text font-display text-balance text-3xl font-bold tracking-tight md:text-4xl">
+            <h2 className="text-theme-text font-display text-3xl font-bold tracking-tight text-balance md:text-4xl">
               {block.heading}
             </h2>
           )}

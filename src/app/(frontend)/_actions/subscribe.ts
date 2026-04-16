@@ -28,7 +28,10 @@ export async function subscribeAction(
   const listIdsRaw = formData.get('listIds')
   const listIds =
     typeof listIdsRaw === 'string' && listIdsRaw.length > 0
-      ? listIdsRaw.split(',').map((s) => s.trim()).filter(Boolean)
+      ? listIdsRaw
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
       : undefined
 
   const sourceRaw = formData.get('source')
@@ -47,6 +50,6 @@ export async function subscribeAction(
     } else {
       console.error('[subscribe] unexpected error:', err)
     }
-    return { error: "Something went wrong. Please try again in a moment." }
+    return { error: 'Something went wrong. Please try again in a moment.' }
   }
 }

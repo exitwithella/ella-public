@@ -60,9 +60,7 @@ export function GalleryItem({
         <div
           className={clsx(
             'absolute overflow-hidden transition-[inset] duration-500 ease-out',
-            showFrame
-              ? 'inset-[0.75rem] sm:inset-[1rem] group-hover:inset-0'
-              : 'inset-0',
+            showFrame ? 'inset-[0.75rem] sm:inset-[1rem] group-hover:inset-0' : 'inset-0',
             showFrame && !sharp && 'rounded-md group-hover:rounded-none',
           )}
         >

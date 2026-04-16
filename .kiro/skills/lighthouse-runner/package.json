@@ -2,12 +2,12 @@
   "name": "lighthouse-runner",
   "version": "2.0.0",
   "description": "Lighthouse audits via Playwright for SEO, Performance, Accessibility analysis",
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "bin": {
     "lighthouse-runner": "dist/index.js"
   },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsdown src/index.ts --format esm --dts",
     "prepare": "npm run build",

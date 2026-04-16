@@ -1,8 +1,8 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps } from 'react'
 
-import { NewsletterForm } from '@/app/(frontend)/_components/newsletter-form'
 import { EllaLogo, EllaLogoMark } from '@/app/(frontend)/_assets/logo'
+import { NewsletterForm } from '@/app/(frontend)/_components/newsletter-form'
 
 import { Container } from '../elements/container'
 
@@ -37,7 +37,7 @@ function FooterColumn({
             <li key={link.id ?? link.href}>
               <a
                 href={link.href}
-                className="text-theme-text-secondary hover:text-theme-text rounded-sm text-sm/7 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent"
+                className="text-theme-text-secondary hover:text-theme-text focus-visible:outline-theme-accent rounded-sm text-sm/7 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
                 {...(link.href.startsWith('http')
                   ? {
                       target: '_blank',
@@ -187,7 +187,7 @@ export function FooterMultiColumn({
                         target="_blank"
                         rel="noopener"
                         aria-label={`${link.label} (opens in new tab)`}
-                        className="hover:text-theme-text-secondary rounded-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent"
+                        className="hover:text-theme-text-secondary focus-visible:outline-theme-accent rounded-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
                       >
                         {link.label}
                       </a>

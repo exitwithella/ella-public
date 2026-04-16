@@ -54,6 +54,9 @@
     "nextjs/no-page-custom-font": "off"
   },
   "ignorePatterns": [
+    ".agents/**",
+    ".claude/**",
+    ".cursor/**",
     ".next/**",
     ".open-next/**",
     ".wrangler/**",
@@ -61,6 +64,7 @@
     "oatmeal-olive/**",
     "oatmeal-olive-familjen/**",
     "src/migrations/**",
+    "src/payload-types.ts",
     "src/app/(payload)/admin/importMap.js"
   ]
 }

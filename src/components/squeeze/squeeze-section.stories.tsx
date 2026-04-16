@@ -19,11 +19,19 @@ export const InitialState: Story = {
         'The advisors who thrive will be the ones who systematize what makes them irreplaceable.',
       ]}
       quotes={[
-        { text: 'I felt like I was running faster just to stay in place.', attribution: 'RIA Managing Director' },
+        {
+          text: 'I felt like I was running faster just to stay in place.',
+          attribution: 'RIA Managing Director',
+        },
       ]}
       closer="This is the reality ELLA was built for."
       pressureItems={['More clients', 'Deeper engagements', 'Shorter timelines', 'Higher stakes']}
-      erosionItems={['AI leveling the field', 'Clients questioning fees', 'Information parity', 'Commoditized insights']}
+      erosionItems={[
+        'AI leveling the field',
+        'Clients questioning fees',
+        'Information parity',
+        'Commoditized insights',
+      ]}
     />
   ),
 }

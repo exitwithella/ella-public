@@ -1,5 +1,5 @@
-import { unstable_cache } from 'next/cache'
 import config from '@payload-config'
+import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
 
 import type { Post } from '@/payload-types'

@@ -54,20 +54,20 @@ node ${CLAUDE_PLUGIN_ROOT}/skills/lighthouse-runner/dist/index.js https://exampl
 
 ## Output Scores
 
-| Category | Description | Key Metrics |
-|----------|-------------|-------------|
-| **Performance** | Page load speed | LCP, FID, CLS, TTFB, Speed Index |
-| **SEO** | Search engine optimization | Meta tags, crawlability, mobile |
-| **Accessibility** | WCAG compliance | Color contrast, ARIA, keyboard |
-| **Best Practices** | Web standards | HTTPS, console errors, image aspect |
+| Category           | Description                | Key Metrics                         |
+| ------------------ | -------------------------- | ----------------------------------- |
+| **Performance**    | Page load speed            | LCP, FID, CLS, TTFB, Speed Index    |
+| **SEO**            | Search engine optimization | Meta tags, crawlability, mobile     |
+| **Accessibility**  | WCAG compliance            | Color contrast, ARIA, keyboard      |
+| **Best Practices** | Web standards              | HTTPS, console errors, image aspect |
 
 ## Score Interpretation
 
-| Score | Rating | Action |
-|-------|--------|--------|
-| 90-100 | Good (Green) | Maintain |
-| 50-89 | Needs Improvement (Orange) | Optimize |
-| 0-49 | Poor (Red) | Priority fix |
+| Score  | Rating                     | Action       |
+| ------ | -------------------------- | ------------ |
+| 90-100 | Good (Green)               | Maintain     |
+| 50-89  | Needs Improvement (Orange) | Optimize     |
+| 0-49   | Poor (Red)                 | Priority fix |
 
 ## Output Format
 
@@ -142,6 +142,7 @@ When analyzing local HTML files, the runner:
 4. Returns results
 
 Note: Local file analysis may not accurately reflect production performance due to:
+
 - No network latency
 - No server response time
 - Missing CDN optimization

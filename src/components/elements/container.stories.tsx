@@ -13,8 +13,8 @@ export const Default: Story = {
     <Container>
       <div className="border-theme-border bg-theme-surface rounded border border-dashed p-6">
         <p className="text-theme-text-secondary text-sm">
-          Container constrains content width and adds horizontal padding.
-          Max widths: 2xl → md:3xl → lg:7xl. Padding: px-6 → lg:px-10.
+          Container constrains content width and adds horizontal padding. Max widths: 2xl → md:3xl →
+          lg:7xl. Padding: px-6 → lg:px-10.
         </p>
       </div>
     </Container>

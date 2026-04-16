@@ -1,6 +1,7 @@
 # Core Web Vitals
 
 ## When to load
+
 Load when diagnosing or fixing LCP, INP, or CLS scores — measuring, debugging, and optimizing the three primary Google performance metrics.
 
 ## LCP — Largest Contentful Paint
@@ -8,20 +9,27 @@ Load when diagnosing or fixing LCP, INP, or CLS scores — measuring, debugging,
 **Target**: under 2.5 seconds. Measures when the largest visible content element finishes rendering.
 Common LCP elements: hero images, heading text blocks, video poster images, background images with text overlay.
 
-| Cause | Solution |
-|---|---|
-| Slow server response (TTFB > 800ms) | CDN edge caching, server-side caching, HTTP/2 or HTTP/3 |
-| Render-blocking resources | Inline critical CSS, defer non-critical JS, preload key resources |
-| Slow resource load (image/font) | Compress images, preload LCP image, use CDN, modern formats |
-| Client-side rendering | Use SSR or SSG to deliver LCP element in the HTML response |
+| Cause                               | Solution                                                          |
+| ----------------------------------- | ----------------------------------------------------------------- |
+| Slow server response (TTFB > 800ms) | CDN edge caching, server-side caching, HTTP/2 or HTTP/3           |
+| Render-blocking resources           | Inline critical CSS, defer non-critical JS, preload key resources |
+| Slow resource load (image/font)     | Compress images, preload LCP image, use CDN, modern formats       |
+| Client-side rendering               | Use SSR or SSG to deliver LCP element in the HTML response        |
 
 ```html
 <!-- Preload the LCP image -->
 <link rel="preload" href="/hero.webp" as="image" type="image/webp" fetchpriority="high" />
 
 <!-- Set fetchpriority on the LCP element -->
-<img src="/hero.webp" alt="Hero" width="1200" height="600"
-     fetchpriority="high" loading="eager" decoding="async" />
+<img
+  src="/hero.webp"
+  alt="Hero"
+  width="1200"
+  height="600"
+  fetchpriority="high"
+  loading="eager"
+  decoding="async"
+/>
 ```
 
 - Avoid lazy-loading the LCP image. Use `loading="eager"` and `fetchpriority="high"` explicitly.
@@ -41,15 +49,15 @@ async function processLargeDataset(items: Item[]) {
     const chunk = items.slice(i, i + CHUNK_SIZE)
     processChunk(chunk)
     if (i + CHUNK_SIZE < items.length) {
-      await scheduler.yield?.() ?? new Promise(r => setTimeout(r, 0))
+      ;(await scheduler.yield?.()) ?? new Promise((r) => setTimeout(r, 0))
     }
   }
 }
 
 // Batch DOM reads before DOM writes
-const heights = elements.map(el => el.offsetHeight) // all reads first
+const heights = elements.map((el) => el.offsetHeight) // all reads first
 elements.forEach((el, i) => {
-  el.style.height = heights[i] + 10 + 'px'          // then all writes
+  el.style.height = heights[i] + 10 + 'px' // then all writes
 })
 ```
 
@@ -66,7 +74,11 @@ elements.forEach((el, i) => {
 
 <!-- Or use aspect-ratio for responsive images -->
 <style>
-  .responsive-img { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+  .responsive-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
 </style>
 
 <!-- Reserve space for ads/embeds with min-height -->
@@ -82,15 +94,21 @@ elements.forEach((el, i) => {
 ```typescript
 import { onLCP, onINP, onCLS } from 'web-vitals'
 
-onLCP(metric => sendToAnalytics('LCP', metric))
-onINP(metric => sendToAnalytics('INP', metric))
-onCLS(metric => sendToAnalytics('CLS', metric))
+onLCP((metric) => sendToAnalytics('LCP', metric))
+onINP((metric) => sendToAnalytics('INP', metric))
+onCLS((metric) => sendToAnalytics('CLS', metric))
 
 function sendToAnalytics(name: string, metric: Metric) {
-  navigator.sendBeacon('/api/vitals', JSON.stringify({
-    name, value: metric.value, rating: metric.rating,
-    delta: metric.delta, id: metric.id,
-  }))
+  navigator.sendBeacon(
+    '/api/vitals',
+    JSON.stringify({
+      name,
+      value: metric.value,
+      rating: metric.rating,
+      delta: metric.delta,
+      id: metric.id,
+    }),
+  )
 }
 ```
 

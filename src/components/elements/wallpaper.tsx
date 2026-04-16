@@ -51,11 +51,7 @@ export function Wallpaper({
 }: { color: WallpaperColor } & ComponentProps<'div'>) {
   return (
     <div
-      className={clsx(
-        'relative overflow-hidden bg-linear-to-b',
-        COLOR_CLASSES[color],
-        className,
-      )}
+      className={clsx('relative overflow-hidden bg-linear-to-b', COLOR_CLASSES[color], className)}
       {...props}
     >
       <div

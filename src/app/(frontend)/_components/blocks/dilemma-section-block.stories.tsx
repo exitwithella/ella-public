@@ -25,9 +25,27 @@ const block: DilemmaSectionData = {
   transitionLine1: 'What if there was a better way?',
   transitionLine2: 'One platform, built from the ground up for trusted advisors.',
   tableData: [
-    { dim: 'Client data', old: 'Spreadsheets', rigid: 'Generic CRM', patch: 'Multiple tools', ella: 'Unified hub' },
-    { dim: 'Workflows', old: 'Mental notes', rigid: 'Rigid templates', patch: 'Duct tape', ella: 'Adaptive flows' },
-    { dim: 'Succession', old: 'Ignored', rigid: 'Not supported', patch: 'External firm', ella: 'Built in' },
+    {
+      dim: 'Client data',
+      old: 'Spreadsheets',
+      rigid: 'Generic CRM',
+      patch: 'Multiple tools',
+      ella: 'Unified hub',
+    },
+    {
+      dim: 'Workflows',
+      old: 'Mental notes',
+      rigid: 'Rigid templates',
+      patch: 'Duct tape',
+      ella: 'Adaptive flows',
+    },
+    {
+      dim: 'Succession',
+      old: 'Ignored',
+      rigid: 'Not supported',
+      patch: 'External firm',
+      ella: 'Built in',
+    },
   ] as DilemmaSectionData['tableData'],
   steps: [
     { label: 'Connect', sub: 'Import your practice data' },

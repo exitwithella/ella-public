@@ -2,21 +2,25 @@
  * Core Lighthouse runner using Playwright
  */
 
-import { chromium } from 'playwright';
-import lighthouse, { type RunnerResult } from 'lighthouse';
-import type { LighthouseConfig, Metrics, FailedAudits, FailedAudit } from './types.js';
+import lighthouse, { type RunnerResult } from 'lighthouse'
+import { chromium } from 'playwright'
+
+import type { LighthouseConfig, Metrics, FailedAudits, FailedAudit } from './types.js'
 
 interface LHR {
-  lighthouseVersion: string;
-  categories: Record<string, { score: number; auditRefs: Array<{ id: string }> }>;
-  audits: Record<string, {
-    id: string;
-    title: string;
-    description: string;
-    score: number | null;
-    numericValue?: number;
-    displayValue?: string;
-  }>;
+  lighthouseVersion: string
+  categories: Record<string, { score: number; auditRefs: Array<{ id: string }> }>
+  audits: Record<
+    string,
+    {
+      id: string
+      title: string
+      description: string
+      score: number | null
+      numericValue?: number
+      displayValue?: string
+    }
+  >
 }
 
 export async function runLighthouse(url: string, config: LighthouseConfig): Promise<LHR> {
@@ -29,10 +33,10 @@ export async function runLighthouse(url: string, config: LighthouseConfig): Prom
       '--disable-gpu',
       `--remote-debugging-port=${config.port}`,
     ],
-  });
+  })
 
   try {
-    const result = await lighthouse(url, {
+    const result = (await lighthouse(url, {
       port: config.port,
       output: 'json',
       logLevel: 'error',
@@ -50,16 +54,16 @@ export async function runLighthouse(url: string, config: LighthouseConfig): Prom
         throughputKbps: 10 * 1024,
         cpuSlowdownMultiplier: 1,
       },
-    }) as RunnerResult;
+    })) as RunnerResult
 
-    return result.lhr as unknown as LHR;
+    return result.lhr as unknown as LHR
   } finally {
-    await browser.close();
+    await browser.close()
   }
 }
 
 export function extractMetrics(lhr: LHR): Metrics {
-  const audits = lhr.audits;
+  const audits = lhr.audits
 
   return {
     lcp: audits['largest-contentful-paint']?.numericValue,
@@ -69,17 +73,17 @@ export function extractMetrics(lhr: LHR): Metrics {
     speedIndex: audits['speed-index']?.numericValue,
     fcp: audits['first-contentful-paint']?.numericValue,
     tbt: audits['total-blocking-time']?.numericValue,
-  };
+  }
 }
 
 export function extractFailedAudits(lhr: LHR): FailedAudits {
-  const failed: FailedAudits = {};
+  const failed: FailedAudits = {}
 
   for (const [categoryId, category] of Object.entries(lhr.categories)) {
-    failed[categoryId] = [];
+    failed[categoryId] = []
 
     for (const auditRef of category.auditRefs) {
-      const audit = lhr.audits[auditRef.id];
+      const audit = lhr.audits[auditRef.id]
       if (audit && audit.score !== null && audit.score < 0.9) {
         const failedAudit: FailedAudit = {
           id: audit.id,
@@ -87,16 +91,16 @@ export function extractFailedAudits(lhr: LHR): FailedAudits {
           description: audit.description,
           score: audit.score,
           displayValue: audit.displayValue,
-        };
-        failed[categoryId].push(failedAudit);
+        }
+        failed[categoryId].push(failedAudit)
       }
     }
 
     // Sort by score (lowest first)
-    failed[categoryId].sort((a, b) => (a.score || 0) - (b.score || 0));
+    failed[categoryId].sort((a, b) => (a.score || 0) - (b.score || 0))
     // Limit to top 5
-    failed[categoryId] = failed[categoryId].slice(0, 5);
+    failed[categoryId] = failed[categoryId].slice(0, 5)
   }
 
-  return failed;
+  return failed
 }

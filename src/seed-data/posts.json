@@ -8,9 +8,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      6
-    ],
+    "categories": [6],
     "disciplines": [],
     "tier": "hero",
     "relatedPosts": [],
@@ -832,9 +830,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      7
-    ],
+    "categories": [7],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -1475,9 +1471,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -2535,9 +2529,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -3255,9 +3247,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -5087,9 +5077,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "featured",
     "relatedPosts": [],
@@ -7223,9 +7211,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -7780,9 +7766,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -9029,9 +9013,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -9847,9 +9829,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -10936,9 +10916,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -11794,9 +11772,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -13047,9 +13023,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -14649,9 +14623,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      8
-    ],
+    "categories": [8],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -15297,9 +15269,7 @@
     "status": "published",
     "author": null,
     "featuredImage": null,
-    "categories": [
-      6
-    ],
+    "categories": [6],
     "disciplines": [],
     "tier": "featured",
     "relatedPosts": [],
@@ -15915,10 +15885,7 @@
     "status": "published",
     "author": 1,
     "featuredImage": null,
-    "categories": [
-      2,
-      5
-    ],
+    "categories": [2, 5],
     "disciplines": [],
     "tier": "hero",
     "relatedPosts": [],
@@ -16052,9 +16019,7 @@
     "status": "published",
     "author": 1,
     "featuredImage": null,
-    "categories": [
-      2
-    ],
+    "categories": [2],
     "disciplines": [],
     "tier": "featured",
     "relatedPosts": [],
@@ -16188,9 +16153,7 @@
     "status": "published",
     "author": 1,
     "featuredImage": null,
-    "categories": [
-      1
-    ],
+    "categories": [1],
     "disciplines": [],
     "tier": "featured",
     "relatedPosts": [],
@@ -16304,9 +16267,7 @@
     "status": "published",
     "author": 1,
     "featuredImage": null,
-    "categories": [
-      5
-    ],
+    "categories": [5],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],
@@ -16440,10 +16401,7 @@
     "status": "published",
     "author": 1,
     "featuredImage": null,
-    "categories": [
-      2,
-      5
-    ],
+    "categories": [2, 5],
     "disciplines": [],
     "tier": "standard",
     "relatedPosts": [],

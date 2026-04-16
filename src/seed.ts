@@ -325,11 +325,7 @@ async function seed() {
 // ── Remap utilities ──────────────────────────────────────────
 
 /** Remap a single relationship field (number → number) */
-function remapField(
-  obj: Record<string, unknown>,
-  field: string,
-  map: Map<number, number>,
-) {
+function remapField(obj: Record<string, unknown>, field: string, map: Map<number, number>) {
   if (field.includes('.')) {
     const [parent, child] = field.split('.')
     const nested = obj[parent]
@@ -345,11 +341,7 @@ function remapField(
 }
 
 /** Remap an array of relationship IDs */
-function remapArrayField(
-  obj: Record<string, unknown>,
-  field: string,
-  map: Map<number, number>,
-) {
+function remapArrayField(obj: Record<string, unknown>, field: string, map: Map<number, number>) {
   const value = obj[field]
   if (Array.isArray(value)) {
     obj[field] = value.map((v) => (typeof v === 'number' && map.has(v) ? map.get(v) : v))
@@ -361,11 +353,7 @@ function remapArrayField(
  * given field names, using the provided ID map. Handles nested objects
  * and arrays (like Payload blocks).
  */
-function remapDeep(
-  obj: unknown,
-  map: Map<number, number>,
-  fieldNames: string[],
-) {
+function remapDeep(obj: unknown, map: Map<number, number>, fieldNames: string[]) {
   if (obj === null || obj === undefined || typeof obj !== 'object') return
 
   if (Array.isArray(obj)) {
@@ -381,9 +369,7 @@ function remapDeep(
       if (typeof value === 'number' && map.has(value)) {
         record[key] = map.get(value)
       } else if (Array.isArray(value)) {
-        record[key] = value.map((v) =>
-          typeof v === 'number' && map.has(v) ? map.get(v) : v,
-        )
+        record[key] = value.map((v) => (typeof v === 'number' && map.has(v) ? map.get(v) : v))
       }
     } else if (typeof value === 'object' && value !== null) {
       remapDeep(value, map, fieldNames)

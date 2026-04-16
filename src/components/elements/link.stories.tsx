@@ -10,7 +10,7 @@ type Story = StoryObj
 
 export const Default: Story = {
   render: () => (
-    <div className="p-10 flex flex-col gap-3">
+    <div className="flex flex-col gap-3 p-10">
       <Link href="#">Default link</Link>
       <Link href="#">Another link with longer text for wrapping</Link>
     </div>

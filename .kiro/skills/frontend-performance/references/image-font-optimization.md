@@ -1,16 +1,17 @@
 # Image and Font Optimization
 
 ## When to load
+
 Load when optimizing images (formats, responsive, placeholders) or fonts (loading strategies, subsetting, font-display) to reduce page weight and eliminate CLS from resource loading.
 
 ## Image Format Selection
 
-| Format | Compression | Browser Support | Best For |
-|---|---|---|---|
-| AVIF | Best (50% smaller than JPEG) | Chrome, Firefox, Safari 16.4+ | Photos, complex images |
-| WebP | Good (25-35% smaller than JPEG) | All modern browsers | Universal fallback, photos |
-| PNG | Lossless | Universal | Icons, screenshots, transparency |
-| SVG | Vector (tiny for icons) | Universal | Icons, logos, illustrations |
+| Format | Compression                     | Browser Support               | Best For                         |
+| ------ | ------------------------------- | ----------------------------- | -------------------------------- |
+| AVIF   | Best (50% smaller than JPEG)    | Chrome, Firefox, Safari 16.4+ | Photos, complex images           |
+| WebP   | Good (25-35% smaller than JPEG) | All modern browsers           | Universal fallback, photos       |
+| PNG    | Lossless                        | Universal                     | Icons, screenshots, transparency |
+| SVG    | Vector (tiny for icons)         | Universal                     | Icons, logos, illustrations      |
 
 ## Responsive Images
 
@@ -33,8 +34,14 @@ Load when optimizing images (formats, responsive, placeholders) or fonts (loadin
   <source media="(min-width: 1024px)" srcset="hero-wide.webp" type="image/webp" />
   <source srcset="hero-narrow.avif" type="image/avif" />
   <source srcset="hero-narrow.webp" type="image/webp" />
-  <img src="hero-narrow.jpg" alt="Hero" width="800" height="400"
-       loading="eager" fetchpriority="high" />
+  <img
+    src="hero-narrow.jpg"
+    alt="Hero"
+    width="800"
+    height="400"
+    loading="eager"
+    fetchpriority="high"
+  />
 </picture>
 ```
 
@@ -43,12 +50,12 @@ Load when optimizing images (formats, responsive, placeholders) or fonts (loadin
 ```tsx
 import Image from 'next/image'
 
-<Image
+;<Image
   src="/hero.jpg"
   alt="Hero banner"
   width={1200}
   height={600}
-  priority           // for LCP images (disables lazy loading)
+  priority // for LCP images (disables lazy loading)
   placeholder="blur"
   blurDataURL={blurHash}
   sizes="(max-width: 768px) 100vw, 50vw"
@@ -84,7 +91,9 @@ import Image from 'next/image'
   line-gap-override: 0%;
 }
 
-body { font-family: 'Inter', 'Inter Fallback', system-ui, sans-serif; }
+body {
+  font-family: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+}
 ```
 
 ```html
@@ -94,12 +103,12 @@ body { font-family: 'Inter', 'Inter Fallback', system-ui, sans-serif; }
 
 ### font-display Values
 
-| Value | Behavior | Use For |
-|---|---|---|
-| `swap` | Shows fallback immediately, swaps when ready | Body text (no invisible text) |
-| `optional` | Shows fallback, only swaps if fast load | Hero text (minimizes CLS) |
+| Value      | Behavior                                      | Use For                           |
+| ---------- | --------------------------------------------- | --------------------------------- |
+| `swap`     | Shows fallback immediately, swaps when ready  | Body text (no invisible text)     |
+| `optional` | Shows fallback, only swaps if fast load       | Hero text (minimizes CLS)         |
 | `fallback` | Brief invisible period (100ms), then fallback | Balance between swap and optional |
-| `block` | Invisible up to 3s, then fallback | Icon fonts (avoid wrong glyphs) |
+| `block`    | Invisible up to 3s, then fallback             | Icon fonts (avoid wrong glyphs)   |
 
 ### Font Subsetting
 

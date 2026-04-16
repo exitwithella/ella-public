@@ -1,6 +1,7 @@
 # Network Optimization and Rendering Strategies
 
 ## When to load
+
 Load when choosing a rendering strategy (SSR, SSG, RSC, Islands) or optimizing network resource loading (resource hints, HTTP/2, service workers, third-party scripts).
 
 ## Resource Hints
@@ -66,15 +67,15 @@ registerRoute(
 
 ## Rendering Strategies
 
-| Strategy | When HTML is Generated | Best For |
-|---|---|---|
-| CSR (Client-Side) | In the browser | SPAs behind auth, dashboards |
-| SSR (Server-Side) | On each request | Dynamic, SEO-critical pages |
-| SSG (Static Generation) | At build time | Blogs, docs, marketing |
-| ISR (Incremental Static) | At build + on-demand | E-commerce, large content sites |
-| Streaming SSR | Progressively on request | Complex pages with slow data |
-| Islands Architecture | Static HTML + interactive islands | Content-heavy sites (Astro) |
-| React Server Components | Server (no client JS) | Next.js App Router |
+| Strategy                 | When HTML is Generated            | Best For                        |
+| ------------------------ | --------------------------------- | ------------------------------- |
+| CSR (Client-Side)        | In the browser                    | SPAs behind auth, dashboards    |
+| SSR (Server-Side)        | On each request                   | Dynamic, SEO-critical pages     |
+| SSG (Static Generation)  | At build time                     | Blogs, docs, marketing          |
+| ISR (Incremental Static) | At build + on-demand              | E-commerce, large content sites |
+| Streaming SSR            | Progressively on request          | Complex pages with slow data    |
+| Islands Architecture     | Static HTML + interactive islands | Content-heavy sites (Astro)     |
+| React Server Components  | Server (no client JS)             | Next.js App Router              |
 
 ```tsx
 // Server Component (no client JS, direct data access)
@@ -83,7 +84,7 @@ async function ProductPage({ id }: { id: string }) {
   return (
     <div>
       <h1>{product.name}</h1>
-      <AddToCartButton product={product} />  {/* Client Component */}
+      <AddToCartButton product={product} /> {/* Client Component */}
     </div>
   )
 }

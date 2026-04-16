@@ -10,7 +10,7 @@ type Story = StoryObj
 
 export const Default: Story = {
   render: () => (
-    <div className="p-10 max-w-3xl">
+    <div className="max-w-3xl p-10">
       <Subheading>Your practice deserves better than spreadsheets and sticky notes</Subheading>
     </div>
   ),

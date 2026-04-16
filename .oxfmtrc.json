@@ -7,9 +7,13 @@
   "experimentalSortImports": {},
   "experimentalTailwindcss": {},
   "ignorePatterns": [
+    ".agents/**",
+    ".claude/**",
+    ".cursor/**",
     "oatmeal-olive/**",
     "oatmeal-olive-familjen/**",
     "src/migrations/**",
+    "src/payload-types.ts",
     "src/app/(payload)/admin/importMap.js"
   ]
 }

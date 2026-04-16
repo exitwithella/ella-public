@@ -27,7 +27,8 @@ const SqueezeSectionBlock = dynamic(
 )
 
 const ProductFeaturesBlock = dynamic(
-  () => import('./blocks/product-features-block').then((m) => ({ default: m.ProductFeaturesBlock })),
+  () =>
+    import('./blocks/product-features-block').then((m) => ({ default: m.ProductFeaturesBlock })),
   { ssr: true },
 )
 
@@ -37,7 +38,8 @@ const PromptAnatomyBlock = dynamic(
 )
 
 const FeatureShowcaseBlock = dynamic(
-  () => import('./blocks/feature-showcase-block').then((m) => ({ default: m.FeatureShowcaseBlock })),
+  () =>
+    import('./blocks/feature-showcase-block').then((m) => ({ default: m.FeatureShowcaseBlock })),
   { ssr: true },
 )
 

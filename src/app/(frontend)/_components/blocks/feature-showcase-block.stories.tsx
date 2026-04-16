@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import type { Page } from '@/payload-types'
-
 import { richText } from '@/__storybook__/fixtures/richtext'
+import type { Page } from '@/payload-types'
 
 import { FeatureShowcaseBlock } from './feature-showcase-block'
 
@@ -35,12 +34,16 @@ const block = {
     {
       id: 'ai-1',
       question: 'How does client tracking work?',
-      answer: richText('ELLA automatically creates a timeline for every client interaction, pulling data from your calendar, email, and document management tools.'),
+      answer: richText(
+        'ELLA automatically creates a timeline for every client interaction, pulling data from your calendar, email, and document management tools.',
+      ),
     },
     {
       id: 'ai-2',
       question: 'Can I customize the workflows?',
-      answer: richText('Every workflow template can be customized — add steps, change assignments, set custom deadlines, and add conditional logic.'),
+      answer: richText(
+        'Every workflow template can be customized — add steps, change assignments, set custom deadlines, and add conditional logic.',
+      ),
     },
   ],
   galleryColumns: '3' as const,

@@ -14,8 +14,8 @@ export const Default: Story = {
       headline="Frequently asked questions"
       subheadline={
         <p>
-          Everything you need to know about ELLA and how it helps trusted advisors systematize
-          their practice.
+          Everything you need to know about ELLA and how it helps trusted advisors systematize their
+          practice.
         </p>
       }
     >
@@ -33,9 +33,9 @@ export const Default: Story = {
         question="Who is ELLA built for?"
         answer={
           <p>
-            Financial advisors, estate planners, wealth managers, and other trusted professionals who
-            manage complex client relationships and need structure without sacrificing the personal
-            touch.
+            Financial advisors, estate planners, wealth managers, and other trusted professionals
+            who manage complex client relationships and need structure without sacrificing the
+            personal touch.
           </p>
         }
       />

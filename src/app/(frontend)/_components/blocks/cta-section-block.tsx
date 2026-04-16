@@ -28,8 +28,7 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
     objectPosition?: 'top' | 'center' | 'bottom' | null
     overlayOpacity?: '40' | '60' | '80' | null
   } | null
-  const hasCover =
-    coverImg?.image && typeof coverImg.image === 'object' && coverImg.image?.url
+  const hasCover = coverImg?.image && typeof coverImg.image === 'object' && coverImg.image?.url
 
   const content = (
     <Container>
@@ -66,9 +65,7 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
         </div>
 
         {/* Microcopy */}
-        {block.microcopy && (
-          <p className="text-theme-text-muted mt-4 text-sm">{block.microcopy}</p>
-        )}
+        {block.microcopy && <p className="text-theme-text-muted mt-4 text-sm">{block.microcopy}</p>}
       </div>
     </Container>
   )

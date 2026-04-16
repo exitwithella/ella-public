@@ -24,7 +24,7 @@ export function Pagination({ currentPage, totalPages, basePath, categorySlug }: 
         <Link
           href={pageHref(currentPage - 1)}
           aria-label={`Go to previous page, page ${currentPage - 1}`}
-          className="border-ash-200 text-ash-600 hover:border-moss-300 hover:text-ash-900 rounded-lg border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700"
+          className="border-ash-200 text-ash-600 hover:border-moss-300 hover:text-ash-900 focus-visible:outline-moss-700 rounded-lg border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           <span aria-hidden="true">← </span>Previous
         </Link>
@@ -38,7 +38,7 @@ export function Pagination({ currentPage, totalPages, basePath, categorySlug }: 
         <Link
           href={pageHref(currentPage + 1)}
           aria-label={`Go to next page, page ${currentPage + 1}`}
-          className="border-ash-200 text-ash-600 hover:border-moss-300 hover:text-ash-900 rounded-lg border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700"
+          className="border-ash-200 text-ash-600 hover:border-moss-300 hover:text-ash-900 focus-visible:outline-moss-700 rounded-lg border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           Next<span aria-hidden="true"> →</span>
         </Link>

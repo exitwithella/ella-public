@@ -100,7 +100,7 @@ export function BillingToggle({ value, onChange }: BillingToggleProps) {
             data-active={isActive}
             onClick={() => onChange(option.value)}
             onKeyDown={handleKeyDown}
-            className={`relative z-10 flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700 ${
+            className={`focus-visible:outline-moss-700 relative z-10 flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 ${
               isActive ? 'text-ash-900' : 'text-ash-500 hover:text-ash-700'
             }`}
           >

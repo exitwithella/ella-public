@@ -17,7 +17,8 @@ const heroData: Page['hero'] = {
   headlineAnimation2: 'blur-fade',
   highlightText: 'systematized',
   highlightColor: 'goldenrod',
-  subheadline: 'ELLA helps trusted advisors turn ad-hoc processes into repeatable, scalable workflows — so you can focus on what matters most: your clients.',
+  subheadline:
+    'ELLA helps trusted advisors turn ad-hoc processes into repeatable, scalable workflows — so you can focus on what matters most: your clients.',
   primaryCta: { label: 'Get Started Free', href: '#' },
   secondaryCta: { label: 'Book a Demo', href: '#' },
   visual: null,

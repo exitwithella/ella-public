@@ -24,9 +24,7 @@ function makePost(
  * Helper: build a Lexical rich-text root containing the specified words,
  * distributed across the given node structure.
  */
-function makeLexicalRoot(
-  children: Array<{ type: string; children?: unknown[] }>,
-): Post['content'] {
+function makeLexicalRoot(children: Array<{ type: string; children?: unknown[] }>): Post['content'] {
   return {
     root: {
       type: 'root',
@@ -66,9 +64,7 @@ function generateWords(count: number): string {
 
 describe('getPostUrl', () => {
   it('returns prefixed URL when category has pathPrefix', () => {
-    const post = makePost('my-post', [
-      { pathPrefix: 'changelog', slug: 'changelog' } as Category,
-    ])
+    const post = makePost('my-post', [{ pathPrefix: 'changelog', slug: 'changelog' } as Category])
     expect(getPostUrl(post as Post)).toBe('/blog/changelog/my-post')
   })
 

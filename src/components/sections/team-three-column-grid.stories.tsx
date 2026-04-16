@@ -10,10 +10,7 @@ type Story = StoryObj
 
 export const Default: Story = {
   render: () => (
-    <TeamThreeColumnGrid
-      eyebrow="Our team"
-      headline="The people behind ELLA"
-    >
+    <TeamThreeColumnGrid eyebrow="Our team" headline="The people behind ELLA">
       <TeamMember
         img={<img src="https://placehold.co/400x533/e8e4df/5A6B4A?text=DW" alt="" />}
         name="Drew Watkins"

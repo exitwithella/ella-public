@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Button, ButtonLink, PlainButton, PlainButtonLink, SoftButton, SoftButtonLink } from './button'
+import {
+  Button,
+  ButtonLink,
+  PlainButton,
+  PlainButtonLink,
+  SoftButton,
+  SoftButtonLink,
+} from './button'
 
 const meta: Meta = {
   title: 'ELLA/Elements/Button',
@@ -13,27 +20,43 @@ export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-10 p-10">
       <div>
-        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold uppercase tracking-wider">Button</h3>
+        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold tracking-wider uppercase">
+          Button
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
           <Button color="auto">Auto</Button>
           <Button color="dark/light">Dark/Light</Button>
           <Button color="light">Light</Button>
-          <Button color="auto" size="lg">Auto Large</Button>
+          <Button color="auto" size="lg">
+            Auto Large
+          </Button>
         </div>
       </div>
 
       <div>
-        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold uppercase tracking-wider">ButtonLink</h3>
+        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold tracking-wider uppercase">
+          ButtonLink
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
-          <ButtonLink href="#" color="auto">Auto</ButtonLink>
-          <ButtonLink href="#" color="dark/light">Dark/Light</ButtonLink>
-          <ButtonLink href="#" color="light">Light</ButtonLink>
-          <ButtonLink href="#" color="auto" size="lg">Auto Large</ButtonLink>
+          <ButtonLink href="#" color="auto">
+            Auto
+          </ButtonLink>
+          <ButtonLink href="#" color="dark/light">
+            Dark/Light
+          </ButtonLink>
+          <ButtonLink href="#" color="light">
+            Light
+          </ButtonLink>
+          <ButtonLink href="#" color="auto" size="lg">
+            Auto Large
+          </ButtonLink>
         </div>
       </div>
 
       <div>
-        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold uppercase tracking-wider">SoftButton</h3>
+        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold tracking-wider uppercase">
+          SoftButton
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
           <SoftButton>Default</SoftButton>
           <SoftButton size="lg">Large</SoftButton>
@@ -41,30 +64,48 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold uppercase tracking-wider">SoftButtonLink</h3>
+        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold tracking-wider uppercase">
+          SoftButtonLink
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
           <SoftButtonLink href="#">Default</SoftButtonLink>
-          <SoftButtonLink href="#" size="lg">Large</SoftButtonLink>
+          <SoftButtonLink href="#" size="lg">
+            Large
+          </SoftButtonLink>
         </div>
       </div>
 
       <div>
-        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold uppercase tracking-wider">PlainButton</h3>
+        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold tracking-wider uppercase">
+          PlainButton
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
           <PlainButton color="auto">Auto</PlainButton>
           <PlainButton color="dark/light">Dark/Light</PlainButton>
           <PlainButton color="light">Light</PlainButton>
-          <PlainButton color="auto" size="lg">Auto Large</PlainButton>
+          <PlainButton color="auto" size="lg">
+            Auto Large
+          </PlainButton>
         </div>
       </div>
 
       <div>
-        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold uppercase tracking-wider">PlainButtonLink</h3>
+        <h3 className="text-theme-text-muted mb-4 text-sm font-semibold tracking-wider uppercase">
+          PlainButtonLink
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
-          <PlainButtonLink href="#" color="auto">Auto</PlainButtonLink>
-          <PlainButtonLink href="#" color="dark/light">Dark/Light</PlainButtonLink>
-          <PlainButtonLink href="#" color="light">Light</PlainButtonLink>
-          <PlainButtonLink href="#" color="auto" size="lg">Auto Large</PlainButtonLink>
+          <PlainButtonLink href="#" color="auto">
+            Auto
+          </PlainButtonLink>
+          <PlainButtonLink href="#" color="dark/light">
+            Dark/Light
+          </PlainButtonLink>
+          <PlainButtonLink href="#" color="light">
+            Light
+          </PlainButtonLink>
+          <PlainButtonLink href="#" color="auto" size="lg">
+            Auto Large
+          </PlainButtonLink>
         </div>
       </div>
     </div>
@@ -80,7 +121,9 @@ export const OnDarkTheme: Story = {
         <SoftButton>Soft</SoftButton>
         <PlainButton color="auto">Plain</PlainButton>
         <Button color="light">Light</Button>
-        <Button color="auto" size="lg">Large Auto</Button>
+        <Button color="auto" size="lg">
+          Large Auto
+        </Button>
       </div>
     </div>
   ),

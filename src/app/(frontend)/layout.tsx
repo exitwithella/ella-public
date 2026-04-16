@@ -40,7 +40,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const bodyEndScripts = enabled.filter((s) => s.placement === 'body-end')
 
   return (
-    <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable} ${termina.variable}`}>
+    <html
+      lang="en"
+      className={`${dmSans.variable} ${instrumentSerif.variable} ${termina.variable}`}
+    >
       <head>
         <InjectedScripts scripts={headScripts} />
       </head>

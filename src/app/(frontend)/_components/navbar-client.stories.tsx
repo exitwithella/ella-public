@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+
 import type { Navigation } from '@/payload-types'
 
 import { NavbarClient } from './navbar-client'
@@ -14,10 +15,26 @@ const links = [
     label: 'Platform',
     type: 'dropdown' as const,
     dropdownItems: [
-      { label: 'Coverage', href: '/platform#coverage', description: 'Comprehensive practice coverage' },
-      { label: 'Intelligence', href: '/platform#intelligence', description: 'Data-driven insights' },
-      { label: 'Continuity', href: '/platform#continuity', description: 'Succession and knowledge capture' },
-      { label: 'Connection', href: '/platform#connection', description: 'Client relationship tools' },
+      {
+        label: 'Coverage',
+        href: '/platform#coverage',
+        description: 'Comprehensive practice coverage',
+      },
+      {
+        label: 'Intelligence',
+        href: '/platform#intelligence',
+        description: 'Data-driven insights',
+      },
+      {
+        label: 'Continuity',
+        href: '/platform#continuity',
+        description: 'Succession and knowledge capture',
+      },
+      {
+        label: 'Connection',
+        href: '/platform#connection',
+        description: 'Client relationship tools',
+      },
     ],
   },
   {
@@ -28,9 +45,24 @@ const links = [
       { label: 'Practice Management', href: '/solutions/practice-management' },
     ] as Navigation['primaryNav'][number]['dropdownItems'],
   },
-  { label: 'Pricing', href: '/pricing', type: 'link' as const, dropdownItems: [] as Navigation['primaryNav'][number]['dropdownItems'] },
-  { label: 'Blog', href: '/blog', type: 'link' as const, dropdownItems: [] as Navigation['primaryNav'][number]['dropdownItems'] },
-  { label: 'About', href: '/about', type: 'link' as const, dropdownItems: [] as Navigation['primaryNav'][number]['dropdownItems'] },
+  {
+    label: 'Pricing',
+    href: '/pricing',
+    type: 'link' as const,
+    dropdownItems: [] as Navigation['primaryNav'][number]['dropdownItems'],
+  },
+  {
+    label: 'Blog',
+    href: '/blog',
+    type: 'link' as const,
+    dropdownItems: [] as Navigation['primaryNav'][number]['dropdownItems'],
+  },
+  {
+    label: 'About',
+    href: '/about',
+    type: 'link' as const,
+    dropdownItems: [] as Navigation['primaryNav'][number]['dropdownItems'],
+  },
 ]
 
 const logo = (

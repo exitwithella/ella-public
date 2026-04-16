@@ -154,7 +154,9 @@ function SplitOverflow({ hero }: { hero: Page['hero'] }) {
       <Container>
         <div className="flex gap-x-12 gap-y-12 max-lg:flex-col lg:min-h-[600px] lg:items-center">
           <div className="flex shrink-0 flex-col items-start gap-6 lg:basis-md xl:basis-lg">
-            <h1 className={`${fontClass} text-ash-950 text-3xl font-semibold tracking-tight text-balance md:text-4xl xl:text-5xl`}>
+            <h1
+              className={`${fontClass} text-ash-950 text-3xl font-semibold tracking-tight text-balance md:text-4xl xl:text-5xl`}
+            >
               {hero.headline}
             </h1>
             {hero.subheadline && (
@@ -208,7 +210,9 @@ function SplitFull({ hero }: { hero: Page['hero'] }) {
     <section className="lg:grid lg:min-h-[85vh] lg:grid-cols-2">
       {/* Text column */}
       <div className="flex flex-col justify-end gap-6 px-6 py-20 md:px-12 md:py-28 lg:py-36 lg:pr-16 xl:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))]">
-        <h1 className={`${fontClass} text-ash-950 text-3xl font-semibold tracking-tight text-balance md:text-4xl xl:text-5xl`}>
+        <h1
+          className={`${fontClass} text-ash-950 text-3xl font-semibold tracking-tight text-balance md:text-4xl xl:text-5xl`}
+        >
           {hero.headline}
         </h1>
         {hero.subheadline && (

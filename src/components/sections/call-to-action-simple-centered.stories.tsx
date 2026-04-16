@@ -15,14 +15,18 @@ export const Default: Story = {
       headline="Ready to systematize your practice?"
       subheadline={
         <p>
-          Join the advisors who are building repeatable, scalable workflows with ELLA —
-          free to start, powerful to grow.
+          Join the advisors who are building repeatable, scalable workflows with ELLA — free to
+          start, powerful to grow.
         </p>
       }
       cta={
         <div className="flex flex-wrap justify-center gap-4">
-          <ButtonLink href="#" size="lg">Get Started Free</ButtonLink>
-          <ButtonLink href="#" size="lg" color="light">Book a Demo</ButtonLink>
+          <ButtonLink href="#" size="lg">
+            Get Started Free
+          </ButtonLink>
+          <ButtonLink href="#" size="lg" color="light">
+            Book a Demo
+          </ButtonLink>
         </div>
       }
     />

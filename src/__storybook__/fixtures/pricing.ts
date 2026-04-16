@@ -53,7 +53,9 @@ export const mockFaqs: FaqItem[] = [
   {
     id: 1,
     question: 'Can I switch plans later?',
-    answer: richText('Yes. You can upgrade or downgrade at any time. Changes take effect at the start of your next billing cycle.') as FaqItem['answer'],
+    answer: richText(
+      'Yes. You can upgrade or downgrade at any time. Changes take effect at the start of your next billing cycle.',
+    ) as FaqItem['answer'],
     sortOrder: 1,
     updatedAt: '',
     createdAt: '',
@@ -61,7 +63,9 @@ export const mockFaqs: FaqItem[] = [
   {
     id: 2,
     question: 'What counts as a user?',
-    answer: richText('A user is anyone who logs into ELLA with their own account. Collaborators that clients invite do not count toward your user limit.') as FaqItem['answer'],
+    answer: richText(
+      'A user is anyone who logs into ELLA with their own account. Collaborators that clients invite do not count toward your user limit.',
+    ) as FaqItem['answer'],
     sortOrder: 2,
     updatedAt: '',
     createdAt: '',
@@ -69,7 +73,9 @@ export const mockFaqs: FaqItem[] = [
   {
     id: 3,
     question: 'Do you offer a free trial?',
-    answer: richText('We do not currently offer a free trial, but you can book a demo to see ELLA in action before committing.') as FaqItem['answer'],
+    answer: richText(
+      'We do not currently offer a free trial, but you can book a demo to see ELLA in action before committing.',
+    ) as FaqItem['answer'],
     sortOrder: 3,
     updatedAt: '',
     createdAt: '',

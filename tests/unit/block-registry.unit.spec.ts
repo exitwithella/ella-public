@@ -1,18 +1,19 @@
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+
+import type { Block } from 'payload'
 import { describe, expect, it } from 'vitest'
 
 import { Pages } from '../../src/collections/Pages'
 import { Solutions } from '../../src/collections/Solutions'
-import type { Block } from 'payload'
 
 /**
  * Extracts all block slugs from a Payload collection's `layout` field.
  */
 function getBlockSlugs(collection: { fields: Array<Record<string, unknown>> }): string[] {
-  const layoutField = collection.fields.find(
-    (f) => f.name === 'layout' && f.type === 'blocks',
-  ) as { blocks: Block[] } | undefined
+  const layoutField = collection.fields.find((f) => f.name === 'layout' && f.type === 'blocks') as
+    | { blocks: Block[] }
+    | undefined
 
   if (!layoutField) return []
   return layoutField.blocks.map((b) => b.slug)
@@ -23,10 +24,7 @@ function getBlockSlugs(collection: { fields: Array<Record<string, unknown>> }): 
  * by reading the source file and parsing `case '...'` patterns + fallback checks.
  */
 function getRendererBlockTypes(): string[] {
-  const rendererPath = resolve(
-    __dirname,
-    '../../src/app/(frontend)/_components/block-renderer.tsx',
-  )
+  const rendererPath = resolve(__dirname, '../../src/app/(frontend)/_components/block-renderer.tsx')
   const source = readFileSync(rendererPath, 'utf-8')
 
   const types: string[] = []
@@ -68,10 +66,9 @@ describe('BlockRenderer registry completeness', () => {
     const missing = solutionSlugs.filter((slug) => !renderedTypes.includes(slug))
 
     if (missing.length > 0) {
-      expect(
-        missing,
-        `Block types registered in Solutions but missing from BlockRenderer`,
-      ).toEqual([])
+      expect(missing, `Block types registered in Solutions but missing from BlockRenderer`).toEqual(
+        [],
+      )
     }
   })
 
