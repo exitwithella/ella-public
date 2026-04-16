@@ -4,7 +4,6 @@ import { Main } from '@/components/elements/main'
 
 import { EasterEggWrapper } from './_components/easter-egg-wrapper'
 import { Footer } from './_components/footer'
-import { MotionProvider } from './_components/motion-provider'
 import { Navbar } from './_components/navbar'
 import { getScriptInjection } from './_lib/get-scripts'
 
@@ -55,11 +54,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <body>
         <InjectedScripts scripts={bodyStartScripts} />
         <EasterEggWrapper>
-          <MotionProvider>
-            <Navbar />
-            <Main>{children}</Main>
-            <Footer />
-          </MotionProvider>
+          <Navbar />
+          <Main>{children}</Main>
+          <Footer />
         </EasterEggWrapper>
         <InjectedScripts scripts={bodyEndScripts} />
       </body>
