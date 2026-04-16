@@ -1,3 +1,4 @@
+import { unstable_cache } from 'next/cache'
 import config from '@payload-config'
 import type { Metadata } from 'next'
 import { getPayload } from 'payload'
@@ -21,32 +22,36 @@ export const metadata: Metadata = {
   },
 }
 
-async function getPricingData() {
-  const payload = await getPayload({ config })
+const getPricingData = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config })
 
-  const [tiersResult, faqsResult, pricingPage] = await Promise.all([
-    payload.find({
-      collection: 'pricing-tiers',
-      sort: 'sortOrder',
-      limit: 10,
-    }),
-    payload.find({
-      collection: 'faq-items',
-      where: {
-        showOnPricing: { equals: true },
-      },
-      sort: 'sortOrder',
-      limit: 20,
-    }),
-    payload.findGlobal({ slug: 'pricing-page' }),
-  ])
+    const [tiersResult, faqsResult, pricingPage] = await Promise.all([
+      payload.find({
+        collection: 'pricing-tiers',
+        sort: 'sortOrder',
+        limit: 10,
+      }),
+      payload.find({
+        collection: 'faq-items',
+        where: {
+          showOnPricing: { equals: true },
+        },
+        sort: 'sortOrder',
+        limit: 20,
+      }),
+      payload.findGlobal({ slug: 'pricing-page' }),
+    ])
 
-  return {
-    tiers: tiersResult.docs,
-    faqs: faqsResult.docs,
-    pricingPage,
-  }
-}
+    return {
+      tiers: tiersResult.docs,
+      faqs: faqsResult.docs,
+      pricingPage,
+    }
+  },
+  ['pricing-data'],
+  { revalidate: 86400, tags: ['pricing'] },
+)
 
 export default async function PricingPage() {
   const { tiers, faqs, pricingPage } = await getPricingData()

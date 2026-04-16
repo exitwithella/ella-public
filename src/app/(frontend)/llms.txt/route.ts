@@ -1,6 +1,8 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   const payload = await getPayload({ config })
   const settings = await payload.findGlobal({ slug: 'site-settings' })

@@ -40,19 +40,23 @@ export function inlineSvgStyles(svg: string): string {
   return result
 }
 
-export async function fetchSvgContent(url: string): Promise<string | null> {
-  'use cache'
+import { unstable_cache } from 'next/cache'
 
-  try {
-    const absoluteUrl = url.startsWith('http')
-      ? url
-      : `${process.env.NEXT_PUBLIC_SERVER_URL ?? 'http://localhost:3000'}${url}`
-    const res = await fetch(absoluteUrl)
-    const text = await res.text()
-    const svgStart = text.indexOf('<svg')
-    if (svgStart === -1) return null
-    return inlineSvgStyles(text.slice(svgStart))
-  } catch {
-    return null
-  }
-}
+export const fetchSvgContent = unstable_cache(
+  async (url: string): Promise<string | null> => {
+    try {
+      const absoluteUrl = url.startsWith('http')
+        ? url
+        : `${process.env.NEXT_PUBLIC_SERVER_URL ?? 'http://localhost:3000'}${url}`
+      const res = await fetch(absoluteUrl)
+      const text = await res.text()
+      const svgStart = text.indexOf('<svg')
+      if (svgStart === -1) return null
+      return inlineSvgStyles(text.slice(svgStart))
+    } catch {
+      return null
+    }
+  },
+  ['svg-content'],
+  { revalidate: 86400 },
+)

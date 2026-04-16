@@ -4,6 +4,8 @@ import { escapeXml, getPostUrl } from '../_lib/utils'
 
 const SITE_URL = siteConfig.url
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   const posts = await getPublishedPosts({ limit: 20 })
 

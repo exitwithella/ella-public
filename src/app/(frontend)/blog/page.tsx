@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-
 import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'

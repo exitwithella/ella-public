@@ -1,53 +1,53 @@
-import { cacheLife, cacheTag } from 'next/cache'
+import { unstable_cache } from 'next/cache'
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
 import type { Category } from '@/payload-types'
 
-export async function getAllCategories(): Promise<Category[]> {
-  'use cache'
-  cacheLife('days')
-  cacheTag('categories')
+export const getAllCategories = unstable_cache(
+  async (): Promise<Category[]> => {
+    const payload = await getPayload({ config })
 
-  const payload = await getPayload({ config })
+    const result = await payload.find({
+      collection: 'categories',
+      sort: 'sortOrder',
+      limit: 100,
+    })
 
-  const result = await payload.find({
-    collection: 'categories',
-    sort: 'sortOrder',
-    limit: 100,
-  })
+    return result.docs as Category[]
+  },
+  ['categories-all'],
+  { revalidate: 86400, tags: ['categories'] },
+)
 
-  return result.docs as Category[]
-}
+export const getCategoryByPrefix = unstable_cache(
+  async (prefix: string): Promise<Category | null> => {
+    const payload = await getPayload({ config })
 
-export async function getCategoryByPrefix(prefix: string): Promise<Category | null> {
-  'use cache'
-  cacheLife('days')
-  cacheTag('categories')
+    const result = await payload.find({
+      collection: 'categories',
+      limit: 1,
+      where: { pathPrefix: { equals: prefix } },
+    })
 
-  const payload = await getPayload({ config })
+    return (result.docs[0] ?? null) as Category | null
+  },
+  ['category-by-prefix'],
+  { revalidate: 86400, tags: ['categories'] },
+)
 
-  const result = await payload.find({
-    collection: 'categories',
-    limit: 1,
-    where: { pathPrefix: { equals: prefix } },
-  })
+export const getCategoryBySlug = unstable_cache(
+  async (slug: string): Promise<Category | null> => {
+    const payload = await getPayload({ config })
 
-  return (result.docs[0] ?? null) as Category | null
-}
+    const result = await payload.find({
+      collection: 'categories',
+      limit: 1,
+      where: { slug: { equals: slug } },
+    })
 
-export async function getCategoryBySlug(slug: string): Promise<Category | null> {
-  'use cache'
-  cacheLife('days')
-  cacheTag('categories')
-
-  const payload = await getPayload({ config })
-
-  const result = await payload.find({
-    collection: 'categories',
-    limit: 1,
-    where: { slug: { equals: slug } },
-  })
-
-  return (result.docs[0] ?? null) as Category | null
-}
+    return (result.docs[0] ?? null) as Category | null
+  },
+  ['category-by-slug'],
+  { revalidate: 86400, tags: ['categories'] },
+)

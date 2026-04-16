@@ -1,3 +1,4 @@
+import { unstable_cache } from 'next/cache'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -11,21 +12,25 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-async function getSolution(slug: string) {
-  const payload = await getPayload({ config })
+const getSolution = unstable_cache(
+  async (slug: string) => {
+    const payload = await getPayload({ config })
 
-  const solutions = await payload.find({
-    collection: 'solutions',
-    depth: 2,
-    limit: 1,
-    where: {
-      slug: { equals: slug },
-      status: { equals: 'published' },
-    },
-  })
+    const solutions = await payload.find({
+      collection: 'solutions',
+      depth: 2,
+      limit: 1,
+      where: {
+        slug: { equals: slug },
+        status: { equals: 'published' },
+      },
+    })
 
-  return solutions.docs[0] || null
-}
+    return solutions.docs[0] || null
+  },
+  ['solution-by-slug'],
+  { revalidate: 86400, tags: ['solutions'] },
+)
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params

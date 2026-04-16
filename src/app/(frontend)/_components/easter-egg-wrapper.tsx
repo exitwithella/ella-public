@@ -14,11 +14,9 @@ const PullToRevealWrapper = dynamic(
 async function isPennsylvania(): Promise<boolean> {
   try {
     const hdrs = await headers()
-    // Cloudflare Workers injects geo headers from the cf object
     const region = hdrs.get('cf-ipregion')?.toLowerCase()
     if (region === 'pa' || region === 'pennsylvania') return true
 
-    // Fallback: check coordinates (PA bounding box roughly 39.7–42.3 lat, -80.5–-74.7 lon)
     const lat = Number(hdrs.get('cf-iplatitude'))
     const lon = Number(hdrs.get('cf-iplongitude'))
     if (lat && lon && lat >= 39.7 && lat <= 42.3 && lon >= -80.5 && lon <= -74.7) return true

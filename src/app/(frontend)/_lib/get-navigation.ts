@@ -1,4 +1,4 @@
-import { cacheLife, cacheTag } from 'next/cache'
+import { unstable_cache } from 'next/cache'
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
@@ -6,11 +6,11 @@ import type { Navigation } from '@/payload-types'
 
 export type { Navigation }
 
-export async function getNavigation(): Promise<Navigation> {
-  'use cache'
-  cacheLife('days')
-  cacheTag('navigation')
-
-  const payload = await getPayload({ config })
-  return payload.findGlobal({ slug: 'navigation' })
-}
+export const getNavigation = unstable_cache(
+  async (): Promise<Navigation> => {
+    const payload = await getPayload({ config })
+    return payload.findGlobal({ slug: 'navigation' })
+  },
+  ['navigation'],
+  { revalidate: 86400, tags: ['navigation'] },
+)

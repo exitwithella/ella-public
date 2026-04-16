@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   const key = process.env.INDEXNOW_API_KEY
   if (!key) {

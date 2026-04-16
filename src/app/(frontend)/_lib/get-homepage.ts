@@ -1,22 +1,22 @@
-import { cacheLife, cacheTag } from 'next/cache'
+import { unstable_cache } from 'next/cache'
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
-export async function getHomepage() {
-  'use cache'
-  cacheLife('days')
-  cacheTag('pages', 'homepage')
+export const getHomepage = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config })
 
-  const payload = await getPayload({ config })
+    const result = await payload.find({
+      collection: 'pages',
+      depth: 2,
+      limit: 1,
+      where: {
+        slug: { equals: 'home' },
+      },
+    })
 
-  const result = await payload.find({
-    collection: 'pages',
-    depth: 2,
-    limit: 1,
-    where: {
-      slug: { equals: 'home' },
-    },
-  })
-
-  return result.docs[0] ?? null
-}
+    return result.docs[0] ?? null
+  },
+  ['homepage'],
+  { revalidate: 86400, tags: ['pages', 'homepage'] },
+)

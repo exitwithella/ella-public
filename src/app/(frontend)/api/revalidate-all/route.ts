@@ -1,4 +1,4 @@
-import { updateTag } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 import { getPayload } from 'payload'
 
 import config from '@/payload.config'
@@ -13,6 +13,7 @@ const ALL_TAGS = [
   'posts',
   'categories',
   'solutions',
+  'pricing',
 ]
 
 export async function POST(request: Request) {
@@ -24,7 +25,8 @@ export async function POST(request: Request) {
   }
 
   for (const tag of ALL_TAGS) {
-    updateTag(tag)
+    // @ts-expect-error — works with single arg when cacheComponents disabled
+    revalidateTag(tag)
   }
 
   return Response.json({ revalidated: ALL_TAGS, timestamp: Date.now() })

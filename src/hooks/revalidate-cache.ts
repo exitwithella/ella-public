@@ -1,4 +1,4 @@
-import { updateTag } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 import type { CollectionAfterChangeHook, GlobalAfterChangeHook } from 'payload'
 
 /**
@@ -9,7 +9,9 @@ export function createRevalidateHook(
 ): CollectionAfterChangeHook {
   return async ({ doc }) => {
     for (const tag of tags) {
-      updateTag(tag)
+      // @ts-expect-error — Next 16 types require profile arg, but when
+      // cacheComponents is disabled the single-arg form still works
+      revalidateTag(tag)
     }
     return doc
   }
@@ -23,7 +25,9 @@ export function createGlobalRevalidateHook(
 ): GlobalAfterChangeHook {
   return async ({ doc }) => {
     for (const tag of tags) {
-      updateTag(tag)
+      // @ts-expect-error — Next 16 types require profile arg, but when
+      // cacheComponents is disabled the single-arg form still works
+      revalidateTag(tag)
     }
     return doc
   }
