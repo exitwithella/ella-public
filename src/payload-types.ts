@@ -437,6 +437,10 @@ export interface Page {
       label?: string | null;
       href?: string | null;
     };
+    /**
+     * Small trust signal below the CTAs (e.g. "Your first 3 clients are on us.")
+     */
+    microcopy?: string | null;
     visual?: (number | null) | Media;
     /**
      * Contain: image shown in full (screenshots). Crop: image fills the column height and may clip. Square: forced 1:1 aspect ratio with cropping.
@@ -1898,6 +1902,10 @@ export interface Solution {
       label?: string | null;
       href?: string | null;
     };
+    /**
+     * Small trust signal below the CTAs (e.g. "Your first 3 clients are on us.")
+     */
+    microcopy?: string | null;
     visual?: (number | null) | Media;
     /**
      * Contain: image shown in full (screenshots). Crop: image fills the column height and may clip. Square: forced 1:1 aspect ratio with cropping.
@@ -2397,6 +2405,10 @@ export interface LandingPage {
       label?: string | null;
       href?: string | null;
     };
+    /**
+     * Small trust signal below the CTAs (e.g. "Your first 3 clients are on us.")
+     */
+    microcopy?: string | null;
     visual?: (number | null) | Media;
     /**
      * Contain: image shown in full (screenshots). Crop: image fills the column height and may clip. Square: forced 1:1 aspect ratio with cropping.
@@ -3562,6 +3574,7 @@ export interface PagesSelect<T extends boolean = true> {
               label?: T;
               href?: T;
             };
+        microcopy?: T;
         visual?: T;
         visualFit?: T;
         visualPosition?: T;
@@ -4158,6 +4171,7 @@ export interface LandingPagesSelect<T extends boolean = true> {
               label?: T;
               href?: T;
             };
+        microcopy?: T;
         visual?: T;
         visualFit?: T;
         visualPosition?: T;
@@ -4612,6 +4626,7 @@ export interface SolutionsSelect<T extends boolean = true> {
               label?: T;
               href?: T;
             };
+        microcopy?: T;
         visual?: T;
         visualFit?: T;
         visualPosition?: T;

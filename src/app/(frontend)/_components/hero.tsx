@@ -25,7 +25,6 @@ const BADGE = {
   text: "Why we're building ELLA",
   cta: 'Read more',
 }
-const FOOTNOTE = 'Your first 3 clients are on us.'
 const FALLBACK_IMAGE = {
   src: '/images/ella-dashboard.avif',
   alt: 'ELLA product screenshot',
@@ -221,14 +220,16 @@ export function Hero({ hero }: HeroProps) {
             </PlainButtonLink>
           </m.div>
 
-          <m.div
-            className="text-theme-text-secondary text-sm/7"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.8, duration: 0.4 }}
-          >
-            {FOOTNOTE}
-          </m.div>
+          {hero.microcopy && (
+            <m.div
+              className="text-theme-text-secondary text-sm/7"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.8, duration: 0.4 }}
+            >
+              {hero.microcopy}
+            </m.div>
+          )}
         </Container>
       </section>
 

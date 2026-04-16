@@ -77,6 +77,13 @@ export const heroField: GroupField = {
       ],
     },
     {
+      name: 'microcopy',
+      type: 'text',
+      admin: {
+        description: 'Small trust signal below the CTAs (e.g. "Your first 3 clients are on us.")',
+      },
+    },
+    {
       name: 'visual',
       type: 'upload',
       relationTo: 'media',

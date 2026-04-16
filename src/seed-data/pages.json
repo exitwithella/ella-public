@@ -27,6 +27,7 @@
         "label": "Book a Demo",
         "href": "https://cal.com/team/ella/ella-intro?overlayCalendar=true"
       },
+      "microcopy": "Your first 3 clients are on us.",
       "visual": 19,
       "visualFit": "contain",
       "visualPosition": "center",
