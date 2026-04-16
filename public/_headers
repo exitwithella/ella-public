@@ -1,2 +1,20 @@
 /_next/static/*
-  Cache-Control: public,max-age=31536000,immutable
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Early Hints — preload critical fonts while Workers function renders
+/*
+  Link: </fonts/termina/Termina-Demi.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
+  Link: </fonts/termina/Termina-Bold.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
+
+# Page-level caching — short TTLs for HTML, stale-while-revalidate for seamless updates
+/
+  Cache-Control: public, s-maxage=60, stale-while-revalidate=300
+/blog/*
+  Cache-Control: public, s-maxage=120, stale-while-revalidate=600
+/pricing
+  Cache-Control: public, s-maxage=300, stale-while-revalidate=600
+/solutions/*
+  Cache-Control: public, s-maxage=120, stale-while-revalidate=600
