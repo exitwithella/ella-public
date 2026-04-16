@@ -18,8 +18,13 @@ export default async function HomePage() {
     <>
       <Hero hero={page.hero} />
       <div className="bg-sandstone-50 relative z-10">
-        {page.layout?.map((block) => (
-          <BlockRenderer key={block.id} block={block} />
+        {page.layout?.map((block, index) => (
+          <div
+            key={block.id}
+            style={index > 1 ? { contentVisibility: 'auto', containIntrinsicSize: 'auto 500px' } : undefined}
+          >
+            <BlockRenderer block={block} />
+          </div>
         ))}
       </div>
     </>
