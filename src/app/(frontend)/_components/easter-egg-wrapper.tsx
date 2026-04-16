@@ -1,32 +1,15 @@
+import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
-
-import { PullToRevealWrapper } from '@/components/sections/pull-to-reveal'
 
 import { getFooter } from '../_lib/get-footer'
 
-// Erie, PA and surrounding area — use this for tighter geo targeting
-// async function isErieArea(): Promise<boolean> {
-//   try {
-//     const hdrs = await headers()
-//     const city = hdrs.get('cf-ipcity')?.toLowerCase()
-//     const erieCities = new Set([
-//       'erie', 'millcreek', 'harborcreek', 'fairview', 'edinboro',
-//       'north east', 'corry', 'meadville', 'girard', 'waterford',
-//       'union city', 'lake city',
-//     ])
-//     if (city && erieCities.has(city)) return true
-//     const lat = Number(hdrs.get('cf-iplatitude'))
-//     const lon = Number(hdrs.get('cf-iplongitude'))
-//     if (lat && lon) {
-//       const dlat = Math.abs(lat - 42.13)
-//       const dlon = Math.abs(lon - -80.08)
-//       if (dlat < 0.7 && dlon < 0.9) return true
-//     }
-//     return false
-//   } catch {
-//     return false
-//   }
-// }
+const PullToRevealWrapper = dynamic(
+  () =>
+    import('@/components/sections/pull-to-reveal').then((mod) => ({
+      default: mod.PullToRevealWrapper,
+    })),
+  { ssr: true },
+)
 
 async function isPennsylvania(): Promise<boolean> {
   try {
@@ -51,27 +34,26 @@ export async function EasterEggWrapper({ children }: { children: React.ReactNode
   const egg = footer.easterEgg
   const enabled = egg?.enabled ?? false
 
-  let bgImage: string | null = null
+  if (!enabled) {
+    return <>{children}</>
+  }
+
+  const isLocal = await isPennsylvania()
+
+  const localImg =
+    isLocal && typeof egg?.localImage === 'object' && egg.localImage?.url
+      ? egg.localImage.url
+      : null
+
+  const defaultImg =
+    typeof egg?.backgroundImage === 'object' && egg.backgroundImage?.url
+      ? egg.backgroundImage.url
+      : null
+
+  const bgImage = localImg ?? defaultImg
   let text = egg?.text ?? 'Believe in Main Street'
-
-  if (enabled) {
-    const isLocal = await isPennsylvania()
-
-    const localImg =
-      isLocal && typeof egg?.localImage === 'object' && egg.localImage?.url
-        ? egg.localImage.url
-        : null
-
-    const defaultImg =
-      typeof egg?.backgroundImage === 'object' && egg.backgroundImage?.url
-        ? egg.backgroundImage.url
-        : null
-
-    bgImage = localImg ?? defaultImg
-
-    if (isLocal && egg?.localText) {
-      text = egg.localText
-    }
+  if (isLocal && egg?.localText) {
+    text = egg.localText
   }
 
   return (
