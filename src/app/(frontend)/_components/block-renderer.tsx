@@ -1,3 +1,5 @@
+import dynamic from 'next/dynamic'
+
 import type { Page, Solution } from '@/payload-types'
 
 import { AdvisorPersonasBlock } from './blocks/advisor-personas-block'
@@ -8,16 +10,41 @@ import { ComparisonTableBlock } from './blocks/comparison-table-block'
 import { ContentSectionBlock } from './blocks/content-section-block'
 import { CredibilityStripBlock } from './blocks/credibility-strip-block'
 import { CTASectionBlock } from './blocks/cta-section-block'
-import { DilemmaSectionBlock } from './blocks/dilemma-section-block'
 import { FeatureDeepDiveBlock } from './blocks/feature-deep-dive-block'
-import { FeatureShowcaseBlock } from './blocks/feature-showcase-block'
-import { PromptAnatomyBlock } from './blocks/prompt-anatomy-block'
 import { NumberedStepsBlock } from './blocks/numbered-steps-block'
-import { ProductFeaturesBlock } from './blocks/product-features-block'
-import { SqueezeSectionBlock } from './blocks/squeeze-section-block'
 import { TestimonialBlockComponent } from './blocks/testimonial-block-component'
 import { TrustSecurityBlock } from './blocks/trust-security-block'
-import { ValuesGridBlock } from './blocks/values-grid-block'
+
+// Heavy below-fold blocks — code-split to reduce initial JS bundle
+const DilemmaSectionBlock = dynamic(
+  () => import('./blocks/dilemma-section-block').then((m) => ({ default: m.DilemmaSectionBlock })),
+  { ssr: true },
+)
+
+const SqueezeSectionBlock = dynamic(
+  () => import('./blocks/squeeze-section-block').then((m) => ({ default: m.SqueezeSectionBlock })),
+  { ssr: true },
+)
+
+const ProductFeaturesBlock = dynamic(
+  () => import('./blocks/product-features-block').then((m) => ({ default: m.ProductFeaturesBlock })),
+  { ssr: true },
+)
+
+const PromptAnatomyBlock = dynamic(
+  () => import('./blocks/prompt-anatomy-block').then((m) => ({ default: m.PromptAnatomyBlock })),
+  { ssr: true },
+)
+
+const FeatureShowcaseBlock = dynamic(
+  () => import('./blocks/feature-showcase-block').then((m) => ({ default: m.FeatureShowcaseBlock })),
+  { ssr: true },
+)
+
+const ValuesGridBlock = dynamic(
+  () => import('./blocks/values-grid-block').then((m) => ({ default: m.ValuesGridBlock })),
+  { ssr: true },
+)
 
 type Block = NonNullable<Page['layout']>[number] | NonNullable<Solution['layout']>[number]
 
@@ -61,25 +88,13 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       // Handle block types not yet in payload-types.ts (regenerated on dev server restart)
       const bt = (block as { blockType: string }).blockType
       if (bt === 'values-grid') {
-        return (
-          <ValuesGridBlock
-            block={block as unknown as Parameters<typeof ValuesGridBlock>[0]['block']}
-          />
-        )
+        return <ValuesGridBlock block={block as any} />
       }
       if (bt === 'prompt-anatomy') {
-        return (
-          <PromptAnatomyBlock
-            block={block as unknown as Parameters<typeof PromptAnatomyBlock>[0]['block']}
-          />
-        )
+        return <PromptAnatomyBlock block={block as any} />
       }
       if (bt === 'feature-showcase') {
-        return (
-          <FeatureShowcaseBlock
-            block={block as unknown as Parameters<typeof FeatureShowcaseBlock>[0]['block']}
-          />
-        )
+        return <FeatureShowcaseBlock block={block as any} />
       }
       return null
     }
