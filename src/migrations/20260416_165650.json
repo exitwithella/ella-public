@@ -14924,6 +14924,149 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
+    "footer_easter_egg_local_variants": {
+      "name": "footer_easter_egg_local_variants",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "image_id": {
+          "name": "image_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "text": {
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "match_cities": {
+          "name": "match_cities",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "match_region_code": {
+          "name": "match_region_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "match_country_code": {
+          "name": "match_country_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "match_center_lat": {
+          "name": "match_center_lat",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "match_center_lon": {
+          "name": "match_center_lon",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "match_radius_miles": {
+          "name": "match_radius_miles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "footer_easter_egg_local_variants_order_idx": {
+          "name": "footer_easter_egg_local_variants_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "footer_easter_egg_local_variants_parent_id_idx": {
+          "name": "footer_easter_egg_local_variants_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        },
+        "footer_easter_egg_local_variants_image_idx": {
+          "name": "footer_easter_egg_local_variants_image_idx",
+          "columns": [
+            "image_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "footer_easter_egg_local_variants_image_id_media_id_fk": {
+          "name": "footer_easter_egg_local_variants_image_id_media_id_fk",
+          "tableFrom": "footer_easter_egg_local_variants",
+          "tableTo": "media",
+          "columnsFrom": [
+            "image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "footer_easter_egg_local_variants_parent_id_fk": {
+          "name": "footer_easter_egg_local_variants_parent_id_fk",
+          "tableFrom": "footer_easter_egg_local_variants",
+          "tableTo": "footer",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "footer": {
       "name": "footer",
       "columns": {
@@ -15917,6 +16060,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "4393488e-1583-48f0-b075-97d4401518b9",
+  "id": "ed23b251-2055-414d-9eba-0998c59b968e",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

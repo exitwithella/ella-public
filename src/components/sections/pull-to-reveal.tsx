@@ -311,6 +311,11 @@ export function PullToRevealWrapper({
       window.addEventListener('touchend', onTouchEnd, { passive: true })
       window.addEventListener('keydown', onKeyDown)
 
+      // Run once synchronously — if the user has already scrolled into range
+      // before listeners attached (e.g. deep-linked, or idle callback deferred
+      // past the scroll), no scroll event will fire to trigger image preload.
+      onScroll()
+
       return () => {
         cancelAnim()
         clearWheelEndTimer()

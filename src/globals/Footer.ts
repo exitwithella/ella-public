@@ -206,15 +206,93 @@ export const Footer: GlobalConfig = {
           type: 'upload',
           relationTo: 'media',
           admin: {
-            description: 'Alternate background image shown to visitors in the Erie, PA area',
+            description:
+              'DEPRECATED: Use Local Variants below. Legacy fallback for Pennsylvania visitors when no variant matches.',
           },
         },
         {
           name: 'localText',
           type: 'text',
           admin: {
-            description: 'Alternate text for local visitors (leave blank to use the default text)',
+            description:
+              'DEPRECATED: Use Local Variants below. Legacy fallback for Pennsylvania visitors when no variant matches.',
           },
+        },
+        {
+          name: 'localVariants',
+          type: 'array',
+          labels: { singular: 'Local Variant', plural: 'Local Variants' },
+          admin: {
+            description:
+              'Geo-targeted variants. First match wins — order most-specific first (e.g. Erie before Pennsylvania). Any match criterion can be left blank.',
+          },
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+              admin: { description: 'Admin label (e.g. "Erie Area", "Pennsylvania").' },
+            },
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+            },
+            {
+              name: 'text',
+              type: 'text',
+              admin: {
+                description: 'Serif text for this variant. Leave blank to use the default text.',
+              },
+            },
+            {
+              name: 'matchCities',
+              type: 'text',
+              admin: {
+                description:
+                  'Comma-separated city names (case-insensitive). Any match counts — e.g. "erie, millcreek, harborcreek, meadville".',
+              },
+            },
+            {
+              name: 'matchRegionCode',
+              type: 'text',
+              admin: {
+                description: 'ISO region code — e.g. "PA" matches all of Pennsylvania.',
+              },
+            },
+            {
+              name: 'matchCountryCode',
+              type: 'text',
+              admin: {
+                description:
+                  'ISO-3166-1 alpha-2 country code — e.g. "JP" matches all of Japan, "GB" matches UK.',
+              },
+            },
+            {
+              name: 'matchCenterLat',
+              type: 'number',
+              admin: {
+                description: 'Latitude for radius match (decimal degrees, e.g. 42.13).',
+                width: '33%',
+              },
+            },
+            {
+              name: 'matchCenterLon',
+              type: 'number',
+              admin: {
+                description: 'Longitude for radius match (decimal degrees, e.g. -80.08).',
+                width: '33%',
+              },
+            },
+            {
+              name: 'matchRadiusMiles',
+              type: 'number',
+              admin: {
+                description: 'Radius in miles around the center point.',
+                width: '33%',
+              },
+            },
+          ],
         },
         {
           name: 'height',

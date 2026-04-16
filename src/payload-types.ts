@@ -5196,13 +5196,54 @@ export interface Footer {
      */
     text?: string | null;
     /**
-     * Alternate background image shown to visitors in the Erie, PA area
+     * DEPRECATED: Use Local Variants below. Legacy fallback for Pennsylvania visitors when no variant matches.
      */
     localImage?: (number | null) | Media;
     /**
-     * Alternate text for local visitors (leave blank to use the default text)
+     * DEPRECATED: Use Local Variants below. Legacy fallback for Pennsylvania visitors when no variant matches.
      */
     localText?: string | null;
+    /**
+     * Geo-targeted variants. First match wins — order most-specific first (e.g. Erie before Pennsylvania). Any match criterion can be left blank.
+     */
+    localVariants?:
+      | {
+          /**
+           * Admin label (e.g. "Erie Area", "Pennsylvania").
+           */
+          label: string;
+          image?: (number | null) | Media;
+          /**
+           * Serif text for this variant. Leave blank to use the default text.
+           */
+          text?: string | null;
+          /**
+           * Comma-separated city names (case-insensitive). Any match counts — e.g. "erie, millcreek, harborcreek, meadville".
+           */
+          matchCities?: string | null;
+          /**
+           * ISO region code — e.g. "PA" matches all of Pennsylvania.
+           */
+          matchRegionCode?: string | null;
+          /**
+           * ISO-3166-1 alpha-2 country code — e.g. "JP" matches all of Japan, "GB" matches UK.
+           */
+          matchCountryCode?: string | null;
+          /**
+           * Latitude for radius match (decimal degrees, e.g. 42.13).
+           */
+          matchCenterLat?: number | null;
+          /**
+           * Longitude for radius match (decimal degrees, e.g. -80.08).
+           */
+          matchCenterLon?: number | null;
+          /**
+           * Radius in miles around the center point.
+           */
+          matchRadiusMiles?: number | null;
+          id?: string | null;
+        }[]
+      | null;
     /**
      * Height of the hidden section in pixels
      */
@@ -5495,6 +5536,20 @@ export interface FooterSelect<T extends boolean = true> {
         text?: T;
         localImage?: T;
         localText?: T;
+        localVariants?:
+          | T
+          | {
+              label?: T;
+              image?: T;
+              text?: T;
+              matchCities?: T;
+              matchRegionCode?: T;
+              matchCountryCode?: T;
+              matchCenterLat?: T;
+              matchCenterLon?: T;
+              matchRadiusMiles?: T;
+              id?: T;
+            };
         height?: T;
       };
   statusBadge?:
