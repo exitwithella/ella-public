@@ -116,7 +116,7 @@ function DesktopTierCards({
               )}
 
               {/* Price */}
-              <div className="mt-8 mb-8">
+              <div className="mt-8 mb-8" aria-live="polite" aria-atomic="true">
                 <div className="flex items-baseline gap-1.5">
                   <span
                     key={`${tier.id}-${billingPeriod}`}
@@ -140,7 +140,8 @@ function DesktopTierCards({
                   href={ctaHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors ${
+                  aria-label={`${ctaLabel} (opens in new tab)`}
+                  className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700 ${
                     isFirst
                       ? "bg-moss-700 text-sandstone-50 hover:bg-moss-800"
                       : "bg-ash-950 text-ash-100 hover:bg-ash-800"
@@ -153,9 +154,10 @@ function DesktopTierCards({
                     href="https://cal.com/team/ella/ella-intro?overlayCalendar=true"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-ash-500 hover:text-ash-700 inline-flex items-center gap-1 text-sm font-medium transition-colors"
+                    aria-label="Get a demo (opens in new tab)"
+                    className="text-ash-500 hover:text-ash-700 inline-flex items-center gap-1 rounded-sm text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700"
                   >
-                    Get a demo <ArrowNarrowRightIcon className="h-3.5 w-3.5" />
+                    Get a demo <ArrowNarrowRightIcon className="h-3.5 w-3.5" aria-hidden="true" />
                   </a>
                 )}
               </div>
@@ -252,7 +254,7 @@ function MobileTierCards({
                 <p className="text-ash-600 mt-1 text-sm">{tier.tagline}</p>
               )}
 
-              <div className="mt-6 mb-6">
+              <div className="mt-6 mb-6" aria-live="polite" aria-atomic="true">
                 <div className="flex items-baseline gap-1.5">
                   <span
                     key={`mobile-${tier.id}-${billingPeriod}`}
@@ -275,7 +277,8 @@ function MobileTierCards({
                   href={ctaHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors ${
+                  aria-label={`${ctaLabel} (opens in new tab)`}
+                  className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700 ${
                     isFirst
                       ? "bg-moss-700 text-sandstone-50 hover:bg-moss-800"
                       : "bg-ash-950 text-ash-100 hover:bg-ash-800"
@@ -288,9 +291,10 @@ function MobileTierCards({
                     href="https://cal.com/team/ella/ella-intro?overlayCalendar=true"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-ash-500 hover:text-ash-700 inline-flex items-center gap-1 text-sm font-medium transition-colors"
+                    aria-label="Get a demo (opens in new tab)"
+                    className="text-ash-500 hover:text-ash-700 inline-flex items-center gap-1 rounded-sm text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700"
                   >
-                    Get a demo <ArrowNarrowRightIcon className="h-3.5 w-3.5" />
+                    Get a demo <ArrowNarrowRightIcon className="h-3.5 w-3.5" aria-hidden="true" />
                   </a>
                 )}
               </div>

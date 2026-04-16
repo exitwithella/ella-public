@@ -41,6 +41,7 @@ export function CoverImage({
       <Image
         src={image.url!}
         alt={image.alt ?? ''}
+        role={image.alt ? undefined : 'presentation'}
         fill
         className={clsx('object-cover', POSITION_CLASS[objectPosition ?? 'center'])}
         sizes="100vw"

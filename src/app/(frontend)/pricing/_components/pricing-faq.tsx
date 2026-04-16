@@ -73,9 +73,9 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
                 <div className="divide-ash-200 border-ash-200 divide-y border-y">
                   {section.items.map((faq) => (
                     <details key={faq.id} className="group">
-                      <summary className="text-ash-900 flex w-full cursor-pointer list-none items-start justify-between gap-6 py-5 text-left text-base/7 font-medium [&::-webkit-details-marker]:hidden">
+                      <summary className="text-ash-900 flex w-full cursor-pointer list-none items-start justify-between gap-6 rounded-sm py-5 text-left text-base/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700 [&::-webkit-details-marker]:hidden">
                         {faq.question}
-                        <span className="relative h-lh w-[13px] shrink-0">
+                        <span className="relative h-lh w-[13px] shrink-0" aria-hidden="true">
                           <PlusIcon className="text-ash-1000 absolute inset-0 h-lh group-open:opacity-0" />
                           <MinusIcon className="text-ash-1000 absolute inset-0 h-lh opacity-0 group-open:opacity-100" />
                         </span>
@@ -101,9 +101,10 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
                 href="https://cal.com/team/ella/ella-intro?overlayCalendar=true"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-moss-700 hover:text-moss-800 inline-flex items-center gap-1 font-medium underline-offset-2 hover:underline"
+                aria-label="Talk to our team (opens in new tab)"
+                className="text-moss-700 hover:text-moss-800 inline-flex items-center gap-1 rounded-sm font-medium underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700"
               >
-                Talk to our team <ArrowNarrowRightIcon className="h-3 w-3" />
+                Talk to our team <ArrowNarrowRightIcon className="h-3 w-3" aria-hidden="true" />
               </a>
             </p>
           </div>

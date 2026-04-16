@@ -22,7 +22,7 @@ export function AnnouncementBadge({
       {...props}
       data-variant={variant}
       className={clsx(
-        'group relative inline-flex max-w-full gap-x-3 overflow-hidden rounded-md px-3.5 py-2 text-sm/6 max-sm:flex-col sm:items-center sm:rounded-full sm:px-3 sm:py-0.5',
+        'group relative inline-flex max-w-full gap-x-3 overflow-hidden rounded-md px-3.5 py-2 text-sm/6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent max-sm:flex-col sm:items-center sm:rounded-full sm:px-3 sm:py-0.5',
         variant === 'normal' && 'bg-theme-text/5 text-theme-text hover:bg-theme-text/10',
         variant === 'overlay' && 'bg-theme-text/15 text-theme-bg hover:bg-theme-text/20',
         className,
@@ -42,7 +42,7 @@ export function AnnouncementBadge({
           variant === 'normal' && 'text-theme-text',
         )}
       >
-        {cta} <ChevronIcon className="shrink-0" />
+        {cta} <ChevronIcon className="shrink-0" aria-hidden="true" />
       </span>
     </a>
   )

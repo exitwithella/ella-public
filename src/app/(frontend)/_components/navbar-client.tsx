@@ -45,11 +45,13 @@ function ArrowRightIcon({ className }: { className?: string }) {
 /* ─── Dropdown panel (desktop) ─── */
 
 function DropdownPanel({
+  id,
   items,
   open,
   onMouseEnter,
   onMouseLeave,
 }: {
+  id?: string
   items: NavLink['dropdownItems']
   open: boolean
   onMouseEnter?: () => void
@@ -57,6 +59,7 @@ function DropdownPanel({
 }) {
   return (
     <div
+      id={id}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={clsx(
@@ -134,17 +137,21 @@ function DesktopNavItem({ link }: { link: NavLink }) {
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
+        aria-controls={`nav-dropdown-${link.label.replace(/\s+/g, '-').toLowerCase()}`}
         className={clsx(
-          'inline-flex items-center gap-1 text-sm/7 font-medium transition-colors',
+          'inline-flex items-center gap-1 rounded-sm text-sm/7 font-medium transition-colors',
+          'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-moss-700',
           open ? 'text-moss-700' : 'text-ash-950 hover:text-moss-700',
         )}
       >
         {link.label}
         <ChevronDownIcon
           className={clsx('size-3.5 transition-transform duration-200', open && 'rotate-180')}
+          aria-hidden="true"
         />
       </button>
       <DropdownPanel
+        id={`nav-dropdown-${link.label.replace(/\s+/g, '-').toLowerCase()}`}
         items={link.dropdownItems}
         open={open}
         onMouseEnter={handleEnter}
@@ -270,7 +277,7 @@ export function NavbarClient({
             <button
               onClick={openMenu}
               aria-label="Open menu"
-              className="text-ash-950 hover:bg-ash-950/10 inline-flex rounded-full p-1.5 lg:hidden"
+              className="text-ash-950 hover:bg-ash-950/10 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700 lg:hidden"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="size-6" aria-hidden="true">
                 <path
@@ -284,13 +291,13 @@ export function NavbarClient({
         </div>
 
         {/* Mobile menu dialog */}
-        <dialog ref={dialogRef} className="backdrop:bg-transparent">
+        <dialog ref={dialogRef} className="backdrop:bg-ash-950/50 backdrop:backdrop-blur-sm">
           <div className="bg-sandstone-50 fixed inset-0 px-6 py-6 lg:px-10">
             <div className="flex justify-end">
               <button
                 onClick={closeMenu}
                 aria-label="Close menu"
-                className="text-ash-950 hover:bg-ash-950/10 inline-flex rounded-full p-1.5"
+                className="text-ash-950 hover:bg-ash-950/10 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700"
               >
                 <svg
                   fill="none"

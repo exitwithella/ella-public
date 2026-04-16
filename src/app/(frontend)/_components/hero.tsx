@@ -217,7 +217,7 @@ export function Hero({ hero }: HeroProps) {
               rel="noopener"
               className="w-full sm:w-auto"
             >
-              {secondaryLabel} <ArrowNarrowRightIcon />
+              {secondaryLabel} <ArrowNarrowRightIcon aria-hidden="true" />
             </PlainButtonLink>
           </m.div>
 

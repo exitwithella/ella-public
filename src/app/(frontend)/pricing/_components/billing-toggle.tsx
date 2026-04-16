@@ -44,6 +44,36 @@ export function BillingToggle({ value, onChange }: BillingToggleProps) {
     [indicator.left, indicator.width],
   )
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLButtonElement>) => {
+      const currentIndex = OPTIONS.findIndex((o) => o.value === value)
+      if (currentIndex < 0) return
+
+      let nextIndex: number | null = null
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        nextIndex = (currentIndex + 1) % OPTIONS.length
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        nextIndex = (currentIndex - 1 + OPTIONS.length) % OPTIONS.length
+      } else if (e.key === 'Home') {
+        nextIndex = 0
+      } else if (e.key === 'End') {
+        nextIndex = OPTIONS.length - 1
+      }
+
+      if (nextIndex !== null) {
+        e.preventDefault()
+        onChange(OPTIONS[nextIndex].value)
+        // Move focus to the newly selected button
+        const container = containerRef.current
+        if (container) {
+          const buttons = container.querySelectorAll<HTMLButtonElement>('[role="radio"]')
+          buttons[nextIndex]?.focus()
+        }
+      }
+    },
+    [value, onChange],
+  )
+
   return (
     <div
       ref={containerRef}
@@ -66,9 +96,11 @@ export function BillingToggle({ value, onChange }: BillingToggleProps) {
             type="button"
             role="radio"
             aria-checked={isActive}
+            tabIndex={isActive ? 0 : -1}
             data-active={isActive}
             onClick={() => onChange(option.value)}
-            className={`relative z-10 flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 ${
+            onKeyDown={handleKeyDown}
+            className={`relative z-10 flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700 ${
               isActive ? 'text-ash-900' : 'text-ash-500 hover:text-ash-700'
             }`}
           >
