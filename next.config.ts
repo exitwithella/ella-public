@@ -7,10 +7,10 @@ const nextConfig = {
   // Read more: https://opennext.js.org/cloudflare/howtos/workerd
   serverExternalPackages: ['jose', 'pg-cloudflare', 'drizzle-kit', 'typescript'],
 
-  images: {
-    loader: 'custom' as const,
-    loaderFile: './src/image-loader.ts',
-  },
+  images:
+    process.env.NODE_ENV === 'production'
+      ? { loader: 'custom' as const, loaderFile: './src/image-loader.ts' }
+      : {},
 
   // Your Next.js config here
   webpack: (webpackConfig: any) => {
