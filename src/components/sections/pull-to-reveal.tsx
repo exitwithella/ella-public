@@ -129,7 +129,9 @@ export function PullToRevealWrapper({
   const loadBgImage = useCallback(() => {
     if (imageLoaded.current || !backgroundUrl || !bgRef.current) return
     imageLoaded.current = true
-    bgRef.current.style.backgroundImage = `url(${backgroundUrl})`
+    // Quote the URL so literal parens/spaces in Payload filenames don't
+    // break the CSS url() syntax and silently drop the image.
+    bgRef.current.style.backgroundImage = `url("${backgroundUrl}")`
   }, [backgroundUrl])
 
   // Defer all event listeners until after initial page load is complete
