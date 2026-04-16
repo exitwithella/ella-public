@@ -1,8 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
+import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
+
 export const Navigation: GlobalConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [createGlobalRevalidateHook('navigation')],
   },
   slug: 'navigation',
   label: 'Navigation',

@@ -1,8 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
+import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
+
 export const SiteSettings: GlobalConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [createGlobalRevalidateHook('site-settings')],
   },
   slug: 'site-settings',
   label: 'Site Settings',
@@ -74,6 +79,15 @@ export const SiteSettings: GlobalConfig = {
       admin: {
         language: 'markdown',
         description: 'Content served at /llms.txt — describes your site for AI/LLM consumption',
+      },
+    },
+    {
+      name: 'cacheManagement',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: '@/components/admin/RevalidateAllButton#RevalidateAllButton',
+        },
       },
     },
     {

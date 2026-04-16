@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { createIndexNowHook } from '../hooks/notify-indexnow'
+import { createRevalidateHook } from '../hooks/revalidate-cache'
 import {
   CardGridBlock,
   ContentSectionBlock,
@@ -19,6 +20,7 @@ export const Solutions: CollectionConfig = {
   },
   hooks: {
     afterChange: [
+      createRevalidateHook('solutions'),
       createIndexNowHook((doc) => {
         if (doc.status !== 'published') return null
         return `/solutions/${doc.slug}`

@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { createIndexNowHook } from '../hooks/notify-indexnow'
+import { createRevalidateHook } from '../hooks/revalidate-cache'
 import { metaField } from '../fields/meta'
 
 export const Posts: CollectionConfig = {
@@ -9,6 +10,7 @@ export const Posts: CollectionConfig = {
   },
   hooks: {
     afterChange: [
+      createRevalidateHook('posts'),
       createIndexNowHook((doc) => {
         if (doc.status !== 'published') return null
         return `/blog/${doc.slug}`

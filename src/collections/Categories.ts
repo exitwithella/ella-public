@@ -1,8 +1,13 @@
 import type { CollectionConfig } from 'payload'
 
+import { createRevalidateHook } from '../hooks/revalidate-cache'
+
 export const Categories: CollectionConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [createRevalidateHook('categories')],
   },
   admin: {
     defaultColumns: ['title', 'slug', 'sortOrder'],

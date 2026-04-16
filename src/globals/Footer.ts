@@ -2,10 +2,14 @@ import type { GlobalConfig } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
 import { linkFields } from '../fields/link'
+import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
 
 export const Footer: GlobalConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [createGlobalRevalidateHook('footer')],
   },
   slug: 'footer',
   label: 'Footer',
