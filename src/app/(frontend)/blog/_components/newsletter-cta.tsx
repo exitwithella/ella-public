@@ -1,60 +1,32 @@
-'use client'
-
-import { useState } from 'react'
-
 import { Heading } from '@/components/elements/heading'
 
-export function NewsletterCTA() {
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+import { NewsletterForm } from '../../_components/newsletter-form'
+import { getSiteSettings } from '../../_lib/get-site-settings'
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!email) return
-    // UI-only at launch — email integration deferred
-    setSubmitted(true)
-  }
+export async function NewsletterCTA() {
+  const settings = await getSiteSettings()
+  const listIds =
+    settings.blogNewsletter?.loopsListIds
+      ?.map((l) => l.listId)
+      .filter((id): id is string => typeof id === 'string' && id.length > 0) ?? []
 
   return (
     <aside className="bg-ash-100 rounded-2xl px-8 py-10">
-      {submitted ? (
-        <div className="text-center">
-          <p className="text-moss-700 font-display text-lg font-semibold">You're on the list.</p>
-          <p className="text-ash-600 mt-2 text-sm">
-            We'll send updates when there's something worth reading.
-          </p>
-        </div>
-      ) : (
-        <>
-          <Heading as="h3" className="text-xl md:text-xl">
-            Writing worth your inbox
-          </Heading>
-          <p className="text-ash-600 mt-2 text-sm/relaxed">
-            Practical perspectives on advisory practice, systematization, and what's changing in the
-            profession. No fluff.
-          </p>
-          <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <label htmlFor="newsletter-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="newsletter-email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@yourfirm.com"
-              required
-              className="border-ash-200 bg-sandstone-50 text-ash-900 placeholder:text-ash-400 focus:border-moss-400 focus:ring-moss-400 flex-1 rounded-lg border px-4 py-2.5 text-sm focus:ring-1 focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="bg-moss-700 hover:bg-moss-600 text-ash-100 rounded-lg px-6 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
-        </>
-      )}
+      <Heading as="h3" className="text-xl md:text-xl">
+        Writing worth your inbox
+      </Heading>
+      <p className="text-ash-600 mt-2 text-sm/relaxed">
+        Practical perspectives on advisory practice, systematization, and what's changing in the
+        profession. No fluff.
+      </p>
+      <NewsletterForm
+        variant="sidebar"
+        source="blog-sidebar"
+        listIds={listIds}
+        placeholder="you@yourfirm.com"
+        buttonLabel="Subscribe"
+        successMessage="You're on the list."
+      />
     </aside>
   )
 }

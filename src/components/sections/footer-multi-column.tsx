@@ -1,6 +1,7 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps } from 'react'
 
+import { NewsletterForm } from '@/app/(frontend)/_components/newsletter-form'
 import { EllaLogo, EllaLogoMark } from '@/app/(frontend)/_assets/logo'
 
 import { Container } from '../elements/container'
@@ -85,6 +86,7 @@ export function FooterMultiColumn({
     heading?: string | null
     placeholder?: string | null
     buttonLabel?: string | null
+    loopsListIds?: { listId: string; label?: string | null; id?: string | null }[] | null
   } | null
   columns?:
     | {
@@ -140,24 +142,14 @@ export function FooterMultiColumn({
                       {newsletter.heading}
                     </h3>
                   ) : null}
-                  <form className="flex gap-2">
-                    <label htmlFor="newsletter-email" className="sr-only">
-                      Email address for newsletter
-                    </label>
-                    <input
-                      id="newsletter-email"
-                      type="email"
-                      placeholder={newsletter.placeholder ?? 'Your email address'}
-                      className="border-theme-text/20 bg-theme-text/5 text-theme-text placeholder:text-theme-text-muted focus:border-theme-accent min-w-0 flex-1 rounded-md border px-3 py-2 text-sm outline-none focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-theme-accent"
-                      required
-                    />
-                    <button
-                      type="submit"
-                      className="bg-theme-accent text-theme-bg shrink-0 rounded-md px-4 py-2 text-sm font-medium transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent"
-                    >
-                      {newsletter.buttonLabel ?? 'Subscribe'}
-                    </button>
-                  </form>
+                  <NewsletterForm
+                    variant="footer"
+                    source="footer"
+                    listIds={newsletter.loopsListIds?.map((l) => l.listId) ?? null}
+                    placeholder={newsletter.placeholder ?? 'Your email address'}
+                    buttonLabel={newsletter.buttonLabel ?? 'Subscribe'}
+                    successMessage="Thanks — you're subscribed."
+                  />
                 </div>
               ) : null}
             </div>

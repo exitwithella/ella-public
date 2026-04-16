@@ -39,6 +39,33 @@ export const NewsletterCaptureBlock: Block = {
         description: 'Small trust text below form (e.g. "No spam. Unsubscribe anytime.")',
       },
     },
+    {
+      name: 'loopsListIds',
+      type: 'array',
+      admin: {
+        description:
+          'Loops mailing lists to add subscribers to. Copy list IDs from Loops → Mailing Lists.',
+      },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          admin: { description: 'Internal label for your reference' },
+        },
+        {
+          name: 'listId',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'source',
+      type: 'text',
+      admin: {
+        description: 'Source tag sent to Loops for analytics (e.g. "pricing-page-cta")',
+      },
+    },
     bgStyleField,
   ],
 }

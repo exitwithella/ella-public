@@ -129,6 +129,26 @@ export const Footer: GlobalConfig = {
           type: 'text',
           defaultValue: 'Subscribe',
         },
+        {
+          name: 'loopsListIds',
+          type: 'array',
+          admin: {
+            description:
+              'Loops mailing lists to add footer subscribers to. Copy list IDs from Loops → Mailing Lists.',
+          },
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              admin: { description: 'Internal label for your reference' },
+            },
+            {
+              name: 'listId',
+              type: 'text',
+              required: true,
+            },
+          ],
+        },
       ],
     },
     {

@@ -46,6 +46,14 @@ const ValuesGridBlock = dynamic(
   { ssr: true },
 )
 
+const NewsletterCaptureBlock = dynamic(
+  () =>
+    import('./blocks/newsletter-capture-block').then((m) => ({
+      default: m.NewsletterCaptureBlock,
+    })),
+  { ssr: true },
+)
+
 type Block = NonNullable<Page['layout']>[number] | NonNullable<Solution['layout']>[number]
 
 interface BlockRendererProps {
@@ -84,6 +92,8 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       return <DilemmaSectionBlock block={block} />
     case 'testimonial-block':
       return <TestimonialBlockComponent block={block} />
+    case 'newsletter-capture':
+      return <NewsletterCaptureBlock block={block} />
     default: {
       // Handle block types not yet in payload-types.ts (regenerated on dev server restart)
       const bt = (block as { blockType: string }).blockType

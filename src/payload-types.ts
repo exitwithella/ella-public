@@ -1029,6 +1029,23 @@ export interface Page {
              * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
              */
             microcopy?: string | null;
+            /**
+             * Loops mailing lists to add subscribers to. Copy list IDs from Loops → Mailing Lists.
+             */
+            loopsListIds?:
+              | {
+                  /**
+                   * Internal label for your reference
+                   */
+                  label?: string | null;
+                  listId: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Source tag sent to Loops for analytics (e.g. "pricing-page-cta")
+             */
+            source?: string | null;
             bgStyle?:
               | (
                   | 'sandstone'
@@ -2887,6 +2904,23 @@ export interface LandingPage {
              * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
              */
             microcopy?: string | null;
+            /**
+             * Loops mailing lists to add subscribers to. Copy list IDs from Loops → Mailing Lists.
+             */
+            loopsListIds?:
+              | {
+                  /**
+                   * Internal label for your reference
+                   */
+                  label?: string | null;
+                  listId: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Source tag sent to Loops for analytics (e.g. "pricing-page-cta")
+             */
+            source?: string | null;
             bgStyle?:
               | (
                   | 'sandstone'
@@ -3800,6 +3834,14 @@ export interface PagesSelect<T extends boolean = true> {
               buttonLabel?: T;
               successMessage?: T;
               microcopy?: T;
+              loopsListIds?:
+                | T
+                | {
+                    label?: T;
+                    listId?: T;
+                    id?: T;
+                  };
+              source?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -4345,6 +4387,14 @@ export interface LandingPagesSelect<T extends boolean = true> {
               buttonLabel?: T;
               successMessage?: T;
               microcopy?: T;
+              loopsListIds?:
+                | T
+                | {
+                    label?: T;
+                    listId?: T;
+                    id?: T;
+                  };
+              source?: T;
               bgStyle?: T;
               id?: T;
               blockName?: T;
@@ -4938,6 +4988,24 @@ export interface SiteSetting {
    * Content served at /llms.txt — describes your site for AI/LLM consumption
    */
   llmsTxt?: string | null;
+  /**
+   * Loops configuration for the newsletter CTA in the blog sidebar (copy is hardcoded)
+   */
+  blogNewsletter?: {
+    /**
+     * Loops mailing lists for blog subscribers. Copy list IDs from Loops → Mailing Lists.
+     */
+    loopsListIds?:
+      | {
+          /**
+           * Internal label for your reference
+           */
+          label?: string | null;
+          listId: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   announcementBar?: {
     enabled?: boolean | null;
     message?: string | null;
@@ -5077,6 +5145,19 @@ export interface Footer {
     subheading?: string | null;
     placeholder?: string | null;
     buttonLabel?: string | null;
+    /**
+     * Loops mailing lists to add footer subscribers to. Copy list IDs from Loops → Mailing Lists.
+     */
+    loopsListIds?:
+      | {
+          /**
+           * Internal label for your reference
+           */
+          label?: string | null;
+          listId: string;
+          id?: string | null;
+        }[]
+      | null;
   };
   legalLinks?:
     | {
@@ -5268,6 +5349,17 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         enabled?: T;
       };
   llmsTxt?: T;
+  blogNewsletter?:
+    | T
+    | {
+        loopsListIds?:
+          | T
+          | {
+              label?: T;
+              listId?: T;
+              id?: T;
+            };
+      };
   announcementBar?:
     | T
     | {
@@ -5364,6 +5456,13 @@ export interface FooterSelect<T extends boolean = true> {
         subheading?: T;
         placeholder?: T;
         buttonLabel?: T;
+        loopsListIds?:
+          | T
+          | {
+              label?: T;
+              listId?: T;
+              id?: T;
+            };
       };
   legalLinks?:
     | T
