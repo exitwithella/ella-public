@@ -22,7 +22,7 @@ export async function PageBackground({ data }: PageBackgroundProps) {
   const width = (data.width as string | null | undefined) || undefined
 
   const isSvg = media.mimeType === 'image/svg+xml'
-  const svgContent = isSvg ? await fetchSvgContent(media.url) : null
+  const svgContent = isSvg ? await fetchSvgContent(media.filename, media.url) : null
 
   return (
     <div

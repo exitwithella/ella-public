@@ -5,7 +5,9 @@ import { ButtonLink } from '@/components/elements/button'
 import { Container } from '@/components/elements/container'
 import { Heading } from '@/components/elements/heading'
 import { isDarkTheme, ThemeSection } from '@/components/elements/theme-section'
-import type { Media, Page } from '@/payload-types'
+import type { Page } from '@/payload-types'
+
+import { fetchSvgDataUri } from '../../_lib/svg'
 
 type TrustSecurityData = Extract<
   NonNullable<Page['layout']>[number],
@@ -30,24 +32,6 @@ function parseEmphasis(text: string): ReactNode[] {
     }
     return part
   })
-}
-
-async function fetchSvgDataUri(media: Media): Promise<string | null> {
-  const url = media.url
-  if (!url || !media.mimeType?.includes('svg')) return null
-
-  try {
-    const absoluteUrl = url.startsWith('http')
-      ? url
-      : `${process.env.NEXT_PUBLIC_SERVER_URL ?? 'http://localhost:3000'}${url}`
-    const res = await fetch(absoluteUrl, { next: { revalidate: 3600 } })
-    if (!res.ok) return null
-    const svg = await res.text()
-    const encoded = encodeURIComponent(svg)
-    return `url("data:image/svg+xml,${encoded}")`
-  } catch {
-    return null
-  }
 }
 
 const patternStyle = (dataUri: string, color: string | null | undefined) =>

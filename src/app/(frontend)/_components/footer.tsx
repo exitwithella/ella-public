@@ -46,9 +46,11 @@ export async function Footer() {
     typeof footer.footerLogo === 'object' && footer.footerLogo?.url ? footer.footerLogo : null
 
   const [logomarkSvg, footerLogoSvg] = await Promise.all([
-    logomark?.mimeType === 'image/svg+xml' && logomark.url ? fetchSvgContent(logomark.url) : null,
+    logomark?.mimeType === 'image/svg+xml' && logomark.url
+      ? fetchSvgContent(logomark.filename, logomark.url)
+      : null,
     footerLogo?.mimeType === 'image/svg+xml' && footerLogo.url
-      ? fetchSvgContent(footerLogo.url)
+      ? fetchSvgContent(footerLogo.filename, footerLogo.url)
       : null,
   ])
 

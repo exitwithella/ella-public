@@ -1,3 +1,6 @@
+import { getCloudflareContext } from '@opennextjs/cloudflare'
+import { unstable_cache } from 'next/cache'
+
 /**
  * Inline all CSS properties from <style> blocks as SVG presentation attributes.
  *
@@ -40,23 +43,71 @@ export function inlineSvgStyles(svg: string): string {
   return result
 }
 
-import { unstable_cache } from 'next/cache'
+/**
+ * Read raw SVG text for a Media record. Prefers the R2 binding (fast, works
+ * under `global_fetch_strictly_public` where Worker-to-self HTTP is blocked).
+ * Falls back to an HTTP fetch of `url` for environments where the R2 binding
+ * is unavailable (e.g. plain `next dev` without initOpenNextCloudflareForDev).
+ */
+async function fetchRawSvg(
+  filename: string | null | undefined,
+  url: string | null | undefined,
+): Promise<string | null> {
+  if (filename) {
+    try {
+      const { env } = await getCloudflareContext({ async: true })
+      const r2 = env?.R2
+      if (r2) {
+        const obj = await r2.get(filename)
+        if (obj) return await obj.text()
+      }
+    } catch {
+      // R2 binding not reachable (plain `next dev`) — fall through to HTTP.
+    }
+  }
+
+  if (!url) return null
+  try {
+    const absoluteUrl = url.startsWith('http')
+      ? url
+      : `${process.env.NEXT_PUBLIC_SERVER_URL ?? 'http://localhost:3000'}${url}`
+    const res = await fetch(absoluteUrl)
+    if (!res.ok) return null
+    return await res.text()
+  } catch {
+    return null
+  }
+}
 
 export const fetchSvgContent = unstable_cache(
-  async (url: string): Promise<string | null> => {
-    try {
-      const absoluteUrl = url.startsWith('http')
-        ? url
-        : `${process.env.NEXT_PUBLIC_SERVER_URL ?? 'http://localhost:3000'}${url}`
-      const res = await fetch(absoluteUrl)
-      const text = await res.text()
-      const svgStart = text.indexOf('<svg')
-      if (svgStart === -1) return null
-      return inlineSvgStyles(text.slice(svgStart))
-    } catch {
-      return null
-    }
+  async (
+    filename: string | null | undefined,
+    url: string | null | undefined,
+  ): Promise<string | null> => {
+    const text = await fetchRawSvg(filename, url)
+    if (!text) return null
+    const svgStart = text.indexOf('<svg')
+    if (svgStart === -1) return null
+    return inlineSvgStyles(text.slice(svgStart))
   },
   ['svg-content'],
   { revalidate: 86400 },
 )
+
+interface SvgMedia {
+  filename?: string | null
+  url?: string | null
+  mimeType?: string | null
+}
+
+/**
+ * Returns a `url("data:image/svg+xml,...")` string suitable for CSS
+ * `mask-image` / `background-image` from a Media record. Returns null if the
+ * media isn't an SVG or the file couldn't be read.
+ */
+export async function fetchSvgDataUri(media: SvgMedia): Promise<string | null> {
+  if (!media.mimeType?.includes('svg')) return null
+  const text = await fetchRawSvg(media.filename, media.url)
+  if (!text) return null
+  return `url("data:image/svg+xml,${encodeURIComponent(text)}")`
+}

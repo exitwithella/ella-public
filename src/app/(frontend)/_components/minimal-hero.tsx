@@ -14,7 +14,7 @@ export async function MinimalHero({ hero }: MinimalHeroProps) {
   const showLogoWatermark = (hero as { showLogoWatermark?: boolean }).showLogoWatermark
   const visual = typeof hero.visual === 'object' && hero.visual?.url ? hero.visual : null
   const isSvg = visual?.mimeType === 'image/svg+xml'
-  const svgContent = isSvg && visual.url ? await fetchSvgContent(visual.url) : null
+  const svgContent = isSvg && visual.url ? await fetchSvgContent(visual.filename, visual.url) : null
 
   const heroExt = hero as {
     visualFit?: string | null
