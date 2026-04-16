@@ -41,6 +41,8 @@ export function inlineSvgStyles(svg: string): string {
 }
 
 export async function fetchSvgContent(url: string): Promise<string | null> {
+  'use cache'
+
   try {
     const absoluteUrl = url.startsWith('http')
       ? url
