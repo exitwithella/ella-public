@@ -1,7 +1,7 @@
 'use client'
 
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import { motion, useInView } from 'motion/react'
+import { LazyMotion, domAnimation, m, useInView } from 'motion/react'
 import { useRef } from 'react'
 
 import { Container } from '@/components/elements/container'
@@ -37,10 +37,11 @@ export function SplitHeadingLayout({ block }: { block: ContentSectionData }) {
   const isInView = useInView(ref, { margin: '-50px', once: true })
 
   return (
+    <LazyMotion features={domAnimation}>
     <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
       <Container>
         <div ref={ref} className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-16">
-          <motion.div
+          <m.div
             className="lg:col-span-3 lg:col-start-2"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -51,25 +52,26 @@ export function SplitHeadingLayout({ block }: { block: ContentSectionData }) {
                 {block.heading}
               </h2>
             )}
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             className={`lg:col-span-6 lg:col-start-5 ${isDarkTheme(block.bgStyle) ? 'prose-invert' : ''}`}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             variants={staggerContainer}
           >
             {block.body && (
-              <motion.div
+              <m.div
                 className="prose prose-lg text-theme-text-secondary max-w-none [&>p]:mb-6"
                 variants={fadeInUp}
               >
                 <RichText data={block.body} />
-              </motion.div>
+              </m.div>
             )}
-          </motion.div>
+          </m.div>
         </div>
       </Container>
     </ThemeSection>
+    </LazyMotion>
   )
 }

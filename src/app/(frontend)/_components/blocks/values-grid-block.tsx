@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useInView } from 'motion/react'
+import { LazyMotion, domAnimation, m, useInView } from 'motion/react'
 import { useRef } from 'react'
 
 import { Container } from '@/components/elements/container'
@@ -47,9 +47,10 @@ export function ValuesGridBlock({ block }: { block: ValuesGridData }) {
   const items = block.items ?? []
 
   return (
+    <LazyMotion features={domAnimation}>
     <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
       <Container>
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
@@ -58,31 +59,31 @@ export function ValuesGridBlock({ block }: { block: ValuesGridData }) {
         >
           <div className="border-ash-950/10 relative rounded-[40px] border p-8 sm:rounded-[50px] sm:p-12 md:rounded-[70px] md:p-16 lg:p-[70px]">
             {block.heading && (
-              <motion.div
+              <m.div
                 className="bg-theme-bg absolute -top-4 left-8 px-4 sm:-top-5 sm:left-16 sm:px-6 md:left-20"
                 variants={fadeInUp}
               >
                 <h2 className="text-ash-950 font-serif text-[2rem]/10 tracking-tight sm:text-5xl/14">
                   {block.heading}
                 </h2>
-              </motion.div>
+              </m.div>
             )}
 
             {block.description && (
-              <motion.p
+              <m.p
                 className="text-ash-700 mt-4 mb-8 text-sm/7 sm:text-base/7 md:mt-2 md:mb-10"
                 variants={fadeInUp}
               >
                 {block.description}
-              </motion.p>
+              </m.p>
             )}
 
-            <motion.div
+            <m.div
               className="grid grid-cols-1 gap-0 sm:grid-cols-2"
               variants={staggerContainer}
             >
               {items.map((item, index) => (
-                <motion.div
+                <m.div
                   key={item.id || index}
                   className={`py-6 pr-4 sm:pr-8 md:py-8 md:pr-12 ${
                     index >= 2 ? 'border-ash-950/10 border-t' : ''
@@ -93,12 +94,13 @@ export function ValuesGridBlock({ block }: { block: ValuesGridData }) {
                 >
                   <h3 className="text-ash-950 text-sm/7 font-semibold">{item.title}</h3>
                   <p className="text-ash-700 mt-2 text-sm/7">{item.description}</p>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       </Container>
     </ThemeSection>
+    </LazyMotion>
   )
 }

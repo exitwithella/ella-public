@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { LazyMotion, domAnimation, m } from 'motion/react'
 import Image from 'next/image'
 
 import { AnnouncementBadge } from '@/components/elements/announcement-badge'
@@ -52,7 +52,7 @@ function AnimatedHeadlineLine({
   return (
     <span className="flex flex-wrap justify-center gap-x-3">
       {words.map((word, index) => (
-        <motion.span
+        <m.span
           key={index}
           className={
             highlightStartWord >= 0 &&
@@ -72,7 +72,7 @@ function AnimatedHeadlineLine({
           }}
         >
           {word}
-        </motion.span>
+        </m.span>
       ))}
     </span>
   )
@@ -81,7 +81,7 @@ function AnimatedHeadlineLine({
 // Second headline line with blur and fade effect
 function AnimatedSecondLine({ text, delay = 1.25 }: { text: string; delay?: number }) {
   return (
-    <motion.span
+    <m.span
       className="block"
       initial={{
         filter: 'blur(10px)',
@@ -101,7 +101,7 @@ function AnimatedSecondLine({ text, delay = 1.25 }: { text: string; delay?: numb
       }}
     >
       {text}
-    </motion.span>
+    </m.span>
   )
 }
 
@@ -132,11 +132,11 @@ export function Hero({ hero }: HeroProps) {
   const heroHeight = visualMedia?.height ?? 900
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       <section className="pt-24 md:pt-36">
         <Container className="flex flex-col items-center gap-6">
           {/* Announcement Badge */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -148,7 +148,7 @@ export function Hero({ hero }: HeroProps) {
             }}
           >
             <AnnouncementBadge href={BADGE.href} text={BADGE.text} cta={BADGE.cta} />
-          </motion.div>
+          </m.div>
 
           {/* Headlines */}
           <h1 className="font-display text-theme-text flex flex-col items-center text-center text-2xl font-bold text-balance md:text-4xl">
@@ -172,7 +172,7 @@ export function Hero({ hero }: HeroProps) {
 
           {/* Subheadline */}
           {hero.subheadline && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -186,11 +186,11 @@ export function Hero({ hero }: HeroProps) {
               <Text className="max-w-md text-center text-xl text-pretty md:text-2xl">
                 {hero.subheadline}
               </Text>
-            </motion.div>
+            </m.div>
           )}
 
           {/* CTAs */}
-          <motion.div
+          <m.div
             className="flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row"
             initial={{ opacity: 0, y: 150 }}
             animate={{ opacity: 1, y: 0 }}
@@ -219,16 +219,16 @@ export function Hero({ hero }: HeroProps) {
             >
               {secondaryLabel} <ArrowNarrowRightIcon />
             </PlainButtonLink>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             className="text-theme-text-secondary text-sm/7"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2.8, duration: 0.4 }}
           >
             {FOOTNOTE}
-          </motion.div>
+          </m.div>
         </Container>
       </section>
 
@@ -238,7 +238,7 @@ export function Hero({ hero }: HeroProps) {
         // Animation wraps the whole card (Container + Wallpaper) — the boundary box animates,
         // not just the image. No bottom rounding — image clips sharply at the bottom edge.
         <div className="sticky top-(--scroll-padding-top) z-0 px-2">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 150 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -267,12 +267,12 @@ export function Hero({ hero }: HeroProps) {
                 </div>
               </Wallpaper>
             </Container>
-          </motion.div>
+          </m.div>
         </div>
       ) : (
         <div className="sticky top-(--scroll-padding-top) z-0">
           <Container>
-            <motion.div
+            <m.div
               className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-sm"
               initial={{ opacity: 0, y: 150 }}
               animate={{ opacity: 1, y: 0 }}
@@ -291,10 +291,10 @@ export function Hero({ hero }: HeroProps) {
                 className="w-full"
                 priority
               />
-            </motion.div>
+            </m.div>
           </Container>
         </div>
       )}
-    </>
+    </LazyMotion>
   )
 }
