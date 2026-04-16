@@ -3,9 +3,11 @@ import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 
+import type { Media } from '@/payload-types'
 import config from '@/payload.config'
 
 import { BlockRenderer } from '../../_components/block-renderer'
+import { buildPageMetadata } from '../../_lib/build-metadata'
 import { SolutionHero } from './_components/solution-hero'
 
 interface PageProps {
@@ -38,18 +40,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!solution) return {}
 
-  const title = solution.meta?.title ?? `${solution.title} — ELLA`
-  const description = solution.meta?.description ?? solution.tagline ?? undefined
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      url: `https://withella.io/solutions/${slug}`,
-    },
-  }
+  return buildPageMetadata({
+    title: solution.meta?.title || solution.title,
+    description: solution.meta?.description || solution.tagline,
+    image: solution.meta?.image as Media | number | null | undefined,
+    path: `/solutions/${slug}`,
+  })
 }
 
 export default async function SolutionPage({ params }: PageProps) {

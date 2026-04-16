@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
 
+import { buildPageMetadata } from '../_lib/build-metadata'
 import { FeatureComparison } from './_components/feature-comparison'
 import { PricingCloser } from './_components/pricing-closer'
 import { PricingContent } from './_components/pricing-content'
@@ -10,16 +11,13 @@ import { PricingFAQ } from './_components/pricing-faq'
 import { PricingHero } from './_components/pricing-hero'
 import { SharedFeatures } from './_components/shared-features'
 
-export const metadata: Metadata = {
-  title: 'Pricing — ELLA',
-  description:
-    'Simple, transparent pricing for trusted advisors. Per-user plans that scale with your practice.',
-  openGraph: {
-    title: 'Pricing — ELLA',
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata({
+    title: 'Pricing',
     description:
       'Simple, transparent pricing for trusted advisors. Per-user plans that scale with your practice.',
-    url: 'https://withella.io/pricing',
-  },
+    path: '/pricing',
+  })
 }
 
 const getPricingData = unstable_cache(

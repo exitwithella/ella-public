@@ -4,8 +4,11 @@ import { notFound } from 'next/navigation'
 import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
-import type { Media } from '@/payload-types'
+import type { Media, TeamMember } from '@/payload-types'
 
+import { JsonLd } from '../../_components/json-ld'
+import { buildPageMetadata } from '../../_lib/build-metadata'
+import { getSiteSettings } from '../../_lib/get-site-settings'
 import { BlogCard } from '../_components/blog-card'
 import { CategoryFilter } from '../_components/category-filter'
 import { Pagination } from '../_components/pagination'
@@ -22,39 +25,44 @@ const STANDARD_PAGE_SIZE = 10
 
 export async function generateMetadata({ params }: SlugPageProps): Promise<Metadata> {
   const { slug: segments } = await params
+  const path = `/blog/${segments.join('/')}`
 
   // Try to resolve as post
   const post = await getPostByPath(segments)
   if (post) {
-    const ogImage =
-      post.featuredImage && typeof post.featuredImage === 'object'
-        ? ((post.featuredImage as Media).url ?? undefined)
-        : undefined
+    const metaImage = post.meta?.image as Media | number | null | undefined
+    const image =
+      metaImage && typeof metaImage === 'object'
+        ? metaImage
+        : (post.featuredImage as Media | number | null | undefined)
+    const authorName =
+      post.author && typeof post.author === 'object' ? (post.author as TeamMember).name : undefined
 
-    return {
-      title: post.meta?.title ?? `${post.title} — ELLA`,
-      description: post.meta?.description ?? post.excerpt ?? undefined,
-      openGraph: {
-        title: post.meta?.title ?? post.title,
-        description: post.meta?.description ?? post.excerpt ?? undefined,
-        url: `https://withella.io/blog/${segments.join('/')}`,
-        images: ogImage ? [{ url: ogImage }] : undefined,
-      },
-    }
+    return buildPageMetadata({
+      title: post.meta?.title || post.title,
+      description: post.meta?.description || post.excerpt,
+      image,
+      path,
+      type: 'article',
+      publishedAt: post.publishedDate,
+      modifiedAt: post.updatedAt,
+      author: authorName,
+    })
   }
 
   // Try category prefix listing
   if (segments.length === 1) {
     const category = await getCategoryByPrefix(segments[0])
     if (category) {
-      return {
-        title: `${category.title} — ELLA Blog`,
-        description: category.description ?? undefined,
-      }
+      return buildPageMetadata({
+        title: `${category.title} — Blog`,
+        description: category.description,
+        path,
+      })
     }
   }
 
-  return { title: 'Not Found — ELLA' }
+  return buildPageMetadata({ title: 'Not Found', path, noindex: true })
 }
 
 export default async function SlugPage({ params, searchParams }: SlugPageProps) {
@@ -65,7 +73,13 @@ export default async function SlugPage({ params, searchParams }: SlugPageProps) 
   // 1. Try to resolve as a blog post
   const post = await getPostByPath(segments)
   if (post) {
-    return <PostDetail post={post} />
+    const settings = await getSiteSettings()
+    return (
+      <>
+        <JsonLd variant="article" post={post} settings={settings} />
+        <PostDetail post={post} />
+      </>
+    )
   }
 
   // 2. Single segment — check if it's a category prefix (sub-listing)

@@ -4984,10 +4984,6 @@ export interface SiteSetting {
    * Square/icon version of logo for favicon and mobile
    */
   logomark?: (number | null) | Media;
-  /**
-   * Default Open Graph image for pages without a custom og:image (1200×630px)
-   */
-  ogImage?: (number | null) | Media;
   socialLinks?: {
     linkedIn?: string | null;
     twitter?: string | null;
@@ -5029,6 +5025,48 @@ export interface SiteSetting {
       href?: string | null;
     };
     style?: ('forest' | 'goldenrod' | 'ash') | null;
+  };
+  /**
+   * Fallback page title used when a page has no meta.title of its own. 50–60 chars ideal.
+   */
+  defaultTitle: string;
+  /**
+   * Template applied to per-page titles. %s is replaced with the page title. Leave the %s placeholder — remove only if you want page titles shown exactly as entered.
+   */
+  titleTemplate?: string | null;
+  /**
+   * Fallback meta description used when a page has no meta.description. 150–160 chars ideal.
+   */
+  defaultDescription: string;
+  /**
+   * Default Open Graph image for pages without a per-page meta.image (1200×630px recommended).
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * Twitter/X handle for twitter:site and twitter:creator (include the @, e.g. @withella). Optional.
+   */
+  twitterHandle?: string | null;
+  /**
+   * Fields used to emit JSON-LD Organization structured data sitewide. Leave blank to omit fields from the schema.
+   */
+  organizationSchema?: {
+    /**
+     * Full legal name if different from siteName (e.g. "ELLA, Inc.")
+     */
+    legalName?: string | null;
+    /**
+     * ISO date or year (e.g. "2024" or "2024-06-01").
+     */
+    foundingDate?: string | null;
+    /**
+     * Additional canonical URLs for this organization (e.g. Crunchbase, Wikipedia). Socials from the General tab are merged in automatically.
+     */
+    sameAs?:
+      | {
+          url: string;
+          id?: string | null;
+        }[]
+      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -5391,7 +5429,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
   logo?: T;
   logomark?: T;
-  ogImage?: T;
   socialLinks?:
     | T
     | {
@@ -5428,6 +5465,23 @@ export interface SiteSettingsSelect<T extends boolean = true> {
               href?: T;
             };
         style?: T;
+      };
+  defaultTitle?: T;
+  titleTemplate?: T;
+  defaultDescription?: T;
+  ogImage?: T;
+  twitterHandle?: T;
+  organizationSchema?:
+    | T
+    | {
+        legalName?: T;
+        foundingDate?: T;
+        sameAs?:
+          | T
+          | {
+              url?: T;
+              id?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

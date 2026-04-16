@@ -3,12 +3,14 @@ import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 
+import type { Media } from '@/payload-types'
 import config from '@/payload.config'
 
 import { BlockRenderer } from '../_components/block-renderer'
 import { MinimalHero } from '../_components/minimal-hero'
 import { PageBackground } from '../_components/page-background'
 import { SplitHero } from '../_components/split-hero'
+import { buildPageMetadata } from '../_lib/build-metadata'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -38,12 +40,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!page) return {}
 
-  const meta = page.meta as { title?: string; description?: string; image?: unknown } | undefined
+  const meta = page.meta ?? {}
 
-  return {
-    title: meta?.title || page.title,
-    description: meta?.description,
-  }
+  return buildPageMetadata({
+    title: meta.title || page.title,
+    description: meta.description,
+    image: meta.image as Media | number | null | undefined,
+    path: `/${slug}`,
+  })
 }
 
 export default async function Page({ params }: PageProps) {

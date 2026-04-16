@@ -4,6 +4,7 @@ import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
 
+import { buildPageMetadata } from '../_lib/build-metadata'
 import { BlogCard } from './_components/blog-card'
 import { CategoryFilter } from './_components/category-filter'
 import { CarouselItem, EditorsPicksCarousel } from './_components/editors-picks-carousel'
@@ -11,16 +12,13 @@ import { Pagination } from './_components/pagination'
 import { getAllCategories } from './_lib/get-categories'
 import { getPublishedPosts } from './_lib/get-posts'
 
-export const metadata: Metadata = {
-  title: 'Blog — ELLA',
-  description:
-    "Practical perspectives on advisory practice, systematization, and what's changing in the profession.",
-  openGraph: {
-    title: 'ELLA Blog',
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata({
+    title: 'Blog',
     description:
       "Practical perspectives on advisory practice, systematization, and what's changing in the profession.",
-    url: 'https://withella.io/blog',
-  },
+    path: '/blog',
+  })
 }
 
 const STANDARD_PAGE_SIZE = 10

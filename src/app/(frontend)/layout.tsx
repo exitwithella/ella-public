@@ -1,19 +1,21 @@
+import type { Metadata } from 'next'
 import React from 'react'
 
 import { Main } from '@/components/elements/main'
 
 import { EasterEggWrapper } from './_components/easter-egg-wrapper'
 import { Footer } from './_components/footer'
+import { JsonLd } from './_components/json-ld'
 import { Navbar } from './_components/navbar'
+import { buildRootMetadata } from './_lib/build-metadata'
 import { dmSans, instrumentSerif, termina } from './_lib/fonts'
 import { getScriptInjection } from './_lib/get-scripts'
+import { getSiteSettings } from './_lib/get-site-settings'
 
 import './styles.css'
 
-export const metadata = {
-  description:
-    'ELLA turns trust into action with tools built for advisor-led transitions. Go from intake to insight in a fraction of the time.',
-  title: 'ELLA | Practice Systematization for Trusted Advisors',
+export async function generateMetadata(): Promise<Metadata> {
+  return buildRootMetadata()
 }
 
 function InjectedScripts({
@@ -33,7 +35,10 @@ function InjectedScripts({
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
-  const scriptInjection = await getScriptInjection()
+  const [scriptInjection, siteSettings] = await Promise.all([
+    getScriptInjection(),
+    getSiteSettings(),
+  ])
   const enabled = scriptInjection.scripts?.filter((s) => s.enabled) ?? []
   const headScripts = enabled.filter((s) => s.placement === 'head')
   const bodyStartScripts = enabled.filter((s) => s.placement === 'body-start')
@@ -46,6 +51,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     >
       <head>
         <InjectedScripts scripts={headScripts} />
+        <JsonLd variant="organization" settings={siteSettings} />
       </head>
       <body>
         <InjectedScripts scripts={bodyStartScripts} />
