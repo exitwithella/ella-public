@@ -4,7 +4,7 @@ import { getPayload } from 'payload'
 
 export async function getHomepage() {
   'use cache'
-  cacheLife('minutes')
+  cacheLife('days')
   cacheTag('pages', 'homepage')
 
   const payload = await getPayload({ config })

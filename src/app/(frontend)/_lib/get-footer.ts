@@ -8,7 +8,7 @@ export type { Footer }
 
 export async function getFooter(): Promise<Footer> {
   'use cache'
-  cacheLife('minutes')
+  cacheLife('days')
   cacheTag('footer')
 
   const payload = await getPayload({ config })

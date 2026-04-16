@@ -13,7 +13,7 @@ interface GetPublishedPostsOptions {
 
 export async function getPublishedPosts(options: GetPublishedPostsOptions = {}): Promise<Post[]> {
   'use cache'
-  cacheLife('minutes')
+  cacheLife('days')
   cacheTag('posts')
 
   const payload = await getPayload({ config })
@@ -45,7 +45,7 @@ export async function getPublishedPosts(options: GetPublishedPostsOptions = {}):
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   'use cache'
-  cacheLife('minutes')
+  cacheLife('days')
   cacheTag('posts')
 
   const payload = await getPayload({ config })
@@ -78,7 +78,7 @@ export async function getPostByPath(segments: string[]): Promise<Post | null> {
 
 export async function getAllPostSlugs(): Promise<string[][]> {
   'use cache'
-  cacheLife('minutes')
+  cacheLife('days')
   cacheTag('posts')
 
   const payload = await getPayload({ config })

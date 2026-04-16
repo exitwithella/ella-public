@@ -6,7 +6,7 @@ import type { Category } from '@/payload-types'
 
 export async function getAllCategories(): Promise<Category[]> {
   'use cache'
-  cacheLife('hours')
+  cacheLife('days')
   cacheTag('categories')
 
   const payload = await getPayload({ config })
@@ -22,7 +22,7 @@ export async function getAllCategories(): Promise<Category[]> {
 
 export async function getCategoryByPrefix(prefix: string): Promise<Category | null> {
   'use cache'
-  cacheLife('hours')
+  cacheLife('days')
   cacheTag('categories')
 
   const payload = await getPayload({ config })
@@ -38,7 +38,7 @@ export async function getCategoryByPrefix(prefix: string): Promise<Category | nu
 
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {
   'use cache'
-  cacheLife('hours')
+  cacheLife('days')
   cacheTag('categories')
 
   const payload = await getPayload({ config })

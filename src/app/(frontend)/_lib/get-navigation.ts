@@ -8,7 +8,7 @@ export type { Navigation }
 
 export async function getNavigation(): Promise<Navigation> {
   'use cache'
-  cacheLife('minutes')
+  cacheLife('days')
   cacheTag('navigation')
 
   const payload = await getPayload({ config })

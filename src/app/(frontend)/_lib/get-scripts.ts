@@ -8,7 +8,7 @@ export type { ScriptInjection }
 
 export async function getScriptInjection(): Promise<ScriptInjection> {
   'use cache'
-  cacheLife('minutes')
+  cacheLife('days')
   cacheTag('script-injection')
 
   const payload = await getPayload({ config })
