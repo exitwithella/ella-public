@@ -2,13 +2,15 @@
 
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react'
 import Image from 'next/image'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
 import { ThemeSection } from '@/components/elements/theme-section'
 import type { Media, Page } from '@/payload-types'
+
+import { ImagePreloader, type PreloadImage } from '../image-preloader'
 
 const SCREENSHOT_INITIAL = { opacity: 0, scale: 1.02 }
 const SCREENSHOT_ANIMATE = { opacity: 1, scale: 1 }
@@ -169,6 +171,20 @@ function ProductFeaturesScroller({
   const handleVisible = useCallback((i: number) => setActiveIndex(i), [])
   const hasHeader = sectionLabel || heading || subheading
 
+  // Preload all screenshot images on first scroll interaction
+  const preloadImages = useMemo<PreloadImage[]>(
+    () =>
+      items
+        .map((item) => {
+          const screenshot = item.screenshot as Media | null
+          return screenshot?.url
+            ? { src: screenshot.url, sizes: '(min-width: 1024px) 55vw, 100vw', fill: true }
+            : null
+        })
+        .filter((x): x is PreloadImage => x !== null),
+    [items],
+  )
+
   // Track when the section's bottom edge is 20vh above viewport bottom → drives panel shrink
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress: sectionEndProgress } = useScroll({
@@ -188,6 +204,8 @@ function ProductFeaturesScroller({
       className={`relative ${showBottomBorder !== false ? 'border-theme-surface border-b' : ''}`}
       style={{ overflowX: 'clip' }}
     >
+      <ImagePreloader images={preloadImages} />
+
       {/* Sticky header — bg color only on the left column, right stays transparent */}
       <div className="sticky top-0 z-20">
         {hasHeader && (

@@ -14,6 +14,7 @@ import { PlusIcon } from '@/components/icons/plus-icon'
 import type { Media, Page } from '@/payload-types'
 
 import { GalleryItem } from './feature-showcase-gallery-item'
+import { GalleryImagePreloader } from './feature-showcase-gallery-preloader'
 
 // Type is generated after dev server restart; fallback to manual shape until then
 type FeatureShowcaseData =
@@ -267,32 +268,45 @@ function Gallery({ block }: { block: FeatureShowcaseData }) {
   const startCol = alignEnd && itemCount < colCount ? colCount - itemCount + 1 : 0
   const firstItemStyle = startCol > 0 ? ({ gridColumnStart: startCol } as const) : undefined
 
+  // Collect image metadata for deferred preloading on first scroll
+  const preloadImages = block.galleryItems
+    .map((item) => {
+      const img = item.staticImage as Media | null
+      return img?.url
+        ? { src: img.url, sizes, width: img.width ?? 800, height: img.height ?? 600 }
+        : null
+    })
+    .filter((x): x is NonNullable<typeof x> => x !== null)
+
   return (
-    <div className={clsx('grid', isWide ? 'gap-4' : 'gap-6', GALLERY_COL_CLASS[cols])}>
-      {block.galleryItems.map((item, index) => {
-        const staticImage = item.staticImage as Media | null
-        const animatedImage = item.animatedImage as Media | null
+    <>
+      <GalleryImagePreloader images={preloadImages} />
+      <div className={clsx('grid', isWide ? 'gap-4' : 'gap-6', GALLERY_COL_CLASS[cols])}>
+        {block.galleryItems.map((item, index) => {
+          const staticImage = item.staticImage as Media | null
+          const animatedImage = item.animatedImage as Media | null
 
-        if (!staticImage) return null
+          if (!staticImage) return null
 
-        return (
-          <GalleryItem
-            key={item.id}
-            staticImage={staticImage}
-            animatedImage={animatedImage}
-            caption={item.caption}
-            subcaption={item.subcaption}
-            bgColor={item.bgColor}
-            frameImage={item.frameImage}
-            anchorTarget={(item as { anchorTarget?: string | null }).anchorTarget}
-            sizes={sizes}
-            aspect={aspect}
-            sharp={sharp}
-            style={index === 0 ? firstItemStyle : undefined}
-          />
-        )
-      })}
-    </div>
+          return (
+            <GalleryItem
+              key={item.id}
+              staticImage={staticImage}
+              animatedImage={animatedImage}
+              caption={item.caption}
+              subcaption={item.subcaption}
+              bgColor={item.bgColor}
+              frameImage={item.frameImage}
+              anchorTarget={(item as { anchorTarget?: string | null }).anchorTarget}
+              sizes={sizes}
+              aspect={aspect}
+              sharp={sharp}
+              style={index === 0 ? firstItemStyle : undefined}
+            />
+          )
+        })}
+      </div>
+    </>
   )
 }
 
