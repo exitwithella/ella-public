@@ -49,7 +49,6 @@ Load when optimizing images (formats, responsive, placeholders) or fonts (loadin
 
 ```tsx
 import Image from 'next/image'
-
 ;<Image
   src="/hero.jpg"
   alt="Hero banner"

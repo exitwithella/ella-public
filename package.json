@@ -40,6 +40,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@clerk/backend": "^3.2.13",
+    "@clerk/nextjs": "^7.2.3",
     "@opennextjs/cloudflare": "^1.19.1",
     "@payloadcms/db-d1-sqlite": "3.82.1",
     "@payloadcms/next": "3.82.1",
@@ -55,11 +57,13 @@
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
     "graphql": "^16.8.1",
+    "jose": "^6.2.2",
     "motion": "^12.27.5",
     "next": "16.2.4",
     "payload": "3.82.1",
     "react": "19.2.5",
     "react-dom": "19.2.5",
+    "svix": "^1.90.0",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {

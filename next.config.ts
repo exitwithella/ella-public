@@ -4,7 +4,27 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const nextConfig = {
   // Packages with Cloudflare Workers (workerd) specific code
   // Read more: https://opennext.js.org/cloudflare/howtos/workerd
-  serverExternalPackages: ['jose', 'pg-cloudflare', 'drizzle-kit', 'typescript'],
+  serverExternalPackages: ['jose', 'pg-cloudflare', 'drizzle-kit', 'typescript', '@clerk/backend'],
+
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/:slug*',
+          destination: '/md/:slug*',
+          has: [
+            {
+              type: 'header' as const,
+              key: 'accept',
+              value: '(.*)text/markdown(.*)',
+            },
+          ],
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    }
+  },
 
   images:
     process.env.NODE_ENV === 'production'
