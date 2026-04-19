@@ -178,7 +178,7 @@ function ProductFeaturesScroller({
         .map((item) => {
           const screenshot = item.screenshot as Media | null
           return screenshot?.url
-            ? { src: screenshot.url, sizes: '(min-width: 1024px) 55vw, 100vw', fill: true }
+            ? ({ src: screenshot.url, sizes: '(min-width: 1024px) 55vw, 100vw', fill: true } satisfies PreloadImage)
             : null
         })
         .filter((x): x is PreloadImage => x !== null),
