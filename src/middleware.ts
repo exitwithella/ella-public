@@ -53,7 +53,7 @@ async function verifyClerkToken(token: string): Promise<boolean> {
   }
 }
 
-export async function proxy(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
   // /md routes: block direct access, allow requests via Accept header rewrite
   if (pathname.startsWith('/md/') || pathname === '/md') {
