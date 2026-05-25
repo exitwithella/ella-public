@@ -206,22 +206,20 @@ function serializeBlock(block: LayoutBlock): string {
       if (block.subheading) parts.push(`${block.subheading}\n\n`)
       if (block.tiers) {
         for (const tier of block.tiers) {
-          if (typeof tier === 'object' && tier !== null) {
-            const t = tier as {
-              name?: string
-              tagline?: string
-              price?: string
-              features?: { text: string }[]
+          if (typeof tier !== 'object' || tier === null) continue
+          if (tier.name) parts.push(`### ${tier.name}\n\n`)
+          if (tier.tagline) parts.push(`${tier.tagline}\n\n`)
+          const price =
+            tier.price?.customLabel ??
+            (typeof tier.price?.amount === 'number'
+              ? `$${(tier.price.amount / 100).toFixed(0)}${tier.price.period ? `/${tier.price.period}` : ''}`
+              : null)
+          if (price) parts.push(`**${price}**\n\n`)
+          if (tier.features?.length) {
+            for (const f of tier.features) {
+              parts.push(`- ${f.feature}\n`)
             }
-            if (t.name) parts.push(`### ${t.name}\n\n`)
-            if (t.tagline) parts.push(`${t.tagline}\n\n`)
-            if (t.price) parts.push(`**${t.price}**\n\n`)
-            if (t.features?.length) {
-              for (const f of t.features) {
-                parts.push(`- ${f.text}\n`)
-              }
-              parts.push('\n')
-            }
+            parts.push('\n')
           }
         }
       }
