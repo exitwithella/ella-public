@@ -88,11 +88,33 @@ function createConsoleLogger(): PayloadLogger {
 
 export default buildConfig({
   serverURL: siteURL,
+  // TEMPORARY: surface stack traces in API error responses so we can diagnose
+  // the auth-flow 500s. Turn off once root cause is found — leaks internals.
+  debug: process.env.PAYLOAD_DEBUG === 'true',
   admin: {
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
+  },
+  hooks: {
+    afterError: [
+      ({ error, req }) => {
+        const e = error as Error & { code?: unknown; cause?: unknown }
+        console.error(
+          JSON.stringify({
+            event: 'payload_after_error',
+            path: req?.url,
+            method: req?.method,
+            errorName: e?.name,
+            errorMessage: e?.message,
+            errorCode: e?.code,
+            stack: e?.stack,
+            cause: e?.cause ? String(e.cause) : undefined,
+          }),
+        )
+      },
+    ],
   },
   logger: createConsoleLogger(),
   email: resendApiKey

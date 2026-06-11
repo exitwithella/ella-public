@@ -54,6 +54,9 @@
     "SITE_URL": "https://withella.io",
     "EMAIL_FROM_ADDRESS": "no-reply@hello.withella.io",
     "EMAIL_FROM_NAME": "ELLA",
+    // TEMPORARY: surfaces stack traces in API error responses so we can
+    // diagnose the auth-flow 500s. Remove (or set to "false") once fixed.
+    "PAYLOAD_DEBUG": "true",
   },
   "observability": {
     "enabled": true,
