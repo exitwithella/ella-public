@@ -10,6 +10,7 @@ import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { r2Storage } from '@payloadcms/storage-r2'
 import { buildConfig } from 'payload'
+import type { PayloadLogger } from 'payload'
 import type { GetPlatformProxyOptions } from 'wrangler'
 
 import { CaseStudies } from './collections/CaseStudies'
@@ -52,6 +53,39 @@ const resendApiKey = process.env.RESEND_API_KEY
 const emailFromAddress = process.env.EMAIL_FROM_ADDRESS || 'no-reply@hello.withella.io'
 const emailFromName = process.env.EMAIL_FROM_NAME || 'ELLA'
 
+// Payload's default logger (pino) writes through a worker-thread sink that
+// doesn't surface on Cloudflare Workers — errors get swallowed and the user
+// sees only "Something went wrong." This routes log calls to `console.*`
+// directly so messages land in Workers logs.
+function serializeArg(arg: unknown): unknown {
+  if (arg instanceof Error) return { name: arg.name, message: arg.message, stack: arg.stack }
+  return arg
+}
+
+function logViaConsole(level: 'info' | 'warn' | 'error', args: unknown[]): void {
+  const sink = level === 'error' ? console.error : level === 'warn' ? console.warn : console.log
+  const payload = args.length === 1 ? serializeArg(args[0]) : args.map(serializeArg)
+  sink(JSON.stringify({ level, payload }))
+}
+
+function createConsoleLogger(): PayloadLogger {
+  const logger = {
+    level: 'info',
+    silent: () => {},
+    trace: () => {},
+    debug: () => {},
+    info: (...args: unknown[]) => logViaConsole('info', args),
+    warn: (...args: unknown[]) => logViaConsole('warn', args),
+    error: (...args: unknown[]) => logViaConsole('error', args),
+    fatal: (...args: unknown[]) => logViaConsole('error', args),
+    child: () => logger,
+    bindings: () => ({}),
+    flush: () => {},
+    isLevelEnabled: () => true,
+  }
+  return logger as unknown as PayloadLogger
+}
+
 export default buildConfig({
   serverURL: siteURL,
   admin: {
@@ -60,6 +94,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  logger: createConsoleLogger(),
   email: resendApiKey
     ? resendAdapter({
         apiKey: resendApiKey,
