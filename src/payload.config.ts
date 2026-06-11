@@ -52,10 +52,6 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
-    components: {
-      providers: ['/auth/ClerkProviderWrapper'],
-      afterLogin: ['/auth/ClerkLoginButton#ClerkLoginButton'],
-    },
   },
   collections: [
     Users,

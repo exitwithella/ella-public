@@ -50,9 +50,6 @@
       "preview_bucket_name": "ella-public-isr-cache",
     },
   ],
-  "vars": {
-    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_REPLACE_ME",
-  },
   "observability": {
     "logs": {
       "enabled": true,
