@@ -64,8 +64,20 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  // Don't protect the login page or API routes
-  if (pathname === '/admin/login' || pathname.startsWith('/api/')) {
+  // Don't protect public admin auth pages or API routes. These need to be
+  // reachable without a session (otherwise users can never recover access).
+  const PUBLIC_ADMIN_PATHS = [
+    '/admin/login',
+    '/admin/forgot',
+    '/admin/unauthorized',
+    '/admin/logout-inactivity',
+    '/admin/create-first-user',
+  ]
+  if (
+    PUBLIC_ADMIN_PATHS.includes(pathname) ||
+    pathname.startsWith('/admin/reset/') ||
+    pathname.startsWith('/api/')
+  ) {
     return NextResponse.next()
   }
 
