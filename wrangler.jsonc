@@ -56,12 +56,16 @@
     "EMAIL_FROM_NAME": "ELLA",
   },
   "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
     "logs": {
       "enabled": true,
       "invocation_logs": true,
+      "head_sampling_rate": 1,
     },
     "traces": {
-      "enabled": false,
+      "enabled": true,
+      "head_sampling_rate": 1,
     },
   },
 
