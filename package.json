@@ -44,6 +44,7 @@
     "@clerk/nextjs": "^7.2.3",
     "@opennextjs/cloudflare": "^1.19.1",
     "@payloadcms/db-d1-sqlite": "3.82.1",
+    "@payloadcms/email-resend": "3.82.1",
     "@payloadcms/next": "3.82.1",
     "@payloadcms/plugin-mcp": "3.82.1",
     "@payloadcms/richtext-lexical": "3.82.1",

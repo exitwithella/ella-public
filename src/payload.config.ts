@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 import type { CloudflareContext } from '@opennextjs/cloudflare'
 import { getCloudflareContext } from '@opennextjs/cloudflare'
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { r2Storage } from '@payloadcms/storage-r2'
@@ -46,13 +47,26 @@ const cloudflare =
     ? await getCloudflareContextFromWrangler()
     : await getCloudflareContext({ async: true })
 
+const siteURL = process.env.SITE_URL || 'http://localhost:3000'
+const resendApiKey = process.env.RESEND_API_KEY
+const emailFromAddress = process.env.EMAIL_FROM_ADDRESS || 'no-reply@hello.withella.io'
+const emailFromName = process.env.EMAIL_FROM_NAME || 'ELLA'
+
 export default buildConfig({
+  serverURL: siteURL,
   admin: {
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
+  email: resendApiKey
+    ? resendAdapter({
+        apiKey: resendApiKey,
+        defaultFromAddress: emailFromAddress,
+        defaultFromName: emailFromName,
+      })
+    : undefined,
   collections: [
     Users,
     Media,

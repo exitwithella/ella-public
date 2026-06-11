@@ -50,6 +50,11 @@
       "preview_bucket_name": "ella-public-isr-cache",
     },
   ],
+  "vars": {
+    "SITE_URL": "https://withella.io",
+    "EMAIL_FROM_ADDRESS": "no-reply@hello.withella.io",
+    "EMAIL_FROM_NAME": "ELLA",
+  },
   "observability": {
     "logs": {
       "enabled": true,
