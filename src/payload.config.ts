@@ -88,9 +88,6 @@ function createConsoleLogger(): PayloadLogger {
 
 export default buildConfig({
   serverURL: siteURL,
-  // TEMPORARY: surface stack traces in API error responses so we can diagnose
-  // the auth-flow 500s. Turn off once root cause is found — leaks internals.
-  debug: process.env.PAYLOAD_DEBUG === 'true',
   admin: {
     user: Users.slug,
     importMap: {
