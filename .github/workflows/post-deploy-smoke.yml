@@ -30,7 +30,7 @@ jobs:
       RELEASE_URL: https://withella.io/api/release
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Need at least 2 commits so the migration-detection step can diff
           # HEAD^..HEAD without erroring on the first commit ever.
@@ -39,9 +39,9 @@ jobs:
       # Picks up the pnpm version from package.json#packageManager. Don't
       # also set `with: version:` — the action treats them as mutually
       # exclusive and errors with ERR_PNPM_BAD_PM_VERSION if both are present.
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           # Node 22 is required because test:smoke (and test:e2e) use
           # --no-experimental-strip-types, which was added in Node 22.7. Local
@@ -65,7 +65,7 @@ jobs:
 
       - name: Upload Playwright report on failure
         if: ${{ failure() && steps.smoke.conclusion == 'failure' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report-${{ github.sha }}
           path: playwright-report/
