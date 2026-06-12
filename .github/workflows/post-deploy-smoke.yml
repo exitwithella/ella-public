@@ -37,10 +37,18 @@ jobs:
           fetch-depth: 2
 
       - uses: pnpm/action-setup@v4
+        with:
+          # Defensive: also pinned via package.json#packageManager, but specifying
+          # here means a corrupted/missing packageManager doesn't break the
+          # rollback step's ability to run `pnpm exec wrangler`.
+          version: 10
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 22 is required because test:smoke (and test:e2e) use
+          # --no-experimental-strip-types, which was added in Node 22.7. Local
+          # dev runs Node 22.16; CI was on Node 20 and crashed on startup.
+          node-version: 22
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
