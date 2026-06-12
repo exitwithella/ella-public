@@ -43,9 +43,12 @@ const result = spawnSync(
   {
     stdio: 'inherit',
     env: {
+      // Inherit NODE_ENV from the parent (Cloudflare Workers Builds sets it
+      // to production; local dev leaves it unset). Forcing it here would
+      // make payload.config.ts try to use remote Cloudflare bindings, which
+      // requires Cloudflare API auth that we don't have at drift-check time.
       ...process.env,
       NODE_OPTIONS: '--no-deprecation',
-      NODE_ENV: 'production',
       PAYLOAD_SECRET: process.env.PAYLOAD_SECRET || 'ignore',
     },
   },
