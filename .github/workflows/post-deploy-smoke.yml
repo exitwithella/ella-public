@@ -36,12 +36,10 @@ jobs:
           # HEAD^..HEAD without erroring on the first commit ever.
           fetch-depth: 2
 
+      # Picks up the pnpm version from package.json#packageManager. Don't
+      # also set `with: version:` — the action treats them as mutually
+      # exclusive and errors with ERR_PNPM_BAD_PM_VERSION if both are present.
       - uses: pnpm/action-setup@v4
-        with:
-          # Defensive: also pinned via package.json#packageManager, but specifying
-          # here means a corrupted/missing packageManager doesn't break the
-          # rollback step's ability to run `pnpm exec wrangler`.
-          version: 10
 
       - uses: actions/setup-node@v4
         with:
