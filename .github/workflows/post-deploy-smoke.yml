@@ -1,0 +1,108 @@
+name: Post-deploy smoke + auto-rollback
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Serialize so back-to-back pushes don't race to roll back the same version.
+concurrency:
+  group: post-deploy-smoke
+  cancel-in-progress: false
+
+permissions:
+  # Needed for the wait-for-deploy script to read check-runs status on the
+  # commit (so it can fail fast on Cloudflare build failures).
+  checks: read
+  contents: read
+  # Lets the rollback step post a commit comment when a migration shipped
+  # alongside the rolled-back worker.
+  issues: write
+
+jobs:
+  smoke:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    # Outer safety net. The wait-for-deploy script has its own 8-min internal
+    # cap, leaving ~4 min for install + tests + rollback in the worst case.
+    timeout-minutes: 12
+    env:
+      SMOKE_BASE_URL: https://withella.io
+      RELEASE_URL: https://withella.io/api/release
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Need at least 2 commits so the migration-detection step can diff
+          # HEAD^..HEAD without erroring on the first commit ever.
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Wait for deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm exec tsx scripts/wait-for-deploy.ts
+
+      - name: Run smoke tests
+        id: smoke
+        run: pnpm test:smoke
+
+      - name: Upload Playwright report on failure
+        if: ${{ failure() && steps.smoke.conclusion == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ github.sha }}
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Roll back worker on smoke failure
+        if: ${{ failure() && steps.smoke.conclusion == 'failure' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          ROLLBACK_MESSAGE: 'Auto-rollback: smoke tests failed for ${{ github.sha }}'
+        run: |
+          set -euo pipefail
+          echo "Smoke tests failed. Rolling back to previous worker version."
+          pnpm exec wrangler rollback --message "$ROLLBACK_MESSAGE"
+
+      - name: Comment on commit when rollback leaves migration ahead
+        if: ${{ failure() && steps.smoke.conclusion == 'failure' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # List newly added/modified files under src/migrations/ in this commit.
+          # `--diff-filter=AM` excludes deletions; -z keeps filenames NUL-safe.
+          migrations=$(git diff --name-only -z --diff-filter=AM HEAD^..HEAD \
+            | tr '\0' '\n' \
+            | grep '^src/migrations/' \
+            || true)
+
+          if [ -z "$migrations" ]; then
+            echo "No migrations in this commit; skipping schema-ahead comment."
+            exit 0
+          fi
+
+          migration_list=$(printf -- '- %s\n' $migrations)
+          body=$(cat <<EOF
+          Auto-rolled back worker after smoke test failure, but this commit included new Payload migrations:
+
+          $migration_list
+          The D1 schema is now **ahead** of the rolled-back worker code. Verify schema/code compatibility before pushing a fix.
+          EOF
+          )
+
+          gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/comments" \
+            -X POST \
+            -f "body=$body"

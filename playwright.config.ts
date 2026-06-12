@@ -5,6 +5,9 @@ import { defineConfig, devices } from '@playwright/test'
  */
 import 'dotenv/config'
 
+const SMOKE_BASE_URL = process.env.SMOKE_BASE_URL
+const isSmokeRun = Boolean(SMOKE_BASE_URL)
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -17,7 +20,9 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  // `open: 'never'` prevents the html reporter from spawning a server at the
+  // end of a run — important on CI and for scripted local runs.
+  reporter: [['list'], ['html', { open: 'never' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -30,11 +35,25 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'], channel: 'chromium' },
+      testIgnore: ['**/smoke.spec.ts'],
+    },
+    {
+      name: 'smoke',
+      testMatch: ['**/smoke.spec.ts'],
+      use: {
+        ...devices['Desktop Chrome'],
+        channel: 'chromium',
+        baseURL: SMOKE_BASE_URL ?? 'https://withella.io',
+      },
     },
   ],
-  webServer: {
-    command: 'pnpm dev',
-    reuseExistingServer: true,
-    url: 'http://localhost:3000',
-  },
+  // Only spin up the local dev server for non-smoke runs. Smoke tests hit a
+  // deployed URL and must not depend on (or start) a local server.
+  webServer: isSmokeRun
+    ? undefined
+    : {
+        command: 'pnpm dev',
+        reuseExistingServer: true,
+        url: 'http://localhost:3000',
+      },
 })
