@@ -1,6 +1,7 @@
 'use client'
 
 import { clsx } from 'clsx/lite'
+import Link from 'next/link'
 import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 
 type NavLink = {
@@ -244,9 +245,9 @@ export function NavbarClient({
           </div>
 
           {/* Logo (center) */}
-          <a href="/" aria-label="ELLA home" className="inline-flex items-stretch">
+          <Link href="/" aria-label="ELLA home" className="inline-flex items-stretch">
             {logo}
-          </a>
+          </Link>
 
           {/* Actions (right) */}
           <div className="flex flex-1 items-center justify-end gap-4">
