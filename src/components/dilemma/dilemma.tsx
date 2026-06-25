@@ -1378,7 +1378,7 @@ export interface DilemmaSectionProps {
 }
 
 export default function DilemmaSection(props: DilemmaSectionProps = {}) {
-  const resolvedTableRows = props.tableData ?? TABLE_ROWS
+  const resolvedTableRows = useMemo(() => props.tableData ?? TABLE_ROWS, [props.tableData])
   const resolvedSteps = props.steps ?? STEPS
   const { isMobile } = useBreakpoint()
   const containerRef = useRef<HTMLDivElement>(null)
@@ -1408,18 +1408,19 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
 
   useEffect(() => {
     if (!tableRef.current) return
+    const activeTimers = timers.current
     const obs = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting && !seqStarted.current) {
           seqStarted.current = true
           setTablePhase(1)
-          timers.current.push(setTimeout(() => setTablePhase(2), 300))
-          timers.current.push(setTimeout(() => setTablePhase(3), 600))
-          timers.current.push(
+          activeTimers.push(setTimeout(() => setTablePhase(2), 300))
+          activeTimers.push(setTimeout(() => setTablePhase(3), 600))
+          activeTimers.push(
             setTimeout(() => {
               setTablePhase(4)
               resolvedTableRows.forEach((_, i) => {
-                timers.current.push(
+                activeTimers.push(
                   setTimeout(
                     () => {
                       setScanReached((prev) => {
@@ -1441,9 +1442,9 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
     obs.observe(tableRef.current)
     return () => {
       obs.disconnect()
-      timers.current.forEach(clearTimeout)
+      activeTimers.forEach(clearTimeout)
     }
-  }, [isMobile])
+  }, [isMobile, resolvedTableRows])
 
   // Transition copy in-view trigger
   const transitionRef = useRef<HTMLDivElement>(null)
