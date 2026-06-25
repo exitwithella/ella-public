@@ -4,7 +4,6 @@ import {
   motion,
   useScroll,
   useTransform,
-  useInView,
   AnimatePresence,
   type Variants,
   type MotionValue,
@@ -12,6 +11,8 @@ import {
 import { useState, useEffect, useRef, useMemo } from 'react'
 
 // ─── Brand colors (via CSS custom properties from global stylesheet) ───
+// Kept available for future use even if a particular shade isn't referenced today.
+/* oxlint-disable no-unused-vars */
 const ASH_50 = 'var(--color-ash-50)'
 const ASH_100 = 'var(--color-ash-100)'
 const ASH_200 = 'var(--color-ash-200)'
@@ -38,6 +39,7 @@ const OCEAN_50 = 'var(--color-ocean-50)'
 const OCEAN_400 = 'var(--color-ocean-400)'
 const OCEAN_600 = 'var(--color-ocean-600)'
 const OCEAN_700 = 'var(--color-ocean-700)'
+/* oxlint-enable no-unused-vars */
 
 /** Mix a CSS custom property color with transparency */
 function ca(color: string, opacity: number): string {
@@ -164,12 +166,6 @@ function getStatusIndex(progress: number): number {
   return 3
 }
 
-function getStatusColors(progress: number) {
-  if (progress < 0.3) return { color: ASH_400, bg: ASH_100 }
-  if (progress < 0.7) return { color: ASH_700, bg: ASH_200 }
-  return { color: GOLDENROD_700, bg: GOLDENROD_50 }
-}
-
 // ═══════════════════════════════════════════════════════════
 // RAILS PANEL — "Rigid Platforms"
 // ═══════════════════════════════════════════════════════════
@@ -182,7 +178,6 @@ function RailsPanel({
   compact: boolean
 }) {
   const visibleSteps = compact ? STEPS.slice(0, 3).concat([STEPS[4]]) : STEPS
-  const progress = useTransform(vizProgress, (v) => v)
 
   return (
     <div
@@ -449,7 +444,6 @@ function OutputStack({
   vizProgress: MotionValue<number>
   compact: boolean
 }) {
-  const show = useTransform(vizProgress, (p) => p > 0.52)
   const opacity = useTransform(vizProgress, (p) => (p > 0.52 ? Math.min(1, (p - 0.52) * 4) : 0))
 
   const stackVariants: Variants = {
@@ -1379,7 +1373,6 @@ export interface DilemmaSectionProps {
 
 export default function DilemmaSection(props: DilemmaSectionProps = {}) {
   const resolvedTableRows = useMemo(() => props.tableData ?? TABLE_ROWS, [props.tableData])
-  const resolvedSteps = props.steps ?? STEPS
   const { isMobile } = useBreakpoint()
   const containerRef = useRef<HTMLDivElement>(null)
   const tableRef = useRef<HTMLDivElement>(null)
@@ -1448,10 +1441,6 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
 
   // Transition copy in-view trigger
   const transitionRef = useRef<HTMLDivElement>(null)
-  const transitionInView = useInView(transitionRef, {
-    once: true,
-    margin: '-10%',
-  })
 
   const statusIndex = getStatusIndex(vizProgressValue)
 

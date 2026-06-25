@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import type { Category, Media, Post, TeamMember } from '@/payload-types'
 
-import { calculateReadingTime, formatPublishedDate, getPostUrl } from '../_lib/utils'
+import { calculateReadingTime, formatPublishedDate } from '../_lib/utils'
 import { BlogCard } from './blog-card'
 import { NewsletterCTA } from './newsletter-cta'
 

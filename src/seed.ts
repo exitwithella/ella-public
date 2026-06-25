@@ -189,20 +189,6 @@ async function seed() {
 
   console.log('\nContent collections:')
 
-  const contentRemapFields = {
-    // Top-level fields
-    author: teamMemberMap,
-    categories: categoryMap,
-    disciplines: disciplineMap,
-    featuredImage: mediaMap,
-    relatedPosts: new Map<number, number>(), // posts reference other posts — handle after
-    // Hero fields
-    'hero.visual': mediaMap,
-    'hero.backgroundImage': mediaMap,
-    // Page background
-    'pageBackground.image': mediaMap,
-  }
-
   // Pages — deep remap media/testimonial refs in blocks
   const pagesData = loadJSON<Record<string, unknown>[]>('pages.json')
   for (const page of pagesData) {
