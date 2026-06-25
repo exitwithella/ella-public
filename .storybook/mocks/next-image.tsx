@@ -40,6 +40,7 @@ export default function Image({
     : {}
 
   return (
+    // oxlint-disable-next-line nextjs/no-img-element -- Storybook mock for next/image; no Next.js runtime in stories
     <img
       src={resolvedSrc as string}
       alt={alt}

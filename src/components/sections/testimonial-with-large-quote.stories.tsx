@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import Image from 'next/image'
 
 import { TestimonialLargeQuote } from './testimonial-with-large-quote'
 
@@ -18,7 +19,13 @@ export const Default: Story = {
         </p>
       }
       img={
-        <img src="https://placehold.co/96x96/e8e4df/5A6B4A?text=JR" alt="" width={96} height={96} />
+        <Image
+          src="https://placehold.co/96x96/e8e4df/5A6B4A?text=JR"
+          alt=""
+          width={96}
+          height={96}
+          unoptimized
+        />
       }
       name="James Richardson"
       byline="Founder & CEO, Richardson Advisory Group"

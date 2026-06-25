@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import Image from 'next/image'
 
 import { Testimonial, TestimonialThreeColumnGrid } from './testimonials-three-column-grid'
 
@@ -9,7 +10,13 @@ export default meta
 type Story = StoryObj
 
 const placeholder = (
-  <img src="https://placehold.co/96x96/e8e4df/5A6B4A?text=AW" alt="" width={96} height={96} />
+  <Image
+    src="https://placehold.co/96x96/e8e4df/5A6B4A?text=AW"
+    alt=""
+    width={96}
+    height={96}
+    unoptimized
+  />
 )
 
 export const Default: Story = {
