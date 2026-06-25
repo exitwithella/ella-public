@@ -41,6 +41,7 @@
     "import/extensions": "off",
     "import/no-default-export": "off",
     "import/no-named-export": "off",
+    "import/no-unassigned-import": "off",
 
     "unicorn/filename-case": "off",
     "unicorn/no-null": "off",
@@ -57,6 +58,7 @@
     ".agents/**",
     ".claude/**",
     ".cursor/**",
+    ".kiro/**",
     ".next/**",
     ".open-next/**",
     ".wrangler/**",
