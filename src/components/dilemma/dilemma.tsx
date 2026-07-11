@@ -161,13 +161,16 @@ function getStatusIndex(progress: number): number {
 // ═══════════════════════════════════════════════════════════
 
 function RailsPanel({
+  steps,
   vizProgress,
   compact,
 }: {
+  steps: typeof STEPS
   vizProgress: MotionValue<number>
   compact: boolean
 }) {
-  const visibleSteps = compact ? STEPS.slice(0, 3).concat([STEPS[4]]) : STEPS
+  const elide = compact && steps.length > 4
+  const visibleSteps = elide ? steps.slice(0, 3).concat([steps[steps.length - 1]]) : steps
 
   return (
     <div
@@ -208,7 +211,7 @@ function RailsPanel({
       {/* Steps */}
       <div style={{ flex: 1 }}>
         {visibleSteps.map((step, i) => {
-          const origIdx = STEPS.indexOf(step)
+          const origIdx = steps.indexOf(step)
           return (
             <StepRow
               key={origIdx}
@@ -222,7 +225,7 @@ function RailsPanel({
         })}
 
         {/* Compact ellipsis */}
-        {compact && (
+        {elide && (
           <div
             style={{
               textAlign: 'center',
@@ -1351,15 +1354,25 @@ export interface DilemmaSectionProps {
     ella: string
   }>
   steps?: Array<{ label: string; sub: string }>
+  columnSubtitles?: {
+    old?: string
+    rigid?: string
+    patch?: string
+    ella?: string
+  }
+  closer?: string
 }
 
 export default function DilemmaSection(props: DilemmaSectionProps = {}) {
   const resolvedTableRows = useMemo(() => props.tableData ?? TABLE_ROWS, [props.tableData])
+  const resolvedSteps = props.steps ?? STEPS
   const isMobile = useIsMobile()
   const containerRef = useRef<HTMLDivElement>(null)
   const tableRef = useRef<HTMLDivElement>(null)
   const [tablePhase, setTablePhase] = useState(0)
-  const [scanReached, setScanReached] = useState([false, false, false, false, false])
+  const [scanReached, setScanReached] = useState<boolean[]>(() =>
+    resolvedTableRows.map(() => false),
+  )
   const timers = useRef<NodeJS.Timeout[]>([])
   const seqStarted = useRef(false)
 
@@ -1379,7 +1392,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
     return vizProgress.on('change', setVizProgressValue)
   }, [vizProgress])
 
-  const allLocked = scanReached.every(Boolean)
+  const allLocked = scanReached.length > 0 && scanReached.every(Boolean)
 
   useEffect(() => {
     if (!tableRef.current) return
@@ -1399,7 +1412,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                   setTimeout(
                     () => {
                       setScanReached((prev) => {
-                        const n = [...prev]
+                        const n = resolvedTableRows.map((_, j) => prev[j] ?? false)
                         n[i] = true
                         return n
                       })
@@ -1570,7 +1583,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                     >
                       Rigid Platforms
                     </div>
-                    <RailsPanel vizProgress={vizProgress} compact={true} />
+                    <RailsPanel steps={resolvedSteps} vizProgress={vizProgress} compact={true} />
                   </div>
 
                   <div
@@ -1641,7 +1654,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                     >
                       Rigid Platforms
                     </div>
-                    <RailsPanel vizProgress={vizProgress} compact={false} />
+                    <RailsPanel steps={resolvedSteps} vizProgress={vizProgress} compact={false} />
                   </div>
 
                   {/* Divider */}
@@ -1823,7 +1836,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                       fontStyle: 'italic',
                     }}
                   >
-                    Manual, memory-based
+                    {props.columnSubtitles?.old ?? 'Manual, memory-based'}
                   </div>
                 </motion.div>
                 <motion.div
@@ -1855,7 +1868,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                       fontStyle: 'italic',
                     }}
                   >
-                    Their process, not yours
+                    {props.columnSubtitles?.rigid ?? 'Their process, not yours'}
                   </div>
                 </motion.div>
                 <motion.div
@@ -1887,7 +1900,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                       fontStyle: 'italic',
                     }}
                   >
-                    Powerful, unprotected
+                    {props.columnSubtitles?.patch ?? 'Powerful, unprotected'}
                   </div>
                 </motion.div>
                 <motion.div
@@ -1941,7 +1954,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                         fontStyle: 'italic',
                       }}
                     >
-                      Your methodology, systematized
+                      {props.columnSubtitles?.ella ?? 'Your methodology, systematized'}
                     </div>
                   </div>
                 </motion.div>
@@ -1976,7 +1989,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                 margin: 0,
               }}
             >
-              Hours to the first real conversation. Not weeks.
+              {props.closer ?? 'Hours to the first real conversation. Not weeks.'}
             </p>
           </motion.div>
         </div>
