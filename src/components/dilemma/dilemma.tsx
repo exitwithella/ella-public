@@ -194,7 +194,6 @@ function RailsPanel({
         <div style={{ width: '6px', height: '6px', background: OCEAN_700 }} />
         <span
           style={{
-            fontFamily: "'DM Sans', sans-serif",
             fontSize: compact ? '0.625rem' : '0.6875rem',
             fontWeight: 600,
             letterSpacing: '0.08em',
@@ -326,7 +325,6 @@ function StepRow({
       >
         <motion.div
           style={{
-            fontFamily: "'DM Sans', sans-serif",
             fontSize: compact ? '0.75rem' : '0.8125rem',
             fontWeight: 600,
             color: textColor,
@@ -337,7 +335,6 @@ function StepRow({
         </motion.div>
         <motion.div
           style={{
-            fontFamily: "'DM Sans', sans-serif",
             fontSize: compact ? '0.625rem' : '0.6875rem',
             fontStyle: 'italic',
             color: subColor,
@@ -580,7 +577,6 @@ function BleedPanel({
           <div style={{ width: '5px', height: '5px', background: cl.color }} />
           <span
             style={{
-              fontFamily: "'DM Sans', sans-serif",
               fontSize: compact ? '0.5rem' : '0.5625rem',
               fontWeight: 600,
               letterSpacing: '0.06em',
@@ -595,7 +591,6 @@ function BleedPanel({
           <div
             key={i}
             style={{
-              fontFamily: "'DM Sans', sans-serif",
               fontSize: compact ? '0.5rem' : '0.5625rem',
               color: ASH_700,
               padding: '1.5px 0',
@@ -632,7 +627,6 @@ function BleedPanel({
         <div style={{ width: '6px', height: '6px', background: GOLDENROD }} />
         <span
           style={{
-            fontFamily: "'DM Sans', sans-serif",
             fontSize: compact ? '0.5625rem' : '0.625rem',
             fontWeight: 600,
             letterSpacing: '0.08em',
@@ -732,7 +726,6 @@ function BleedPanel({
       >
         <div
           style={{
-            fontFamily: "'DM Sans', sans-serif",
             fontSize: '0.625rem',
             fontStyle: 'italic',
             color: GOLDENROD_700,
@@ -818,7 +811,6 @@ function DriftingFragment({
     >
       <div
         style={{
-          fontFamily: "'DM Sans', sans-serif",
           fontSize: '0.5625rem',
           fontWeight: 500,
           color,
@@ -932,7 +924,6 @@ function TRow({
     padding: '16px 12px',
     display: 'flex',
     alignItems: 'center',
-    fontFamily: "'DM Sans', sans-serif",
     fontSize: '0.75rem',
   }
 
@@ -1159,7 +1150,6 @@ function MobileTableCard({
     isDefeated: boolean,
   ): React.CSSProperties => ({
     padding: '10px 12px',
-    fontFamily: "'DM Sans', sans-serif",
     fontSize: '0.8125rem',
     lineHeight: 1.4,
     color,
@@ -1189,7 +1179,6 @@ function MobileTableCard({
       >
         <div
           style={{
-            fontFamily: "'DM Sans', sans-serif",
             fontSize: '0.6875rem',
             fontWeight: 700,
             letterSpacing: '0.08em',
@@ -1287,7 +1276,6 @@ function MobileTableCard({
           }}
           style={{
             padding: '12px 12px',
-            fontFamily: "'DM Sans', sans-serif",
             fontSize: '0.8125rem',
             fontWeight: 500,
             lineHeight: 1.4,
@@ -1435,13 +1423,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
   const statusIndex = getStatusIndex(vizProgressValue)
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        width: '100%',
-        fontFamily: "'DM Sans', sans-serif",
-      }}
-    >
+    <div ref={containerRef} className="w-full font-sans">
       <div
         style={{
           paddingTop: isMobile ? '48px' : '80px',
@@ -1489,7 +1471,6 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
               </h2>
               <p
                 style={{
-                  fontFamily: "'DM Sans', sans-serif",
                   fontSize: isMobile ? '0.9375rem' : '1.0625rem',
                   color: ASH_700,
                   lineHeight: 1.55,
@@ -1532,8 +1513,8 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.35, ease: 'easeOut' }}
+                    className="font-serif"
                     style={{
-                      fontFamily: "'DM Serif Display', Georgia, serif",
                       fontSize: isMobile ? '0.9375rem' : '1.125rem',
                       color: ASH_700,
                       lineHeight: 1.4,
@@ -1679,7 +1660,6 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
                     />
                     <span
                       style={{
-                        fontFamily: "'DM Sans', sans-serif",
                         fontSize: '0.6875rem',
                         fontWeight: 600,
                         letterSpacing: '0.06em',
@@ -1743,8 +1723,8 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
           }}
         >
           <p
+            className="font-serif"
             style={{
-              fontFamily: "'DM Serif Display', Georgia, serif",
               fontSize: isMobile ? '1.125rem' : 'clamp(1.125rem, 2.2vw, 1.5rem)',
               color: ASH_900,
               lineHeight: 1.4,
@@ -1754,8 +1734,8 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
             {props.transitionLine1 ?? 'What if your tools were built for advisory work \u2014'}
           </p>
           <p
+            className="font-serif"
             style={{
-              fontFamily: "'DM Serif Display', Georgia, serif",
               fontSize: isMobile ? '1.125rem' : 'clamp(1.125rem, 2.2vw, 1.5rem)',
               color: MOSS_700,
               lineHeight: 1.4,
@@ -1984,8 +1964,8 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
             }}
           >
             <p
+              className="font-serif"
               style={{
-                fontFamily: "'DM Serif Display', Georgia, serif",
                 fontSize: isMobile ? '1.375rem' : 'clamp(1.25rem, 2.5vw, 1.75rem)',
                 color: ASH_900,
                 lineHeight: 1.3,
