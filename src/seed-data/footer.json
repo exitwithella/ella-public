@@ -44,6 +44,11 @@
       "id": "69dd3f52844565170dc0a561",
       "label": "Privacy Policy",
       "href": "https://legal.exitwithella.io/legal/privacy-policy/"
+    },
+    {
+      "id": "69dd3f52844565170dc0a562",
+      "label": "Credits",
+      "href": "/credits"
     }
   ],
   "copyrightText": "© 2026 ELLA. All rights reserved.",
