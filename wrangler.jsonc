@@ -43,6 +43,8 @@
       "binding": "R2",
       "bucket_name": "ella-public-payload",
       "preview_bucket_name": "ella-public-payload",
+      // Allow `remoteBindings: true` (dev:remote / content sync) to read prod media.
+      "remote": true,
     },
     {
       "binding": "NEXT_INC_CACHE_R2_BUCKET",

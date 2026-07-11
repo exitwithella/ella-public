@@ -102,6 +102,17 @@ Oatmeal is a Tailwind CSS component kit with 50+ pre-built, responsive component
 - **`pnpm seed` provides generic, complete baseline data.** The seed script establishes a working dev environment — reference collections (disciplines, categories, pricing tiers, partners) and a structurally complete homepage document with representative copy. It is not the source of final content.
 - **Real content is created and edited via the Payload MCP server or admin UI.** Use `mcp__Payload__*` tools or `localhost:3000/admin` for all actual content work. Do not encode production copy in `seed.ts` — the seed is for developers bootstrapping a local environment, not for content management.
 
+### Local ↔ Production content sync
+
+Payload's D1/R2 access flows through a single binding switch in `src/payload.config.ts` (`remoteBindings`, gated by the `REMOTE_BINDINGS` env var). Setting `REMOTE_BINDINGS=true` points the dev server, `dump`, and `seed` at the **remote production** D1 + R2 instead of local miniflare. All of this requires Cloudflare auth first: `wrangler login` (or export `CLOUDFLARE_API_TOKEN`).
+
+- **`pnpm content:pull`** — dump prod → `src/seed-data/*.json`, seed into **local** D1, pull prod media blobs into local R2. Refreshes your local environment with real production content. (Overwrites uncommitted `src/seed-data/` working content.)
+- **`pnpm content:push`** — dump **local** content, then (after a typed confirmation) seed into **production** D1 and push media blobs to prod R2. Pull a backup first if unsure.
+- **`pnpm dev:remote`** — run the local dev server/admin directly against **production** (after confirmation). Every save in the admin writes to live prod D1, and it's slower (per-query network round-trips). Use for inspection/occasional edits, not day-to-day dev.
+- **`pnpm dump:remote` / `pnpm seed:remote`** — low-level remote-targeted variants of dump/seed (seed is confirmation-gated).
+- **Every production write is guarded** by `scripts/confirm-remote.ts` — a typed confirmation prompt. Bypass in CI with `CONFIRM_REMOTE=yes`. Reads (pull/dump:remote) are not gated.
+- Plain `pnpm dev` / `pnpm seed` / `pnpm dump` are unchanged — they always target local D1.
+
 ### Tailwind & Design System
 
 The design brief (`_planning/design-brief.md`) defines the complete visual system. Key rules enforced in code:

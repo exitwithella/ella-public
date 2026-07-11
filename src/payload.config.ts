@@ -43,6 +43,12 @@ const realpath = (value: string) => (fs.existsSync(value) ? fs.realpathSync(valu
 const isCLI = process.argv.some((value) => realpath(value).endsWith(path.join('payload', 'bin.js')))
 const isProduction = process.env.NODE_ENV === 'production'
 
+// Opt-in switch to point local dev / CLI scripts (dump, seed) at the *remote*
+// production D1 + R2 bindings instead of the local miniflare state. Set by the
+// `dev:remote`, `content:pull`, and `content:push` scripts. Requires Cloudflare
+// auth (`wrangler login` or CLOUDFLARE_API_TOKEN). See CLAUDE.md.
+const useRemoteBindings = isProduction || process.env.REMOTE_BINDINGS === 'true'
+
 const cloudflare =
   isCLI || !isProduction
     ? await getCloudflareContextFromWrangler()
@@ -189,7 +195,7 @@ function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
     ({ getPlatformProxy }) =>
       getPlatformProxy({
         environment: process.env.CLOUDFLARE_ENV,
-        remoteBindings: isProduction,
+        remoteBindings: useRemoteBindings,
       } satisfies GetPlatformProxyOptions),
   )
 }
