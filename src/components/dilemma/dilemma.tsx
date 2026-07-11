@@ -10,6 +10,8 @@ import {
 } from 'motion/react'
 import { useState, useEffect, useRef, useMemo } from 'react'
 
+import { useIsMobile } from '@/hooks/use-media-query'
+
 // ─── Brand colors (via CSS custom properties from global stylesheet) ───
 // Kept available for future use even if a particular shade isn't referenced today.
 /* oxlint-disable no-unused-vars */
@@ -138,18 +140,6 @@ const TABLE_ROWS = [
     ella: 'Compounds across every engagement',
   },
 ]
-
-// ─── Hooks ───
-
-function useBreakpoint() {
-  const [w, setW] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
-  useEffect(() => {
-    const h = () => setW(window.innerWidth)
-    window.addEventListener('resize', h)
-    return () => window.removeEventListener('resize', h)
-  }, [])
-  return { isMobile: w < 768, w }
-}
 
 // ─── Status pill text options ───
 const STATUS_TEXTS = [
@@ -1373,7 +1363,7 @@ export interface DilemmaSectionProps {
 
 export default function DilemmaSection(props: DilemmaSectionProps = {}) {
   const resolvedTableRows = useMemo(() => props.tableData ?? TABLE_ROWS, [props.tableData])
-  const { isMobile } = useBreakpoint()
+  const isMobile = useIsMobile()
   const containerRef = useRef<HTMLDivElement>(null)
   const tableRef = useRef<HTMLDivElement>(null)
   const [tablePhase, setTablePhase] = useState(0)
