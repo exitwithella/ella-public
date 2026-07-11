@@ -11,10 +11,29 @@ TOOL_INPUT=$(echo "$INPUT" | jq -r '.tool_input // empty')
 # Only care about tools that have a team parameter
 TEAM=$(echo "$TOOL_INPUT" | jq -r '.team // empty')
 
+# save_project uses addTeams/setTeams arrays instead of a team parameter
+case "$TOOL_NAME" in
+  mcp__claude_ai_Linear__save_project)
+    TEAMS=$(echo "$TOOL_INPUT" | jq -r '((.addTeams // []) + (.setTeams // []))[]' 2>/dev/null)
+    if [ -z "$TEAMS" ]; then
+      UPDATED=$(echo "$TOOL_INPUT" | jq '. + {"setTeams": ["MKT"]}')
+      echo "{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"updatedInput\":$UPDATED,\"additionalContext\":\"Team automatically set to MKT for this project.\"}}"
+      exit 0
+    fi
+    while IFS= read -r t; do
+      if [ "$t" != "MKT" ] && [ "$t" != "b3b0de7e-ed9d-42c0-8a0f-7433f6978882" ] && [ "$t" != "Public Site" ]; then
+        echo "BLOCKED: This project uses the MKT team exclusively. You specified team '$t'. Change it to 'MKT'." >&2
+        exit 2
+      fi
+    done <<< "$TEAMS"
+    exit 0
+    ;;
+esac
+
 # Tools that accept a team parameter
 case "$TOOL_NAME" in
   mcp__claude_ai_Linear__create_issue|\
-  mcp__claude_ai_Linear__save_project|\
+  mcp__claude_ai_Linear__save_issue|\
   mcp__claude_ai_Linear__list_issue_statuses|\
   mcp__claude_ai_Linear__list_issue_labels|\
   mcp__claude_ai_Linear__list_issues|\
