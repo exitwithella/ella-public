@@ -27,3 +27,7 @@ jobs:
       - run: pnpm lint
 
       - run: pnpm type-check
+
+      # Unit tests only — the integration suite (tests/int) needs a live local
+      # D1 binding via the wrangler proxy, which CI doesn't provision.
+      - run: pnpm test:unit
