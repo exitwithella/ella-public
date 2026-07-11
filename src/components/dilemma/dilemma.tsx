@@ -676,26 +676,32 @@ function BleedPanel({
         {/* Drifting fragments — desktop only */}
         {!compact && (
           <>
-            {CL_A.frags.map((f, i) => (
-              <DriftingFragment
-                key={`a${i}`}
-                fragment={f}
-                drift={DRIFT_A[i]}
-                startOffset={0.08 + i * 0.1}
-                color={CL_A.color}
-                vizProgress={vizProgress}
-              />
-            ))}
-            {CL_B.frags.map((f, i) => (
-              <DriftingFragment
-                key={`b${i}`}
-                fragment={f}
-                drift={DRIFT_B[i]}
-                startOffset={0.1 + i * 0.1}
-                color={CL_B.color}
-                vizProgress={vizProgress}
-              />
-            ))}
+            {CL_A.frags.map(
+              (f, i) =>
+                DRIFT_A[i] && (
+                  <DriftingFragment
+                    key={`a${i}`}
+                    fragment={f}
+                    drift={DRIFT_A[i]}
+                    startOffset={0.08 + i * 0.1}
+                    color={CL_A.color}
+                    vizProgress={vizProgress}
+                  />
+                ),
+            )}
+            {CL_B.frags.map(
+              (f, i) =>
+                DRIFT_B[i] && (
+                  <DriftingFragment
+                    key={`b${i}`}
+                    fragment={f}
+                    drift={DRIFT_B[i]}
+                    startOffset={0.1 + i * 0.1}
+                    color={CL_B.color}
+                    vizProgress={vizProgress}
+                  />
+                ),
+            )}
           </>
         )}
 
@@ -784,13 +790,11 @@ function DriftingFragment({
   vizProgress,
 }: {
   fragment: string
-  drift: { sx: number; sy: number; ex: number; ey: number } | undefined
+  drift: { sx: number; sy: number; ex: number; ey: number }
   startOffset: number
   color: string
   vizProgress: MotionValue<number>
 }) {
-  if (!drift) return null
-
   const fp = useTransform(vizProgress, (p) => Math.max(0, Math.min(1, (p - startOffset) / 0.35)))
   // Ease out cubic
   const easedProgress = useTransform(fp, (v) => 1 - Math.pow(1 - v, 3))
