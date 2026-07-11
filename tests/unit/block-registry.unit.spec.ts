@@ -45,31 +45,44 @@ function getRendererBlockTypes(): string[] {
   return types
 }
 
+/**
+ * Block types that are registered in the CMS (content model + markdown
+ * serialization) but do not yet have a visual React component in BlockRenderer.
+ * These render as `null` on the page today. Keep this list tight: it documents
+ * a known gap, and anything NOT on it that's missing a renderer fails the test.
+ *
+ * TODO(MKT-225): build frontend components for these and remove them from the allowlist.
+ */
+const UNRENDERED_BLOCKS = new Set([
+  'solutions-selector',
+  'faq-accordion',
+  'pricing-journey',
+  'formEmbed',
+])
+
 describe('BlockRenderer registry completeness', () => {
   const renderedTypes = getRendererBlockTypes()
 
   it('handles all block types registered in Pages collection', () => {
     const pageSlugs = getBlockSlugs(Pages)
-    const missing = pageSlugs.filter((slug) => !renderedTypes.includes(slug))
+    const missing = pageSlugs.filter(
+      (slug) => !renderedTypes.includes(slug) && !UNRENDERED_BLOCKS.has(slug),
+    )
 
-    // These block types are registered in the CMS but intentionally not rendered
-    // (they are CMS-only config blocks or server-side only). If a new block is
-    // added to Pages but not to BlockRenderer, this test will catch it.
-    if (missing.length > 0) {
-      // Report exactly which blocks are missing so it's actionable
-      expect(missing, `Block types registered in Pages but missing from BlockRenderer`).toEqual([])
-    }
+    // Report exactly which blocks are missing so it's actionable. A new block
+    // added to Pages without a renderer (and not in UNRENDERED_BLOCKS) fails here.
+    expect(missing, `Block types registered in Pages but missing from BlockRenderer`).toEqual([])
   })
 
   it('handles all block types registered in Solutions collection', () => {
     const solutionSlugs = getBlockSlugs(Solutions)
-    const missing = solutionSlugs.filter((slug) => !renderedTypes.includes(slug))
+    const missing = solutionSlugs.filter(
+      (slug) => !renderedTypes.includes(slug) && !UNRENDERED_BLOCKS.has(slug),
+    )
 
-    if (missing.length > 0) {
-      expect(missing, `Block types registered in Solutions but missing from BlockRenderer`).toEqual(
-        [],
-      )
-    }
+    expect(missing, `Block types registered in Solutions but missing from BlockRenderer`).toEqual(
+      [],
+    )
   })
 
   it('has at least 15 block type cases (sanity check)', () => {

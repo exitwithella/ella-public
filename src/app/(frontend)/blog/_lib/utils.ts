@@ -41,10 +41,14 @@ export function calculateReadingTime(content: Post['content']): number {
 }
 
 export function formatPublishedDate(dateString: string): string {
+  // A published date is a calendar date, not an instant — it must render as the
+  // same day for every reader. Pin to UTC so the output doesn't drift by a day
+  // depending on the server/viewer timezone (Workers run in UTC; local dev may not).
   return new Date(dateString).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC',
   })
 }
 
