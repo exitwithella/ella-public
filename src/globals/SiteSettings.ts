@@ -82,6 +82,14 @@ export const SiteSettings: GlobalConfig = {
               },
             },
             {
+              name: 'creditsBody',
+              type: 'richText',
+              admin: {
+                description:
+                  'Credits & attribution. One source, two renderings: the HTML page at /credits (clickable links) and plaintext at /humans.txt. Keep required attributions (e.g. Logo.dev, licensed fonts) as real links.',
+              },
+            },
+            {
               name: 'blogNewsletter',
               type: 'group',
               admin: {

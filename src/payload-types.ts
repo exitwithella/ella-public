@@ -5002,6 +5002,24 @@ export interface SiteSetting {
    */
   llmsTxt?: string | null;
   /**
+   * Credits & attribution. One source, two renderings: the HTML page at /credits (clickable links) and plaintext at /humans.txt. Keep required attributions (e.g. Logo.dev, licensed fonts) as real links.
+   */
+  creditsBody?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
    * Loops configuration for the newsletter CTA in the blog sidebar (copy is hardcoded)
    */
   blogNewsletter?: {
@@ -5444,6 +5462,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         enabled?: T;
       };
   llmsTxt?: T;
+  creditsBody?: T;
   blogNewsletter?:
     | T
     | {
