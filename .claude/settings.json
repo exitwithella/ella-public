@@ -10,6 +10,15 @@
             "statusMessage": "Checking command against project policy..."
           }
         ]
+      },
+      {
+        "matcher": "mcp__claude_ai_Linear__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/enforce-mkt-team.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [
