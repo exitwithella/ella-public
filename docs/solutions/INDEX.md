@@ -5,4 +5,4 @@
 Prior solved problems. Search here before debugging. Full write-ups live in the
 linked files; see [README.md](./README.md) for the format and when to add one.
 
-- **Command-guard hooks match quoted arguments, so describe policy via commit -F** · 2026-07-12 · hooks, command-guard, claude-code, cursor, git-commit, compound-engineering · git commit -m '...' aborted with a PreToolUse guard block even though the commit ran no forbidden command — [0000-example-command-guard-matches-quoted-args.md](./0000-example-command-guard-matches-quoted-args.md)
+- **A command-policy guard must evaluate the invocation, not quoted arguments** · 2026-07-12 · hooks, command-guard, claude-code, cursor, false-positive, compound-engineering · git commit -m '...' aborted with a PreToolUse guard block even though the commit ran no forbidden command — [0000-example-command-guard-matches-quoted-args.md](./0000-example-command-guard-matches-quoted-args.md)
