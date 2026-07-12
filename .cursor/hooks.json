@@ -2,6 +2,10 @@
   "version": 1,
   "hooks": {
     "beforeShellExecution": [{ "command": "./.cursor/hooks/guard-shell.sh", "timeout": 10 }],
-    "afterFileEdit": [{ "command": "./.cursor/hooks/format-edit.sh", "timeout": 15 }]
+    "afterFileEdit": [
+      { "command": "./.cursor/hooks/format-edit.sh", "timeout": 15 },
+      { "command": "./scripts/agent-hooks/gen-lessons-index.sh", "timeout": 10 }
+    ],
+    "stop": [{ "command": "./.cursor/hooks/compound-check.sh", "timeout": 10 }]
   }
 }
