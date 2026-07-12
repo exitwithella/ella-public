@@ -6,7 +6,7 @@ module: git-hooks
 problem_type: tooling_decision
 component: tooling
 symptoms:
-  - "commit-msg hook fails with: footer must have leading blank line [footer-leading-blank]"
+  - 'commit-msg hook fails with: footer must have leading blank line [footer-leading-blank]'
   - 'the commit body reads fine and has a blank line before the Co-Authored-By footer, yet commitlint still rejects it'
 applies_when:
   - 'writing a conventional-commit message whose body mentions an issue id like MKT-123 in prose'

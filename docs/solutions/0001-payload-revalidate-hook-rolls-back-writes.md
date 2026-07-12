@@ -6,7 +6,7 @@ module: cms-cache
 problem_type: runtime_error
 component: cms
 symptoms:
-  - "payload.create/update throws \"Invariant: static generation store missing in revalidateTag\" from a seed script, vitest test, or MCP write"
+  - 'payload.create/update throws "Invariant: static generation store missing in revalidateTag" from a seed script, vitest test, or MCP write'
   - 'the content write is rolled back — the document is not persisted — even though the data was valid'
 applies_when:
   - 'a Payload afterChange/afterDelete hook calls Next.js revalidateTag'
