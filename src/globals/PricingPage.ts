@@ -2,6 +2,8 @@ import type { GlobalConfig } from 'payload'
 
 import { iconField } from '@/fields/icon'
 
+import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
+
 const indicatorOptions = [
   { label: 'Check', value: 'check' },
   { label: 'Cross', value: 'cross' },
@@ -41,6 +43,9 @@ const ctaFields = (label: string) => ({
 export const PricingPage: GlobalConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [createGlobalRevalidateHook('pricing')],
   },
   slug: 'pricing-page',
   label: 'Pricing Page',

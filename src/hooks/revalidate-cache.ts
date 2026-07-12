@@ -1,5 +1,11 @@
 import { revalidateTag } from 'next/cache'
-import type { CollectionAfterChangeHook, GlobalAfterChangeHook } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  GlobalAfterChangeHook,
+} from 'payload'
+
+import type { CacheTag } from '@/app/(frontend)/_lib/cache-tags'
 
 /**
  * Fire cache-tag invalidations best-effort.
@@ -10,7 +16,7 @@ import type { CollectionAfterChangeHook, GlobalAfterChangeHook } from 'payload'
  * must not roll back the content write itself, so failures are swallowed here;
  * the 24h TTL and manual revalidate-all remain as backstops.
  */
-function safeRevalidate(tags: string[]): void {
+function safeRevalidate(tags: CacheTag[]): void {
   for (const tag of tags) {
     try {
       // @ts-expect-error — Next 16 types require a profile arg, but the
@@ -25,7 +31,18 @@ function safeRevalidate(tags: string[]): void {
 /**
  * Collection afterChange hook that invalidates cache tags when content changes.
  */
-export function createRevalidateHook(...tags: string[]): CollectionAfterChangeHook {
+export function createRevalidateHook(...tags: CacheTag[]): CollectionAfterChangeHook {
+  return async ({ doc }) => {
+    safeRevalidate(tags)
+    return doc
+  }
+}
+
+/**
+ * Collection afterDelete hook — same tags as afterChange, so a deleted document
+ * stops being served from cache immediately instead of lingering until the TTL.
+ */
+export function createDeleteRevalidateHook(...tags: CacheTag[]): CollectionAfterDeleteHook {
   return async ({ doc }) => {
     safeRevalidate(tags)
     return doc
@@ -35,7 +52,7 @@ export function createRevalidateHook(...tags: string[]): CollectionAfterChangeHo
 /**
  * Global afterChange hook that invalidates cache tags when a global is updated.
  */
-export function createGlobalRevalidateHook(...tags: string[]): GlobalAfterChangeHook {
+export function createGlobalRevalidateHook(...tags: CacheTag[]): GlobalAfterChangeHook {
   return async ({ doc }) => {
     safeRevalidate(tags)
     return doc

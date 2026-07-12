@@ -1,13 +1,16 @@
 import type { CollectionConfig } from 'payload'
 
-import { createRevalidateHook } from '../hooks/revalidate-cache'
+import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const Categories: CollectionConfig = {
   access: {
     read: () => true,
   },
   hooks: {
-    afterChange: [createRevalidateHook('categories')],
+    // Categories are embedded in posts (title, pathPrefix → post URLs), so a
+    // change invalidates the blog listings and the posts that reference them.
+    afterChange: [createRevalidateHook('categories', 'posts')],
+    afterDelete: [createDeleteRevalidateHook('categories', 'posts')],
   },
   admin: {
     defaultColumns: ['title', 'slug', 'sortOrder'],

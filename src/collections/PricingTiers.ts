@@ -1,8 +1,14 @@
 import type { CollectionConfig } from 'payload'
 
+import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
+
 export const PricingTiers: CollectionConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [createRevalidateHook('pricing')],
+    afterDelete: [createDeleteRevalidateHook('pricing')],
   },
   admin: {
     defaultColumns: ['name', 'price', 'highlighted', 'sortOrder'],

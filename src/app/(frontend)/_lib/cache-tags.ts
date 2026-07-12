@@ -12,7 +12,6 @@ export const CACHE_TAGS = {
   siteSettings: 'site-settings',
   scriptInjection: 'script-injection',
   pages: 'pages',
-  homepage: 'homepage',
   posts: 'posts',
   categories: 'categories',
   solutions: 'solutions',

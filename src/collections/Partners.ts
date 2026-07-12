@@ -1,8 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
+import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
+
 export const Partners: CollectionConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    // Embedded via CredibilityStrip into pages (e.g. the homepage strip).
+    afterChange: [createRevalidateHook('pages')],
+    afterDelete: [createDeleteRevalidateHook('pages')],
   },
   admin: {
     defaultColumns: ['name', 'type', 'showOnHomepage'],
