@@ -7,10 +7,10 @@ problem_type: tooling_decision
 component: tooling
 symptoms:
   - "git commit -m '...' aborted with a PreToolUse guard block even though the commit ran no forbidden command"
-  - "the blocked message text merely described the policy (mentioned rm, sqlite, or a forbidden command name)"
+  - 'the blocked message text merely described the policy (mentioned rm, sqlite, or a forbidden command name)'
 applies_when:
-  - "editing or committing changes to the shared command guard (scripts/agent-hooks/classify-command.sh)"
-  - "a shell command carries free-text that quotes a forbidden command name or file"
+  - 'editing or committing changes to the shared command guard (scripts/agent-hooks/classify-command.sh)'
+  - 'a shell command carries free-text that quotes a forbidden command name or file'
 resolution_type: workflow_improvement
 severity: low
 tags: [hooks, command-guard, claude-code, cursor, git-commit, compound-engineering]
@@ -23,7 +23,7 @@ tags: [hooks, command-guard, claude-code, cursor, git-commit, compound-engineeri
 The shared command guard (`scripts/agent-hooks/classify-command.sh`, wired into
 Claude Code's `PreToolUse(Bash)` and Cursor's `beforeShellExecution`) inspects
 the **entire command string**. A `git commit -m "…"` whose message merely
-*describes* a forbidden action is itself a command string containing the trigger
+_describes_ a forbidden action is itself a command string containing the trigger
 words, so the guard blocks the commit — even though the commit executes nothing
 forbidden.
 
@@ -45,7 +45,7 @@ forbidden.
 Two complementary fixes:
 
 1. **Tighten patterns to real invocations.** The D1 rule now requires a
-   `.sqlite` file *extension* (`\.sqlite`), so prose that says "sqlite" no
+   `.sqlite` file _extension_ (`\.sqlite`), so prose that says "sqlite" no
    longer matches while `rm dev.sqlite` still does.
 2. **Keep trigger text out of the command line.** Put commit messages in a file
    and use `git commit -F <file>` (write the file with the editor/Write tool,
@@ -55,7 +55,7 @@ Two complementary fixes:
 ## Why This Works
 
 The guard's unit of analysis is the command string. Anything that keeps
-forbidden *words* out of that string — a file-based message, a tighter pattern
+forbidden _words_ out of that string — a file-based message, a tighter pattern
 that only matches an actual file argument — sidesteps the false positive without
 weakening enforcement of real invocations.
 
