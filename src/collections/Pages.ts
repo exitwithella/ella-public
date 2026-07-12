@@ -29,7 +29,7 @@ import {
 import { heroField } from '../fields/hero'
 import { metaField } from '../fields/meta'
 import { createIndexNowHook } from '../hooks/notify-indexnow'
-import { createRevalidateHook } from '../hooks/revalidate-cache'
+import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const Pages: CollectionConfig = {
   access: {
@@ -37,12 +37,13 @@ export const Pages: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      createRevalidateHook('pages', 'homepage'),
+      createRevalidateHook('pages'),
       createIndexNowHook((doc) => {
         if (doc.status !== 'published') return null
         return doc.slug === 'home' ? '/' : `/${doc.slug}`
       }),
     ],
+    afterDelete: [createDeleteRevalidateHook('pages')],
   },
   admin: {
     defaultColumns: ['title', 'slug', 'status', 'publishedDate'],

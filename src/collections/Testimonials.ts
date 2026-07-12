@@ -1,8 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
+import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
+
 export const Testimonials: CollectionConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    // Embedded via TestimonialBlock / FeatureDeepDive into pages and solutions.
+    afterChange: [createRevalidateHook('pages', 'solutions')],
+    afterDelete: [createDeleteRevalidateHook('pages', 'solutions')],
   },
   admin: {
     defaultColumns: ['name', 'title', 'approved'],
