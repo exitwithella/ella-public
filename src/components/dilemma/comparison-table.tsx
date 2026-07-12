@@ -32,6 +32,7 @@ function AnimatedCheck({ visible, delay }: { visible: boolean; delay: number }) 
       className="inline-flex h-5 w-5 shrink-0 items-center justify-center"
     >
       <motion.svg
+        aria-hidden="true"
         width="12"
         height="9"
         viewBox="0 0 13 10"
@@ -228,7 +229,9 @@ function DesktopRow({
         transition={SPRING_DEFAULT}
       >
         <span className="flex items-center gap-[5px]">
-          <span className="text-ash-200 text-[0.75rem] font-bold">✕</span>
+          <span aria-hidden="true" className="text-ash-200 text-[0.75rem] font-bold">
+            ✕
+          </span>
           {row.old}
         </span>
       </motion.div>
@@ -252,7 +255,14 @@ function DesktopRow({
         transition={SPRING_DEFAULT}
       >
         <span className="flex items-center gap-[5px]">
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className="shrink-0">
+          <svg
+            aria-hidden="true"
+            width="10"
+            height="10"
+            viewBox="0 0 12 12"
+            fill="none"
+            className="shrink-0"
+          >
             <rect
               x="3"
               y="1"

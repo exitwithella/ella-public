@@ -64,7 +64,10 @@ export function RailsPanel({
 
         {/* Compact ellipsis */}
         {elide && (
-          <div className="text-ash-400 py-0.5 pl-7 text-center text-[0.6875rem] tracking-[0.2em]">
+          <div
+            aria-hidden="true"
+            className="text-ash-400 py-0.5 pl-7 text-center text-[0.6875rem] tracking-[0.2em]"
+          >
             • • •
           </div>
         )}
@@ -190,6 +193,7 @@ function LockedIcon({
   return (
     <>
       <motion.svg
+        aria-hidden="true"
         width="10"
         height="10"
         viewBox="0 0 12 12"
