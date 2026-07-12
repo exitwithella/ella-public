@@ -1412,28 +1412,27 @@ export interface Page {
              */
             closer?: string | null;
             /**
-             * Optional JSON override for comparison table rows. Array of objects with keys: dim, old, rigid, patch, ella. Leave empty to use built-in defaults.
+             * Comparison table rows. Leave empty to use built-in defaults.
              */
             tableData?:
               | {
-                  [k: string]: unknown;
-                }
-              | unknown[]
-              | string
-              | number
-              | boolean
+                  dim: string;
+                  old: string;
+                  rigid: string;
+                  patch: string;
+                  ella: string;
+                  id?: string | null;
+                }[]
               | null;
             /**
-             * Optional JSON override for rigid platform steps. Array of objects with keys: label, sub. Leave empty to use built-in defaults.
+             * Rigid platform steps. Leave empty to use built-in defaults.
              */
             steps?:
               | {
-                  [k: string]: unknown;
-                }
-              | unknown[]
-              | string
-              | number
-              | boolean
+                  label: string;
+                  sub: string;
+                  id?: string | null;
+                }[]
               | null;
             id?: string | null;
             blockName?: string | null;
@@ -4038,8 +4037,23 @@ export interface PagesSelect<T extends boolean = true> {
                     ella?: T;
                   };
               closer?: T;
-              tableData?: T;
-              steps?: T;
+              tableData?:
+                | T
+                | {
+                    dim?: T;
+                    old?: T;
+                    rigid?: T;
+                    patch?: T;
+                    ella?: T;
+                    id?: T;
+                  };
+              steps?:
+                | T
+                | {
+                    label?: T;
+                    sub?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };

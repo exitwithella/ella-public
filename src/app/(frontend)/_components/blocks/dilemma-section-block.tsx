@@ -11,21 +11,19 @@ interface DilemmaSectionBlockProps {
 }
 
 export function DilemmaSectionBlock({ block }: DilemmaSectionBlockProps) {
-  const tableData =
-    block.tableData && Array.isArray(block.tableData)
-      ? (block.tableData as Array<{
-          dim: string
-          old: string
-          rigid: string
-          patch: string
-          ella: string
-        }>)
-      : undefined
+  const tableData = block.tableData?.length
+    ? block.tableData.map(({ dim, old, rigid, patch, ella }) => ({
+        dim,
+        old,
+        rigid,
+        patch,
+        ella,
+      }))
+    : undefined
 
-  const steps =
-    block.steps && Array.isArray(block.steps)
-      ? (block.steps as Array<{ label: string; sub: string }>)
-      : undefined
+  const steps = block.steps?.length
+    ? block.steps.map(({ label, sub }) => ({ label, sub }))
+    : undefined
 
   return (
     <DilemmaSection

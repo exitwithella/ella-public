@@ -93,19 +93,36 @@ export const DilemmaSectionBlock: Block = {
     },
     {
       name: 'tableData',
-      type: 'json',
-      admin: {
-        description:
-          'Optional JSON override for comparison table rows. Array of objects with keys: dim, old, rigid, patch, ella. Leave empty to use built-in defaults.',
+      type: 'array',
+      labels: {
+        singular: 'Comparison Row',
+        plural: 'Comparison Rows',
       },
+      admin: {
+        description: 'Comparison table rows. Leave empty to use built-in defaults.',
+      },
+      fields: [
+        { name: 'dim', type: 'text', required: true },
+        { name: 'old', type: 'text', required: true },
+        { name: 'rigid', type: 'text', required: true },
+        { name: 'patch', type: 'text', required: true },
+        { name: 'ella', type: 'text', required: true },
+      ],
     },
     {
       name: 'steps',
-      type: 'json',
-      admin: {
-        description:
-          'Optional JSON override for rigid platform steps. Array of objects with keys: label, sub. Leave empty to use built-in defaults.',
+      type: 'array',
+      labels: {
+        singular: 'Rigid Platform Step',
+        plural: 'Rigid Platform Steps',
       },
+      admin: {
+        description: 'Rigid platform steps. Leave empty to use built-in defaults.',
+      },
+      fields: [
+        { name: 'label', type: 'text', required: true },
+        { name: 'sub', type: 'text', required: true },
+      ],
     },
   ],
 }

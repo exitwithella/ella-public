@@ -7,6 +7,7 @@ import * as migration_20260416_173708 from './20260416_173708';
 import * as migration_20260611_191554 from './20260611_191554';
 import * as migration_20260711_151324_add_credits_body from './20260711_151324_add_credits_body';
 import * as migration_20260711_215500_mkt_205_dilemma_subtitles_closer from './20260711_215500_mkt_205_dilemma_subtitles_closer';
+import * as migration_20260711_220732_mkt_223_dilemma_typed_arrays from './20260711_220732_mkt_223_dilemma_typed_arrays';
 
 export const migrations = [
   {
@@ -53,5 +54,10 @@ export const migrations = [
     up: migration_20260711_215500_mkt_205_dilemma_subtitles_closer.up,
     down: migration_20260711_215500_mkt_205_dilemma_subtitles_closer.down,
     name: '20260711_215500_mkt_205_dilemma_subtitles_closer'
+  },
+  {
+    up: migration_20260711_220732_mkt_223_dilemma_typed_arrays.up,
+    down: migration_20260711_220732_mkt_223_dilemma_typed_arrays.down,
+    name: '20260711_220732_mkt_223_dilemma_typed_arrays'
   },
 ];
