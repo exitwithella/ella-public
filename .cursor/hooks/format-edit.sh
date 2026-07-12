@@ -10,7 +10,7 @@ if [ -z "$FILE_PATH" ]; then
 fi
 
 case "$FILE_PATH" in
-  *.ts | *.tsx | *.js | *.jsx | *.json | *.jsonc | *.css)
+  *.ts | *.tsx | *.js | *.jsx | *.json | *.jsonc | *.css | *.md)
     oxfmt --write "$FILE_PATH" 2>/dev/null
     ;;
 esac
