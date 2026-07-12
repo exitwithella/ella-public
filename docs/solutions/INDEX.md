@@ -6,3 +6,4 @@ Prior solved problems. Search here before debugging. Full write-ups live in the
 linked files; see [README.md](./README.md) for the format and when to add one.
 
 - **A command-policy guard must evaluate the invocation, not quoted arguments** · 2026-07-12 · hooks, command-guard, claude-code, cursor, false-positive, compound-engineering · git commit -m '...' aborted with a PreToolUse guard block even though the commit ran no forbidden command — [0000-example-command-guard-matches-quoted-args.md](./0000-example-command-guard-matches-quoted-args.md)
+- **Seeding upload collections into a fresh local D1 needs the R2 blobs first** · 2026-07-12 · seed, media, r2, d1, content-sync, local-dev, cloudflare, payload · pnpm seed dies at the media step with 'MissingFile: No files were uploaded' on a fresh worktree — [0001-seeding-media-needs-local-r2-blobs.md](./0001-seeding-media-needs-local-r2-blobs.md)
