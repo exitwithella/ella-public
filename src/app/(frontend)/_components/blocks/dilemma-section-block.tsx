@@ -37,6 +37,13 @@ export function DilemmaSectionBlock({ block }: DilemmaSectionBlockProps) {
       transitionLine2={block.transitionLine2 ?? undefined}
       tableData={tableData}
       steps={steps}
+      columnSubtitles={{
+        old: block.columnSubtitles?.old ?? undefined,
+        rigid: block.columnSubtitles?.rigid ?? undefined,
+        patch: block.columnSubtitles?.patch ?? undefined,
+        ella: block.columnSubtitles?.ella ?? undefined,
+      }}
+      closer={block.closer ?? undefined}
     />
   )
 }

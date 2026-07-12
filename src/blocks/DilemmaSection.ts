@@ -54,6 +54,44 @@ export const DilemmaSectionBlock: Block = {
       },
     },
     {
+      name: 'columnSubtitles',
+      type: 'group',
+      admin: {
+        description:
+          'Italic subtitles under the four comparison-table column headers (desktop layout). Leave empty to use built-in defaults.',
+      },
+      fields: [
+        {
+          name: 'old',
+          type: 'text',
+          admin: { description: '"The Old Way" subtitle, e.g. "Manual, memory-based"' },
+        },
+        {
+          name: 'rigid',
+          type: 'text',
+          admin: { description: '"The Rigid Platform" subtitle, e.g. "Their process, not yours"' },
+        },
+        {
+          name: 'patch',
+          type: 'text',
+          admin: { description: '"Consumer AI" subtitle, e.g. "Powerful, unprotected"' },
+        },
+        {
+          name: 'ella',
+          type: 'text',
+          admin: { description: '"With ELLA" subtitle, e.g. "Your methodology, systematized"' },
+        },
+      ],
+    },
+    {
+      name: 'closer',
+      type: 'text',
+      admin: {
+        description:
+          'Final line below the table once every row resolves, e.g. "Hours to the first real conversation. Not weeks."',
+      },
+    },
+    {
       name: 'tableData',
       type: 'json',
       admin: {
