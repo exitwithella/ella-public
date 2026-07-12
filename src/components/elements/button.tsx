@@ -8,6 +8,35 @@ const sizes = {
 
 type ButtonColor = 'auto' | 'dark/light' | 'light'
 
+const BASE =
+  'inline-flex shrink-0 items-center justify-center rounded-full text-sm/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent'
+
+const SOLID_COLORS: Record<ButtonColor, string> = {
+  auto: 'bg-theme-text text-theme-bg hover:opacity-90',
+  'dark/light': 'bg-ash-950 text-ash-100 hover:bg-ash-800',
+  light: 'bg-sandstone-50 text-ash-950 hover:bg-ash-100',
+}
+
+const PLAIN_COLORS: Record<ButtonColor, string> = {
+  auto: 'text-theme-text hover:bg-theme-text/10',
+  'dark/light': 'text-ash-950 hover:bg-ash-950/10',
+  light: 'text-ash-100 hover:bg-sandstone-50/15',
+}
+
+const SOFT_CLASS = 'bg-theme-text/10 text-theme-text hover:bg-theme-text/15'
+
+function solidClasses(color: ButtonColor, size: keyof typeof sizes, className?: string) {
+  return clsx(BASE, 'gap-1', SOLID_COLORS[color], sizes[size], className)
+}
+
+function softClasses(size: keyof typeof sizes, className?: string) {
+  return clsx(BASE, 'gap-1', SOFT_CLASS, sizes[size], className)
+}
+
+function plainClasses(color: ButtonColor, size: keyof typeof sizes, className?: string) {
+  return clsx(BASE, 'gap-2', PLAIN_COLORS[color], sizes[size], className)
+}
+
 export function Button({
   size = 'md',
   type = 'button',
@@ -18,20 +47,7 @@ export function Button({
   size?: keyof typeof sizes
   color?: ButtonColor
 } & ComponentProps<'button'>) {
-  return (
-    <button
-      type={type}
-      className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
-        color === 'auto' && 'bg-theme-text text-theme-bg hover:opacity-90',
-        color === 'dark/light' && 'bg-ash-950 text-ash-100 hover:bg-ash-800',
-        color === 'light' && 'bg-sandstone-50 text-ash-950 hover:bg-ash-100',
-        sizes[size],
-        className,
-      )}
-      {...props}
-    />
-  )
+  return <button type={type} className={solidClasses(color, size, className)} {...props} />
 }
 
 export function ButtonLink({
@@ -45,20 +61,7 @@ export function ButtonLink({
   size?: keyof typeof sizes
   color?: ButtonColor
 } & Omit<ComponentProps<'a'>, 'href'>) {
-  return (
-    <a
-      href={href}
-      className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full text-sm/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
-        color === 'auto' && 'bg-theme-text text-theme-bg hover:opacity-90',
-        color === 'dark/light' && 'bg-ash-950 text-ash-100 hover:bg-ash-800',
-        color === 'light' && 'bg-sandstone-50 text-ash-950 hover:bg-ash-100',
-        sizes[size],
-        className,
-      )}
-      {...props}
-    />
-  )
+  return <a href={href} className={solidClasses(color, size, className)} {...props} />
 }
 
 export function SoftButton({
@@ -69,17 +72,7 @@ export function SoftButton({
 }: {
   size?: keyof typeof sizes
 } & ComponentProps<'button'>) {
-  return (
-    <button
-      type={type}
-      className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full bg-theme-text/10 text-sm/7 font-medium text-theme-text hover:bg-theme-text/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
-        sizes[size],
-        className,
-      )}
-      {...props}
-    />
-  )
+  return <button type={type} className={softClasses(size, className)} {...props} />
 }
 
 export function SoftButtonLink({
@@ -91,17 +84,7 @@ export function SoftButtonLink({
   href: string
   size?: keyof typeof sizes
 } & Omit<ComponentProps<'a'>, 'href'>) {
-  return (
-    <a
-      href={href}
-      className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-1 rounded-full bg-theme-text/10 text-sm/7 font-medium text-theme-text hover:bg-theme-text/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
-        sizes[size],
-        className,
-      )}
-      {...props}
-    />
-  )
+  return <a href={href} className={softClasses(size, className)} {...props} />
 }
 
 export function PlainButton({
@@ -114,20 +97,7 @@ export function PlainButton({
   size?: keyof typeof sizes
   color?: ButtonColor
 } & ComponentProps<'button'>) {
-  return (
-    <button
-      type={type}
-      className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
-        color === 'auto' && 'text-theme-text hover:bg-theme-text/10',
-        color === 'dark/light' && 'text-ash-950 hover:bg-ash-950/10',
-        color === 'light' && 'text-ash-100 hover:bg-sandstone-50/15',
-        sizes[size],
-        className,
-      )}
-      {...props}
-    />
-  )
+  return <button type={type} className={plainClasses(color, size, className)} {...props} />
 }
 
 export function PlainButtonLink({
@@ -141,18 +111,5 @@ export function PlainButtonLink({
   size?: keyof typeof sizes
   color?: ButtonColor
 } & Omit<ComponentProps<'a'>, 'href'>) {
-  return (
-    <a
-      href={href}
-      className={clsx(
-        'inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
-        color === 'auto' && 'text-theme-text hover:bg-theme-text/10',
-        color === 'dark/light' && 'text-ash-950 hover:bg-ash-950/10',
-        color === 'light' && 'text-ash-100 hover:bg-sandstone-50/15',
-        sizes[size],
-        className,
-      )}
-      {...props}
-    />
-  )
+  return <a href={href} className={plainClasses(color, size, className)} {...props} />
 }
