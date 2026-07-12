@@ -1037,78 +1037,78 @@ For deeper exploration of specific topics, refer to the context files located in
 
 ### Available Context Files
 
-1. **`payload-overview.md`** - High-level architecture and core concepts
+1. **`payload-overview.mdc`** - High-level architecture and core concepts
    - Payload structure and initialization
    - Configuration fundamentals
    - Database adapters overview
 
-2. **`security-critical.md`** - Critical security patterns (⚠️ IMPORTANT)
+2. **`security-critical.mdc`** - Critical security patterns (⚠️ IMPORTANT)
    - Local API access control
    - Transaction safety in hooks
    - Preventing infinite hook loops
 
-3. **`collections.md`** - Collection configurations
+3. **`collections.mdc`** - Collection configurations
    - Basic collection patterns
    - Auth collections with RBAC
    - Upload collections
    - Drafts and versioning
    - Globals
 
-4. **`fields.md`** - Field types and patterns
+4. **`fields.mdc`** - Field types and patterns
    - All field types with examples
    - Conditional fields
    - Virtual fields
    - Field validation
    - Common field patterns
 
-5. **`field-type-guards.md`** - TypeScript field type utilities
+5. **`field-type-guards.mdc`** - TypeScript field type utilities
    - Field type checking utilities
    - Safe type narrowing
    - Runtime field validation
 
-6. **`access-control.md`** - Permission patterns
+6. **`access-control.mdc`** - Permission patterns
    - Collection-level access
    - Field-level access
    - Row-level security
    - RBAC patterns
    - Multi-tenant access control
 
-7. **`access-control-advanced.md`** - Complex access patterns
+7. **`access-control-advanced.mdc`** - Complex access patterns
    - Nested document access
    - Cross-collection permissions
    - Dynamic role hierarchies
    - Performance optimization
 
-8. **`hooks.md`** - Lifecycle hooks
+8. **`hooks.mdc`** - Lifecycle hooks
    - Collection hooks
    - Field hooks
    - Hook context patterns
    - Common hook recipes
 
-9. **`queries.md`** - Database operations
+9. **`queries.mdc`** - Database operations
    - Local API usage
    - Query operators
    - Complex queries with AND/OR
    - Performance optimization
 
-10. **`endpoints.md`** - Custom API endpoints
+10. **`endpoints.mdc`** - Custom API endpoints
     - REST endpoint patterns
     - Authentication in endpoints
     - Error handling
     - Route parameters
 
-11. **`adapters.md`** - Database and storage adapters
+11. **`adapters.mdc`** - Database and storage adapters
     - MongoDB, PostgreSQL, SQLite patterns
     - Storage adapter usage (S3, Azure, GCS, etc.)
     - Custom adapter development
 
-12. **`plugin-development.md`** - Creating plugins
+12. **`plugin-development.mdc`** - Creating plugins
     - Plugin architecture
     - Modifying configuration
     - Plugin hooks
     - Best practices
 
-13. **`components.md`** - Custom Components
+13. **`components.mdc`** - Custom Components
     - Component types (Root, Collection, Global, Field)
     - Server vs Client Components
     - Component paths and definition

@@ -1,7 +1,7 @@
 ---
-title: Fields
-description: Field types, patterns, and configurations
-tags: [payload, fields, validation, conditional]
+description: Payload field types, patterns, and configurations — conditional fields, virtual fields, and validation.
+globs: src/fields/**,src/collections/**,src/blocks/**
+alwaysApply: false
 ---
 
 # Payload CMS Fields

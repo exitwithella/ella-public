@@ -1,7 +1,7 @@
 ---
-title: Access Control
-description: Collection, field, and global access control patterns
-tags: [payload, access-control, security, permissions, rbac]
+description: Payload collection, field, and global access control patterns — RBAC, row-level, and multi-tenant.
+globs: src/collections/**,src/globals/**,src/auth/**,src/payload.config.ts
+alwaysApply: false
 ---
 
 # Payload CMS Access Control
