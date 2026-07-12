@@ -1031,6 +1031,16 @@ export const myPlugin =
 9. **SQLite Transactions**: Disabled by default, enable with `transactionOptions: {}`
 10. **Point Fields**: Not supported in SQLite
 
+## Compound Engineering
+
+Every unit of work should make the next one cheaper. The loop is **plan → work → review → compound**: after solving something, capture the lesson so it's searchable instead of re-debugged. Because PRs here can ship without human review, the compounding step is enforced by hooks, not discipline.
+
+- **Where lessons live:** `docs/solutions/` — one file per solved problem, YAML frontmatter following `.agents/skills/ce-compound/references/schema.yaml`. See `docs/solutions/README.md` for the format contract. `INDEX.md` and `.cursor/rules/compound-lessons.mdc` are **generated** by `scripts/agent-hooks/gen-lessons-index.sh` — never hand-edit them.
+- **When to run `/ce-compound`:** after fixing a non-obvious bug, discovering a toolchain/CMS/deploy gotcha, or making a tradeoff worth remembering. Not for routine feature work or copy.
+- **The nudge:** the stop hook reminds you to run `/ce-compound` when a branch has a `fix:`/`perf:`/`refactor:` commit but no new solution doc. Other commit types never trigger it. If nothing's worth capturing, finish without it.
+- **Search `docs/solutions/` before debugging.** The always-applied `.cursor/rules/compound-lessons.mdc` surfaces the index automatically; if a problem was solved before, the fix is already written down.
+- **Command policy is hook-enforced.** The shared guard (`scripts/agent-hooks/classify-command.sh`, wired into `beforeShellExecution`) blocks npm/yarn (use pnpm), eslint/prettier (use oxlint/oxfmt), deleting the local D1 sqlite file, applying migrations locally, and bypassing the production-write confirmation.
+
 ## Additional Context Files
 
 For deeper exploration of specific topics, refer to the context files located in `.cursor/rules/`:
