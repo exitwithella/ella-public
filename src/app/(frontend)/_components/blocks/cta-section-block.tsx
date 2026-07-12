@@ -1,10 +1,9 @@
 import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
 import { Container } from '@/components/elements/container'
-import { CoverImage } from '@/components/elements/cover-image'
 import { Heading } from '@/components/elements/heading'
-import { ThemeSection } from '@/components/elements/theme-section'
+import { OptionalCoverSection } from '@/components/elements/optional-cover-section'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
-import type { Media, Page } from '@/payload-types'
+import type { Page } from '@/payload-types'
 
 type CTASectionData = Extract<NonNullable<Page['layout']>[number], { blockType: 'cta-section' }>
 
@@ -21,14 +20,6 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
   const secondaryHref =
     block.secondaryCta?.href ?? 'https://cal.com/team/ella/ella-intro?overlayCalendar=true'
   const secondaryLabel = block.secondaryCta?.label ?? 'Book a Demo'
-
-  const coverImg = (block as Record<string, unknown>).coverImage as {
-    image?: Media | number | null
-    minHeight?: 'sm' | 'md' | 'lg' | null
-    objectPosition?: 'top' | 'center' | 'bottom' | null
-    overlayOpacity?: '40' | '60' | '80' | null
-  } | null
-  const hasCover = coverImg?.image && typeof coverImg.image === 'object' && coverImg.image?.url
 
   const content = (
     <Container>
@@ -71,19 +62,12 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
   )
 
   return (
-    <ThemeSection bgStyle={block.bgStyle} className={hasCover ? '' : 'py-24 md:py-32'}>
-      {hasCover ? (
-        <CoverImage
-          image={coverImg.image as Media}
-          minHeight={coverImg.minHeight}
-          objectPosition={coverImg.objectPosition}
-          overlayOpacity={coverImg.overlayOpacity}
-        >
-          <div className="py-24 md:py-32">{content}</div>
-        </CoverImage>
-      ) : (
-        content
-      )}
-    </ThemeSection>
+    <OptionalCoverSection
+      bgStyle={block.bgStyle}
+      coverImage={(block as Record<string, unknown>).coverImage}
+      padding="py-24 md:py-32"
+    >
+      {content}
+    </OptionalCoverSection>
   )
 }
