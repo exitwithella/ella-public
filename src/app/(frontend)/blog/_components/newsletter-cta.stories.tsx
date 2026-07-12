@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { NewsletterCTA } from './newsletter-cta'
+import { NewsletterCTAView } from './newsletter-cta-view'
 
 const meta: Meta = {
   title: 'ELLA/Blog/Newsletter CTA',
@@ -11,7 +11,7 @@ type Story = StoryObj
 export const Default: Story = {
   render: () => (
     <div className="max-w-md p-6">
-      <NewsletterCTA />
+      <NewsletterCTAView listIds={['storybook-demo-list']} />
     </div>
   ),
 }

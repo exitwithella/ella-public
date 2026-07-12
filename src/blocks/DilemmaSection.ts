@@ -54,20 +54,75 @@ export const DilemmaSectionBlock: Block = {
       },
     },
     {
-      name: 'tableData',
-      type: 'json',
+      name: 'columnSubtitles',
+      type: 'group',
       admin: {
         description:
-          'Optional JSON override for comparison table rows. Array of objects with keys: dim, old, rigid, patch, ella. Leave empty to use built-in defaults.',
+          'Italic subtitles under the four comparison-table column headers (desktop layout). Leave empty to use built-in defaults.',
+      },
+      fields: [
+        {
+          name: 'old',
+          type: 'text',
+          admin: { description: '"The Old Way" subtitle, e.g. "Manual, memory-based"' },
+        },
+        {
+          name: 'rigid',
+          type: 'text',
+          admin: { description: '"The Rigid Platform" subtitle, e.g. "Their process, not yours"' },
+        },
+        {
+          name: 'patch',
+          type: 'text',
+          admin: { description: '"Consumer AI" subtitle, e.g. "Powerful, unprotected"' },
+        },
+        {
+          name: 'ella',
+          type: 'text',
+          admin: { description: '"With ELLA" subtitle, e.g. "Your methodology, systematized"' },
+        },
+      ],
+    },
+    {
+      name: 'closer',
+      type: 'text',
+      admin: {
+        description:
+          'Final line below the table once every row resolves, e.g. "Hours to the first real conversation. Not weeks."',
       },
     },
     {
-      name: 'steps',
-      type: 'json',
-      admin: {
-        description:
-          'Optional JSON override for rigid platform steps. Array of objects with keys: label, sub. Leave empty to use built-in defaults.',
+      name: 'tableData',
+      type: 'array',
+      labels: {
+        singular: 'Comparison Row',
+        plural: 'Comparison Rows',
       },
+      admin: {
+        description: 'Comparison table rows. Leave empty to use built-in defaults.',
+      },
+      fields: [
+        { name: 'dim', type: 'text', required: true },
+        { name: 'old', type: 'text', required: true },
+        { name: 'rigid', type: 'text', required: true },
+        { name: 'patch', type: 'text', required: true },
+        { name: 'ella', type: 'text', required: true },
+      ],
+    },
+    {
+      name: 'steps',
+      type: 'array',
+      labels: {
+        singular: 'Rigid Platform Step',
+        plural: 'Rigid Platform Steps',
+      },
+      admin: {
+        description: 'Rigid platform steps. Leave empty to use built-in defaults.',
+      },
+      fields: [
+        { name: 'label', type: 'text', required: true },
+        { name: 'sub', type: 'text', required: true },
+      ],
     },
   ],
 }

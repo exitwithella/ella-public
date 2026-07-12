@@ -1387,28 +1387,52 @@ export interface Page {
              */
             transitionLine2?: string | null;
             /**
-             * Optional JSON override for comparison table rows. Array of objects with keys: dim, old, rigid, patch, ella. Leave empty to use built-in defaults.
+             * Italic subtitles under the four comparison-table column headers (desktop layout). Leave empty to use built-in defaults.
+             */
+            columnSubtitles?: {
+              /**
+               * "The Old Way" subtitle, e.g. "Manual, memory-based"
+               */
+              old?: string | null;
+              /**
+               * "The Rigid Platform" subtitle, e.g. "Their process, not yours"
+               */
+              rigid?: string | null;
+              /**
+               * "Consumer AI" subtitle, e.g. "Powerful, unprotected"
+               */
+              patch?: string | null;
+              /**
+               * "With ELLA" subtitle, e.g. "Your methodology, systematized"
+               */
+              ella?: string | null;
+            };
+            /**
+             * Final line below the table once every row resolves, e.g. "Hours to the first real conversation. Not weeks."
+             */
+            closer?: string | null;
+            /**
+             * Comparison table rows. Leave empty to use built-in defaults.
              */
             tableData?:
               | {
-                  [k: string]: unknown;
-                }
-              | unknown[]
-              | string
-              | number
-              | boolean
+                  dim: string;
+                  old: string;
+                  rigid: string;
+                  patch: string;
+                  ella: string;
+                  id?: string | null;
+                }[]
               | null;
             /**
-             * Optional JSON override for rigid platform steps. Array of objects with keys: label, sub. Leave empty to use built-in defaults.
+             * Rigid platform steps. Leave empty to use built-in defaults.
              */
             steps?:
               | {
-                  [k: string]: unknown;
-                }
-              | unknown[]
-              | string
-              | number
-              | boolean
+                  label: string;
+                  sub: string;
+                  id?: string | null;
+                }[]
               | null;
             id?: string | null;
             blockName?: string | null;
@@ -4004,8 +4028,32 @@ export interface PagesSelect<T extends boolean = true> {
               body?: T;
               transitionLine1?: T;
               transitionLine2?: T;
-              tableData?: T;
-              steps?: T;
+              columnSubtitles?:
+                | T
+                | {
+                    old?: T;
+                    rigid?: T;
+                    patch?: T;
+                    ella?: T;
+                  };
+              closer?: T;
+              tableData?:
+                | T
+                | {
+                    dim?: T;
+                    old?: T;
+                    rigid?: T;
+                    patch?: T;
+                    ella?: T;
+                    id?: T;
+                  };
+              steps?:
+                | T
+                | {
+                    label?: T;
+                    sub?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };

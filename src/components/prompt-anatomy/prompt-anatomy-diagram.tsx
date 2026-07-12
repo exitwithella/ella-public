@@ -3,6 +3,8 @@
 import { clsx } from 'clsx/lite'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { useIsMobile } from '@/hooks/use-media-query'
+
 interface PromptAnatomyItem {
   heading: string
   body: string
@@ -56,14 +58,7 @@ export function PromptAnatomyDiagram({
   const containerRef = useRef<HTMLDivElement>(null)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [lines, setLines] = useState<ConnectorLine[]>([])
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 900)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
+  const isMobile = useIsMobile(900)
 
   // Line calculation — matches original: querySelector for data-ann / data-target
   const calculateLines = useCallback(() => {

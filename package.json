@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build --webpack",
-    "cf:build": "pnpm run check-migrations && pnpm run deploy:database && cross-env REMOTE_BINDINGS=true opennextjs-cloudflare build --env=$CLOUDFLARE_ENV",
+    "cf:build": "pnpm run check-migrations && bash scripts/deploy-database-if-main.sh && cross-env REMOTE_BINDINGS=true opennextjs-cloudflare build --env=$CLOUDFLARE_ENV",
     "check-migrations": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/check-migrations.ts",
     "deploy": "pnpm run deploy:database && pnpm run deploy:app",
     "deploy:app": "cross-env REMOTE_BINDINGS=true opennextjs-cloudflare build --env=$CLOUDFLARE_ENV && opennextjs-cloudflare deploy --env=$CLOUDFLARE_ENV",
