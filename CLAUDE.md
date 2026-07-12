@@ -235,7 +235,30 @@ If the project uses git instead of jj, follow standard branch conventions:
 git checkout -b <type>/<short-description>   # e.g., feat/homepage-hero, fix/nav-mobile
 ```
 
-### Commit Conventions
+### Git Worktrees (Conductor Workspaces) ↔ jj
+
+Conductor workspaces are **linked git worktrees** sharing the main repo's `.git`. jj does not operate inside them (no `.jj` there — jj commands simply fail), so **work in a worktree uses plain git**: sequential conventional commits on the workspace branch, one concern per commit, same stacking discipline as jj.
+
+**Bringing worktree commits back to the jj workspace — there is nothing to export.** The commits and branch ref already live in the shared object store. In the main workspace:
+
+```bash
+jj git import    # or any jj command — colocated repos auto-import git refs
+jj log -r 'main..<branch-name>'          # the stack appears as jj changes
+jj rebase -b <branch-name> -d main       # only if main moved in the meantime
+```
+
+**Integrating (prefer the PR flow** — `build.yml` full-build CI only runs on PRs to main**):**
+
+```bash
+jj git push --bookmark <branch-name>
+gh pr create --base main --head <branch-name>   # --head is REQUIRED (see below)
+```
+
+Gotchas, learned the hard way:
+
+- **`gh pr create` cannot infer the branch in a jj workspace** — jj keeps git's HEAD permanently detached, so `gh` reports "not on any branch". Always pass `--head <branch-name>`, or run `gh` from the worktree where the branch is checked out.
+- **Never force `jj bookmark set main -r @` past a refusal.** "Refusing to move bookmark backwards or sideways" means `@` is not actually on the stack you want to land — do **not** reach for `--allow-backwards`. The explicit fast-forward form is `jj bookmark set main -r <branch-name>` (only when intentionally skipping the PR flow).
+- **After the PR merges:** `jj git fetch` in the main workspace advances `main`; archive/remove the Conductor worktree **before** deleting the branch — git refuses to delete a branch checked out in a live worktree.
 
 Use conventional commits. Keep them focused — one concern per commit.
 
