@@ -161,8 +161,8 @@ async function seed() {
   const pricingTierMap = await seedCollection(payload, 'pricing-tiers', 'name')
   await seedCollection(payload, 'faq-items', 'question')
   await seedCollection(payload, 'redirects', 'from')
-  await seedCollection(payload, 'vanguard-events', 'id')
-  await seedCollection(payload, 'case-studies', 'id')
+  await seedCollection(payload, 'vanguard-events', 'slug')
+  await seedCollection(payload, 'case-studies', 'slug')
 
   // ── 2. Collections with relationships ──────────────────
 
