@@ -3067,6 +3067,10 @@ export interface CaseStudy {
    */
   title: string;
   /**
+   * Stable identifier used for content sync — must be unique
+   */
+  slug: string;
+  /**
    * Public-facing headline, e.g. "How one advisor tripled engagement in 90 days"
    */
   headline?: string | null;
@@ -3141,6 +3145,10 @@ export interface CaseStudy {
 export interface VanguardEvent {
   id: number;
   title: string;
+  /**
+   * Stable identifier used for content sync — must be unique
+   */
+  slug: string;
   description?: string | null;
   date: string;
   location?: {
@@ -4858,6 +4866,7 @@ export interface SolutionsSelect<T extends boolean = true> {
  */
 export interface CaseStudiesSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   headline?: T;
   summary?: T;
   body?: T;
@@ -4887,6 +4896,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
  */
 export interface VanguardEventsSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   description?: T;
   date?: T;
   location?:
