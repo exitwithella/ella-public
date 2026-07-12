@@ -154,10 +154,7 @@ describe('pageToMarkdown', () => {
           rows: [
             {
               label: 'Support',
-              values: [
-                { text: 'Email', indicator: 'text' },
-                { indicator: 'check' },
-              ],
+              values: [{ text: 'Email', indicator: 'text' }, { indicator: 'check' }],
             },
           ],
         },
