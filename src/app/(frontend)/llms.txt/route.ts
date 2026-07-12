@@ -1,11 +1,9 @@
-import config from '@payload-config'
-import { getPayload } from 'payload'
+import { getSiteSettings } from '../_lib/get-site-settings'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const payload = await getPayload({ config })
-  const settings = await payload.findGlobal({ slug: 'site-settings' })
+  const settings = await getSiteSettings()
   const content = settings.llmsTxt
 
   if (!content) {
