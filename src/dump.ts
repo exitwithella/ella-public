@@ -18,6 +18,7 @@ import 'dotenv/config'
 import { getPayload } from 'payload'
 
 import config from './payload.config'
+import { GLOBAL_SLUGS } from './seed-manifest'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const outDir = path.resolve(__dirname, 'seed-data')
@@ -133,10 +134,8 @@ async function dump() {
 
   // ── Globals ──────────────────────────────────────────────
 
-  const globalSlugs = ['site-settings', 'navigation', 'footer', 'pricing-page', 'script-injection']
-
   console.log('\nGlobals:')
-  for (const slug of globalSlugs) {
+  for (const slug of GLOBAL_SLUGS) {
     const data = await payload.findGlobal({
       slug: slug as any,
       depth: 0,

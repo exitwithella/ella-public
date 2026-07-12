@@ -19,6 +19,7 @@ import type { Payload } from 'payload'
 import { getPayload } from 'payload'
 
 import config from './payload.config'
+import { GLOBAL_SLUGS } from './seed-manifest'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const dataDir = path.resolve(__dirname, 'seed-data')
@@ -279,9 +280,8 @@ async function seed() {
   // ── 4. Globals ─────────────────────────────────────────
 
   console.log('\nGlobals:')
-  const globalSlugs = ['site-settings', 'navigation', 'footer', 'pricing-page']
 
-  for (const slug of globalSlugs) {
+  for (const slug of GLOBAL_SLUGS) {
     const data = loadJSON<Record<string, unknown>>(`${slug}.json`)
     if (data && Object.keys(data).length > 0) {
       const cleaned = stripAutoFields(data)
