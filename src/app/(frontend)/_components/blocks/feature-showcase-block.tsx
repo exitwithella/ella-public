@@ -2,6 +2,7 @@ import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { clsx } from 'clsx/lite'
 import Image from 'next/image'
+import type { ReactNode } from 'react'
 
 import { ButtonLink, PlainButtonLink } from '@/components/elements/button'
 import { Container } from '@/components/elements/container'
@@ -315,6 +316,15 @@ const SECTION_PADDING_CLASS: Record<string, string> = {
   extra: 'py-28 md:py-40',
 }
 
+/** Wraps content in the wide max-width container or the standard `Container`. */
+function WideOrContained({ wide, children }: { wide: boolean; children: ReactNode }) {
+  return wide ? (
+    <div className="mx-auto w-full max-w-[1680px] px-6">{children}</div>
+  ) : (
+    <Container>{children}</Container>
+  )
+}
+
 export function FeatureShowcaseBlock({ block }: FeatureShowcaseBlockProps) {
   const layout = block.headerLayout ?? 'text-only'
   const hasHeader = block.sectionLabel || block.heading || block.body
@@ -325,6 +335,16 @@ export function FeatureShowcaseBlock({ block }: FeatureShowcaseBlockProps) {
     ? ({ backgroundColor: block.bgColorOverride } as const)
     : undefined
 
+  const header = hasHeader ? (
+    <>
+      {layout === 'text-only' && <TextOnlyHeader block={block} />}
+      {(layout === 'text-left' || layout === 'text-left-even' || layout === 'image-left') && (
+        <SplitHeader block={block} />
+      )}
+      {layout === 'eyebrow-left' && <EyebrowLeftHeader block={block} />}
+    </>
+  ) : null
+
   return (
     <ThemeSection
       bgStyle={block.bgStyle}
@@ -332,33 +352,10 @@ export function FeatureShowcaseBlock({ block }: FeatureShowcaseBlockProps) {
       className={paddingClass}
       style={bgOverrideStyle}
     >
-      {hasHeader &&
-        (isWideHeader ? (
-          <div className="mx-auto w-full max-w-[1680px] px-6">
-            {layout === 'text-only' && <TextOnlyHeader block={block} />}
-            {(layout === 'text-left' || layout === 'text-left-even' || layout === 'image-left') && (
-              <SplitHeader block={block} />
-            )}
-            {layout === 'eyebrow-left' && <EyebrowLeftHeader block={block} />}
-          </div>
-        ) : (
-          <Container>
-            {layout === 'text-only' && <TextOnlyHeader block={block} />}
-            {(layout === 'text-left' || layout === 'text-left-even' || layout === 'image-left') && (
-              <SplitHeader block={block} />
-            )}
-            {layout === 'eyebrow-left' && <EyebrowLeftHeader block={block} />}
-          </Container>
-        ))}
-      {isWideGallery ? (
-        <div className="mx-auto w-full max-w-[1680px] px-6">
-          <Gallery block={block} />
-        </div>
-      ) : (
-        <Container>
-          <Gallery block={block} />
-        </Container>
-      )}
+      {header && <WideOrContained wide={isWideHeader}>{header}</WideOrContained>}
+      <WideOrContained wide={isWideGallery}>
+        <Gallery block={block} />
+      </WideOrContained>
     </ThemeSection>
   )
 }
