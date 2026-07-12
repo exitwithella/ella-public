@@ -47,6 +47,18 @@
       "sourceType": "github",
       "computedHash": "17a3fc2c1a49df9debce572c7b47521caa96f793597d944c4e648b3aa90738cf"
     },
+    "lighthouse-runner": {
+      "source": "naporin0624/claude-web-audit-plugins",
+      "sourceType": "github",
+      "skillPath": "skills/lighthouse-runner/SKILL.md",
+      "computedHash": "beb6323ebe5bfc5825b661cc93bea66a32850fff83014ed2488bc6b2239cf4e2"
+    },
+    "role-frontend:frontend-performance": {
+      "source": "rnavarych/alpha-engineer",
+      "sourceType": "github",
+      "skillPath": "plugins/roles/role-frontend/skills/frontend-performance/SKILL.md",
+      "computedHash": "ee0e6710303ec43915196d5a162c4b181f3ace4518a91c608dcee82bbae3d0f6"
+    },
     "skill-creator": {
       "source": "vercel-labs/agent-browser",
       "sourceType": "github",
