@@ -312,7 +312,7 @@ Since PRs may ship without human review, run this before pushing:
 
 ## Anti-Patterns (Hard Rules)
 
-These are drawn from the design brief and are non-negotiable:
+These are drawn from the design brief and are non-negotiable. Rules #10–#13 are **hook-enforced** — the shared command guard (`scripts/agent-hooks/classify-command.sh`, wired into Claude's `PreToolUse` and Cursor's `beforeShellExecution`) blocks the corresponding commands outright.
 
 1. **No dark-mode-default tech aesthetic.** Warm cream, not near-black. (Exception: final CTA block and footer go dark.)
 2. **No pure white backgrounds.** Every "white" surface is Cream (`sandstone-100`).
@@ -462,8 +462,19 @@ The following skills are available and should be actively invoked when relevant.
 - **`frontend-design`** replaces "build from scratch with generic patterns." When a new block or section is needed, invoke this skill alongside checking the Oatmeal kit.
 - **`rams`** is part of the self-review checklist — run it before pushing any page-level work.
 
+## Compound Engineering
+
+Every unit of work should make the next one cheaper. The loop is **plan → work → review → compound**: after solving something, capture the lesson so it's searchable instead of re-debugged. Because PRs here can ship without human review, the compounding step is enforced by hooks, not discipline.
+
+- **Where lessons live:** `docs/solutions/` — one file per solved problem, YAML frontmatter following `.agents/skills/ce-compound/references/schema.yaml`. `docs/solutions/README.md` has the format contract. `INDEX.md` and `.cursor/rules/compound-lessons.mdc` are **generated** from frontmatter (`scripts/agent-hooks/gen-lessons-index.sh`) — never hand-edit them.
+- **When to run `/ce-compound`:** after fixing a non-obvious bug, discovering a toolchain/CMS/deploy gotcha, or making a tradeoff worth remembering. Not for routine feature work or copy.
+- **The nudge:** the Stop hook reminds you to run `/ce-compound` when a branch has a `fix:`/`perf:`/`refactor:` commit but no new solution doc. `feat:`/`content:`/`style:`/`docs:`/`chore:` never trigger it. If nothing's worth capturing, just stop again — it won't repeat.
+- **Surfacing:** the solutions index is injected at session start (Claude) and always-applied (Cursor), so prior art is available from turn one. Search `docs/solutions/` before debugging.
+- **Precedence:** the `superpowers:*` skills remain the primary process workflow (brainstorming, TDD, systematic-debugging). The `ce-*` skills add persistent capture (`ce-compound`, `ce-compound-refresh`), compound-tuned entry points (`ce-plan`, `ce-work`), and PR care (`ce-babysit-pr`, `ce-resolve-pr-feedback`) on top — they don't replace superpowers.
+
 ## Before Starting Work
 
+0. **Search `docs/solutions/` for prior art before debugging.** If this problem (or one like it) was solved before, the fix is already written down.
 1. **Read the relevant planning doc.** Every page has a section in the implementation plan with content status tags. Check what exists (✅), what's partial (🟡), and what needs writing (🔴).
 2. **Check the design brief.** Especially §9 (anti-patterns) and the component direction for whatever you're building.
 3. **Check existing patterns.** How do similar components work in this codebase? Don't reinvent unless there's a reason.
