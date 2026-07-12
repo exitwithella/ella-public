@@ -6,6 +6,42 @@
       "sourceType": "github",
       "computedHash": "39eaa7216d358c36e55b37c90a1dda916a891e6b294faa28d17e3511510b82d6"
     },
+    "ce-babysit-pr": {
+      "source": "EveryInc/compound-engineering-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ce-babysit-pr/SKILL.md",
+      "computedHash": "7c3ae7bb709458f2a066928b426e7c1c0b1ed4ec16827e7b4fc1f9e3e1e7709e"
+    },
+    "ce-compound": {
+      "source": "EveryInc/compound-engineering-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ce-compound/SKILL.md",
+      "computedHash": "c6c9e12d6ff8ec0977f6313903e279a35617177b20b020303bb3588ded4a097a"
+    },
+    "ce-compound-refresh": {
+      "source": "EveryInc/compound-engineering-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ce-compound-refresh/SKILL.md",
+      "computedHash": "5619ca52a2ba1640a4e013909e4b50adb6d93af7d649d400a0ad8ca2d838de28"
+    },
+    "ce-plan": {
+      "source": "EveryInc/compound-engineering-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ce-plan/SKILL.md",
+      "computedHash": "e21475286788e8a679528f22fb8aa48f92b4649dda5274b1e088ff1cba03db32"
+    },
+    "ce-resolve-pr-feedback": {
+      "source": "EveryInc/compound-engineering-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ce-resolve-pr-feedback/SKILL.md",
+      "computedHash": "06ac95cd5f9573ea3f56b54687a061789ddc483a4fd450a3c0dbdd458797d22d"
+    },
+    "ce-work": {
+      "source": "EveryInc/compound-engineering-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ce-work/SKILL.md",
+      "computedHash": "da7d1566d45588cb6b981d3c1f898d4c51b45d4e7e43f3b11445d3726652de9a"
+    },
     "dogfood": {
       "source": "vercel-labs/agent-browser",
       "sourceType": "github",
