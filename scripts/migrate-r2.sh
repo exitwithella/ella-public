@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 #
-# Migrate local R2 media blobs to remote Cloudflare R2 bucket.
+# Push local R2 media blobs UP to the remote Cloudflare R2 bucket.
 #
-# Reads the miniflare R2 metadata SQLite to map keys → blob files,
-# then uploads each to the remote bucket via wrangler.
+# Mirror of pull-r2.sh (which pulls remote -> local). Keys are derived from
+# src/seed-data/media.json (the `filename` field == the R2 object key), so this
+# never touches miniflare's internal sqlite/blob layout — which uses per-machine
+# object hashes that don't survive across developers, CI, or state regen. For
+# each key the blob is streamed local -> remote through wrangler, preserving the
+# content type recorded in media.json.
+#
+# Run as the tail of `content:push`, AFTER local content has been dumped
+# (so media.json is current) and seeded into remote D1.
 #
 # Usage:  bash scripts/migrate-r2.sh [--dry-run]
 #
@@ -17,82 +24,83 @@ if [[ "${1:-}" == "--dry-run" ]]; then
 fi
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-R2_DB="$PROJECT_ROOT/.wrangler/state/v3/r2/miniflare-R2BucketObject/ff996cb41a87f3a34e939b27a9727c46b68459c9425ea801cb6c3ed3fde545b9.sqlite"
-BLOB_DIR="$PROJECT_ROOT/.wrangler/state/v3/r2/ella-public-payload/blobs"
+MEDIA_JSON="$PROJECT_ROOT/src/seed-data/media.json"
 BUCKET="ella-public-payload"
 
-if [[ ! -f "$R2_DB" ]]; then
-  echo "ERROR: R2 metadata DB not found at $R2_DB"
+if [[ ! -f "$MEDIA_JSON" ]]; then
+  echo "ERROR: media manifest not found at $MEDIA_JSON (run 'pnpm dump' first)"
   exit 1
 fi
 
-# Get all objects from miniflare metadata, excluding %20 URL-encoded duplicates
-# (D1 media table uses non-encoded filenames as R2 keys)
-OBJECTS=$(sqlite3 "$R2_DB" "SELECT key || '|' || blob_id || '|' || http_metadata FROM _mf_objects WHERE key NOT LIKE '%\%20%' ORDER BY key;")
+# Read one "filename<TAB>mimeType" pair per line from media.json (skip blanks).
+# Plain `while read` loop for bash 3.2 compatibility (macOS has no `mapfile`).
+KEYS=()
+MIMES=()
+while IFS=$'\t' read -r key mime; do
+  [[ -n "$key" ]] || continue
+  KEYS+=("$key")
+  MIMES+=("$mime")
+done < <(python3 -c "
+import json
+for m in json.load(open('$MEDIA_JSON')):
+    fn = m.get('filename')
+    if fn:
+        print(fn + '\t' + (m.get('mimeType') or ''))
+")
 
-TOTAL=$(echo "$OBJECTS" | wc -l | tr -d ' ')
+TOTAL=${#KEYS[@]}
 echo "Uploading $TOTAL objects to remote R2 bucket: $BUCKET"
 echo
+
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
 
 SUCCESS=0
 FAILED=0
 
-while IFS= read -r line; do
-  # Parse: key|blob_id|http_metadata_json
-  KEY="${line%%|*}"
-  REST="${line#*|}"
-  BLOB_ID="${REST%%|*}"
-  HTTP_META="${REST#*|}"
+for i in "${!KEYS[@]}"; do
+  KEY="${KEYS[$i]}"
+  MIME="${MIMES[$i]}"
 
-  BLOB_PATH="$BLOB_DIR/$BLOB_ID"
+  # Fall back to an extension-based content type when media.json has none.
+  if [[ -z "$MIME" ]]; then
+    EXT="${KEY##*.}"
+    case "$EXT" in
+      png)      MIME="image/png" ;;
+      jpg|jpeg) MIME="image/jpeg" ;;
+      gif)      MIME="image/gif" ;;
+      webp)     MIME="image/webp" ;;
+      svg)      MIME="image/svg+xml" ;;
+      pdf)      MIME="application/pdf" ;;
+      *)        MIME="application/octet-stream" ;;
+    esac
+  fi
 
-  if [[ ! -f "$BLOB_PATH" ]]; then
-    echo "  SKIP (blob missing): $KEY"
+  if $DRY_RUN; then
+    echo "  [dry-run] $KEY ($MIME)"
+    SUCCESS=$((SUCCESS + 1))
+    continue
+  fi
+
+  TMP_FILE="$TMP_DIR/blob"
+  echo -n "  Uploading: $KEY ($MIME)... "
+
+  if ! npx wrangler r2 object get "$BUCKET/$KEY" --file="$TMP_FILE" --local >/dev/null 2>&1; then
+    echo "FAILED (local get — is the blob in local R2?)"
     FAILED=$((FAILED + 1))
     continue
   fi
 
-  # Determine content type from http_metadata JSON, or infer from extension
-  CONTENT_TYPE=""
-  if [[ "$HTTP_META" == *"contentType"* ]]; then
-    CONTENT_TYPE=$(echo "$HTTP_META" | python3 -c "import sys,json; print(json.load(sys.stdin).get('contentType',''))" 2>/dev/null || true)
-  fi
-
-  # Fallback: infer from file extension
-  if [[ -z "$CONTENT_TYPE" ]]; then
-    EXT="${KEY##*.}"
-    case "$EXT" in
-      png)  CONTENT_TYPE="image/png" ;;
-      jpg|jpeg) CONTENT_TYPE="image/jpeg" ;;
-      gif)  CONTENT_TYPE="image/gif" ;;
-      webp) CONTENT_TYPE="image/webp" ;;
-      svg)  CONTENT_TYPE="image/svg+xml" ;;
-      pdf)  CONTENT_TYPE="application/pdf" ;;
-      *)    CONTENT_TYPE="application/octet-stream" ;;
-    esac
-  fi
-
-  SIZE=$(wc -c < "$BLOB_PATH" | tr -d ' ')
-  SIZE_KB=$((SIZE / 1024))
-
-  if $DRY_RUN; then
-    echo "  [dry-run] $KEY (${SIZE_KB}KB, $CONTENT_TYPE)"
+  if npx wrangler r2 object put "$BUCKET/$KEY" --file="$TMP_FILE" --content-type="$MIME" --remote >/dev/null 2>&1; then
+    echo "OK"
+    SUCCESS=$((SUCCESS + 1))
   else
-    echo -n "  Uploading: $KEY (${SIZE_KB}KB, $CONTENT_TYPE)... "
-    if npx wrangler r2 object put "$BUCKET/$KEY" \
-        --file="$BLOB_PATH" \
-        --content-type="$CONTENT_TYPE" \
-        --remote 2>/dev/null; then
-      echo "OK"
-    else
-      echo "FAILED"
-      FAILED=$((FAILED + 1))
-      continue
-    fi
+    echo "FAILED (remote put)"
+    FAILED=$((FAILED + 1))
   fi
 
-  SUCCESS=$((SUCCESS + 1))
-done <<< "$OBJECTS"
+  rm -f "$TMP_FILE"
+done
 
 echo
 echo "Done. $SUCCESS succeeded, $FAILED failed out of $TOTAL total."
