@@ -106,6 +106,8 @@ Oatmeal is a Tailwind CSS component kit with 50+ pre-built, responsive component
 
 Payload's D1/R2 access flows through a single binding switch in `src/payload.config.ts` (`remoteBindings`, gated by the `REMOTE_BINDINGS` env var). Setting `REMOTE_BINDINGS=true` points the dev server, `dump`, and `seed` at the **remote production** D1 + R2 instead of local miniflare. All of this requires Cloudflare auth first: `wrangler login` (or export `CLOUDFLARE_API_TOKEN`).
 
+**Bindings default to LOCAL everywhere** — including `next build` (CI validation builds run unauthenticated against a fresh local D1). Remote is strictly opt-in via `REMOTE_BINDINGS=true`; the deploy scripts (`cf:build`, `deploy:app`, `deploy:database`) pass it explicitly because the production build bakes SSG pages from prod content and migrations must land in remote D1. The explicit flag also overrides wrangler's default of honoring the `"remote": true` binding markers in `wrangler.jsonc` whenever auth happens to exist.
+
 - **`pnpm content:pull`** — dump prod → `src/seed-data/*.json`, seed into **local** D1, pull prod media blobs into local R2. Refreshes your local environment with real production content. (Overwrites uncommitted `src/seed-data/` working content.)
 - **`pnpm content:push`** — dump **local** content, then (after a typed confirmation) seed into **production** D1 and push media blobs to prod R2. Pull a backup first if unsure.
 - **`pnpm dev:remote`** — run the local dev server/admin directly against **production** (after confirmation). Every save in the admin writes to live prod D1, and it's slower (per-query network round-trips). Use for inspection/occasional edits, not day-to-day dev.
