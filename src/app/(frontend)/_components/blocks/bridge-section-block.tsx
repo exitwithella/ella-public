@@ -2,10 +2,9 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import Link from 'next/link'
 
 import { Container } from '@/components/elements/container'
-import { CoverImage } from '@/components/elements/cover-image'
 import { Heading } from '@/components/elements/heading'
-import { ThemeSection } from '@/components/elements/theme-section'
-import type { Media, Page } from '@/payload-types'
+import { OptionalCoverSection } from '@/components/elements/optional-cover-section'
+import type { Page } from '@/payload-types'
 
 type BridgeSectionData = Extract<
   NonNullable<Page['layout']>[number],
@@ -23,14 +22,6 @@ const bodyStyleClasses = {
 
 export function BridgeSectionBlock({ block }: BridgeSectionBlockProps) {
   const style = block.bodyStyle === 'feature' ? 'feature' : 'body'
-
-  const coverImg = (block as Record<string, unknown>).coverImage as {
-    image?: Media | number | null
-    minHeight?: 'sm' | 'md' | 'lg' | null
-    objectPosition?: 'top' | 'center' | 'bottom' | null
-    overlayOpacity?: '40' | '60' | '80' | null
-  } | null
-  const hasCover = coverImg?.image && typeof coverImg.image === 'object' && coverImg.image?.url
 
   const content = (
     <Container>
@@ -102,19 +93,12 @@ export function BridgeSectionBlock({ block }: BridgeSectionBlockProps) {
   )
 
   return (
-    <ThemeSection bgStyle={block.bgStyle} className={hasCover ? '' : 'py-20 md:py-28'}>
-      {hasCover ? (
-        <CoverImage
-          image={coverImg.image as Media}
-          minHeight={coverImg.minHeight}
-          objectPosition={coverImg.objectPosition}
-          overlayOpacity={coverImg.overlayOpacity}
-        >
-          <div className="py-20 md:py-28">{content}</div>
-        </CoverImage>
-      ) : (
-        content
-      )}
-    </ThemeSection>
+    <OptionalCoverSection
+      bgStyle={block.bgStyle}
+      coverImage={(block as Record<string, unknown>).coverImage}
+      padding="py-20 md:py-28"
+    >
+      {content}
+    </OptionalCoverSection>
   )
 }
