@@ -3,9 +3,10 @@
 #
 # Exit 0 ("nudge warranted") when the current branch, measured against its
 # merge-base with origin/main, contains a fix:/perf:/refactor: conventional
-# commit but has NOT added a solution doc under docs/solutions/. Those commit
-# types encode a solved problem worth capturing; feat/content/style/docs/chore
-# never trigger a nudge. Exit 1 otherwise (nothing to nudge about).
+# commit but has NOT added OR updated a solution doc under docs/solutions/.
+# Those commit types encode a solved problem worth capturing; feat/content/
+# style/docs/chore never trigger a nudge. Exit 1 otherwise (nothing to nudge
+# about). Editing an existing solution doc counts as capturing a lesson too.
 #
 # Loop protection and output formatting live in the per-agent adapters.
 
@@ -23,11 +24,13 @@ if ! git log --format='%s' "$BASE..HEAD" 2>/dev/null \
   exit 1
 fi
 
-# A real solution doc added on the branch — committed, staged, or untracked —
-# excluding the README and generated INDEX. If present, the lesson is captured.
+# A real solution doc added or modified on the branch — committed, staged,
+# unstaged, or untracked — excluding the README and generated INDEX. If present,
+# the lesson is captured (a rewrite of an existing doc counts as much as a new one).
 {
-  git diff --name-only --diff-filter=A "$BASE..HEAD" -- 'docs/solutions/*.md' 2>/dev/null
-  git diff --cached --name-only --diff-filter=A -- 'docs/solutions/*.md' 2>/dev/null
+  git diff --name-only --diff-filter=AM "$BASE..HEAD" -- 'docs/solutions/*.md' 2>/dev/null
+  git diff --cached --name-only --diff-filter=AM -- 'docs/solutions/*.md' 2>/dev/null
+  git diff --name-only --diff-filter=AM -- 'docs/solutions/*.md' 2>/dev/null
   git ls-files --others --exclude-standard -- 'docs/solutions/*.md' 2>/dev/null
 } | grep -vE '/(README|INDEX)\.md$' | grep -q . && exit 1
 
