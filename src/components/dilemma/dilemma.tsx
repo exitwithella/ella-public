@@ -1,8 +1,8 @@
 'use client'
 
 import { clsx } from 'clsx/lite'
-import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react'
-import { useState, useEffect, useRef } from 'react'
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'motion/react'
+import { useState, useRef } from 'react'
 
 import { useIsMobile } from '@/hooks/use-media-query'
 
@@ -68,13 +68,15 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
   const vizEnd = isMobile ? 0.4 : 0.45
   const vizProgress = useTransform(scrollYProgress, [0, vizEnd], [0, 1])
 
-  // For status pill and transition copy (need raw value)
-  const [vizProgressValue, setVizProgressValue] = useState(0)
-  useEffect(() => {
-    return vizProgress.on('change', setVizProgressValue)
-  }, [vizProgress])
-
-  const statusIndex = getStatusIndex(vizProgressValue)
+  // Only two discrete derivations are needed: the status-pill index and whether
+  // scroll is past the reveal threshold. Quantizing before setState means React
+  // re-renders only at the 0.2/0.5/0.7/0.8 boundaries, not on every frame.
+  const [statusIndex, setStatusIndex] = useState(0)
+  const [pastReveal, setPastReveal] = useState(false)
+  useMotionValueEvent(vizProgress, 'change', (v) => {
+    setStatusIndex(getStatusIndex(v))
+    setPastReveal(v > 0.7)
+  })
 
   return (
     <div ref={containerRef} className="w-full font-sans">
@@ -194,7 +196,7 @@ export default function DilemmaSection(props: DilemmaSectionProps = {}) {
         {/* ─── TRANSITION COPY ─── */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
-          animate={vizProgressValue > 0.7 ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          animate={pastReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
           transition={SPRING_SLOW}
           className={clsx('text-center', isMobile ? 'px-5 pt-10 pb-11' : 'px-8 pt-13 pb-14')}
         >

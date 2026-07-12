@@ -1,8 +1,7 @@
 'use client'
 
 import { clsx } from 'clsx/lite'
-import { motion, useTransform, type MotionValue } from 'motion/react'
-import { useState, useEffect } from 'react'
+import { motion, useMotionTemplate, useTransform, type MotionValue } from 'motion/react'
 
 import { ca } from '@/lib/color'
 
@@ -170,32 +169,13 @@ function DividerLine({
   gapSize: MotionValue<number>
   blur: MotionValue<string>
 }) {
-  // We need to use the raw values here due to CSS gradient complexity
-  const [alpha, setAlpha] = useState(0.2)
-  const [gap, setGap] = useState(3)
-  const [blurVal, setBlurVal] = useState('blur(0px)')
+  // Stay in MotionValue-land — no per-frame re-render. `alphaPct` matches the
+  // Math.round(opacity * 100) rounding in ca() (src/lib/color.ts), and the
+  // template reproduces ca()'s color-mix output byte-for-byte.
+  const alphaPct = useTransform(integrityAlpha, (a) => Math.round(a * 100))
+  const background = useMotionTemplate`repeating-linear-gradient(to bottom, color-mix(in oklch, var(--color-ash-400) ${alphaPct}%, transparent) 0px, color-mix(in oklch, var(--color-ash-400) ${alphaPct}%, transparent) 3px, transparent 3px, transparent ${gapSize}px)`
 
-  useEffect(() => {
-    const unsubAlpha = integrityAlpha.on('change', setAlpha)
-    const unsubGap = gapSize.on('change', setGap)
-    const unsubBlur = blur.on('change', setBlurVal)
-    return () => {
-      unsubAlpha()
-      unsubGap()
-      unsubBlur()
-    }
-  }, [integrityAlpha, gapSize, blur])
-
-  return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        background: `repeating-linear-gradient(to bottom, ${ca('var(--color-ash-400)', alpha)} 0px, ${ca('var(--color-ash-400)', alpha)} 3px, transparent 3px, transparent ${gap}px)`,
-        filter: blurVal,
-      }}
-    />
-  )
+  return <motion.div className="h-full w-full" style={{ background, filter: blur }} />
 }
 
 function DriftingFragment({
