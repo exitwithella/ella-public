@@ -157,7 +157,7 @@ async function seed() {
   const mediaMap = await seedCollection(payload, 'media', 'filename')
   const disciplineMap = await seedCollection(payload, 'disciplines', 'slug')
   const categoryMap = await seedCollection(payload, 'categories', 'slug')
-  await seedCollection(payload, 'pricing-tiers', 'name')
+  const pricingTierMap = await seedCollection(payload, 'pricing-tiers', 'name')
   await seedCollection(payload, 'faq-items', 'question')
   await seedCollection(payload, 'redirects', 'from')
   await seedCollection(payload, 'vanguard-events', 'id')
@@ -177,7 +177,7 @@ async function seed() {
     remap: { photo: mediaMap },
   })
   await seedCollection(payload, 'tools', 'slug', {
-    remap: { icon: mediaMap, disciplines: disciplineMap, pricingTier: mediaMap },
+    remap: { icon: mediaMap, disciplines: disciplineMap, pricingTier: pricingTierMap },
   })
   await seedCollection(payload, 'solutions', 'slug', {
     remap: { discipline: disciplineMap },
