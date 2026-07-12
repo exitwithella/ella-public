@@ -12,6 +12,7 @@ export const getHomepage = unstable_cache(
       limit: 1,
       where: {
         slug: { equals: 'home' },
+        status: { equals: 'published' },
       },
     })
 

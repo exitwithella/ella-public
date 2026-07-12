@@ -17,7 +17,7 @@ const getPage = unstable_cache(
       collection: 'pages',
       depth: 2,
       limit: 1,
-      where: { slug: { equals: slug } },
+      where: { slug: { equals: slug }, status: { equals: 'published' } },
     })
     return (result.docs[0] ?? null) as Page | null
   },

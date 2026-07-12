@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { unstable_cache } from 'next/cache'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 
 import type { Media } from '@/payload-types'
@@ -25,6 +25,7 @@ const getPage = unstable_cache(
       limit: 1,
       where: {
         slug: { equals: slug },
+        status: { equals: 'published' },
       },
     })
 
@@ -36,6 +37,7 @@ const getPage = unstable_cache(
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
+  if (slug === 'home') return {}
   const page = await getPage(slug)
 
   if (!page) return {}
@@ -52,6 +54,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params
+  // The homepage lives at `/` — avoid serving a duplicate at `/home`.
+  if (slug === 'home') redirect('/')
   const page = await getPage(slug)
 
   if (!page) {

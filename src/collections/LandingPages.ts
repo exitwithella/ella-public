@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { publishedOrAuthed } from '../access/publishedOrAuthed'
 import {
   CardGridBlock,
   ContentSectionBlock,
@@ -19,7 +20,7 @@ import { metaField } from '../fields/meta'
 
 export const LandingPages: CollectionConfig = {
   access: {
-    read: () => true,
+    read: publishedOrAuthed,
   },
   admin: {
     defaultColumns: ['title', 'slug', 'campaign', 'status'],

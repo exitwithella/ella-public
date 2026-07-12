@@ -1,12 +1,13 @@
 import type { CollectionConfig } from 'payload'
 
+import { publishedOrAuthed } from '../access/publishedOrAuthed'
 import { metaField } from '../fields/meta'
 import { createIndexNowHook } from '../hooks/notify-indexnow'
 import { createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const Posts: CollectionConfig = {
   access: {
-    read: () => true,
+    read: publishedOrAuthed,
   },
   hooks: {
     afterChange: [
