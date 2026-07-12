@@ -4,36 +4,24 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-d1-sqlite'
  * MKT-223: Convert the Dilemma Section block's `table_data` and `steps` JSON
  * columns into typed Payload array fields (their own child tables).
  *
- * The `up()` flow is strictly ordered so no data is lost:
- *   1. Create the two new array tables + indexes.
- *   2. Read the existing JSON out of `pages_blocks_dilemma_section`, parse it,
- *      and INSERT one row per array item into the new tables (defensive:
- *      per-row try/catch, skips null/invalid values).
- *   3. Only then DROP the old JSON columns.
- *
- * The `down()` flow reverses this: re-add the JSON columns, re-serialize the
- * array rows back into JSON, then drop the array tables.
- *
- * Note: the `pages` collection has drafts/versions disabled, so there is no
- * `_pages_v_blocks_dilemma_section` table to migrate.
+ * The generated schema statements are kept as-is; the data-copy step in the
+ * middle is hand-written so existing JSON content survives: create the new
+ * array tables, copy parsed JSON rows into them, and only then drop the old
+ * columns. `down()` re-serializes the rows back to JSON before dropping the
+ * array tables.
  */
 
 const newId = (): string => globalThis.crypto.randomUUID()
 
 const toText = (value: unknown): string => (value == null ? '' : String(value))
 
-/**
- * The D1 driver returns rows on `.results`; the libSQL driver uses `.rows`.
- * Read whichever is present so the migration is portable across adapters.
- */
+/** The D1 driver returns rows on `.results`; the libSQL driver uses `.rows`. */
 const rowsOf = (result: unknown): Array<Record<string, unknown>> => {
   const r = result as { rows?: unknown[]; results?: unknown[] }
   return (r.rows ?? r.results ?? []) as Array<Record<string, unknown>>
 }
 
-export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  // 1. Create the new array tables (conventions match the adapter's generated
-  //    schema for nested block arrays: text `_parent_id`, text PK `id`).
+export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE TABLE \`pages_blocks_dilemma_section_table_data\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` text NOT NULL,
@@ -52,7 +40,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(
     sql`CREATE INDEX \`pages_blocks_dilemma_section_table_data_parent_id_idx\` ON \`pages_blocks_dilemma_section_table_data\` (\`_parent_id\`);`,
   )
-
   await db.run(sql`CREATE TABLE \`pages_blocks_dilemma_section_steps\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` text NOT NULL,
@@ -69,7 +56,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
     sql`CREATE INDEX \`pages_blocks_dilemma_section_steps_parent_id_idx\` ON \`pages_blocks_dilemma_section_steps\` (\`_parent_id\`);`,
   )
 
-  // 2. Migrate existing JSON data into the new tables BEFORE dropping columns.
+  // Copy existing JSON content into the new array tables BEFORE dropping the
+  // columns. Defensive per-row parsing: invalid JSON is skipped and the
+  // frontend falls back to its built-in defaults.
   const rows = rowsOf(
     await db.run(sql`SELECT \`id\`, \`table_data\`, \`steps\` FROM \`pages_blocks_dilemma_section\`;`),
   )
@@ -80,7 +69,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
       continue
     }
 
-    // Comparison table rows.
     if (typeof row.table_data === 'string' && row.table_data.length > 0) {
       try {
         const parsed = JSON.parse(row.table_data)
@@ -90,24 +78,20 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
             if (item == null || typeof item !== 'object') {
               continue
             }
+            const record = item as Record<string, unknown>
             order += 1
             await db.run(sql`INSERT INTO \`pages_blocks_dilemma_section_table_data\`
               (\`_order\`, \`_parent_id\`, \`id\`, \`dim\`, \`old\`, \`rigid\`, \`patch\`, \`ella\`)
-              VALUES (${order}, ${parentId}, ${newId()}, ${toText(
-                (item as Record<string, unknown>).dim,
-              )}, ${toText((item as Record<string, unknown>).old)}, ${toText(
-                (item as Record<string, unknown>).rigid,
-              )}, ${toText((item as Record<string, unknown>).patch)}, ${toText(
-                (item as Record<string, unknown>).ella,
-              )});`)
+              VALUES (${order}, ${parentId}, ${newId()}, ${toText(record.dim)}, ${toText(
+                record.old,
+              )}, ${toText(record.rigid)}, ${toText(record.patch)}, ${toText(record.ella)});`)
           }
         }
       } catch {
-        // Skip unparseable JSON — defaults will apply at render time.
+        // Skip unparseable JSON — defaults apply at render time.
       }
     }
 
-    // Rigid platform steps.
     if (typeof row.steps === 'string' && row.steps.length > 0) {
       try {
         const parsed = JSON.parse(row.steps)
@@ -117,31 +101,30 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
             if (item == null || typeof item !== 'object') {
               continue
             }
+            const record = item as Record<string, unknown>
             order += 1
             await db.run(sql`INSERT INTO \`pages_blocks_dilemma_section_steps\`
               (\`_order\`, \`_parent_id\`, \`id\`, \`label\`, \`sub\`)
-              VALUES (${order}, ${parentId}, ${newId()}, ${toText(
-                (item as Record<string, unknown>).label,
-              )}, ${toText((item as Record<string, unknown>).sub)});`)
+              VALUES (${order}, ${parentId}, ${newId()}, ${toText(record.label)}, ${toText(
+                record.sub,
+              )});`)
           }
         }
       } catch {
-        // Skip unparseable JSON — defaults will apply at render time.
+        // Skip unparseable JSON — defaults apply at render time.
       }
     }
   }
 
-  // 3. Drop the old JSON columns now that data has been copied.
   await db.run(sql`ALTER TABLE \`pages_blocks_dilemma_section\` DROP COLUMN \`table_data\`;`)
   await db.run(sql`ALTER TABLE \`pages_blocks_dilemma_section\` DROP COLUMN \`steps\`;`)
 }
 
-export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  // 1. Re-add the JSON columns.
+export async function down({ db }: MigrateDownArgs): Promise<void> {
   await db.run(sql`ALTER TABLE \`pages_blocks_dilemma_section\` ADD \`table_data\` text;`)
   await db.run(sql`ALTER TABLE \`pages_blocks_dilemma_section\` ADD \`steps\` text;`)
 
-  // 2. Re-serialize the array rows back into JSON on the parent block.
+  // Re-serialize array rows back to JSON on the parent block.
   const parents = rowsOf(await db.run(sql`SELECT \`id\` FROM \`pages_blocks_dilemma_section\`;`))
 
   for (const parent of parents) {
@@ -188,7 +171,6 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
     }
   }
 
-  // 3. Drop the array tables.
   await db.run(sql`DROP TABLE \`pages_blocks_dilemma_section_table_data\`;`)
   await db.run(sql`DROP TABLE \`pages_blocks_dilemma_section_steps\`;`)
 }
