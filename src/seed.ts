@@ -15,7 +15,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import 'dotenv/config'
-import type { Payload } from 'payload'
+import type { CollectionSlug, GlobalSlug, Payload } from 'payload'
 import { getPayload } from 'payload'
 
 import config from './payload.config'
@@ -58,13 +58,13 @@ function stripAutoFields(doc: Record<string, unknown>): Record<string, unknown> 
  */
 async function upsertDoc(
   payload: Payload,
-  collection: string,
+  collection: CollectionSlug,
   doc: Record<string, unknown>,
   uniqueField: string,
 ): Promise<{ id: number; created: boolean }> {
   const uniqueValue = doc[uniqueField]
   const existing = await payload.find({
-    collection: collection as any,
+    collection,
     where: { [uniqueField]: { equals: uniqueValue } },
     limit: 1,
     depth: 0,
@@ -75,7 +75,7 @@ async function upsertDoc(
   if (existing.docs.length > 0) {
     const existingDoc = existing.docs[0] as any
     await payload.update({
-      collection: collection as any,
+      collection,
       id: existingDoc.id,
       data,
     })
@@ -83,7 +83,7 @@ async function upsertDoc(
   }
 
   const created = await payload.create({
-    collection: collection as any,
+    collection,
     data,
   })
   return { id: (created as any).id, created: true }
@@ -95,7 +95,7 @@ async function upsertDoc(
  */
 async function seedCollection(
   payload: Payload,
-  collection: string,
+  collection: CollectionSlug,
   uniqueField: string,
   options?: {
     /** Remap relationship fields using ID maps from previously seeded collections */
@@ -296,7 +296,7 @@ async function seed() {
         'coverImage',
       ])
       await payload.updateGlobal({
-        slug: slug as any,
+        slug: slug as GlobalSlug,
         data: cleaned as any,
       })
       console.log(`  ✓ ${slug}`)
