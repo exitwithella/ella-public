@@ -8,6 +8,11 @@ const meta: Meta = {
 export default meta
 type Story = StoryObj
 
+export const Defaults: Story = {
+  name: 'Default content',
+  render: () => <DilemmaSection />,
+}
+
 export const InitialState: Story = {
   name: 'Initial state',
   render: () => (
