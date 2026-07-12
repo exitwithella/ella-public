@@ -37,9 +37,9 @@ function writeJSON(filename: string, data: unknown) {
  */
 function stripInternals<T extends Record<string, unknown>>(doc: T): T {
   const copy = { ...doc }
-  // Remove populated relationship objects — keep only IDs
-  // Payload returns { id, ...fields } for depth:0 which is what we want
-  delete copy.sizes // image sizes generated at upload time
+  // depth:0 already returns relationships as bare IDs, so the only thing to
+  // drop is `sizes` — the image-size variants generated at upload time.
+  delete copy.sizes
   return copy
 }
 

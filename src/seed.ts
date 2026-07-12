@@ -174,7 +174,7 @@ async function seed() {
   const teamMemberMap = await seedCollection(payload, 'team-members', 'name', {
     remap: { photo: mediaMap },
   })
-  await seedCollection(payload, 'testimonials', 'name', {
+  const testimonialsMap = await seedCollection(payload, 'testimonials', 'name', {
     remap: { photo: mediaMap },
   })
   await seedCollection(payload, 'tools', 'slug', {
@@ -205,9 +205,10 @@ async function seed() {
     ])
     remapDeep(page, teamMemberMap, ['author'])
     remapDeep(page, disciplineMap, ['discipline', 'disciplines'])
-    // Testimonial IDs reference the testimonials collection — but those IDs
-    // haven't changed since we upsert by name. Still remap for safety.
-    // testimonial fields in blocks reference testimonials collection by ID
+    // Testimonials are upserted by name, so their IDs can differ from the dump
+    // on a fresh DB — remap the testimonial refs embedded in feature-deep-dive
+    // / testimonial-block layouts to the seeded IDs.
+    remapDeep(page, testimonialsMap, ['testimonial', 'testimonials'])
   }
 
   let pagesCreated = 0
