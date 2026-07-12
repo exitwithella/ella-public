@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { publishedOrAuthed } from '../access/publishedOrAuthed'
 import {
   AdvisorPersonasBlock,
   BeforeAfterPanelBlock,
@@ -32,7 +33,7 @@ import { createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const Pages: CollectionConfig = {
   access: {
-    read: () => true,
+    read: publishedOrAuthed,
   },
   hooks: {
     afterChange: [
