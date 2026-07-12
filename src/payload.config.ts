@@ -43,14 +43,21 @@ const realpath = (value: string) => (fs.existsSync(value) ? fs.realpathSync(valu
 const isCLI = process.argv.some((value) => realpath(value).endsWith(path.join('payload', 'bin.js')))
 const isProduction = process.env.NODE_ENV === 'production'
 
-// Opt-in switch to point local dev / CLI scripts (dump, seed) at the *remote*
-// production D1 + R2 bindings instead of the local miniflare state. Set by the
-// `dev:remote`, `content:pull`, and `content:push` scripts. Requires Cloudflare
-// auth (`wrangler login` or CLOUDFLARE_API_TOKEN). See CLAUDE.md.
-const useRemoteBindings = isProduction || process.env.REMOTE_BINDINGS === 'true'
+// `next build` sets NODE_ENV=production but runs outside the Workers runtime —
+// it must resolve bindings through the wrangler proxy, not the runtime context.
+const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build'
+
+// Opt-in switch to point local dev / CLI scripts (dump, seed, migrate) at the
+// *remote* production D1 + R2 bindings instead of the local miniflare state.
+// Set by the `dev:remote`, `content:pull`/`content:push`, and `deploy:database`
+// scripts. Requires Cloudflare auth (`wrangler login` or CLOUDFLARE_API_TOKEN).
+// Everything else — including `next build` — defaults to LOCAL bindings; passing
+// the flag explicitly below also overrides wrangler's default of honoring the
+// `"remote": true` markers in wrangler.jsonc whenever auth happens to exist.
+const useRemoteBindings = process.env.REMOTE_BINDINGS === 'true'
 
 const cloudflare =
-  isCLI || !isProduction
+  isCLI || isBuildPhase || !isProduction
     ? await getCloudflareContextFromWrangler()
     : await getCloudflareContext({ async: true })
 

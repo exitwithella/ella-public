@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
   // Read more: https://opennext.js.org/cloudflare/howtos/workerd
   serverExternalPackages: ['jose', 'pg-cloudflare', 'drizzle-kit', 'typescript', '@clerk/backend'],
 
+  // In CI the build runs against LOCAL bindings (no Cloudflare auth), and each
+  // parallel build worker boots its own workerd over the same on-disk miniflare
+  // state — concurrent startup intermittently crashes with SQLITE_BUSY.
+  // Serialize the workers in CI only; local and deploy builds stay parallel.
+  ...(process.env.CI ? { experimental: { cpus: 1 } } : {}),
+
   // Injected at build time so /api/release can report which git revision is
   // currently serving. WORKERS_CI_COMMIT_SHA is set by Cloudflare Workers
   // Builds; GITHUB_SHA covers GH Actions; the rest is local-dev fallback.
