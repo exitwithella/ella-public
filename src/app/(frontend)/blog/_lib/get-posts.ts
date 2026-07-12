@@ -4,6 +4,8 @@ import { getPayload } from 'payload'
 
 import type { Post } from '@/payload-types'
 
+import { CACHE_TAGS } from '../../_lib/cache-tags'
+
 interface GetPublishedPostsOptions {
   categorySlug?: string
   tier?: Post['tier']
@@ -40,7 +42,7 @@ export const getPublishedPosts = unstable_cache(
     return result.docs as Post[]
   },
   ['posts-published'],
-  { revalidate: 86400, tags: ['posts'] },
+  { revalidate: 86400, tags: [CACHE_TAGS.posts] },
 )
 
 export const getPostBySlug = unstable_cache(
@@ -60,7 +62,7 @@ export const getPostBySlug = unstable_cache(
     return (result.docs[0] ?? null) as Post | null
   },
   ['post-by-slug'],
-  { revalidate: 86400, tags: ['posts'] },
+  { revalidate: 86400, tags: [CACHE_TAGS.posts] },
 )
 
 export async function getPostByPath(segments: string[]): Promise<Post | null> {
@@ -102,5 +104,5 @@ export const getAllPostSlugs = unstable_cache(
     return paths
   },
   ['all-post-slugs'],
-  { revalidate: 86400, tags: ['posts'] },
+  { revalidate: 86400, tags: [CACHE_TAGS.posts] },
 )
