@@ -1,7 +1,7 @@
 ---
-title: Field Type Guards
-description: Runtime field type checking and safe type narrowing
-tags: [payload, typescript, type-guards, fields]
+description: Runtime field type checking and safe type narrowing for Payload fields.
+globs: src/fields/**,src/blocks/**,src/collections/**
+alwaysApply: false
 ---
 
 # Payload Field Type Guards

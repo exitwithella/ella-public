@@ -1,7 +1,6 @@
 ---
-title: Payload CMS Overview
-description: Core principles and quick reference for Payload CMS development
-tags: [payload, overview, quickstart]
+description: Payload CMS overview — core principles and quick reference for Payload development in this project.
+alwaysApply: false
 ---
 
 # Payload CMS Development Rules
