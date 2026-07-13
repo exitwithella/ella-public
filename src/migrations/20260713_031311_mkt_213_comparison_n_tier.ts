@@ -5,12 +5,20 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-d1-sqlite'
  * `practitioner`/`enterprise` groups per row to a per-tier `values` array
  * linked (by relationship) to the pricing-tiers collection.
  *
- * The generated schema statements are kept, but the data-copy step is
- * hand-written so existing comparison content survives: create the new
- * `values` table, copy the two group columns into it (resolving the tier
- * ids by NAME so prod ids don't need to match seed), and only then drop the
- * old columns. `down()` reverses it — re-add the columns, copy `values`
- * rows back by tier name, then drop the array table.
+ * EXPAND step only — deliberately rollback-safe. `up()` creates the new
+ * `values` table and backfills it from the existing `practitioner`/
+ * `enterprise` group columns (resolving tier ids by NAME so prod ids need
+ * not match seed), but it does NOT drop those old columns. Leaving them in
+ * place means the previous Worker version (whose Payload config still reads
+ * the group columns) keeps working after this deploys, so a Worker rollback
+ * does not strand old code against a schema it can't read. `down()` simply
+ * drops the `values` table; the group columns were never touched.
+ *
+ * The matching CONTRACT step — dropping the now-orphaned
+ * `practitioner_*`/`enterprise_*` columns once this release is confirmed
+ * stable — is a deliberate follow-up migration, not part of this one. Until
+ * then the columns linger unused (Payload ignores DB columns absent from the
+ * config); new comparison rows get their NOT NULL defaults.
  */
 
 const newId = (): string => globalThis.crypto.randomUUID()
@@ -90,53 +98,12 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     }
   }
 
-  await db.run(sql`ALTER TABLE \`pricing_page_categories_rows\` DROP COLUMN \`practitioner_indicator\`;`)
-  await db.run(
-    sql`ALTER TABLE \`pricing_page_categories_rows\` DROP COLUMN \`practitioner_display_text\`;`,
-  )
-  await db.run(sql`ALTER TABLE \`pricing_page_categories_rows\` DROP COLUMN \`enterprise_indicator\`;`)
-  await db.run(
-    sql`ALTER TABLE \`pricing_page_categories_rows\` DROP COLUMN \`enterprise_display_text\`;`,
-  )
+  // NOTE: the old practitioner_*/enterprise_* columns are intentionally left in
+  // place (expand step). Dropping them is a later CONTRACT migration.
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
-  await db.run(
-    sql`ALTER TABLE \`pricing_page_categories_rows\` ADD \`practitioner_indicator\` text DEFAULT 'check' NOT NULL;`,
-  )
-  await db.run(sql`ALTER TABLE \`pricing_page_categories_rows\` ADD \`practitioner_display_text\` text;`)
-  await db.run(
-    sql`ALTER TABLE \`pricing_page_categories_rows\` ADD \`enterprise_indicator\` text DEFAULT 'check' NOT NULL;`,
-  )
-  await db.run(sql`ALTER TABLE \`pricing_page_categories_rows\` ADD \`enterprise_display_text\` text;`)
-
-  // Copy `values` rows back into the group columns by tier name.
-  const tiers = rowsOf(await db.run(sql`SELECT \`id\`, \`name\` FROM \`pricing_tiers\`;`))
-  const nameById = new Map(tiers.map((t) => [String(t.id), String(t.name)]))
-
-  const values = rowsOf(
-    await db.run(
-      sql`SELECT \`_parent_id\`, \`tier_id\`, \`indicator\`, \`display_text\` FROM \`pricing_page_categories_rows_values\`;`,
-    ),
-  )
-
-  for (const v of values) {
-    const parentId = v._parent_id
-    if (parentId == null) continue
-    const name = nameById.get(String(v.tier_id))
-    const indicator = toIndicator(v.indicator)
-    const text = v.display_text == null ? null : String(v.display_text)
-
-    if (name === 'Practitioner') {
-      await db.run(
-        sql`UPDATE \`pricing_page_categories_rows\` SET \`practitioner_indicator\` = ${indicator}, \`practitioner_display_text\` = ${text} WHERE \`id\` = ${parentId};`,
-      )
-    } else if (name === 'Enterprise') {
-      await db.run(
-        sql`UPDATE \`pricing_page_categories_rows\` SET \`enterprise_indicator\` = ${indicator}, \`enterprise_display_text\` = ${text} WHERE \`id\` = ${parentId};`,
-      )
-    }
-  }
-
+  // up() only added the values table (the group columns were never dropped),
+  // so reverting is just dropping that table.
   await db.run(sql`DROP TABLE \`pricing_page_categories_rows_values\`;`)
 }
