@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
+import { ctaField } from '../fields/cta'
 import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
 
 export const SiteSettings: GlobalConfig = {
@@ -141,20 +142,7 @@ export const SiteSettings: GlobalConfig = {
                   name: 'message',
                   type: 'text',
                 },
-                {
-                  name: 'link',
-                  type: 'group',
-                  fields: [
-                    {
-                      name: 'label',
-                      type: 'text',
-                    },
-                    {
-                      name: 'href',
-                      type: 'text',
-                    },
-                  ],
-                },
+                ctaField({ name: 'link' }),
                 {
                   name: 'style',
                   type: 'select',

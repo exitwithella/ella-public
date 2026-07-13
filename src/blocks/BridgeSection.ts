@@ -2,6 +2,8 @@ import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
 import { coverImageField } from '../fields/coverImage'
+import { ctaField } from '../fields/cta'
+import { DISPLAY_SERIF_FONT_OPTIONS } from '../fields/options'
 
 export const BridgeSectionBlock: Block = {
   slug: 'bridge-section',
@@ -28,10 +30,7 @@ export const BridgeSectionBlock: Block = {
       name: 'headingStyle',
       type: 'select',
       defaultValue: 'display',
-      options: [
-        { label: 'Display (Termina)', value: 'display' },
-        { label: 'Serif (Instrument Serif)', value: 'serif' },
-      ],
+      options: DISPLAY_SERIF_FONT_OPTIONS,
       admin: {
         description: 'Font style for the heading.',
         width: '50%',
@@ -86,23 +85,12 @@ export const BridgeSectionBlock: Block = {
         description: 'Standalone closing line after the quotes. DM Sans medium weight.',
       },
     },
-    {
+    ctaField({
       name: 'link',
-      type: 'group',
       admin: {
         description: 'Optional trailing link below the content.',
       },
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-        },
-        {
-          name: 'href',
-          type: 'text',
-        },
-      ],
-    },
+    }),
     bgStyleField,
     coverImageField,
   ],

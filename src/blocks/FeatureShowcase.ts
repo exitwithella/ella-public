@@ -1,6 +1,8 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { ctaField } from '../fields/cta'
+import { DISPLAY_SERIF_FONT_OPTIONS } from '../fields/options'
 
 export const FeatureShowcaseBlock: Block = {
   slug: 'feature-showcase',
@@ -65,10 +67,7 @@ export const FeatureShowcaseBlock: Block = {
       name: 'headingFont',
       type: 'select',
       defaultValue: 'display',
-      options: [
-        { label: 'Display (Termina)', value: 'display' },
-        { label: 'Serif (Instrument Serif)', value: 'serif' },
-      ],
+      options: DISPLAY_SERIF_FONT_OPTIONS,
       admin: {
         description: 'Font family for the heading.',
         width: '50%',
@@ -94,26 +93,13 @@ export const FeatureShowcaseBlock: Block = {
         description: 'Supporting paragraph text below the heading.',
       },
     },
-    {
+    ctaField({
       name: 'link',
-      type: 'group',
       admin: {
         description: 'Optional CTA button or text link below the body.',
       },
-      fields: [
-        { name: 'label', type: 'text' },
-        { name: 'href', type: 'text' },
-        {
-          name: 'style',
-          type: 'select',
-          defaultValue: 'button',
-          options: [
-            { label: 'Button', value: 'button' },
-            { label: 'Link', value: 'link' },
-          ],
-        },
-      ],
-    },
+      withStyle: true,
+    }),
 
     // ── Header image (split layouts only) ──
     {

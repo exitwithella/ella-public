@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { FAQ_CATEGORY_OPTIONS } from '../fields/options'
 import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const FAQItems: CollectionConfig = {
@@ -30,14 +31,7 @@ export const FAQItems: CollectionConfig = {
     {
       name: 'category',
       type: 'select',
-      options: [
-        { label: 'General', value: 'general' },
-        { label: 'Pricing', value: 'pricing' },
-        { label: 'Platform', value: 'platform' },
-        { label: 'Exit Planning', value: 'exit-planning' },
-        { label: 'Onboarding', value: 'onboarding' },
-        { label: 'Security', value: 'security' },
-      ],
+      options: FAQ_CATEGORY_OPTIONS,
     },
     {
       name: 'showOnPricing',

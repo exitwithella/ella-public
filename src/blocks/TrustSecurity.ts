@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { ctaField } from '../fields/cta'
 
 export const TrustSecurityBlock: Block = {
   slug: 'trust-security',
@@ -20,23 +21,12 @@ export const TrustSecurityBlock: Block = {
       name: 'intro',
       type: 'richText',
     },
-    {
+    ctaField({
       name: 'link',
-      type: 'group',
       admin: {
         description: 'Optional CTA button displayed below the intro text.',
       },
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-        },
-        {
-          name: 'href',
-          type: 'text',
-        },
-      ],
-    },
+    }),
     {
       name: 'sections',
       type: 'array',
