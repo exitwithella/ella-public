@@ -3,6 +3,17 @@
 import { m, useMotionValue, useTransform, useSpring, type MotionValue } from 'motion/react'
 import { useEffect } from 'react'
 
+import { ca } from '@/lib/color'
+
+// Wall face: warm cream, opaque at the leading edge, softening toward the room.
+const WALL_LEFT = `linear-gradient(to right, var(--color-sandstone-200) 0%, ${ca('var(--color-sandstone-100)', 0.97)} 70%, ${ca('var(--color-sandstone-50)', 0.85)} 100%)`
+const WALL_RIGHT = `linear-gradient(to left, var(--color-sandstone-200) 0%, ${ca('var(--color-sandstone-100)', 0.97)} 70%, ${ca('var(--color-sandstone-50)', 0.85)} 100%)`
+
+// Edge glow: warm gray (sandstone-500). The original oklch literal was labelled
+// "goldenrod" but at near-zero chroma it is a neutral warm gray, not goldenrod.
+const GLOW_BG = 'var(--color-sandstone-500)'
+const GLOW_SHADOW = `0 0 16px 4px ${ca('var(--color-sandstone-500)', 0.15)}, 0 0 40px 12px ${ca('var(--color-sandstone-500)', 0.06)}`
+
 export const defaultPressureItems = [
   'More clients',
   'Deeper engagements',
@@ -87,8 +98,7 @@ export function PressureWalls({
         style={{
           width: leftWall,
           opacity: wallOpacity,
-          background:
-            'linear-gradient(to right, rgba(232, 224, 210, 1) 0%, rgba(240, 234, 222, 0.97) 70%, rgba(246, 242, 234, 0.85) 100%)',
+          background: WALL_LEFT,
         }}
       />
 
@@ -114,16 +124,15 @@ export function PressureWalls({
         ))}
       </m.div>
 
-      {/* Left glow edge — goldenrod, hidden on mobile */}
+      {/* Left glow edge — warm gray, hidden on mobile */}
       <m.div
         className="pointer-events-none absolute top-0 bottom-0 z-10 hidden md:block"
         style={{
           left: leftWall,
           width: '3px',
           opacity: glowOpacity,
-          background: 'oklch(0.72 0.015 65)',
-          boxShadow:
-            '0 0 16px 4px oklch(0.72 0.015 65 / 0.15), 0 0 40px 12px oklch(0.72 0.015 65 / 0.06)',
+          background: GLOW_BG,
+          boxShadow: GLOW_SHADOW,
         }}
       />
 
@@ -133,8 +142,7 @@ export function PressureWalls({
         style={{
           width: rightWall,
           opacity: wallOpacity,
-          background:
-            'linear-gradient(to left, rgba(232, 224, 210, 1) 0%, rgba(240, 234, 222, 0.97) 70%, rgba(246, 242, 234, 0.85) 100%)',
+          background: WALL_RIGHT,
         }}
       />
 
@@ -160,16 +168,15 @@ export function PressureWalls({
         ))}
       </m.div>
 
-      {/* Right glow edge — goldenrod, hidden on mobile */}
+      {/* Right glow edge — warm gray, hidden on mobile */}
       <m.div
         className="pointer-events-none absolute top-0 bottom-0 z-10 hidden md:block"
         style={{
           right: rightWall,
           width: '3px',
           opacity: glowOpacity,
-          background: 'oklch(0.72 0.015 65)',
-          boxShadow:
-            '0 0 16px 4px oklch(0.72 0.015 65 / 0.15), 0 0 40px 12px oklch(0.72 0.015 65 / 0.06)',
+          background: GLOW_BG,
+          boxShadow: GLOW_SHADOW,
         }}
       />
     </>

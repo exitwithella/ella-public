@@ -54,6 +54,27 @@ export function TensionThreads({ squeeze }: { squeeze: MotionValue<number> }) {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    // Resolve theme tokens to RGB once (a palette change propagates; no per-frame
+    // getComputedStyle). Paint each var into a 1px probe and read the pixel back —
+    // canvas fillStyle keeps the oklch string, so getImageData is what yields RGB.
+    const rootStyle = getComputedStyle(document.documentElement)
+    const probe = document.createElement('canvas')
+    probe.width = 1
+    probe.height = 1
+    const probeCtx = probe.getContext('2d', { willReadFrequently: true })
+    const resolveRgb = (varName: string): [number, number, number] => {
+      if (!probeCtx) return [0, 0, 0]
+      probeCtx.clearRect(0, 0, 1, 1)
+      probeCtx.fillStyle = rootStyle.getPropertyValue(varName).trim()
+      probeCtx.fillRect(0, 0, 1, 1)
+      const [r, g, b] = probeCtx.getImageData(0, 0, 1, 1).data
+      return [r, g, b]
+    }
+    // Intact threads lerp from light → dark as tension rises; snapped ends sit between.
+    const threadLight = resolveRgb('--color-sandstone-400')
+    const threadDark = resolveRgb('--color-sandstone-600')
+    const threadSnapped = resolveRgb('--color-sandstone-500')
+
     const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     let running = false
     let visible = false
@@ -114,11 +135,13 @@ export function TensionThreads({ squeeze }: { squeeze: MotionValue<number> }) {
           thread.recoilOffset = Math.sin(thread.snapProgress * Math.PI) * 30
 
           const snapX = thread.snapPoint * w
+          const snapAlpha = thread.opacity * (1 - thread.snapProgress * 0.6)
+          const snapStroke = `rgba(${threadSnapped[0]}, ${threadSnapped[1]}, ${threadSnapped[2]}, ${snapAlpha})`
 
-          // Snapped halves — sandstone-700 warm tone
+          // Snapped halves — warm gray (sandstone-500)
           // Left half
           ctx.beginPath()
-          ctx.strokeStyle = `rgba(190, 176, 156, ${thread.opacity * (1 - thread.snapProgress * 0.6)})`
+          ctx.strokeStyle = snapStroke
           ctx.lineWidth = thread.thickness
           for (let x = 0; x <= snapX; x += 2) {
             const normalX = x / w
@@ -137,7 +160,7 @@ export function TensionThreads({ squeeze }: { squeeze: MotionValue<number> }) {
 
           // Right half
           ctx.beginPath()
-          ctx.strokeStyle = `rgba(190, 176, 156, ${thread.opacity * (1 - thread.snapProgress * 0.6)})`
+          ctx.strokeStyle = snapStroke
           for (let x = snapX; x <= w; x += 2) {
             const normalX = (x - snapX) / (w - snapX)
             const distFromSnap = normalX
@@ -153,12 +176,12 @@ export function TensionThreads({ squeeze }: { squeeze: MotionValue<number> }) {
           }
           ctx.stroke()
         } else {
-          // Intact threads: sandstone-300 (light warm) -> goldenrod-500 under tension
+          // Intact threads: sandstone-400 (light warm) → sandstone-600 under tension
           ctx.beginPath()
 
-          const r = Math.round(210 + tension * -30)
-          const g = Math.round(196 + tension * -34)
-          const b = Math.round(178 + tension * -38)
+          const r = Math.round(threadLight[0] + (threadDark[0] - threadLight[0]) * tension)
+          const g = Math.round(threadLight[1] + (threadDark[1] - threadLight[1]) * tension)
+          const b = Math.round(threadLight[2] + (threadDark[2] - threadLight[2]) * tension)
           ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${thread.opacity * (0.25 + tension * 0.75)})`
           ctx.lineWidth = thread.thickness * (1 - tension * 0.4)
 

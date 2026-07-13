@@ -76,12 +76,12 @@ export function SqueezeSection({
   const squeeze = useSpring(squeezeRaw, { stiffness: 60, damping: 25 })
 
   // Background warms as pressure builds — kept in MotionValue-land (no per-frame
-  // React re-render). Colors are themed in a follow-up (MKT-209).
-  const centerAlpha = useTransform(squeeze, (v) => 1 - v * 0.08)
-  const outerR = useTransform(squeeze, (v) => Math.round(244 - v * 8))
-  const outerG = useTransform(squeeze, (v) => Math.round(238 - v * 10))
-  const outerB = useTransform(squeeze, (v) => Math.round(228 - v * 12))
-  const background = useMotionTemplate`radial-gradient(ellipse 90% 80% at center, rgba(250, 247, 241, ${centerAlpha}) 0%, rgba(${outerR}, ${outerG}, ${outerB}, 1) 85%)`
+  // React re-render) and sourced from theme tokens. The center highlight fades
+  // slightly, and the outer cream shifts from sandstone-100 toward sandstone-200
+  // as the squeeze deepens. Percentages match ca()'s color-mix formula.
+  const centerAlphaPct = useTransform(squeeze, (v) => Math.round((1 - v * 0.08) * 100))
+  const outerShiftPct = useTransform(squeeze, (v) => Math.round(v * 60))
+  const background = useMotionTemplate`radial-gradient(ellipse 90% 80% at center, color-mix(in oklch, var(--color-sandstone-50) ${centerAlphaPct}%, transparent) 0%, color-mix(in oklch, var(--color-sandstone-200) ${outerShiftPct}%, var(--color-sandstone-100)) 85%)`
 
   const handleStepChange = useCallback((newStep: number) => {
     setStep(newStep)
