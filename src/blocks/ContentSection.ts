@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { ctaField } from '../fields/cta'
 
 export const ContentSectionBlock: Block = {
   slug: 'content-section',
@@ -53,29 +54,7 @@ export const ContentSectionBlock: Block = {
         { label: 'None', value: 'none' },
       ],
     },
-    {
-      name: 'link',
-      type: 'group',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-        },
-        {
-          name: 'href',
-          type: 'text',
-        },
-        {
-          name: 'style',
-          type: 'select',
-          defaultValue: 'button',
-          options: [
-            { label: 'Button', value: 'button' },
-            { label: 'Link', value: 'link' },
-          ],
-        },
-      ],
-    },
+    ctaField({ name: 'link', withStyle: true }),
     {
       name: 'badge',
       type: 'text',

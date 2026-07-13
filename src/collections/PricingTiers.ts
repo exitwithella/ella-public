@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { ctaField } from '../fields/cta'
 import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const PricingTiers: CollectionConfig = {
@@ -156,21 +157,7 @@ export const PricingTiers: CollectionConfig = {
         },
       ],
     },
-    {
-      name: 'cta',
-      type: 'group',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-          defaultValue: 'Get Started',
-        },
-        {
-          name: 'href',
-          type: 'text',
-        },
-      ],
-    },
+    ctaField({ name: 'cta', defaultLabel: 'Get Started' }),
     {
       name: 'highlighted',
       type: 'checkbox',

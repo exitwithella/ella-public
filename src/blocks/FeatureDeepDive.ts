@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { ctaField } from '../fields/cta'
 
 export const FeatureDeepDiveBlock: Block = {
   slug: 'feature-deep-dive',
@@ -53,20 +54,7 @@ export const FeatureDeepDiveBlock: Block = {
             description: 'Optional embedded testimonial',
           },
         },
-        {
-          name: 'link',
-          type: 'group',
-          fields: [
-            {
-              name: 'label',
-              type: 'text',
-            },
-            {
-              name: 'href',
-              type: 'text',
-            },
-          ],
-        },
+        ctaField({ name: 'link' }),
       ],
     },
     bgStyleField,

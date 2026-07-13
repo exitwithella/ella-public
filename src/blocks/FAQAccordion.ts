@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { FAQ_CATEGORY_OPTIONS } from '../fields/options'
 
 export const FAQAccordionBlock: Block = {
   slug: 'faq-accordion',
@@ -19,14 +20,7 @@ export const FAQAccordionBlock: Block = {
       admin: {
         description: 'Only show FAQs from this category (leave blank for all)',
       },
-      options: [
-        { label: 'General', value: 'general' },
-        { label: 'Pricing', value: 'pricing' },
-        { label: 'Platform', value: 'platform' },
-        { label: 'Exit Planning', value: 'exit-planning' },
-        { label: 'Onboarding', value: 'onboarding' },
-        { label: 'Security', value: 'security' },
-      ],
+      options: FAQ_CATEGORY_OPTIONS,
     },
     {
       name: 'items',
