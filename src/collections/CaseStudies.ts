@@ -18,6 +18,15 @@ export const CaseStudies: CollectionConfig = {
       },
     },
     {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      admin: {
+        description: 'Stable identifier used for content sync — must be unique',
+      },
+    },
+    {
       name: 'headline',
       type: 'text',
       admin: {

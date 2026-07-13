@@ -15,10 +15,11 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import 'dotenv/config'
-import type { Payload } from 'payload'
+import type { CollectionSlug, GlobalSlug, Payload } from 'payload'
 import { getPayload } from 'payload'
 
 import config from './payload.config'
+import { GLOBAL_SLUGS } from './seed-manifest'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const dataDir = path.resolve(__dirname, 'seed-data')
@@ -57,13 +58,13 @@ function stripAutoFields(doc: Record<string, unknown>): Record<string, unknown> 
  */
 async function upsertDoc(
   payload: Payload,
-  collection: string,
+  collection: CollectionSlug,
   doc: Record<string, unknown>,
   uniqueField: string,
 ): Promise<{ id: number; created: boolean }> {
   const uniqueValue = doc[uniqueField]
   const existing = await payload.find({
-    collection: collection as any,
+    collection,
     where: { [uniqueField]: { equals: uniqueValue } },
     limit: 1,
     depth: 0,
@@ -74,7 +75,7 @@ async function upsertDoc(
   if (existing.docs.length > 0) {
     const existingDoc = existing.docs[0] as any
     await payload.update({
-      collection: collection as any,
+      collection,
       id: existingDoc.id,
       data,
     })
@@ -82,7 +83,7 @@ async function upsertDoc(
   }
 
   const created = await payload.create({
-    collection: collection as any,
+    collection,
     data,
   })
   return { id: (created as any).id, created: true }
@@ -94,7 +95,7 @@ async function upsertDoc(
  */
 async function seedCollection(
   payload: Payload,
-  collection: string,
+  collection: CollectionSlug,
   uniqueField: string,
   options?: {
     /** Remap relationship fields using ID maps from previously seeded collections */
@@ -157,11 +158,11 @@ async function seed() {
   const mediaMap = await seedCollection(payload, 'media', 'filename')
   const disciplineMap = await seedCollection(payload, 'disciplines', 'slug')
   const categoryMap = await seedCollection(payload, 'categories', 'slug')
-  await seedCollection(payload, 'pricing-tiers', 'name')
+  const pricingTierMap = await seedCollection(payload, 'pricing-tiers', 'name')
   await seedCollection(payload, 'faq-items', 'question')
   await seedCollection(payload, 'redirects', 'from')
-  await seedCollection(payload, 'vanguard-events', 'id')
-  await seedCollection(payload, 'case-studies', 'id')
+  await seedCollection(payload, 'vanguard-events', 'slug')
+  await seedCollection(payload, 'case-studies', 'slug')
 
   // ── 2. Collections with relationships ──────────────────
 
@@ -173,11 +174,11 @@ async function seed() {
   const teamMemberMap = await seedCollection(payload, 'team-members', 'name', {
     remap: { photo: mediaMap },
   })
-  await seedCollection(payload, 'testimonials', 'name', {
+  const testimonialsMap = await seedCollection(payload, 'testimonials', 'name', {
     remap: { photo: mediaMap },
   })
   await seedCollection(payload, 'tools', 'slug', {
-    remap: { icon: mediaMap, disciplines: disciplineMap, pricingTier: mediaMap },
+    remap: { icon: mediaMap, disciplines: disciplineMap, pricingTier: pricingTierMap },
   })
   await seedCollection(payload, 'solutions', 'slug', {
     remap: { discipline: disciplineMap },
@@ -204,9 +205,10 @@ async function seed() {
     ])
     remapDeep(page, teamMemberMap, ['author'])
     remapDeep(page, disciplineMap, ['discipline', 'disciplines'])
-    // Testimonial IDs reference the testimonials collection — but those IDs
-    // haven't changed since we upsert by name. Still remap for safety.
-    // testimonial fields in blocks reference testimonials collection by ID
+    // Testimonials are upserted by name, so their IDs can differ from the dump
+    // on a fresh DB — remap the testimonial refs embedded in feature-deep-dive
+    // / testimonial-block layouts to the seeded IDs.
+    remapDeep(page, testimonialsMap, ['testimonial', 'testimonials'])
   }
 
   let pagesCreated = 0
@@ -279,9 +281,8 @@ async function seed() {
   // ── 4. Globals ─────────────────────────────────────────
 
   console.log('\nGlobals:')
-  const globalSlugs = ['site-settings', 'navigation', 'footer', 'pricing-page']
 
-  for (const slug of globalSlugs) {
+  for (const slug of GLOBAL_SLUGS) {
     const data = loadJSON<Record<string, unknown>>(`${slug}.json`)
     if (data && Object.keys(data).length > 0) {
       const cleaned = stripAutoFields(data)
@@ -295,7 +296,7 @@ async function seed() {
         'coverImage',
       ])
       await payload.updateGlobal({
-        slug: slug as any,
+        slug: slug as GlobalSlug,
         data: cleaned as any,
       })
       console.log(`  ✓ ${slug}`)

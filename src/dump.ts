@@ -15,9 +15,11 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import 'dotenv/config'
+import type { CollectionSlug, GlobalSlug } from 'payload'
 import { getPayload } from 'payload'
 
 import config from './payload.config'
+import { GLOBAL_SLUGS } from './seed-manifest'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const outDir = path.resolve(__dirname, 'seed-data')
@@ -36,16 +38,16 @@ function writeJSON(filename: string, data: unknown) {
  */
 function stripInternals<T extends Record<string, unknown>>(doc: T): T {
   const copy = { ...doc }
-  // Remove populated relationship objects — keep only IDs
-  // Payload returns { id, ...fields } for depth:0 which is what we want
-  delete copy.sizes // image sizes generated at upload time
+  // depth:0 already returns relationships as bare IDs, so the only thing to
+  // drop is `sizes` — the image-size variants generated at upload time.
+  delete copy.sizes
   return copy
 }
 
 /** Fetch every document in a collection (paginated). */
 async function fetchAll(
   payload: Awaited<ReturnType<typeof getPayload>>,
-  collection: string,
+  collection: CollectionSlug,
   sort?: string,
 ) {
   const allDocs: Record<string, unknown>[] = []
@@ -54,14 +56,14 @@ async function fetchAll(
 
   while (hasMore) {
     const result = await payload.find({
-      collection: collection as any,
+      collection,
       depth: 0, // IDs only, no populated relations
       limit: 100,
       page,
       sort: sort ?? 'id',
       pagination: true,
     })
-    allDocs.push(...(result.docs as Record<string, unknown>[]))
+    allDocs.push(...(result.docs as unknown as Record<string, unknown>[]))
     hasMore = result.hasNextPage
     page++
   }
@@ -85,7 +87,7 @@ async function dump() {
   // Order matters: independent collections first, then those with relationships
 
   // 1. Independent collections (no foreign keys to other content)
-  const independentCollections = [
+  const independentCollections: { slug: CollectionSlug; sort: string }[] = [
     { slug: 'media', sort: 'id' },
     { slug: 'disciplines', sort: 'sortOrder' },
     { slug: 'categories', sort: 'sortOrder' },
@@ -103,7 +105,7 @@ async function dump() {
   }
 
   // 2. Collections with relationships to independent ones
-  const dependentCollections = [
+  const dependentCollections: { slug: CollectionSlug; sort: string }[] = [
     { slug: 'partners', sort: 'sortOrder' },
     { slug: 'team-members', sort: 'sortOrder' },
     { slug: 'testimonials', sort: 'id' },
@@ -119,7 +121,7 @@ async function dump() {
 
   // 3. Content collections (pages, posts, landing pages)
   // These have blocks and rich text — the most complex data
-  const contentCollections = [
+  const contentCollections: { slug: CollectionSlug; sort: string }[] = [
     { slug: 'pages', sort: 'id' },
     { slug: 'posts', sort: 'id' },
     { slug: 'landing-pages', sort: 'id' },
@@ -133,15 +135,13 @@ async function dump() {
 
   // ── Globals ──────────────────────────────────────────────
 
-  const globalSlugs = ['site-settings', 'navigation', 'footer', 'pricing-page', 'script-injection']
-
   console.log('\nGlobals:')
-  for (const slug of globalSlugs) {
+  for (const slug of GLOBAL_SLUGS) {
     const data = await payload.findGlobal({
-      slug: slug as any,
+      slug: slug as GlobalSlug,
       depth: 0,
     })
-    const cleaned = stripInternals(data as Record<string, unknown>)
+    const cleaned = stripInternals(data as unknown as Record<string, unknown>)
     writeJSON(`${slug}.json`, cleaned)
   }
 
