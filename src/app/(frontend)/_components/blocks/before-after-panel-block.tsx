@@ -1,6 +1,5 @@
 import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
-import { Heading } from '@/components/elements/heading'
+import { SectionHeader } from '@/components/elements/section-header'
 import type { Page } from '@/payload-types'
 
 type BeforeAfterPanelData = Extract<
@@ -21,16 +20,11 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
   return (
     <section className="bg-sandstone-50 py-20 md:py-28">
       <Container>
-        {/* Section header */}
-        {(block.sectionLabel || block.heading) && (
-          <div className="mb-12 md:mb-16">
-            {block.sectionLabel && <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>}
-            {block.heading && <Heading>{block.heading}</Heading>}
-            {block.subheading && (
-              <p className="text-ash-600 mt-4 max-w-2xl text-lg/relaxed">{block.subheading}</p>
-            )}
-          </div>
-        )}
+        <SectionHeader
+          label={block.sectionLabel}
+          heading={block.heading}
+          subheading={block.subheading}
+        />
 
         {/* Two-panel layout */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">

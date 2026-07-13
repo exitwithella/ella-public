@@ -1,6 +1,5 @@
 import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
-import { Heading } from '@/components/elements/heading'
+import { SectionHeader } from '@/components/elements/section-header'
 import { ThemeSection } from '@/components/elements/theme-section'
 import type { Page, Solution, Testimonial } from '@/payload-types'
 
@@ -74,13 +73,11 @@ export function TestimonialBlockComponent({ block }: TestimonialBlockComponentPr
   return (
     <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
       <Container>
-        {/* Section header */}
-        {(block.sectionLabel || block.heading) && (
-          <div className={`mb-12 md:mb-16 ${layout === 'single' ? 'text-center' : ''}`}>
-            {block.sectionLabel && <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>}
-            {block.heading && <Heading>{block.heading}</Heading>}
-          </div>
-        )}
+        <SectionHeader
+          label={block.sectionLabel}
+          heading={block.heading}
+          align={layout === 'single' ? 'center' : 'left'}
+        />
 
         {/* Single layout */}
         {layout === 'single' && populated[0] && <SingleTestimonial testimonial={populated[0]} />}
