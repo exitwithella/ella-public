@@ -332,24 +332,54 @@ export function PullToRevealWrapper({
       }
     }
 
-    // Wait for the page to be fully idle before attaching scroll listeners
-    if ('requestIdleCallback' in window) {
-      const id = requestIdleCallback(() => {
-        cleanupFn = attachListeners()
-      })
-      return () => {
-        cancelIdleCallback(id)
-        cleanupFn?.()
+    // Respect prefers-reduced-motion: this interaction hijacks native scrolling
+    // and animates a transform, so when reduced motion is requested we attach
+    // nothing and leave the page scrolling normally. Not motion/react-driven,
+    // so the global MotionConfig can't cover it — guard it explicitly here.
+    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let idleId: number | undefined
+    let fallbackTimer: ReturnType<typeof setTimeout> | undefined
+
+    function scheduleAttach() {
+      if (reduceMotionQuery.matches) return
+      // Wait for the page to be fully idle before attaching scroll listeners
+      if ('requestIdleCallback' in window) {
+        idleId = requestIdleCallback(() => {
+          cleanupFn = attachListeners()
+        })
+      } else {
+        // Fallback for Safari
+        fallbackTimer = setTimeout(() => {
+          cleanupFn = attachListeners()
+        }, 2000)
       }
     }
 
-    // Fallback for Safari
-    const timer = setTimeout(() => {
-      cleanupFn = attachListeners()
-    }, 2000)
-    return () => {
-      clearTimeout(timer)
+    function teardownAttach() {
+      if (idleId !== undefined) {
+        cancelIdleCallback(idleId)
+        idleId = undefined
+      }
+      if (fallbackTimer !== undefined) {
+        clearTimeout(fallbackTimer)
+        fallbackTimer = undefined
+      }
       cleanupFn?.()
+      cleanupFn = undefined
+    }
+
+    // Re-evaluate if the user toggles the OS preference mid-session.
+    function onReduceMotionChange() {
+      teardownAttach()
+      scheduleAttach()
+    }
+
+    scheduleAttach()
+    reduceMotionQuery.addEventListener('change', onReduceMotionChange)
+
+    return () => {
+      reduceMotionQuery.removeEventListener('change', onReduceMotionChange)
+      teardownAttach()
     }
   }, [
     enabled,
