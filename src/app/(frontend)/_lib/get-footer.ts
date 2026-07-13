@@ -1,16 +1,11 @@
-import config from '@payload-config'
-import { unstable_cache } from 'next/cache'
-import { getPayload } from 'payload'
-
 import type { Footer } from '@/payload-types'
+
+import { CACHE_TAGS } from './cache-tags'
+import { cachedGlobal } from './cached-global'
 
 export type { Footer }
 
-export const getFooter = unstable_cache(
-  async (): Promise<Footer> => {
-    const payload = await getPayload({ config })
-    return payload.findGlobal({ slug: 'footer', depth: 2 })
-  },
-  ['footer'],
-  { revalidate: 86400, tags: ['footer'] },
-)
+export const getFooter = cachedGlobal<Footer>('footer', {
+  depth: 2,
+  tags: [CACHE_TAGS.footer],
+})

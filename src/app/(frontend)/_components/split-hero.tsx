@@ -7,6 +7,7 @@ import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon
 import type { Page } from '@/payload-types'
 
 import { AdaptiveRadiusImage } from './adaptive-radius-image'
+import { CmsImage, HeroHeadline, HeroText } from './hero-shared'
 
 interface SplitHeroProps {
   hero: Page['hero']
@@ -85,31 +86,26 @@ function SplitOverflow({ hero }: { hero: Page['hero'] }) {
   const wallpaperColor = (hero.heroWallpaperColor ?? 'green') as WallpaperColor
   const fontClass = resolveHeadlineFont(hero)
 
+  const heroImage = visual?.url && (
+    <CmsImage
+      src={visual.url}
+      alt={visual.alt ?? ''}
+      isCropped={isCropped}
+      positionStyle={positionStyle}
+      sizes="(min-width: 1024px) 60vw, 100vw"
+      priority
+      intrinsicClassName="h-full w-auto max-w-none"
+      width={visual.width}
+      height={visual.height}
+      fallbackWidth={1200}
+      fallbackHeight={800}
+    />
+  )
+
   const imageColumn = visual?.url && (
     <div className="pt-8 sm:pt-12 lg:pt-24">
       <div className="relative h-72 sm:h-92 md:h-[500px] lg:size-full">
-        <AdaptiveRadiusImage>
-          {isCropped ? (
-            <Image
-              src={visual.url}
-              alt={visual.alt ?? ''}
-              fill
-              className="object-cover"
-              style={positionStyle}
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              priority
-            />
-          ) : (
-            <Image
-              src={visual.url}
-              alt={visual.alt ?? ''}
-              width={visual.width ?? 1200}
-              height={visual.height ?? 800}
-              className="h-full w-auto max-w-none"
-              priority
-            />
-          )}
-        </AdaptiveRadiusImage>
+        <AdaptiveRadiusImage>{heroImage}</AdaptiveRadiusImage>
       </div>
     </div>
   )
@@ -119,17 +115,19 @@ function SplitOverflow({ hero }: { hero: Page['hero'] }) {
       <Container>
         <div className="flex gap-x-12 gap-y-12 max-lg:flex-col sm:gap-y-24 lg:min-h-[600px]">
           <div className="flex shrink-0 flex-col items-start gap-6 pt-16 sm:pt-32 lg:basis-md lg:py-40 xl:basis-lg">
-            <h1
-              className={`${fontClass} text-3xl font-semibold tracking-tight text-balance md:text-4xl xl:text-5xl ${hasWallpaper ? 'text-white' : 'text-ash-950'}`}
+            <HeroHeadline
+              fontClass={fontClass}
+              color={hasWallpaper ? 'text-white' : 'text-ash-950'}
             >
               {hero.headline}
-            </h1>
+            </HeroHeadline>
             {hero.subheadline && (
-              <p
-                className={`max-w-xl text-lg/relaxed ${hasWallpaper ? 'text-white/70' : 'text-ash-600'}`}
+              <HeroText
+                color={hasWallpaper ? 'text-white/70' : 'text-ash-600'}
+                className="max-w-xl"
               >
                 {hero.subheadline}
-              </p>
+              </HeroText>
             )}
             <HeroCtas hero={hero} light={hasWallpaper} />
           </div>
@@ -154,40 +152,15 @@ function SplitOverflow({ hero }: { hero: Page['hero'] }) {
       <Container>
         <div className="flex gap-x-12 gap-y-12 max-lg:flex-col lg:min-h-[600px] lg:items-center">
           <div className="flex shrink-0 flex-col items-start gap-6 lg:basis-md xl:basis-lg">
-            <h1
-              className={`${fontClass} text-ash-950 text-3xl font-semibold tracking-tight text-balance md:text-4xl xl:text-5xl`}
-            >
-              {hero.headline}
-            </h1>
-            {hero.subheadline && (
-              <p className="text-ash-600 max-w-xl text-lg/relaxed">{hero.subheadline}</p>
-            )}
+            <HeroHeadline fontClass={fontClass}>{hero.headline}</HeroHeadline>
+            {hero.subheadline && <HeroText className="max-w-xl">{hero.subheadline}</HeroText>}
             <HeroCtas hero={hero} />
           </div>
           {visual?.url && (
             <div className="lg:pt-4">
               <div className="relative h-72 sm:h-92 md:h-[500px] lg:size-full">
                 <div className="absolute inset-y-0 left-0 flex w-screen overflow-hidden max-lg:rounded-lg lg:rounded-l-lg">
-                  {isCropped ? (
-                    <Image
-                      src={visual.url}
-                      alt={visual.alt ?? ''}
-                      fill
-                      className="object-cover"
-                      style={positionStyle}
-                      sizes="(min-width: 1024px) 60vw, 100vw"
-                      priority
-                    />
-                  ) : (
-                    <Image
-                      src={visual.url}
-                      alt={visual.alt ?? ''}
-                      width={visual.width ?? 1200}
-                      height={visual.height ?? 800}
-                      className="h-full w-auto max-w-none"
-                      priority
-                    />
-                  )}
+                  {heroImage}
                 </div>
               </div>
             </div>
@@ -210,14 +183,8 @@ function SplitFull({ hero }: { hero: Page['hero'] }) {
     <section className="lg:grid lg:min-h-[85vh] lg:grid-cols-2">
       {/* Text column */}
       <div className="flex flex-col justify-end gap-6 px-6 py-20 md:px-12 md:py-28 lg:py-36 lg:pr-16 xl:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))]">
-        <h1
-          className={`${fontClass} text-ash-950 text-3xl font-semibold tracking-tight text-balance md:text-4xl xl:text-5xl`}
-        >
-          {hero.headline}
-        </h1>
-        {hero.subheadline && (
-          <p className="text-ash-600 max-w-md text-lg/relaxed">{hero.subheadline}</p>
-        )}
+        <HeroHeadline fontClass={fontClass}>{hero.headline}</HeroHeadline>
+        {hero.subheadline && <HeroText className="max-w-md">{hero.subheadline}</HeroText>}
         <HeroCtas hero={hero} />
       </div>
 

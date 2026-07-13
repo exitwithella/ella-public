@@ -1,16 +1,10 @@
-import config from '@payload-config'
-import { unstable_cache } from 'next/cache'
-import { getPayload } from 'payload'
-
 import type { SiteSetting } from '@/payload-types'
+
+import { CACHE_TAGS } from './cache-tags'
+import { cachedGlobal } from './cached-global'
 
 export type { SiteSetting }
 
-export const getSiteSettings = unstable_cache(
-  async (): Promise<SiteSetting> => {
-    const payload = await getPayload({ config })
-    return payload.findGlobal({ slug: 'site-settings' })
-  },
-  ['site-settings'],
-  { revalidate: 86400, tags: ['site-settings'] },
-)
+export const getSiteSettings = cachedGlobal<SiteSetting>('site-settings', {
+  tags: [CACHE_TAGS.siteSettings],
+})

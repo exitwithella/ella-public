@@ -12,7 +12,7 @@ import {
 import { heroField } from '../fields/hero'
 import { metaField } from '../fields/meta'
 import { createIndexNowHook } from '../hooks/notify-indexnow'
-import { createRevalidateHook } from '../hooks/revalidate-cache'
+import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const Solutions: CollectionConfig = {
   access: {
@@ -26,6 +26,7 @@ export const Solutions: CollectionConfig = {
         return `/solutions/${doc.slug}`
       }),
     ],
+    afterDelete: [createDeleteRevalidateHook('solutions')],
   },
   admin: {
     defaultColumns: ['title', 'discipline', 'status', 'isBeachhead'],

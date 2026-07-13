@@ -1,22 +1,8 @@
-import config from '@payload-config'
-import { unstable_cache } from 'next/cache'
-import { getPayload } from 'payload'
+import type { Page } from '@/payload-types'
 
-export const getHomepage = unstable_cache(
-  async () => {
-    const payload = await getPayload({ config })
+import { getPageBySlug } from './get-page'
 
-    const result = await payload.find({
-      collection: 'pages',
-      depth: 2,
-      limit: 1,
-      where: {
-        slug: { equals: 'home' },
-      },
-    })
-
-    return result.docs[0] ?? null
-  },
-  ['homepage'],
-  { revalidate: 86400, tags: ['pages', 'homepage'] },
-)
+/** The homepage is the page with slug `home`; shares the page cache + tag. */
+export function getHomepage(): Promise<Page | null> {
+  return getPageBySlug('home')
+}

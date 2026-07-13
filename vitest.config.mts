@@ -20,5 +20,8 @@ export default defineConfig({
     environment: 'node',
     include: ['tests/int/**/*.int.spec.ts', 'tests/unit/**/*.unit.spec.ts'],
     setupFiles: ['./vitest.setup.ts'],
+    // Integration specs each boot Payload on a Miniflare/D1 runtime; two of
+    // those runtimes cannot start concurrently, so run test files serially.
+    fileParallelism: false,
   },
 })

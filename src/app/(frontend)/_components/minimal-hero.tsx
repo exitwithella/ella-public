@@ -1,10 +1,9 @@
-import Image from 'next/image'
-
 import { Container } from '@/components/elements/container'
 import type { Page } from '@/payload-types'
 
 import { EllaLogoMark } from '../_assets/logo'
 import { fetchSvgContent } from '../_lib/svg'
+import { CmsImage, HeroHeadline, HeroText } from './hero-shared'
 
 interface MinimalHeroProps {
   hero: Page['hero']
@@ -35,11 +34,9 @@ export async function MinimalHero({ hero }: MinimalHeroProps) {
         {visual?.url ? (
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
             <div className="flex flex-col justify-center">
-              <h1 className="font-display text-ash-950 text-3xl font-semibold tracking-tight text-balance md:text-4xl xl:text-5xl">
-                {hero.headline}
-              </h1>
+              <HeroHeadline>{hero.headline}</HeroHeadline>
               {hero.subheadline && (
-                <p className="text-ash-600 mt-6 max-w-xl text-lg/relaxed">{hero.subheadline}</p>
+                <HeroText className="mt-6 max-w-xl">{hero.subheadline}</HeroText>
               )}
             </div>
             <div
@@ -54,36 +51,28 @@ export async function MinimalHero({ hero }: MinimalHeroProps) {
                   className="w-full [&_svg]:h-auto [&_svg]:w-full"
                   dangerouslySetInnerHTML={{ __html: svgContent }}
                 />
-              ) : isCropped ? (
-                <Image
+              ) : (
+                <CmsImage
                   src={visual.url}
                   alt={visual.alt ?? ''}
-                  fill
-                  className="rounded-lg object-cover"
-                  style={{ objectPosition }}
+                  isCropped={isCropped}
+                  positionStyle={{ objectPosition }}
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   priority
-                />
-              ) : (
-                <Image
-                  src={visual.url}
-                  alt={visual.alt ?? ''}
-                  width={visual.width ?? 600}
-                  height={visual.height ?? 400}
-                  className="h-auto w-full rounded-lg"
-                  priority
+                  croppedClassName="rounded-lg object-cover"
+                  intrinsicClassName="h-auto w-full rounded-lg"
+                  width={visual.width}
+                  height={visual.height}
+                  fallbackWidth={600}
+                  fallbackHeight={400}
                 />
               )}
             </div>
           </div>
         ) : (
           <>
-            <h1 className="font-display text-ash-950 max-w-3xl text-3xl font-semibold tracking-tight text-balance md:text-4xl xl:text-5xl">
-              {hero.headline}
-            </h1>
-            {hero.subheadline && (
-              <p className="text-ash-600 mt-6 max-w-xl text-lg/relaxed">{hero.subheadline}</p>
-            )}
+            <HeroHeadline className="max-w-3xl">{hero.headline}</HeroHeadline>
+            {hero.subheadline && <HeroText className="mt-6 max-w-xl">{hero.subheadline}</HeroText>}
           </>
         )}
       </Container>

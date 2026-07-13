@@ -1,42 +1,23 @@
 import type { Metadata } from 'next'
-import { unstable_cache } from 'next/cache'
-import { notFound } from 'next/navigation'
-import { getPayload } from 'payload'
+import { notFound, redirect } from 'next/navigation'
 
 import type { Media } from '@/payload-types'
-import config from '@/payload.config'
 
 import { BlockRenderer } from '../_components/block-renderer'
 import { MinimalHero } from '../_components/minimal-hero'
 import { PageBackground } from '../_components/page-background'
 import { SplitHero } from '../_components/split-hero'
 import { buildPageMetadata } from '../_lib/build-metadata'
+import { getPageBySlug } from '../_lib/get-page'
 
 interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-const getPage = unstable_cache(
-  async (slug: string) => {
-    const payload = await getPayload({ config })
-
-    const pages = await payload.find({
-      collection: 'pages',
-      limit: 1,
-      where: {
-        slug: { equals: slug },
-      },
-    })
-
-    return pages.docs[0] || null
-  },
-  ['page-by-slug'],
-  { revalidate: 86400, tags: ['pages'] },
-)
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const page = await getPage(slug)
+  if (slug === 'home') return {}
+  const page = await getPageBySlug(slug)
 
   if (!page) return {}
 
@@ -52,7 +33,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params
-  const page = await getPage(slug)
+  // The homepage lives at `/` — avoid serving a duplicate at `/home`.
+  if (slug === 'home') redirect('/')
+  const page = await getPageBySlug(slug)
 
   if (!page) {
     notFound()

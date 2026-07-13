@@ -38,6 +38,67 @@ const ACCENT_TEXT: Record<string, string> = {
   emerald: 'text-emerald-600',
 }
 
+const PERSONA_IMAGE_VARIANTS = {
+  desktop: {
+    container: 'relative hidden overflow-hidden rounded-sm lg:block lg:aspect-[3/4]',
+    sizes: '(min-width: 1024px) 45vw, 100vw',
+    overlayPadding: 'p-6 md:p-8',
+    labelMargin: 'mb-2',
+    blockquote: 'text-lg/relaxed',
+    attributionMargin: 'mt-3',
+  },
+  mobile: {
+    container: 'relative aspect-[16/9] overflow-hidden rounded-sm lg:hidden',
+    sizes: '100vw',
+    overlayPadding: 'p-6',
+    labelMargin: 'mb-1',
+    blockquote: 'text-base/relaxed',
+    attributionMargin: 'mt-2',
+  },
+} as const
+
+function PersonaImage({
+  variant,
+  src,
+  alt,
+  quote,
+  hasQuote,
+}: {
+  variant: keyof typeof PERSONA_IMAGE_VARIANTS
+  src: string
+  alt: string
+  quote: AdvisorPersonasData['imageQuote']
+  hasQuote: boolean
+}) {
+  const v = PERSONA_IMAGE_VARIANTS[variant]
+  return (
+    <div className={v.container}>
+      <Image src={src} alt={alt} fill className="object-cover" sizes={v.sizes} />
+      {hasQuote && (
+        <div className={`absolute inset-x-0 bottom-0 ${v.overlayPadding}`} style={QUOTE_GRADIENT}>
+          {quote?.label && (
+            <p
+              className={`text-sandstone-300 ${v.labelMargin} text-xs font-semibold tracking-widest uppercase`}
+            >
+              {quote.label}
+            </p>
+          )}
+          {quote?.text && (
+            <blockquote className={`text-sandstone-50 font-serif ${v.blockquote}`}>
+              &ldquo;{quote.text}&rdquo;
+            </blockquote>
+          )}
+          {quote?.attribution && (
+            <p className={`text-sandstone-300 ${v.attributionMargin} text-sm`}>
+              — {quote.attribution}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function DefaultIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -93,65 +154,20 @@ export function AdvisorPersonasBlock({ block }: AdvisorPersonasBlockProps) {
           <div className="mb-10 lg:sticky lg:top-32 lg:mb-0 lg:self-start">
             {image?.url && (
               <div>
-                {/* Desktop image: portrait crop */}
-                <div className="relative hidden overflow-hidden rounded-sm lg:block lg:aspect-[3/4]">
-                  <Image
-                    src={image.url}
-                    alt={image.alt ?? block.heading ?? ''}
-                    fill
-                    className="object-cover"
-                    sizes="(min-width: 1024px) 45vw, 100vw"
-                  />
-                  {hasQuote && (
-                    <div className="absolute inset-x-0 bottom-0 p-6 md:p-8" style={QUOTE_GRADIENT}>
-                      {block.imageQuote?.label && (
-                        <p className="text-sandstone-300 mb-2 text-xs font-semibold tracking-widest uppercase">
-                          {block.imageQuote.label}
-                        </p>
-                      )}
-                      {block.imageQuote?.text && (
-                        <blockquote className="text-sandstone-50 font-serif text-lg/relaxed">
-                          &ldquo;{block.imageQuote.text}&rdquo;
-                        </blockquote>
-                      )}
-                      {block.imageQuote?.attribution && (
-                        <p className="text-sandstone-300 mt-3 text-sm">
-                          — {block.imageQuote.attribution}
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* Mobile image: landscape crop */}
-                <div className="relative aspect-[16/9] overflow-hidden rounded-sm lg:hidden">
-                  <Image
-                    src={image.url}
-                    alt={image.alt ?? block.heading ?? ''}
-                    fill
-                    className="object-cover"
-                    sizes="100vw"
-                  />
-                  {hasQuote && (
-                    <div className="absolute inset-x-0 bottom-0 p-6" style={QUOTE_GRADIENT}>
-                      {block.imageQuote?.label && (
-                        <p className="text-sandstone-300 mb-1 text-xs font-semibold tracking-widest uppercase">
-                          {block.imageQuote.label}
-                        </p>
-                      )}
-                      {block.imageQuote?.text && (
-                        <blockquote className="text-sandstone-50 font-serif text-base/relaxed">
-                          &ldquo;{block.imageQuote.text}&rdquo;
-                        </blockquote>
-                      )}
-                      {block.imageQuote?.attribution && (
-                        <p className="text-sandstone-300 mt-2 text-sm">
-                          — {block.imageQuote.attribution}
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </div>
+                <PersonaImage
+                  variant="desktop"
+                  src={image.url}
+                  alt={image.alt ?? block.heading ?? ''}
+                  quote={block.imageQuote}
+                  hasQuote={Boolean(hasQuote)}
+                />
+                <PersonaImage
+                  variant="mobile"
+                  src={image.url}
+                  alt={image.alt ?? block.heading ?? ''}
+                  quote={block.imageQuote}
+                  hasQuote={Boolean(hasQuote)}
+                />
               </div>
             )}
           </div>

@@ -1,8 +1,16 @@
 import type { CollectionConfig } from 'payload'
 
+import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
+
 export const FAQItems: CollectionConfig = {
   access: {
     read: () => true,
+  },
+  hooks: {
+    // Embedded via FAQAccordion into pages, and (showOnPricing) into the
+    // pricing page's cached data.
+    afterChange: [createRevalidateHook('pages', 'pricing')],
+    afterDelete: [createDeleteRevalidateHook('pages', 'pricing')],
   },
   admin: {
     defaultColumns: ['question', 'category', 'showOnPricing'],

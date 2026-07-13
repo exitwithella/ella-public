@@ -1,16 +1,10 @@
-import config from '@payload-config'
-import { unstable_cache } from 'next/cache'
-import { getPayload } from 'payload'
-
 import type { ScriptInjection } from '@/payload-types'
+
+import { CACHE_TAGS } from './cache-tags'
+import { cachedGlobal } from './cached-global'
 
 export type { ScriptInjection }
 
-export const getScriptInjection = unstable_cache(
-  async (): Promise<ScriptInjection> => {
-    const payload = await getPayload({ config })
-    return payload.findGlobal({ slug: 'script-injection' })
-  },
-  ['script-injection'],
-  { revalidate: 86400, tags: ['script-injection'] },
-)
+export const getScriptInjection = cachedGlobal<ScriptInjection>('script-injection', {
+  tags: [CACHE_TAGS.scriptInjection],
+})
