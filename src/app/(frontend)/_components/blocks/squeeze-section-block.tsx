@@ -1,25 +1,8 @@
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
+import { defaultErosionItems, defaultPressureItems } from '@/components/squeeze/pressure-walls'
 import { SqueezeSection } from '@/components/squeeze/squeeze-section'
 import type { Page } from '@/payload-types'
-
-const defaultPressureItems = [
-  'More clients',
-  'Deeper engagements',
-  'Shorter timelines',
-  'Higher stakes',
-  'Regulatory scrutiny',
-  'Key-person risk',
-]
-
-const defaultErosionItems = [
-  'Owners Googling valuations',
-  'ChatGPT drafting exit plans',
-  'AI leveling the field',
-  'Clients questioning fees',
-  'Information parity',
-  'Commoditized insights',
-]
 
 function extractParagraphs(body: SerializedEditorState | undefined | null): string[] {
   if (!body?.root?.children) return []

@@ -1,14 +1,18 @@
 'use client'
 
-import {
-  motion,
-  useMotionValue,
-  useTransform,
-  useSpring,
-  useMotionValueEvent,
-  type MotionValue,
-} from 'motion/react'
-import { useEffect, useState } from 'react'
+import { m, useMotionValue, useTransform, useSpring, type MotionValue } from 'motion/react'
+import { useEffect } from 'react'
+
+import { ca } from '@/lib/color'
+
+// Wall face: warm cream, opaque at the leading edge, softening toward the room.
+const WALL_LEFT = `linear-gradient(to right, var(--color-sandstone-200) 0%, ${ca('var(--color-sandstone-100)', 0.97)} 70%, ${ca('var(--color-sandstone-50)', 0.85)} 100%)`
+const WALL_RIGHT = `linear-gradient(to left, var(--color-sandstone-200) 0%, ${ca('var(--color-sandstone-100)', 0.97)} 70%, ${ca('var(--color-sandstone-50)', 0.85)} 100%)`
+
+// Edge glow: warm gray (sandstone-500). The original oklch literal was labelled
+// "goldenrod" but at near-zero chroma it is a neutral warm gray, not goldenrod.
+const GLOW_BG = 'var(--color-sandstone-500)'
+const GLOW_SHADOW = `0 0 16px 4px ${ca('var(--color-sandstone-500)', 0.15)}, 0 0 40px 12px ${ca('var(--color-sandstone-500)', 0.06)}`
 
 export const defaultPressureItems = [
   'More clients',
@@ -41,9 +45,6 @@ export function PressureWalls({
   pressureItems?: string[]
   erosionItems?: string[]
 }) {
-  const leftItems = pressureItems
-  const rightItems = erosionItems
-
   // --- Scroll layer: continuous 0→1 mapped from scroll position ---
   const scrollSqueezeRaw = useTransform(scrollYProgress, [0.15, 0.55], [0, 1])
 
@@ -76,10 +77,6 @@ export function PressureWalls({
     mass: 1.4,
   })
 
-  // Track squeeze as a plain number for label opacity calculations
-  const [squeezeNum, setSqueezeNum] = useState(0)
-  useMotionValueEvent(squeeze, 'change', (v: number) => setSqueezeNum(v))
-
   // Walls close in — mapped from 0–1 squeeze
   const leftWall = useTransform(squeeze, [0, 1], ['0%', '22%'])
   const rightWall = useTransform(squeeze, [0, 1], ['0%', '22%'])
@@ -96,18 +93,17 @@ export function PressureWalls({
   return (
     <>
       {/* Left pressure wall — light ash, hidden on mobile */}
-      <motion.div
+      <m.div
         className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 hidden md:block"
         style={{
           width: leftWall,
           opacity: wallOpacity,
-          background:
-            'linear-gradient(to right, rgba(232, 224, 210, 1) 0%, rgba(240, 234, 222, 0.97) 70%, rgba(246, 242, 234, 0.85) 100%)',
+          background: WALL_LEFT,
         }}
       />
 
       {/* Left labels — fixed to viewport center, fades in as wall expands, hidden on mobile */}
-      <motion.div
+      <m.div
         className="pointer-events-none fixed top-1/2 left-6 z-20 hidden -translate-y-1/2 flex-col items-start gap-2 md:flex"
         style={{
           opacity: labelOpacity,
@@ -116,48 +112,42 @@ export function PressureWalls({
         <span className="text-ash-600 mb-1 font-mono text-[0.5625rem] font-semibold tracking-[0.12em] uppercase md:text-[0.625rem]">
           Growing Pressure
         </span>
-        {leftItems.map((item, i) => (
-          <motion.span
+        {pressureItems.map((item, i) => (
+          <PressureLabel
             key={item}
-            className="text-ash-600 flex items-center gap-1 text-[0.625rem] font-medium whitespace-nowrap md:text-xs"
-            style={{
-              opacity: getItemOpacity(squeezeNum, i, leftItems.length),
-            }}
-          >
-            <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">{'\u2192'}</span>
-            <span className="hidden sm:inline">{item}</span>
-            <span className="sm:hidden">{item.split(' ')[0]}</span>
-            <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">{'\u2192'}</span>
-          </motion.span>
+            squeeze={squeeze}
+            item={item}
+            index={i}
+            total={pressureItems.length}
+            side="left"
+          />
         ))}
-      </motion.div>
+      </m.div>
 
-      {/* Left glow edge — goldenrod, hidden on mobile */}
-      <motion.div
+      {/* Left glow edge — warm gray, hidden on mobile */}
+      <m.div
         className="pointer-events-none absolute top-0 bottom-0 z-10 hidden md:block"
         style={{
           left: leftWall,
           width: '3px',
           opacity: glowOpacity,
-          background: 'oklch(0.72 0.015 65)',
-          boxShadow:
-            '0 0 16px 4px oklch(0.72 0.015 65 / 0.15), 0 0 40px 12px oklch(0.72 0.015 65 / 0.06)',
+          background: GLOW_BG,
+          boxShadow: GLOW_SHADOW,
         }}
       />
 
       {/* Right pressure wall — light ash, hidden on mobile */}
-      <motion.div
+      <m.div
         className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 hidden md:block"
         style={{
           width: rightWall,
           opacity: wallOpacity,
-          background:
-            'linear-gradient(to left, rgba(232, 224, 210, 1) 0%, rgba(240, 234, 222, 0.97) 70%, rgba(246, 242, 234, 0.85) 100%)',
+          background: WALL_RIGHT,
         }}
       />
 
       {/* Right labels — fixed to viewport center, fades in as wall expands, hidden on mobile */}
-      <motion.div
+      <m.div
         className="pointer-events-none fixed top-1/2 right-6 z-20 hidden -translate-y-1/2 flex-col items-end gap-2 md:flex"
         style={{
           opacity: labelOpacity,
@@ -166,34 +156,66 @@ export function PressureWalls({
         <span className="text-ash-600 mb-1 font-mono text-[0.5625rem] font-semibold tracking-[0.12em] uppercase md:text-[0.625rem]">
           Eroding Advantage
         </span>
-        {rightItems.map((item, i) => (
-          <motion.span
+        {erosionItems.map((item, i) => (
+          <PressureLabel
             key={item}
-            className="text-ash-600 flex items-center gap-1 text-[0.625rem] font-medium whitespace-nowrap md:text-xs"
-            style={{
-              opacity: getItemOpacity(squeezeNum, i, rightItems.length),
-            }}
-          >
-            <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">{'\u2190'}</span>
-            <span className="hidden sm:inline">{item}</span>
-            <span className="sm:hidden">{item.split(' ')[0]}</span>
-          </motion.span>
+            squeeze={squeeze}
+            item={item}
+            index={i}
+            total={erosionItems.length}
+            side="right"
+          />
         ))}
-      </motion.div>
+      </m.div>
 
-      {/* Right glow edge — goldenrod, hidden on mobile */}
-      <motion.div
+      {/* Right glow edge — warm gray, hidden on mobile */}
+      <m.div
         className="pointer-events-none absolute top-0 bottom-0 z-10 hidden md:block"
         style={{
           right: rightWall,
           width: '3px',
           opacity: glowOpacity,
-          background: 'oklch(0.72 0.015 65)',
-          boxShadow:
-            '0 0 16px 4px oklch(0.72 0.015 65 / 0.15), 0 0 40px 12px oklch(0.72 0.015 65 / 0.06)',
+          background: GLOW_BG,
+          boxShadow: GLOW_SHADOW,
         }}
       />
     </>
+  )
+}
+
+/**
+ * A single pressure/erosion label. Opacity stays in MotionValue-land — derived
+ * from the squeeze spring via useTransform so it never round-trips through React
+ * state (no per-frame re-render).
+ */
+function PressureLabel({
+  squeeze,
+  item,
+  index,
+  total,
+  side,
+}: {
+  squeeze: MotionValue<number>
+  item: string
+  index: number
+  total: number
+  side: 'left' | 'right'
+}) {
+  const opacity = useTransform(squeeze, (v) => getItemOpacity(v, index, total))
+  const arrow = side === 'left' ? '→' : '←'
+
+  return (
+    <m.span
+      className="text-ash-600 flex items-center gap-1 text-[0.625rem] font-medium whitespace-nowrap md:text-xs"
+      style={{ opacity }}
+    >
+      <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">{arrow}</span>
+      <span className="hidden sm:inline">{item}</span>
+      <span className="sm:hidden">{item.split(' ')[0]}</span>
+      {side === 'left' && (
+        <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">{arrow}</span>
+      )}
+    </m.span>
   )
 }
 
