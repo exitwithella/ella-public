@@ -1,8 +1,9 @@
 'use client'
 
 import { clsx } from 'clsx/lite'
-import Link from 'next/link'
 import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
+
+import { SmartLink } from '@/components/elements/smart-link'
 
 type NavLink = {
   label: string
@@ -72,7 +73,7 @@ function DropdownPanel({
     >
       <div className="bg-sandstone-50 border-ash-200 shadow-ash-900/8 w-72 rounded-lg border p-2 shadow-lg">
         {items.map((item) => (
-          <a
+          <SmartLink
             key={item.href}
             href={item.href}
             className="hover:bg-ash-100 group flex flex-col gap-0.5 rounded-md px-3 py-2.5 transition-colors"
@@ -83,7 +84,7 @@ function DropdownPanel({
             {item.description && (
               <span className="text-ash-1000 text-xs/relaxed">{item.description}</span>
             )}
-          </a>
+          </SmartLink>
         ))}
       </div>
     </div>
@@ -118,12 +119,12 @@ function DesktopNavItem({ link }: { link: NavLink }) {
 
   if (link.type === 'link') {
     return (
-      <a
-        href={link.href}
+      <SmartLink
+        href={link.href ?? '#'}
         className="text-ash-950 hover:text-moss-700 inline-flex items-center text-sm/7 font-medium transition-colors"
       >
         {link.label}
-      </a>
+      </SmartLink>
     )
   }
 
@@ -169,8 +170,8 @@ function MobileNavItem({ link, onNavigate }: { link: NavLink; onNavigate: () => 
 
   if (link.type === 'link') {
     return (
-      <a
-        href={link.href}
+      <SmartLink
+        href={link.href ?? '#'}
         onClick={onNavigate}
         className="text-ash-950 group inline-flex items-center justify-between gap-2 text-3xl/10 font-medium"
       >
@@ -178,7 +179,7 @@ function MobileNavItem({ link, onNavigate }: { link: NavLink; onNavigate: () => 
         <span className="inline-flex p-1.5 opacity-0 group-hover:opacity-100" aria-hidden="true">
           <ArrowRightIcon className="size-6" />
         </span>
-      </a>
+      </SmartLink>
     )
   }
 
@@ -198,14 +199,14 @@ function MobileNavItem({ link, onNavigate }: { link: NavLink; onNavigate: () => 
       {expanded && (
         <div className="border-moss-200 mt-3 ml-1 flex flex-col gap-3 border-l-2 pl-5">
           {link.dropdownItems.map((item) => (
-            <a key={item.href} href={item.href} onClick={onNavigate} className="group">
+            <SmartLink key={item.href} href={item.href} onClick={onNavigate} className="group">
               <span className="text-ash-900 group-hover:text-moss-700 text-lg font-medium transition-colors">
                 {item.label}
               </span>
               {item.description && (
                 <span className="text-ash-1000 mt-0.5 block text-sm">{item.description}</span>
               )}
-            </a>
+            </SmartLink>
           ))}
         </div>
       )}
@@ -245,9 +246,9 @@ export function NavbarClient({
           </div>
 
           {/* Logo (center) */}
-          <Link href="/" aria-label="ELLA home" className="inline-flex items-stretch">
+          <SmartLink href="/" aria-label="ELLA home" className="inline-flex items-stretch">
             {logo}
-          </Link>
+          </SmartLink>
 
           {/* Actions (right) */}
           <div className="flex flex-1 items-center justify-end gap-4">
@@ -321,6 +322,7 @@ export function NavbarClient({
               <div className="border-ash-200 mt-4 flex flex-col gap-4 border-t pt-6">
                 <a
                   href={secondaryCta.href}
+                  onClick={closeMenu}
                   className="text-ash-950 hover:text-moss-700 inline-flex items-center justify-center rounded-full px-4 py-2 text-base font-medium transition-colors"
                 >
                   {secondaryCta.label}
@@ -336,6 +338,7 @@ export function NavbarClient({
                 )}
                 <a
                   href={primaryCta.href}
+                  onClick={closeMenu}
                   className="bg-ash-950 text-ash-100 hover:bg-ash-800 inline-flex items-center justify-center rounded-full px-4 py-2 text-base font-medium"
                 >
                   {primaryCta.label}

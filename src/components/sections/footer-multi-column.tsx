@@ -5,6 +5,7 @@ import { EllaLogo, EllaLogoMark } from '@/app/(frontend)/_assets/logo'
 import { NewsletterForm } from '@/app/(frontend)/_components/newsletter-form'
 
 import { Container } from '../elements/container'
+import { SmartLink } from '../elements/smart-link'
 
 function InlineSvg({
   html,
@@ -35,19 +36,15 @@ function FooterColumn({
         <ul role="list" className="mt-4 flex flex-col gap-3">
           {links.map((link) => (
             <li key={link.id ?? link.href}>
-              <a
+              <SmartLink
                 href={link.href}
                 className="text-theme-text-secondary hover:text-theme-text focus-visible:outline-theme-accent rounded-sm text-sm/7 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
                 {...(link.href.startsWith('http')
-                  ? {
-                      target: '_blank',
-                      rel: 'noopener',
-                      'aria-label': `${link.label} (opens in new tab)`,
-                    }
+                  ? { 'aria-label': `${link.label} (opens in new tab)` }
                   : {})}
               >
                 {link.label}
-              </a>
+              </SmartLink>
             </li>
           ))}
         </ul>

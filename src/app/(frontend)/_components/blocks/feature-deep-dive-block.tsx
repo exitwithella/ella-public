@@ -3,6 +3,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
+import { SmartLink } from '@/components/elements/smart-link'
 import { ThemeSection } from '@/components/elements/theme-section'
 import type { Page, Testimonial } from '@/payload-types'
 
@@ -64,12 +65,12 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
                     )}
                     {section.testimonial && <TestimonialEmbed testimonial={section.testimonial} />}
                     {section.link?.href && section.link?.label && (
-                      <a
+                      <SmartLink
                         href={section.link.href}
                         className="text-moss-700 hover:text-moss-800 mt-6 inline-flex items-center gap-1 text-sm font-semibold"
                       >
                         {section.link.label} <span aria-hidden="true">→</span>
-                      </a>
+                      </SmartLink>
                     )}
                   </div>
 
