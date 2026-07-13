@@ -233,7 +233,7 @@ function serializeBlock(block: LayoutBlock): string {
       return parts.join('')
     }
 
-    case 'formEmbed':
+    case 'form-embed':
       return ''
 
     case 'before-after-panel': {
