@@ -1075,7 +1075,7 @@ export interface Page {
             embedCode?: string | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'formEmbed';
+            blockType: 'form-embed';
           }
         | {
             /**
@@ -2262,7 +2262,7 @@ export interface Solution {
             embedCode?: string | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'formEmbed';
+            blockType: 'form-embed';
           }
       )[]
     | null;
@@ -2982,7 +2982,7 @@ export interface LandingPage {
             embedCode?: string | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'formEmbed';
+            blockType: 'form-embed';
           }
       )[]
     | null;
@@ -3893,7 +3893,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        formEmbed?:
+        'form-embed'?:
           | T
           | {
               embedType?: T;
@@ -4471,7 +4471,7 @@ export interface LandingPagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        formEmbed?:
+        'form-embed'?:
           | T
           | {
               embedType?: T;
@@ -4840,7 +4840,7 @@ export interface SolutionsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        formEmbed?:
+        'form-embed'?:
           | T
           | {
               embedType?: T;
