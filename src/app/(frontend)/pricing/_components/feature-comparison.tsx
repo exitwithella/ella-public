@@ -1,16 +1,33 @@
+import { clsx } from 'clsx/lite'
+
 import { Container } from '@/components/elements/container'
 import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
-import type { PricingPage } from '@/payload-types'
+import type { PricingPage, PricingTier } from '@/payload-types'
 
 type ComparisonCategory = NonNullable<PricingPage['categories']>[number]
 type ComparisonRow = NonNullable<ComparisonCategory['rows']>[number]
+type TierValue = NonNullable<ComparisonRow['values']>[number]
+
+type Indicator = 'check' | 'cross' | 'text'
+
+function tierIdOf(tier: TierValue['tier']): number {
+  return typeof tier === 'object' ? tier.id : tier
+}
+
+/** The cell for a given row + tier column. A tier with no entry reads as excluded. */
+function cellFor(
+  row: ComparisonRow,
+  tierId: number,
+): { indicator: Indicator; displayText?: string | null } {
+  const match = row.values?.find((v) => tierIdOf(v.tier) === tierId)
+  if (!match) return { indicator: 'cross' }
+  return { indicator: match.indicator as Indicator, displayText: match.displayText }
+}
 
 // ─────────────────────────────────────────────────────────
 // Cell value display
 // ─────────────────────────────────────────────────────────
-
-type Indicator = 'check' | 'cross' | 'text'
 
 function CellValue({ text, indicator }: { text?: string | null; indicator: Indicator }) {
   if (indicator === 'check') {
@@ -68,21 +85,34 @@ function ChevronIcon() {
 }
 
 // ─────────────────────────────────────────────────────────
-// Desktop table
+// Desktop table — one column per tier, derived from the tiers themselves
 // ─────────────────────────────────────────────────────────
 
-function DesktopComparison({ categories }: { categories: ComparisonCategory[] }) {
+function DesktopComparison({
+  tiers,
+  categories,
+}: {
+  tiers: PricingTier[]
+  categories: ComparisonCategory[]
+}) {
+  const gridStyle = { gridTemplateColumns: `1fr repeat(${tiers.length}, 180px)` }
+
   return (
     <div className="hidden md:block">
       {/* Header row */}
-      <div className="border-ash-200 grid grid-cols-[1fr_180px_180px] gap-0 border-b pb-4">
+      <div className="border-ash-200 grid gap-0 border-b pb-4" style={gridStyle}>
         <div />
-        <div className="font-display text-ash-800 text-center text-sm font-semibold tracking-wide uppercase">
-          Practitioner
-        </div>
-        <div className="font-display text-ash-500 text-center text-sm font-semibold tracking-wide uppercase">
-          Enterprise
-        </div>
+        {tiers.map((tier) => (
+          <div
+            key={tier.id}
+            className={clsx(
+              'font-display text-center text-sm font-semibold tracking-wide uppercase',
+              tier.highlighted ? 'text-ash-800' : 'text-ash-500',
+            )}
+          >
+            {tier.name}
+          </div>
+        ))}
       </div>
 
       {/* Collapsible categories */}
@@ -97,20 +127,16 @@ function DesktopComparison({ categories }: { categories: ComparisonCategory[] })
 
           <div className="pb-2">
             {category.rows?.map((row) => (
-              <div key={row.id} className="grid grid-cols-[1fr_180px_180px] gap-0 py-2.5">
+              <div key={row.id} className="grid gap-0 py-2.5" style={gridStyle}>
                 <div className="text-ash-600 pl-7 text-sm">{row.label}</div>
-                <div className="flex items-center justify-center">
-                  <CellValue
-                    indicator={row.practitioner?.indicator as Indicator}
-                    text={row.practitioner?.displayText}
-                  />
-                </div>
-                <div className="flex items-center justify-center">
-                  <CellValue
-                    indicator={row.enterprise?.indicator as Indicator}
-                    text={row.enterprise?.displayText}
-                  />
-                </div>
+                {tiers.map((tier) => {
+                  const cell = cellFor(row, tier.id)
+                  return (
+                    <div key={tier.id} className="flex items-center justify-center">
+                      <CellValue indicator={cell.indicator} text={cell.displayText} />
+                    </div>
+                  )
+                })}
               </div>
             ))}
           </div>
@@ -121,26 +147,25 @@ function DesktopComparison({ categories }: { categories: ComparisonCategory[] })
 }
 
 // ─────────────────────────────────────────────────────────
-// Mobile cards
+// Mobile cards — one card per tier
 // ─────────────────────────────────────────────────────────
 
 function MobileTierCard({
-  tierName,
-  tierStyle,
+  tier,
   categories,
-  getTierData,
 }: {
-  tierName: string
-  tierStyle: string
+  tier: PricingTier
   categories: ComparisonCategory[]
-  getTierData: (row: ComparisonRow) => { indicator?: string | null; displayText?: string | null }
 }) {
   return (
     <div className="border-ash-200 border p-5">
       <h3
-        className={`font-display border-ash-200 mb-4 border-b pb-3 text-sm font-bold tracking-wide uppercase ${tierStyle}`}
+        className={clsx(
+          'font-display border-ash-200 mb-4 border-b pb-3 text-sm font-bold tracking-wide uppercase',
+          tier.highlighted ? 'text-ash-800' : 'text-ash-600',
+        )}
       >
-        {tierName}
+        {tier.name}
       </h3>
       {categories.map((category) => (
         <div key={category.id} className="mb-4 last:mb-0">
@@ -149,12 +174,12 @@ function MobileTierCard({
           </p>
           <dl className="space-y-2.5">
             {category.rows?.map((row) => {
-              const data = getTierData(row)
+              const cell = cellFor(row, tier.id)
               return (
                 <div key={row.id} className="flex items-start justify-between gap-4">
                   <dt className="text-ash-600 text-sm">{row.label}</dt>
                   <dd className="text-right text-sm font-medium">
-                    <CellValue indicator={data.indicator as Indicator} text={data.displayText} />
+                    <CellValue indicator={cell.indicator} text={cell.displayText} />
                   </dd>
                 </div>
               )
@@ -166,21 +191,18 @@ function MobileTierCard({
   )
 }
 
-function MobileComparison({ categories }: { categories: ComparisonCategory[] }) {
+function MobileComparison({
+  tiers,
+  categories,
+}: {
+  tiers: PricingTier[]
+  categories: ComparisonCategory[]
+}) {
   return (
     <div className="space-y-6 md:hidden">
-      <MobileTierCard
-        tierName="Practitioner"
-        tierStyle="text-ash-800"
-        categories={categories}
-        getTierData={(row) => row.practitioner ?? { indicator: 'cross' }}
-      />
-      <MobileTierCard
-        tierName="Enterprise"
-        tierStyle="text-ash-600"
-        categories={categories}
-        getTierData={(row) => row.enterprise ?? { indicator: 'cross' }}
-      />
+      {tiers.map((tier) => (
+        <MobileTierCard key={tier.id} tier={tier} categories={categories} />
+      ))}
     </div>
   )
 }
@@ -192,11 +214,12 @@ function MobileComparison({ categories }: { categories: ComparisonCategory[] }) 
 interface FeatureComparisonProps {
   eyebrow: string
   heading: string
+  tiers: PricingTier[]
   categories: ComparisonCategory[]
 }
 
-export function FeatureComparison({ eyebrow, heading, categories }: FeatureComparisonProps) {
-  if (categories.length === 0) return null
+export function FeatureComparison({ eyebrow, heading, tiers, categories }: FeatureComparisonProps) {
+  if (categories.length === 0 || tiers.length === 0) return null
 
   return (
     <section className="bg-sandstone-50 py-24 md:py-32">
@@ -209,8 +232,8 @@ export function FeatureComparison({ eyebrow, heading, categories }: FeatureCompa
             <Heading className="text-3xl md:text-4xl">{heading}</Heading>
           </div>
 
-          <DesktopComparison categories={categories} />
-          <MobileComparison categories={categories} />
+          <DesktopComparison tiers={tiers} categories={categories} />
+          <MobileComparison tiers={tiers} categories={categories} />
         </div>
       </Container>
     </section>

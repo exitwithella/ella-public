@@ -35,6 +35,7 @@ export default async function PricingPage() {
       <FeatureComparison
         eyebrow={pricingPage.comparisonEyebrow ?? 'Compare Plans'}
         heading={pricingPage.comparisonHeading ?? "Everything you need, nothing you don't."}
+        tiers={tiers}
         categories={pricingPage.categories ?? []}
       />
       <PricingFAQ faqs={faqs} />

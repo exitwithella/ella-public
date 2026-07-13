@@ -44,86 +44,122 @@
         {
           "id": "69dea5eba3833d5dfced379b",
           "label": "Max advisors",
-          "practitioner": {
-            "indicator": "text",
-            "displayText": "3"
-          },
-          "enterprise": {
-            "indicator": "text",
-            "displayText": "Custom"
-          }
+          "values": [
+            {
+              "id": "fc1055fc05710dfe8fb7229f",
+              "tier": 2,
+              "indicator": "text",
+              "displayText": "3"
+            },
+            {
+              "id": "90f4d3de82bb7628de89a044",
+              "tier": 6,
+              "indicator": "text",
+              "displayText": "Custom"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced379c",
           "label": "Max active clients",
-          "practitioner": {
-            "indicator": "text",
-            "displayText": "30"
-          },
-          "enterprise": {
-            "indicator": "text",
-            "displayText": "Unlimited"
-          }
+          "values": [
+            {
+              "id": "23f29036f61f10f398017472",
+              "tier": 2,
+              "indicator": "text",
+              "displayText": "30"
+            },
+            {
+              "id": "129b6e31df4d80229c8fa735",
+              "tier": 6,
+              "indicator": "text",
+              "displayText": "Unlimited"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced379d",
           "label": "Collaborators per client",
-          "practitioner": {
-            "indicator": "text",
-            "displayText": "20"
-          },
-          "enterprise": {
-            "indicator": "text",
-            "displayText": "Custom"
-          }
+          "values": [
+            {
+              "id": "5d4a82aa4acbba0426eae735",
+              "tier": 2,
+              "indicator": "text",
+              "displayText": "20"
+            },
+            {
+              "id": "48c6738d900816219305b972",
+              "tier": 6,
+              "indicator": "text",
+              "displayText": "Custom"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced379e",
           "label": "Team visibility",
-          "practitioner": {
-            "indicator": "text",
-            "displayText": "All clients shared"
-          },
-          "enterprise": {
-            "indicator": "text",
-            "displayText": "Per-client & department"
-          }
+          "values": [
+            {
+              "id": "430220c5c1fd51b4cb507944",
+              "tier": 2,
+              "indicator": "text",
+              "displayText": "All clients shared"
+            },
+            {
+              "id": "174c789cd0726afa97b12d63",
+              "tier": 6,
+              "indicator": "text",
+              "displayText": "Per-client & department"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced379f",
           "label": "Fact Finding with custom templates",
-          "practitioner": {
-            "indicator": "check",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "0d2c7ac7c72b0b059b9c26ef",
+              "tier": 2,
+              "indicator": "check"
+            },
+            {
+              "id": "f69c3d05ec4068ad17a6d1d7",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37a0",
           "label": "Sensemaking (AI analysis)",
-          "practitioner": {
-            "indicator": "check",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "2b2d9d8532fa99c7c143cc60",
+              "tier": 2,
+              "indicator": "check"
+            },
+            {
+              "id": "f773da0a947357e7a046c547",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37a1",
           "label": "Deliverables & document generation",
-          "practitioner": {
-            "indicator": "check",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "e25ed1a79f2b865a7ca450e9",
+              "tier": 2,
+              "indicator": "check"
+            },
+            {
+              "id": "238d86b67b1810b771e75157",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         }
       ]
     },
@@ -135,26 +171,34 @@
         {
           "id": "69dea5eba3833d5dfced37a6",
           "label": "Whitelabeled collaborator portal",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "4ecc265cc11a470ec61a1a47",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "6898e6a39376f1ebf58e524f",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37a7",
           "label": "Branded reports & custom PDF templates",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "5d0a2923e22be49388c6e780",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "036f0d33858f7b244fa3d763",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         }
       ]
     },
@@ -166,110 +210,146 @@
         {
           "id": "69dea5eba3833d5dfced37aa",
           "label": "SOC 2 compliant infrastructure",
-          "practitioner": {
-            "indicator": "check",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "7cf06d76e2d9615618df9002",
+              "tier": 2,
+              "indicator": "check"
+            },
+            {
+              "id": "2352e918245622f7b98891ae",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37ab",
           "label": "Encryption at rest and in transit",
-          "practitioner": {
-            "indicator": "check",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "3143916da97a4844144edd2a",
+              "tier": 2,
+              "indicator": "check"
+            },
+            {
+              "id": "fc9e9095a585f17f955f6225",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37ac",
           "label": "AI decision tracing",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "ee896807284be8c1748a0658",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "3027b32fab3d7f334924605a",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37ad",
           "label": "BYOK (Bring Your Own Key)",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "56abdd2c628e6c84472bef63",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "69513e8adae86f6f2ee39a38",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37ae",
           "label": "Custom AI guardrails",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "7e817bd56bd5dbd95809d97f",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "01ce65c7592bbe30e9cb7357",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37af",
           "label": "SIEM integration",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "ccb479e700c630e3e2b92266",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "0a4e1d976081d257b480ca83",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37b0",
           "label": "Scheduled posture reporting",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "d279014228def3c4cbfd346b",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "2fedec0ffba507977cf398fc",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37b1",
           "label": "Log drains",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "d8067df27adbf67096110585",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "eeade829ee16dd224dd19f06",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69deaa1b4ae24362fda5aac2",
           "label": "Audit Logs",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "b77e9fda13a9d0d9a056c8da",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "6b34f2da17f3cb1d67b04d1a",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         }
       ]
     },
@@ -281,38 +361,50 @@
         {
           "id": "69dea5eba3833d5dfced37b3",
           "label": "Dedicated capacity",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "0d74d197b99f34c7b475e144",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "6adcc4be9d9df5cde07d09d2",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37b4",
           "label": "Regional processing controls",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "eb51eaa0e3e39e05eef13ae6",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "4f31130410d2a035149283d6",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37b5",
           "label": "Custom release schedule",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "2f69f39dd9ea640c0dfce628",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "47238914f4bc879dd47c0fec",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         }
       ]
     },
@@ -324,74 +416,99 @@
         {
           "id": "69dea5eba3833d5dfced37be",
           "label": "In-app support",
-          "practitioner": {
-            "indicator": "check",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "fefd02f7f157fa7b8632af07",
+              "tier": 2,
+              "indicator": "check"
+            },
+            {
+              "id": "c29a897f4e09a81315d2668f",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69deaa604ae24362fda5aac4",
           "label": "Dedicated Slack channel",
-          "practitioner": {
-            "indicator": "check",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "863774a30fa4179e89840135",
+              "tier": 2,
+              "indicator": "check"
+            },
+            {
+              "id": "75eef8d5e64ac3b9e572e508",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37bf",
           "label": "Priority support",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "e1b72b522661823706987c8c",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "f2a3e57c54173068911cf4ce",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37c0",
           "label": "Dedicated success manager",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "34935d272507657707663629",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "a0b0a32d6ea6ec5056a6f55d",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37c1",
           "label": "Custom onboarding",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "check",
-            "displayText": null
-          }
+          "values": [
+            {
+              "id": "84540581ea1fda3422747ce9",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "4c1bc63136d299afccf5d54c",
+              "tier": 6,
+              "indicator": "check"
+            }
+          ]
         },
         {
           "id": "69dea5eba3833d5dfced37c2",
           "label": "Custom sourcing & vendor management",
-          "practitioner": {
-            "indicator": "cross",
-            "displayText": null
-          },
-          "enterprise": {
-            "indicator": "text",
-            "displayText": "$25K annual min"
-          }
+          "values": [
+            {
+              "id": "c0ccd05ebcd9722bd35071ea",
+              "tier": 2,
+              "indicator": "cross"
+            },
+            {
+              "id": "94071ff1c0daadf28e7c7468",
+              "tier": 6,
+              "indicator": "text",
+              "displayText": "$25K annual min"
+            }
+          ]
         }
       ]
     }

@@ -10,21 +10,31 @@ const indicatorOptions = [
   { label: 'Text', value: 'text' },
 ]
 
-const tierColumnFields = () => [
+// One cell in the comparison table, linked to a specific pricing tier.
+// The set of tiers (and their order) is derived from the pricing-tiers
+// collection — this array holds one entry per tier column.
+const tierValueFields = () => [
+  {
+    name: 'tier',
+    type: 'relationship' as const,
+    relationTo: 'pricing-tiers' as const,
+    required: true,
+    admin: { width: '40%' },
+  },
   {
     name: 'indicator',
     type: 'select' as const,
     options: indicatorOptions,
     required: true,
     defaultValue: 'check',
-    admin: { width: '50%' },
+    admin: { width: '30%' },
   },
   {
     name: 'displayText',
     type: 'text' as const,
     admin: {
       description: 'Shown when indicator is "Text" (e.g. "3", "Custom", "$25K annual min")',
-      width: '50%',
+      width: '30%',
       condition: (_: unknown, siblingData: Record<string, unknown>) =>
         siblingData.indicator === 'text',
     },
@@ -155,16 +165,14 @@ export const PricingPage: GlobalConfig = {
                   admin: { description: 'Feature name shown in the left column' },
                 },
                 {
-                  name: 'practitioner',
-                  type: 'group',
-                  label: 'Practitioner',
-                  fields: tierColumnFields(),
-                },
-                {
-                  name: 'enterprise',
-                  type: 'group',
-                  label: 'Enterprise',
-                  fields: tierColumnFields(),
+                  name: 'values',
+                  type: 'array',
+                  label: 'Tier Values',
+                  admin: {
+                    description:
+                      'One entry per pricing tier column. Link each to a tier from the pricing-tiers collection.',
+                  },
+                  fields: tierValueFields(),
                 },
               ],
             },
