@@ -8,8 +8,8 @@ component: tooling
 symptoms:
   - "pnpm seed dies at the media step with 'MissingFile: No files were uploaded' on a fresh worktree"
 applies_when:
-  - "running pnpm seed (or verifying seed.ts changes) in a fresh Conductor worktree or clean checkout"
-  - "the local miniflare R2 bucket has no blobs yet"
+  - 'running pnpm seed (or verifying seed.ts changes) in a fresh Conductor worktree or clean checkout'
+  - 'the local miniflare R2 bucket has no blobs yet'
 resolution_type: environment_setup
 severity: low
 tags: [seed, media, r2, d1, content-sync, local-dev, cloudflare, payload]
