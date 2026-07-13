@@ -120,8 +120,7 @@
         },
       ],
       "vars": {
-        // TODO: set to the real staging workers.dev URL after the first deploy.
-        "SITE_URL": "https://ella-public-staging.workers.dev",
+        "SITE_URL": "https://ella-public-staging.ella-291.workers.dev",
         "EMAIL_FROM_ADDRESS": "no-reply@hello.withella.io",
         "EMAIL_FROM_NAME": "ELLA (staging)",
       },
