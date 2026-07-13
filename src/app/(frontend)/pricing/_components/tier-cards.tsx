@@ -1,3 +1,5 @@
+import { clsx } from 'clsx/lite'
+
 import { Container } from '@/components/elements/container'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { PricingTier } from '@/payload-types'
@@ -174,25 +176,29 @@ function DesktopTierCards({
   billingPeriod: BillingPeriod
 }) {
   const billingLabel = billingLabelFor(billingPeriod)
+  const featuredIdx = tiers.findIndex((t) => t.highlighted)
 
   return (
     <div className="mx-auto hidden max-w-5xl md:block">
-      {/* Unified container — solid border on Practitioner, dashed on Enterprise */}
+      {/* Unified container — solid border on the featured tier, dashed on the rest.
+          The `border-l-0` is positional (avoids double borders between grid cells). */}
       <div className="grid grid-cols-2">
         {tiers.map((tier, idx) => {
-          const isFirst = idx === 0
+          const isFeatured = featuredIdx === -1 ? idx === 0 : Boolean(tier.highlighted)
 
           return (
             <div
               key={tier.id}
-              className={`border-ash-200 flex flex-col p-10 ${
-                isFirst ? 'border' : 'border border-l-0 border-dashed'
-              }`}
+              className={clsx(
+                'border-ash-200 flex flex-col border p-10',
+                idx !== 0 && 'border-l-0',
+                !isFeatured && 'border-dashed',
+              )}
             >
               <TierCardHeader
                 tier={tier}
                 billingPeriod={billingPeriod}
-                isFeatured={isFirst}
+                isFeatured={isFeatured}
                 priceMarginClass="mt-8 mb-8"
               />
             </div>
@@ -205,14 +211,16 @@ function DesktopTierCards({
         {tiers.map((tier, idx) => {
           const features = tier.features
           if (!features || features.length === 0) return <div key={`features-${tier.id}`} />
-          const isFirst = idx === 0
+          const isFeatured = featuredIdx === -1 ? idx === 0 : Boolean(tier.highlighted)
 
           return (
             <div
               key={`features-${tier.id}`}
-              className={`border-ash-200 p-10 ${
-                isFirst ? 'border-r border-b border-l' : 'border-r border-b border-dashed'
-              }`}
+              className={clsx(
+                'border-ash-200 border-r border-b p-10',
+                idx === 0 && 'border-l',
+                !isFeatured && 'border-dashed',
+              )}
             >
               <TierFeatureList tier={tier} />
             </div>
@@ -240,24 +248,25 @@ function MobileTierCards({
   billingPeriod: BillingPeriod
 }) {
   const billingLabel = billingLabelFor(billingPeriod)
+  const featuredIdx = tiers.findIndex((t) => t.highlighted)
 
   return (
     <div className="mx-auto max-w-lg space-y-6 md:hidden">
       {tiers.map((tier, idx) => {
-        const isFirst = idx === 0
+        const isFeatured = featuredIdx === -1 ? idx === 0 : Boolean(tier.highlighted)
         const features = tier.features
 
         return (
           <div
             key={tier.id}
-            className={`border-ash-200 ${isFirst ? 'border' : 'border border-dashed'}`}
+            className={clsx('border-ash-200 border', !isFeatured && 'border-dashed')}
           >
             {/* Card content */}
             <div className="p-6">
               <TierCardHeader
                 tier={tier}
                 billingPeriod={billingPeriod}
-                isFeatured={isFirst}
+                isFeatured={isFeatured}
                 priceMarginClass="mt-6 mb-6"
                 keyPrefix="mobile-"
               />
