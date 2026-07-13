@@ -19,7 +19,7 @@ interface ContentSectionBlockProps {
 }
 
 export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
-  if ((block as ContentSectionData & { layout?: string }).layout === 'split-heading') {
+  if (block.layout === 'split-heading') {
     return <SplitHeadingLayout block={block} />
   }
 

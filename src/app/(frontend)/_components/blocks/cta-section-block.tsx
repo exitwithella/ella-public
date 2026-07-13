@@ -64,7 +64,7 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
   return (
     <OptionalCoverSection
       bgStyle={block.bgStyle}
-      coverImage={(block as Record<string, unknown>).coverImage}
+      coverImage={block.coverImage}
       padding="py-24 md:py-32"
     >
       {content}

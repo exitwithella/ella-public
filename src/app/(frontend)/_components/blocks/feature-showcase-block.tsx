@@ -17,63 +17,10 @@ import type { Media, Page } from '@/payload-types'
 import { GalleryItem } from './feature-showcase-gallery-item'
 import { GalleryImagePreloader } from './feature-showcase-gallery-preloader'
 
-// Type is generated after dev server restart; fallback to manual shape until then
-type FeatureShowcaseData =
-  Extract<NonNullable<Page['layout']>[number], { blockType: 'feature-showcase' }> extends never
-    ? {
-        blockType: 'feature-showcase'
-        id?: string
-        sectionId?: string | null
-        headerLayout?:
-          | 'text-only'
-          | 'text-left'
-          | 'text-left-even'
-          | 'image-left'
-          | 'eyebrow-left'
-          | null
-        textAlign?: 'left' | 'center' | 'right' | null
-        sectionLabel?: string | null
-        heading?: string | null
-        headingFont?: 'display' | 'serif' | null
-        headingSize?: 'default' | 'large' | 'small' | null
-        body?: SerializedEditorState | null
-        link?: {
-          label?: string | null
-          href?: string | null
-          style?: string | null
-        } | null
-        headerImage?: number | Media | null
-        headerImageFit?: 'cover' | 'contain' | 'square' | null
-        accordionItems?:
-          | {
-              id?: string
-              question: string
-              answer?: SerializedEditorState | null
-            }[]
-          | null
-        galleryColumns?: '3' | '4' | null
-        galleryAspect?: 'landscape' | 'portrait' | 'square' | null
-        galleryAlign?: 'left' | 'end' | null
-        galleryImageRadius?: 'rounded' | 'sharp' | null
-        galleryWidth?: 'default' | 'wide' | null
-        wideHeader?: boolean | null
-        galleryItems?:
-          | {
-              id?: string
-              staticImage: number | Media
-              animatedImage?: number | Media | null
-              caption?: string | null
-              subcaption?: string | null
-              bgColor?: string | null
-              frameImage?: boolean | null
-              anchorTarget?: string | null
-            }[]
-          | null
-        sectionPadding?: 'default' | 'extra' | null
-        bgColorOverride?: string | null
-        bgStyle?: string | null
-      }
-    : Extract<NonNullable<Page['layout']>[number], { blockType: 'feature-showcase' }>
+type FeatureShowcaseData = Extract<
+  NonNullable<Page['layout']>[number],
+  { blockType: 'feature-showcase' }
+>
 
 interface FeatureShowcaseBlockProps {
   block: FeatureShowcaseData
@@ -298,7 +245,7 @@ function Gallery({ block }: { block: FeatureShowcaseData }) {
               subcaption={item.subcaption}
               bgColor={item.bgColor}
               frameImage={item.frameImage}
-              anchorTarget={(item as { anchorTarget?: string | null }).anchorTarget}
+              anchorTarget={item.anchorTarget}
               sizes={sizes}
               aspect={aspect}
               sharp={sharp}

@@ -34,17 +34,16 @@ const FONT_CLASSES: Record<string, string> = {
 }
 
 function resolveHeadlineFont(hero: Page['hero']) {
-  const font = (hero as { headlineFont?: string | null }).headlineFont ?? 'display'
+  const font = hero.headlineFont ?? 'display'
   return FONT_CLASSES[font] ?? FONT_CLASSES.display
 }
 
 function resolveVisual(hero: Page['hero']) {
   const visual = typeof hero.visual === 'object' && hero.visual?.url ? hero.visual : null
-  const ext = hero as { visualFit?: string | null; visualPosition?: string | null }
-  const pos = ext.visualPosition ?? 'center'
+  const pos = hero.visualPosition ?? 'center'
   return {
     visual,
-    fitMode: ext.visualFit ?? 'contain',
+    fitMode: hero.visualFit ?? 'contain',
     positionStyle: OBJECT_POSITION_STYLES[pos] ?? OBJECT_POSITION_STYLES.center,
   }
 }
