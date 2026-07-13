@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
+import { ctaField } from '@/fields/cta'
 import { iconField } from '@/fields/icon'
 
 import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
@@ -30,15 +31,6 @@ const tierColumnFields = () => [
     },
   },
 ]
-
-const ctaFields = (label: string) => ({
-  name: label,
-  type: 'group' as const,
-  fields: [
-    { name: 'label', type: 'text' as const },
-    { name: 'href', type: 'text' as const },
-  ],
-})
 
 export const PricingPage: GlobalConfig = {
   access: {
@@ -189,8 +181,8 @@ export const PricingPage: GlobalConfig = {
           type: 'text',
           defaultValue: 'Get started today. No credit card required.',
         },
-        ctaFields('closerPrimaryCta'),
-        ctaFields('closerSecondaryCta'),
+        ctaField({ name: 'closerPrimaryCta' }),
+        ctaField({ name: 'closerSecondaryCta' }),
         {
           name: 'closerFootnote',
           type: 'text',

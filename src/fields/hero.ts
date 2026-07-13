@@ -1,5 +1,8 @@
 import type { GroupField } from 'payload'
 
+import { ctaField } from './cta'
+import { FONT_OPTIONS, IMAGE_FIT_OPTIONS, IMAGE_POSITION_OPTIONS } from './options'
+
 export const heroField: GroupField = {
   name: 'hero',
   type: 'group',
@@ -48,34 +51,8 @@ export const heroField: GroupField = {
       name: 'subheadline',
       type: 'textarea',
     },
-    {
-      name: 'primaryCta',
-      type: 'group',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-        },
-        {
-          name: 'href',
-          type: 'text',
-        },
-      ],
-    },
-    {
-      name: 'secondaryCta',
-      type: 'group',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-        },
-        {
-          name: 'href',
-          type: 'text',
-        },
-      ],
-    },
+    ctaField({ name: 'primaryCta' }),
+    ctaField({ name: 'secondaryCta' }),
     {
       name: 'microcopy',
       type: 'text',
@@ -92,11 +69,7 @@ export const heroField: GroupField = {
       name: 'visualFit',
       type: 'select',
       defaultValue: 'contain',
-      options: [
-        { label: 'Contain (show full image)', value: 'contain' },
-        { label: 'Crop (fill area, may clip)', value: 'crop' },
-        { label: 'Square (forced 1:1, cropped)', value: 'square' },
-      ],
+      options: IMAGE_FIT_OPTIONS,
       admin: {
         description:
           'Contain: image shown in full (screenshots). Crop: image fills the column height and may clip. Square: forced 1:1 aspect ratio with cropping.',
@@ -108,17 +81,7 @@ export const heroField: GroupField = {
       name: 'visualPosition',
       type: 'select',
       defaultValue: 'center',
-      options: [
-        { label: 'Center', value: 'center' },
-        { label: 'Top', value: 'top' },
-        { label: 'Bottom', value: 'bottom' },
-        { label: 'Left', value: 'left' },
-        { label: 'Right', value: 'right' },
-        { label: 'Top Left', value: 'top left' },
-        { label: 'Top Right', value: 'top right' },
-        { label: 'Bottom Left', value: 'bottom left' },
-        { label: 'Bottom Right', value: 'bottom right' },
-      ],
+      options: IMAGE_POSITION_OPTIONS,
       admin: {
         description: 'Focal point for cropping. Only applies when Visual Fit is "Crop".',
         width: '50%',
@@ -162,12 +125,7 @@ export const heroField: GroupField = {
       name: 'headlineFont',
       type: 'select',
       defaultValue: 'display',
-      options: [
-        { label: 'Display (Termina)', value: 'display' },
-        { label: 'Sans (DM Sans)', value: 'sans' },
-        { label: 'Serif (Instrument Serif)', value: 'serif' },
-        { label: 'Data (Manrope)', value: 'data' },
-      ],
+      options: FONT_OPTIONS,
       admin: {
         description: 'Font family override for the hero headline.',
         width: '50%',

@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { IMAGE_FIT_OPTIONS, IMAGE_POSITION_OPTIONS } from '../fields/options'
 
 export const ProductFeaturesBlock: Block = {
   slug: 'product-features',
@@ -52,11 +53,7 @@ export const ProductFeaturesBlock: Block = {
           name: 'screenshotFit',
           type: 'select',
           defaultValue: 'contain',
-          options: [
-            { label: 'Contain (show full image)', value: 'contain' },
-            { label: 'Crop (fill area, may clip)', value: 'crop' },
-            { label: 'Square (forced 1:1, cropped)', value: 'square' },
-          ],
+          options: IMAGE_FIT_OPTIONS,
           admin: {
             description:
               'Contain: image shown in full. Crop: image fills the frame and may clip. Square: forced 1:1 with cropping.',
@@ -67,17 +64,7 @@ export const ProductFeaturesBlock: Block = {
           name: 'screenshotPosition',
           type: 'select',
           defaultValue: 'center',
-          options: [
-            { label: 'Center', value: 'center' },
-            { label: 'Top', value: 'top' },
-            { label: 'Bottom', value: 'bottom' },
-            { label: 'Left', value: 'left' },
-            { label: 'Right', value: 'right' },
-            { label: 'Top Left', value: 'top left' },
-            { label: 'Top Right', value: 'top right' },
-            { label: 'Bottom Left', value: 'bottom left' },
-            { label: 'Bottom Right', value: 'bottom right' },
-          ],
+          options: IMAGE_POSITION_OPTIONS,
           admin: {
             description: 'Focal point for cropping. Only applies when fit is Crop or Square.',
             width: '50%',
