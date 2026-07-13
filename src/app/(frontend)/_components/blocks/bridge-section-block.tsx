@@ -1,9 +1,9 @@
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import Link from 'next/link'
 
 import { Container } from '@/components/elements/container'
 import { Heading } from '@/components/elements/heading'
 import { OptionalCoverSection } from '@/components/elements/optional-cover-section'
+import { SmartLink } from '@/components/elements/smart-link'
 import type { Page } from '@/payload-types'
 
 type BridgeSectionData = Extract<
@@ -79,13 +79,13 @@ export function BridgeSectionBlock({ block }: BridgeSectionBlockProps) {
         {/* Optional trailing link */}
         {block.link?.href && block.link?.label && (
           <div className="mt-10">
-            <Link
+            <SmartLink
               href={block.link.href}
               className="text-moss-700 hover:text-moss-800 inline-flex items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline"
             >
               {block.link.label}
               <span aria-hidden="true">→</span>
-            </Link>
+            </SmartLink>
           </div>
         )}
       </div>
