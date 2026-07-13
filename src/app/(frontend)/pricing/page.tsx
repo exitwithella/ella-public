@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { buildPageMetadata } from '../_lib/build-metadata'
+import { BOOK_DEMO_LABEL, BOOK_DEMO_URL, SIGN_UP_LABEL, SIGN_UP_URL } from '../_lib/content'
 import { getPricingData } from '../_lib/get-pricing'
 import { FeatureComparison } from './_components/feature-comparison'
 import { PricingCloser } from './_components/pricing-closer'
@@ -42,14 +43,14 @@ export default async function PricingPage() {
         subtitle={pricingPage.closerSubtitle ?? ''}
         primaryCta={
           pricingPage.closerPrimaryCta ?? {
-            label: 'Get Started',
-            href: 'https://app.exitwithella.io/sign-up',
+            label: SIGN_UP_LABEL,
+            href: SIGN_UP_URL,
           }
         }
         secondaryCta={
           pricingPage.closerSecondaryCta ?? {
-            label: 'Book a Demo',
-            href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+            label: BOOK_DEMO_LABEL,
+            href: BOOK_DEMO_URL,
           }
         }
         footnote={pricingPage.closerFootnote ?? ''}

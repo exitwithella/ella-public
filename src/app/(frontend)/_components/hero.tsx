@@ -11,6 +11,8 @@ import { Wallpaper, type WallpaperColor } from '@/components/elements/wallpaper'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Page } from '@/payload-types'
 
+import { BOOK_DEMO_LABEL, BOOK_DEMO_URL, SIGN_UP_LABEL, SIGN_UP_URL } from '../_lib/content'
+
 // Maps CMS highlightColor values to Tailwind text classes (full class names required for Tailwind JIT)
 const HIGHLIGHT_COLOR_MAP: Record<string, string> = {
   goldenrod: 'text-goldenrod-500',
@@ -117,11 +119,10 @@ export function Hero({ hero }: HeroProps) {
   const highlightClass =
     HIGHLIGHT_COLOR_MAP[hero.highlightColor ?? 'goldenrod'] ?? 'text-goldenrod-500'
 
-  const primaryHref = hero.primaryCta?.href ?? 'https://app.exitwithella.io/sign-up'
-  const primaryLabel = hero.primaryCta?.label ?? 'Get Started'
-  const secondaryHref =
-    hero.secondaryCta?.href ?? 'https://cal.com/team/ella/ella-intro?overlayCalendar=true'
-  const secondaryLabel = hero.secondaryCta?.label ?? 'Book a Demo'
+  const primaryHref = hero.primaryCta?.href ?? SIGN_UP_URL
+  const primaryLabel = hero.primaryCta?.label ?? SIGN_UP_LABEL
+  const secondaryHref = hero.secondaryCta?.href ?? BOOK_DEMO_URL
+  const secondaryLabel = hero.secondaryCta?.label ?? BOOK_DEMO_LABEL
 
   // Resolve CMS visual — depth:2 populates it as a Media object
   const visualMedia = hero.visual && typeof hero.visual === 'object' ? hero.visual : null

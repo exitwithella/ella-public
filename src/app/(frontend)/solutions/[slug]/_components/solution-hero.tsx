@@ -5,6 +5,8 @@ import { Container } from '@/components/elements/container'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Solution } from '@/payload-types'
 
+import { BOOK_DEMO_LABEL, BOOK_DEMO_URL, SIGN_UP_LABEL, SIGN_UP_URL } from '../../../_lib/content'
+
 const HIGHLIGHT_COLOR_MAP: Record<string, string> = {
   goldenrod: 'text-goldenrod-500',
   moss: 'text-moss-600',
@@ -46,11 +48,10 @@ export function SolutionHero({ hero, title }: SolutionHeroProps) {
   const highlightClass =
     HIGHLIGHT_COLOR_MAP[hero.highlightColor ?? 'goldenrod'] ?? 'text-goldenrod-500'
 
-  const primaryHref = hero.primaryCta?.href ?? 'https://app.exitwithella.io/sign-up'
-  const primaryLabel = hero.primaryCta?.label ?? 'Get Started'
-  const secondaryHref =
-    hero.secondaryCta?.href ?? 'https://cal.com/team/ella/ella-intro?overlayCalendar=true'
-  const secondaryLabel = hero.secondaryCta?.label ?? 'Book a Demo'
+  const primaryHref = hero.primaryCta?.href ?? SIGN_UP_URL
+  const primaryLabel = hero.primaryCta?.label ?? SIGN_UP_LABEL
+  const secondaryHref = hero.secondaryCta?.href ?? BOOK_DEMO_URL
+  const secondaryLabel = hero.secondaryCta?.label ?? BOOK_DEMO_LABEL
 
   return (
     <section className="bg-sandstone-50 py-24 md:py-32">
