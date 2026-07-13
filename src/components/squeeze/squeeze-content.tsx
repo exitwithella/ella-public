@@ -8,7 +8,7 @@ import {
   useMotionValue,
   type MotionValue,
 } from 'motion/react'
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { useIsMobile } from '@/hooks/use-media-query'
 
@@ -125,8 +125,6 @@ function InlineCallout({
   const bgColor = isPressure
     ? 'bg-sandstone-50/90 border-sandstone-100/60'
     : 'bg-sandstone-50/90 border-sandstone-200/60'
-  const labelColor = isPressure ? 'text-ash-600' : 'text-ash-600'
-  const arrowColor = isPressure ? 'text-goldenrod-500' : 'text-goldenrod-500'
 
   return (
     <motion.div
@@ -146,12 +144,12 @@ function InlineCallout({
         isPressure ? 'self-start' : 'self-end'
       }`}
     >
-      {isPressure && <span className={`${arrowColor} text-xs`}>{'\u2192'}</span>}
-      <span className={`${labelColor} text-[0.625rem] font-semibold tracking-wider uppercase`}>
+      {isPressure && <span className="text-goldenrod-500 text-xs">{'\u2192'}</span>}
+      <span className="text-ash-600 text-[0.625rem] font-semibold tracking-wider uppercase">
         {type === 'pressure' ? 'Pressure' : 'Erosion'}
       </span>
       <span className="text-ash-800">{item}</span>
-      {!isPressure && <span className={`${arrowColor} text-xs`}>{'\u2190'}</span>}
+      {!isPressure && <span className="text-goldenrod-500 text-xs">{'\u2190'}</span>}
     </motion.div>
   )
 }
@@ -202,13 +200,6 @@ export function SqueezeContent({
 }: SqueezeContentProps) {
   const isMobile = useIsMobile()
 
-  const handleStepChange = useCallback(
-    (newStep: number) => {
-      onStepChange(newStep)
-    },
-    [onStepChange],
-  )
-
   // Build content items: paragraphs, then quotes, then closer
   // Each gets a sequential index for step tracking
   const contentItems: Array<
@@ -240,7 +231,7 @@ export function SqueezeContent({
         const currentCalloutIndex = calloutIndex
         calloutIndex++
         return (
-          <div key={i} className="contents">
+          <div key={`${item.type}-${i}`} className="contents">
             <InlineCallout
               type="pressure"
               itemIndex={currentCalloutIndex}
@@ -249,12 +240,7 @@ export function SqueezeContent({
             />
 
             {item.type === 'paragraph' && (
-              <ContentBlock
-                index={i}
-                step={step}
-                onStepChange={handleStepChange}
-                isMobile={isMobile}
-              >
+              <ContentBlock index={i} step={step} onStepChange={onStepChange} isMobile={isMobile}>
                 <p className="text-ash-700 text-lg leading-relaxed md:text-xl">{item.text}</p>
               </ContentBlock>
             )}
@@ -263,7 +249,7 @@ export function SqueezeContent({
               <QuoteBlock
                 index={i}
                 step={step}
-                onStepChange={handleStepChange}
+                onStepChange={onStepChange}
                 quote={item.text}
                 attribution={item.attribution}
                 isMobile={isMobile}
@@ -271,12 +257,7 @@ export function SqueezeContent({
             )}
 
             {item.type === 'closer' && (
-              <ContentBlock
-                index={i}
-                step={step}
-                onStepChange={handleStepChange}
-                isMobile={isMobile}
-              >
+              <ContentBlock index={i} step={step} onStepChange={onStepChange} isMobile={isMobile}>
                 <p className="text-goldenrod-600 font-serif text-xl leading-snug font-black text-balance md:text-5xl">
                   {item.text}
                 </p>

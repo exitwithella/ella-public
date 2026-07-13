@@ -41,9 +41,6 @@ export function PressureWalls({
   pressureItems?: string[]
   erosionItems?: string[]
 }) {
-  const leftItems = pressureItems
-  const rightItems = erosionItems
-
   // --- Scroll layer: continuous 0→1 mapped from scroll position ---
   const scrollSqueezeRaw = useTransform(scrollYProgress, [0.15, 0.55], [0, 1])
 
@@ -116,12 +113,12 @@ export function PressureWalls({
         <span className="text-ash-600 mb-1 font-mono text-[0.5625rem] font-semibold tracking-[0.12em] uppercase md:text-[0.625rem]">
           Growing Pressure
         </span>
-        {leftItems.map((item, i) => (
+        {pressureItems.map((item, i) => (
           <motion.span
             key={item}
             className="text-ash-600 flex items-center gap-1 text-[0.625rem] font-medium whitespace-nowrap md:text-xs"
             style={{
-              opacity: getItemOpacity(squeezeNum, i, leftItems.length),
+              opacity: getItemOpacity(squeezeNum, i, pressureItems.length),
             }}
           >
             <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">{'\u2192'}</span>
@@ -166,12 +163,12 @@ export function PressureWalls({
         <span className="text-ash-600 mb-1 font-mono text-[0.5625rem] font-semibold tracking-[0.12em] uppercase md:text-[0.625rem]">
           Eroding Advantage
         </span>
-        {rightItems.map((item, i) => (
+        {erosionItems.map((item, i) => (
           <motion.span
             key={item}
             className="text-ash-600 flex items-center gap-1 text-[0.625rem] font-medium whitespace-nowrap md:text-xs"
             style={{
-              opacity: getItemOpacity(squeezeNum, i, rightItems.length),
+              opacity: getItemOpacity(squeezeNum, i, erosionItems.length),
             }}
           >
             <span className="text-ash-400 text-[0.5rem] md:text-[0.625rem]">{'\u2190'}</span>
