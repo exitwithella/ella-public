@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
+import { ctaField } from '../fields/cta'
 import { iconField } from '../fields/icon'
 
 export const CardGridBlock: Block = {
@@ -68,20 +69,7 @@ export const CardGridBlock: Block = {
             description: 'Fallback icon image (used if no Phosphor icon is selected above).',
           },
         },
-        {
-          name: 'link',
-          type: 'group',
-          fields: [
-            {
-              name: 'label',
-              type: 'text',
-            },
-            {
-              name: 'href',
-              type: 'text',
-            },
-          ],
-        },
+        ctaField({ name: 'link' }),
         {
           name: 'anchorTarget',
           type: 'text',

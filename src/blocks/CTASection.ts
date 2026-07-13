@@ -2,6 +2,7 @@ import type { Block } from 'payload'
 
 import { bgStyleField } from '../fields/bgStyle'
 import { coverImageField } from '../fields/coverImage'
+import { ctaField } from '../fields/cta'
 
 export const CTASectionBlock: Block = {
   slug: 'cta-section',
@@ -18,34 +19,8 @@ export const CTASectionBlock: Block = {
       name: 'body',
       type: 'textarea',
     },
-    {
-      name: 'primaryCta',
-      type: 'group',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-        },
-        {
-          name: 'href',
-          type: 'text',
-        },
-      ],
-    },
-    {
-      name: 'secondaryCta',
-      type: 'group',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-        },
-        {
-          name: 'href',
-          type: 'text',
-        },
-      ],
-    },
+    ctaField({ name: 'primaryCta' }),
+    ctaField({ name: 'secondaryCta' }),
     {
       name: 'closingLine',
       type: 'text',
