@@ -6,6 +6,7 @@ import { Main } from '@/components/elements/main'
 import { EasterEggWrapper } from './_components/easter-egg-wrapper'
 import { Footer } from './_components/footer'
 import { JsonLd } from './_components/json-ld'
+import { MotionProvider } from './_components/motion-provider'
 import { Navbar } from './_components/navbar'
 import { buildRootMetadata } from './_lib/build-metadata'
 import { dmSans, instrumentSerif, termina } from './_lib/fonts'
@@ -55,11 +56,13 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       </head>
       <body>
         <InjectedScripts scripts={bodyStartScripts} />
-        <EasterEggWrapper>
-          <Navbar />
-          <Main>{children}</Main>
-          <Footer />
-        </EasterEggWrapper>
+        <MotionProvider>
+          <EasterEggWrapper>
+            <Navbar />
+            <Main>{children}</Main>
+            <Footer />
+          </EasterEggWrapper>
+        </MotionProvider>
         <InjectedScripts scripts={bodyEndScripts} />
       </body>
     </html>
