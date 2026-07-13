@@ -96,19 +96,13 @@ export function BlockRenderer({ block }: BlockRendererProps) {
       return <TestimonialBlockComponent block={block} />
     case 'newsletter-capture':
       return <NewsletterCaptureBlock block={block} />
-    default: {
-      // Handle block types not yet in payload-types.ts (regenerated on dev server restart)
-      const bt = (block as { blockType: string }).blockType
-      if (bt === 'values-grid') {
-        return <ValuesGridBlock block={block as any} />
-      }
-      if (bt === 'prompt-anatomy') {
-        return <PromptAnatomyBlock block={block as any} />
-      }
-      if (bt === 'feature-showcase') {
-        return <FeatureShowcaseBlock block={block as any} />
-      }
+    case 'values-grid':
+      return <ValuesGridBlock block={block} />
+    case 'prompt-anatomy':
+      return <PromptAnatomyBlock block={block} />
+    case 'feature-showcase':
+      return <FeatureShowcaseBlock block={block} />
+    default:
       return null
-    }
   }
 }

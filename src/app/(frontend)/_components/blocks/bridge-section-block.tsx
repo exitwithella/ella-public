@@ -37,7 +37,7 @@ export function BridgeSectionBlock({ block }: BridgeSectionBlockProps) {
         {block.heading && (
           <Heading
             className={
-              (block as Record<string, unknown>).headingStyle === 'serif'
+              block.headingStyle === 'serif'
                 ? 'mb-8 font-serif text-3xl font-light italic md:text-5xl'
                 : 'mb-8 font-bold'
             }
@@ -95,7 +95,7 @@ export function BridgeSectionBlock({ block }: BridgeSectionBlockProps) {
   return (
     <OptionalCoverSection
       bgStyle={block.bgStyle}
-      coverImage={(block as Record<string, unknown>).coverImage}
+      coverImage={block.coverImage}
       padding="py-20 md:py-28"
     >
       {content}

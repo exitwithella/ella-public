@@ -7,18 +7,7 @@ import { Container } from '@/components/elements/container'
 import { ThemeSection } from '@/components/elements/theme-section'
 import type { Page } from '@/payload-types'
 
-// Type is generated after dev server restart; fallback to manual shape until then
-type ValuesGridData =
-  Extract<NonNullable<Page['layout']>[number], { blockType: 'values-grid' }> extends never
-    ? {
-        blockType: 'values-grid'
-        id?: string
-        heading?: string | null
-        description?: string | null
-        items?: { id?: string; title: string; description: string }[] | null
-        bgStyle?: string | null
-      }
-    : Extract<NonNullable<Page['layout']>[number], { blockType: 'values-grid' }>
+type ValuesGridData = Extract<NonNullable<Page['layout']>[number], { blockType: 'values-grid' }>
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },

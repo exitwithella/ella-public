@@ -5,30 +5,10 @@ import { ThemeSection } from '@/components/elements/theme-section'
 import { PromptAnatomyDiagram } from '@/components/prompt-anatomy/prompt-anatomy-diagram'
 import type { Page } from '@/payload-types'
 
-type PromptAnatomyData =
-  Extract<NonNullable<Page['layout']>[number], { blockType: 'prompt-anatomy' }> extends never
-    ? {
-        blockType: 'prompt-anatomy'
-        sectionId?: string | null
-        sectionLabel?: string | null
-        heading?: string | null
-        description?: string | null
-        promptText?: string | null
-        responseLabel?: string | null
-        responseMetadata?: string | null
-        items?: Array<{
-          heading: string
-          body: string
-          annotationLabel: string
-          annotationDetail?: string | null
-          color: 'moss' | 'goldenrod'
-        }> | null
-        footerLeft?: string | null
-        footerRight?: string | null
-        bgColorOverride?: string | null
-        bgStyle?: string | null
-      }
-    : Extract<NonNullable<Page['layout']>[number], { blockType: 'prompt-anatomy' }>
+type PromptAnatomyData = Extract<
+  NonNullable<Page['layout']>[number],
+  { blockType: 'prompt-anatomy' }
+>
 
 interface PromptAnatomyBlockProps {
   block: PromptAnatomyData

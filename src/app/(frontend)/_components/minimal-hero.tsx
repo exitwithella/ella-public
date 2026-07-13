@@ -10,18 +10,14 @@ interface MinimalHeroProps {
 }
 
 export async function MinimalHero({ hero }: MinimalHeroProps) {
-  const showLogoWatermark = (hero as { showLogoWatermark?: boolean }).showLogoWatermark
+  const showLogoWatermark = hero.showLogoWatermark
   const visual = typeof hero.visual === 'object' && hero.visual?.url ? hero.visual : null
   const isSvg = visual?.mimeType === 'image/svg+xml'
   const svgContent = isSvg && visual.url ? await fetchSvgContent(visual.filename, visual.url) : null
 
-  const heroExt = hero as {
-    visualFit?: string | null
-    visualPosition?: string | null
-  }
-  const fitMode = heroExt.visualFit ?? 'contain'
+  const fitMode = hero.visualFit ?? 'contain'
   const isCropped = fitMode === 'crop' || fitMode === 'square'
-  const objectPosition = heroExt.visualPosition ?? 'center'
+  const objectPosition = hero.visualPosition ?? 'center'
 
   return (
     <section className="relative overflow-hidden py-24 md:py-32">

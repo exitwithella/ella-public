@@ -77,9 +77,9 @@ function PanelTracker({
 function PanelContent({ item, index }: { item: Item; index: number }) {
   const screenshot = item.screenshot as Media | null
   const stepNum = String(index + 1).padStart(2, '0')
-  const fitMode = (item as { screenshotFit?: string }).screenshotFit ?? 'contain'
+  const fitMode = item.screenshotFit ?? 'contain'
   const isCropped = fitMode === 'crop' || fitMode === 'square'
-  const objectPosition = (item as { screenshotPosition?: string }).screenshotPosition ?? 'center'
+  const objectPosition = item.screenshotPosition ?? 'center'
 
   return (
     <>
@@ -162,11 +162,9 @@ function ProductFeaturesScroller({
   const [activeIndex, setActiveIndex] = useState(0)
   const activeItem = items[activeIndex]
   const activeScreenshot = activeItem?.screenshot as Media | null
-  const activeFit =
-    (activeItem as { screenshotFit?: string } | undefined)?.screenshotFit ?? 'contain'
+  const activeFit = activeItem?.screenshotFit ?? 'contain'
   const activeIsCropped = activeFit === 'crop' || activeFit === 'square'
-  const activePosition =
-    (activeItem as { screenshotPosition?: string } | undefined)?.screenshotPosition ?? 'center'
+  const activePosition = activeItem?.screenshotPosition ?? 'center'
 
   const handleVisible = useCallback((i: number) => setActiveIndex(i), [])
   const hasHeader = sectionLabel || heading || subheading
