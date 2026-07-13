@@ -54,31 +54,39 @@ export function TensionThreads({ squeeze }: { squeeze: MotionValue<number> }) {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let running = false
+    let visible = false
+
     const resize = () => {
       const dpr = window.devicePixelRatio || 1
       const rect = canvas.getBoundingClientRect()
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
-      ctx.scale(dpr, dpr)
+      // Set (not accumulate) the DPR transform each resize
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       isMobileRef.current = rect.width < 768
-      if (threadsRef.current.length === 0) {
+      const threads = threadsRef.current
+      if (threads.length === 0) {
         initThreads(rect.height)
+      } else {
+        // Redistribute existing threads across the new height so the canvas
+        // bottom isn't left empty (or threads clipped) after a resize
+        const count = threads.length
+        for (let i = 0; i < count; i++) {
+          threads[i].y = (i / (count - 1)) * rect.height
+        }
       }
+      // Repaint immediately so a resize while paused/reduced-motion isn't stale
+      if (!running) renderThreads()
     }
-    resize()
-    window.addEventListener('resize', resize)
 
-    const draw = (timestamp: number) => {
-      // Calculate actual delta time, clamped to prevent large jumps
-      const lastTime = lastFrameTimeRef.current ?? timestamp
-      const rawDelta = (timestamp - lastTime) / 1000
-      const delta = Math.min(rawDelta, 0.05) // Cap at 50ms to prevent spazzing
-      lastFrameTimeRef.current = timestamp
-
+    // Render the current thread state once at the current time (no advance).
+    // Shared by the animation loop and the static reduced-motion/off-screen frame.
+    const renderThreads = () => {
       const rect = canvas.getBoundingClientRect()
       const w = rect.width
       const h = rect.height
-      timeRef.current += delta
 
       ctx.clearRect(0, 0, w, h)
 
@@ -194,14 +202,62 @@ export function TensionThreads({ squeeze }: { squeeze: MotionValue<number> }) {
           ctx.stroke()
         }
       }
+    }
 
+    const draw = (timestamp: number) => {
+      // Actual delta time, clamped to prevent large jumps after a pause
+      const lastTime = lastFrameTimeRef.current ?? timestamp
+      const rawDelta = (timestamp - lastTime) / 1000
+      const delta = Math.min(rawDelta, 0.05) // Cap at 50ms to prevent spazzing
+      lastFrameTimeRef.current = timestamp
+      timeRef.current += delta
+
+      renderThreads()
       animFrameRef.current = requestAnimationFrame(draw)
     }
 
-    animFrameRef.current = requestAnimationFrame(draw)
+    const start = () => {
+      if (running) return
+      running = true
+      lastFrameTimeRef.current = null // Fresh delta baseline on resume
+      animFrameRef.current = requestAnimationFrame(draw)
+    }
+
+    const stop = () => {
+      if (!running) return
+      running = false
+      cancelAnimationFrame(animFrameRef.current)
+    }
+
+    // Animate only while on-screen AND motion is allowed; otherwise paint a
+    // single static resting frame so the section is never blank.
+    const update = () => {
+      if (visible && !reduceMotionQuery.matches) {
+        start()
+      } else {
+        stop()
+        renderThreads()
+      }
+    }
+
+    resize()
+    window.addEventListener('resize', resize)
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        visible = entries[0]?.isIntersecting ?? false
+        update()
+      },
+      { rootMargin: '200px' },
+    )
+    observer.observe(canvas)
+
+    reduceMotionQuery.addEventListener('change', update)
 
     return () => {
       window.removeEventListener('resize', resize)
+      observer.disconnect()
+      reduceMotionQuery.removeEventListener('change', update)
       cancelAnimationFrame(animFrameRef.current)
       lastFrameTimeRef.current = null // Reset so next mount doesn't have stale time
     }
