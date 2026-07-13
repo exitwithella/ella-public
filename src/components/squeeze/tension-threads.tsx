@@ -1,6 +1,6 @@
 'use client'
 
-import { useSpring } from 'motion/react'
+import type { MotionValue } from 'motion/react'
 import { useRef, useEffect, useCallback } from 'react'
 
 interface Thread {
@@ -17,20 +17,13 @@ interface Thread {
   recoilOffset: number
 }
 
-export function TensionThreads({ squeeze }: { squeeze: number }) {
+export function TensionThreads({ squeeze }: { squeeze: MotionValue<number> }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const threadsRef = useRef<Thread[]>([])
   const animFrameRef = useRef<number>(0)
   const timeRef = useRef(0)
   const lastFrameTimeRef = useRef<number | null>(null)
   const isMobileRef = useRef(false)
-
-  // Initialize spring with current squeeze value to prevent jump on mount
-  const springySqueeze = useSpring(squeeze, { stiffness: 60, damping: 20 })
-
-  useEffect(() => {
-    springySqueeze.set(squeeze)
-  }, [squeeze, springySqueeze])
 
   const initThreads = useCallback((height: number) => {
     const threads: Thread[] = []
@@ -89,7 +82,7 @@ export function TensionThreads({ squeeze }: { squeeze: number }) {
 
       ctx.clearRect(0, 0, w, h)
 
-      const currentSqueeze = springySqueeze.get()
+      const currentSqueeze = squeeze.get()
       const threads = threadsRef.current
 
       for (const thread of threads) {
@@ -212,7 +205,7 @@ export function TensionThreads({ squeeze }: { squeeze: number }) {
       cancelAnimationFrame(animFrameRef.current)
       lastFrameTimeRef.current = null // Reset so next mount doesn't have stale time
     }
-  }, [initThreads, springySqueeze])
+  }, [initThreads, squeeze])
 
   return (
     <canvas

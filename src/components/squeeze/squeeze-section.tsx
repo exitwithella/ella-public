@@ -1,6 +1,14 @@
 'use client'
 
-import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'motion/react'
+import {
+  LazyMotion,
+  domAnimation,
+  m,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionTemplate,
+} from 'motion/react'
 import { useRef, useState, useCallback } from 'react'
 
 import { PressureWalls } from './pressure-walls'
@@ -21,7 +29,7 @@ function SectionHeader({ label, heading }: { label?: string | null; heading: str
   return (
     <div className="relative z-20 mb-20 text-center md:mb-28">
       {label && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -31,10 +39,10 @@ function SectionHeader({ label, heading }: { label?: string | null; heading: str
           <span className="text-ash-400 text-xs tracking-[0.3em] uppercase md:text-sm">
             {label}
           </span>
-        </motion.div>
+        </m.div>
       )}
 
-      <motion.h2
+      <m.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
@@ -42,7 +50,7 @@ function SectionHeader({ label, heading }: { label?: string | null; heading: str
         className="text-foreground font-serif text-4xl leading-[1.1] text-balance md:text-6xl lg:text-7xl"
       >
         {heading}
-      </motion.h2>
+      </m.h2>
     </div>
   )
 }
@@ -57,7 +65,6 @@ export function SqueezeSection({
   erosionItems,
 }: SqueezeSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const [squeezeValue, setSqueezeValue] = useState(0)
   const [step, setStep] = useState(0)
 
   const { scrollYProgress } = useScroll({
@@ -68,9 +75,13 @@ export function SqueezeSection({
   const squeezeRaw = useTransform(scrollYProgress, [0.0, 0.55], [0, 1])
   const squeeze = useSpring(squeezeRaw, { stiffness: 60, damping: 25 })
 
-  useMotionValueEvent(squeeze, 'change', (latest) => {
-    setSqueezeValue(latest)
-  })
+  // Background warms as pressure builds — kept in MotionValue-land (no per-frame
+  // React re-render). Colors are themed in a follow-up (MKT-209).
+  const centerAlpha = useTransform(squeeze, (v) => 1 - v * 0.08)
+  const outerR = useTransform(squeeze, (v) => Math.round(244 - v * 8))
+  const outerG = useTransform(squeeze, (v) => Math.round(238 - v * 10))
+  const outerB = useTransform(squeeze, (v) => Math.round(228 - v * 12))
+  const background = useMotionTemplate`radial-gradient(ellipse 90% 80% at center, rgba(250, 247, 241, ${centerAlpha}) 0%, rgba(${outerR}, ${outerG}, ${outerB}, 1) 85%)`
 
   const handleStepChange = useCallback((newStep: number) => {
     setStep(newStep)
@@ -80,36 +91,33 @@ export function SqueezeSection({
   const contentSteps = bodyParagraphs.length + quotes.length
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden">
-      <div className="sticky top-0 flex min-h-screen flex-col justify-center py-20">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: `radial-gradient(ellipse 90% 80% at center, rgba(250, 247, 241, ${1 - squeezeValue * 0.08}) 0%, rgba(${Math.round(244 - squeezeValue * 8)}, ${Math.round(238 - squeezeValue * 10)}, ${Math.round(228 - squeezeValue * 12)}, 1) 85%)`,
-          }}
-        />
+    <LazyMotion features={domAnimation}>
+      <section ref={sectionRef} className="relative overflow-hidden">
+        <div className="sticky top-0 flex min-h-screen flex-col justify-center py-20">
+          <m.div className="pointer-events-none absolute inset-0" style={{ background }} />
 
-        <TensionThreads squeeze={squeezeValue} />
+          <TensionThreads squeeze={squeeze} />
 
-        <PressureWalls
-          step={step}
-          contentSteps={contentSteps}
-          scrollYProgress={scrollYProgress}
-          pressureItems={pressureItems}
-          erosionItems={erosionItems}
-        />
+          <PressureWalls
+            step={step}
+            contentSteps={contentSteps}
+            scrollYProgress={scrollYProgress}
+            pressureItems={pressureItems}
+            erosionItems={erosionItems}
+          />
 
-        <SectionHeader label={label} heading={heading} />
-        <SqueezeContent
-          step={step}
-          onStepChange={handleStepChange}
-          bodyParagraphs={bodyParagraphs}
-          quotes={quotes}
-          closer={closer}
-          pressureItems={pressureItems}
-          erosionItems={erosionItems}
-        />
-      </div>
-    </section>
+          <SectionHeader label={label} heading={heading} />
+          <SqueezeContent
+            step={step}
+            onStepChange={handleStepChange}
+            bodyParagraphs={bodyParagraphs}
+            quotes={quotes}
+            closer={closer}
+            pressureItems={pressureItems}
+            erosionItems={erosionItems}
+          />
+        </div>
+      </section>
+    </LazyMotion>
   )
 }

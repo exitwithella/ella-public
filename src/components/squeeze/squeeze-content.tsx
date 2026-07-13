@@ -1,7 +1,7 @@
 'use client'
 
 import {
-  motion,
+  m,
   useTransform,
   useSpring,
   useInView,
@@ -86,7 +86,7 @@ function ContentBlock({
   const scaleX = useTransform(springVal, [0, 7], [1, 0.92])
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       animate={{ opacity }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -94,7 +94,7 @@ function ContentBlock({
       className="relative z-20 origin-center"
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -127,7 +127,7 @@ function InlineCallout({
     : 'bg-sandstone-50/90 border-sandstone-200/60'
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, x: isPressure ? -40 : 40, scale: 0.9 }}
       animate={{
@@ -150,7 +150,7 @@ function InlineCallout({
       </span>
       <span className="text-ash-800">{item}</span>
       {!isPressure && <span className="text-goldenrod-500 text-xs">{'\u2190'}</span>}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -174,7 +174,7 @@ function QuoteBlock({
   const rotate = useTransform(springVal, [3, 7], [0, index % 2 === 0 ? -0.5 : 0.5])
 
   return (
-    <motion.blockquote
+    <m.blockquote
       ref={ref}
       animate={{ opacity }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -185,7 +185,7 @@ function QuoteBlock({
       <footer className="text-goldenrod-500 mt-3 text-sm tracking-wide uppercase">
         {attribution}
       </footer>
-    </motion.blockquote>
+    </m.blockquote>
   )
 }
 
