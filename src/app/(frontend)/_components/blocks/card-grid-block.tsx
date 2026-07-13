@@ -1,8 +1,7 @@
 import Image from 'next/image'
 
 import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
-import { Heading } from '@/components/elements/heading'
+import { SectionHeader } from '@/components/elements/section-header'
 import { ThemeSection } from '@/components/elements/theme-section'
 import { PhosphorIcon } from '@/components/icons/PhosphorIcon'
 import type { Media, Page } from '@/payload-types'
@@ -25,18 +24,11 @@ export function CardGridBlock({ block }: CardGridBlockProps) {
   return (
     <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
       <Container>
-        {/* Section header */}
-        {(block.sectionLabel || block.heading) && (
-          <div className="mb-12 md:mb-16">
-            {block.sectionLabel && <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>}
-            {block.heading && <Heading>{block.heading}</Heading>}
-            {block.subheading && (
-              <p className="text-theme-text-secondary mt-4 max-w-2xl text-lg/relaxed">
-                {block.subheading}
-              </p>
-            )}
-          </div>
-        )}
+        <SectionHeader
+          label={block.sectionLabel}
+          heading={block.heading}
+          subheading={block.subheading}
+        />
 
         {/* Card grid */}
         {block.cards && block.cards.length > 0 && (

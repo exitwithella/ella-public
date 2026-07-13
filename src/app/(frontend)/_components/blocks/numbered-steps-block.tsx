@@ -1,6 +1,6 @@
 import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
 import { Heading } from '@/components/elements/heading'
+import { SectionHeader } from '@/components/elements/section-header'
 import { ThemeSection } from '@/components/elements/theme-section'
 import type { Page, Solution } from '@/payload-types'
 
@@ -18,18 +18,11 @@ export function NumberedStepsBlock({ block }: NumberedStepsBlockProps) {
   return (
     <ThemeSection bgStyle={block.bgStyle} className="py-20 md:py-28">
       <Container>
-        {/* Section header */}
-        {(block.sectionLabel || block.heading) && (
-          <div className="mb-12 md:mb-16">
-            {block.sectionLabel && <Eyebrow className="mb-3">{block.sectionLabel}</Eyebrow>}
-            {block.heading && <Heading>{block.heading}</Heading>}
-            {block.subheading && (
-              <p className="text-theme-text-secondary mt-4 max-w-2xl text-lg/relaxed">
-                {block.subheading}
-              </p>
-            )}
-          </div>
-        )}
+        <SectionHeader
+          label={block.sectionLabel}
+          heading={block.heading}
+          subheading={block.subheading}
+        />
 
         {/* Steps */}
         <div className="space-y-0">

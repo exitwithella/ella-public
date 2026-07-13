@@ -1,6 +1,5 @@
 import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
-import { Heading } from '@/components/elements/heading'
+import { SectionHeader } from '@/components/elements/section-header'
 import { ThemeSection } from '@/components/elements/theme-section'
 import type { Page } from '@/payload-types'
 
@@ -65,22 +64,16 @@ export function ComparisonTableBlock({ block }: ComparisonTableBlockProps) {
   return (
     <ThemeSection bgStyle={block.bgStyle} className="py-24 md:py-32">
       <Container>
-        {/* Section header */}
-        {(block.sectionLabel || block.heading || block.subheading) && (
-          <div className="mx-auto mb-14 max-w-3xl text-center">
-            {block.sectionLabel && (
-              <Eyebrow size="sm" className="mb-3">
-                {block.sectionLabel}
-              </Eyebrow>
-            )}
-            {block.heading && (
-              <Heading className="mb-4 text-3xl md:text-4xl">{block.heading}</Heading>
-            )}
-            {block.subheading && (
-              <p className="text-theme-text-secondary text-lg/relaxed">{block.subheading}</p>
-            )}
-          </div>
-        )}
+        <SectionHeader
+          label={block.sectionLabel}
+          heading={block.heading}
+          subheading={block.subheading}
+          align="center"
+          marginClassName="mb-14"
+          className="mx-auto max-w-3xl"
+          headingClassName="mb-4 text-3xl md:text-4xl"
+          eyebrowSize="sm"
+        />
 
         {/* Desktop table */}
         <div className="border-theme-border hidden overflow-x-auto rounded-sm border md:block">

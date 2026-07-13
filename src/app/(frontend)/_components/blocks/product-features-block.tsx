@@ -5,8 +5,7 @@ import Image from 'next/image'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Container } from '@/components/elements/container'
-import { Eyebrow } from '@/components/elements/eyebrow'
-import { Heading } from '@/components/elements/heading'
+import { SectionHeader } from '@/components/elements/section-header'
 import { ThemeSection } from '@/components/elements/theme-section'
 import type { Media, Page } from '@/payload-types'
 
@@ -219,11 +218,13 @@ function ProductFeaturesScroller({
               <div className="relative">
                 <div className="bg-theme-bg pointer-events-none absolute inset-y-0 right-0 -left-4" />
                 <div className="relative pt-20 pb-8 md:pt-28 md:pb-10">
-                  {sectionLabel && <Eyebrow className="mb-3">{sectionLabel}</Eyebrow>}
-                  {heading && <Heading>{heading}</Heading>}
-                  {subheading && (
-                    <p className="text-theme-text-secondary mt-4 text-lg/relaxed">{subheading}</p>
-                  )}
+                  <SectionHeader
+                    label={sectionLabel}
+                    heading={heading}
+                    subheading={subheading}
+                    marginClassName=""
+                    subheadingClassName="mt-4"
+                  />
                 </div>
               </div>
               {/* Right column: transparent — ash panel shows through */}
