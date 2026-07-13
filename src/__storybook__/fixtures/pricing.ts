@@ -1,5 +1,6 @@
 import type { FaqItem, PricingTier } from '@/payload-types'
 
+import { BOOK_DEMO_URL, SIGN_UP_URL } from '../../app/(frontend)/_lib/content'
 import { richText } from './richtext'
 
 export const mockTiers: PricingTier[] = [
@@ -14,7 +15,7 @@ export const mockTiers: PricingTier[] = [
     pricePer: 'user',
     monthSurchargePercent: 20,
     quarterSurchargePercent: 10,
-    cta: { label: 'Get Started', href: 'https://app.exitwithella.io/sign-up' },
+    cta: { label: 'Get Started', href: SIGN_UP_URL },
     featuresHeader: 'KEY FEATURES INCLUDE:',
     features: [
       { feature: 'Up to 3 advisors, 30 active clients', included: 'yes', id: 'f1' },
@@ -36,7 +37,7 @@ export const mockTiers: PricingTier[] = [
       customLabel: 'Custom',
     },
     pricePer: 'flat',
-    cta: { label: 'Talk to Sales', href: 'https://cal.com/team/ella/ella-intro' },
+    cta: { label: 'Talk to Sales', href: BOOK_DEMO_URL },
     featuresHeader: 'EVERYTHING IN PRACTITIONER, PLUS:',
     features: [
       { feature: 'AI governance & decision tracing', included: 'yes', id: 'f5' },

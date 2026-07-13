@@ -5,6 +5,8 @@ import { OptionalCoverSection } from '@/components/elements/optional-cover-secti
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Page } from '@/payload-types'
 
+import { BOOK_DEMO_LABEL, BOOK_DEMO_URL, SIGN_UP_LABEL, SIGN_UP_URL } from '../../_lib/content'
+
 type CTASectionData = Extract<NonNullable<Page['layout']>[number], { blockType: 'cta-section' }>
 
 interface CTASectionBlockProps {
@@ -15,11 +17,10 @@ export function CTASectionBlock({ block }: CTASectionBlockProps) {
   // Body stored as textarea with \n\n paragraph separators
   const paragraphs = block.body ? block.body.split('\n\n').filter((p) => p.trim().length > 0) : []
 
-  const primaryHref = block.primaryCta?.href ?? 'https://app.exitwithella.io/sign-up'
-  const primaryLabel = block.primaryCta?.label ?? 'Get Started'
-  const secondaryHref =
-    block.secondaryCta?.href ?? 'https://cal.com/team/ella/ella-intro?overlayCalendar=true'
-  const secondaryLabel = block.secondaryCta?.label ?? 'Book a Demo'
+  const primaryHref = block.primaryCta?.href ?? SIGN_UP_URL
+  const primaryLabel = block.primaryCta?.label ?? SIGN_UP_LABEL
+  const secondaryHref = block.secondaryCta?.href ?? BOOK_DEMO_URL
+  const secondaryLabel = block.secondaryCta?.label ?? BOOK_DEMO_LABEL
 
   const content = (
     <Container>

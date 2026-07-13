@@ -8,6 +8,8 @@ import { MinusIcon } from '@/components/icons/minus-icon'
 import { PlusIcon } from '@/components/icons/plus-icon'
 import type { FaqItem } from '@/payload-types'
 
+import { BOOK_DEMO_URL } from '../../_lib/content'
+
 const CATEGORY_LABELS: Record<string, string> = {
   general: 'General',
   pricing: 'Pricing',
@@ -89,7 +91,7 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
             <p className="text-ash-1000 text-sm">
               Still have questions?{' '}
               <a
-                href="https://cal.com/team/ella/ella-intro?overlayCalendar=true"
+                href={BOOK_DEMO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Talk to our team (opens in new tab)"

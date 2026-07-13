@@ -6,19 +6,27 @@ export const siteConfig = {
   url: process.env.SITE_URL ?? 'https://withella.io',
 }
 
+/* Canonical CTA destinations — the single source of truth for the sign-up and
+ * demo-booking links. Changing the demo link (a likely marketing event) is a
+ * one-line diff here. Every fallback across the site imports these. */
+export const SIGN_UP_URL = `${siteConfig.appUrl}/sign-up`
+export const BOOK_DEMO_URL = 'https://cal.com/team/ella/ella-intro?overlayCalendar=true'
+export const SIGN_UP_LABEL = 'Get Started'
+export const BOOK_DEMO_LABEL = 'Book a Demo'
+
 export const navigation = {
   actions: {
     bookDemo: {
-      label: 'Book a Demo',
-      href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+      label: BOOK_DEMO_LABEL,
+      href: BOOK_DEMO_URL,
     },
     login: {
       label: 'Log In',
-      href: 'https://app.exitwithella.io/sign-in',
+      href: `${siteConfig.appUrl}/sign-in`,
     },
     signUp: {
-      label: 'Get Started',
-      href: 'https://app.exitwithella.io/sign-up',
+      label: SIGN_UP_LABEL,
+      href: SIGN_UP_URL,
     },
   },
   links: [
@@ -109,10 +117,10 @@ export const closerCta = {
   headline: 'Simple. Flexible. Made for impact.',
   primaryCta: {
     label: 'Get Started Free',
-    href: 'https://app.exitwithella.io/sign-up',
+    href: SIGN_UP_URL,
   },
   secondaryCta: {
-    label: 'Book a Demo',
-    href: 'https://cal.com/team/ella/ella-intro?overlayCalendar=true',
+    label: BOOK_DEMO_LABEL,
+    href: BOOK_DEMO_URL,
   },
 }

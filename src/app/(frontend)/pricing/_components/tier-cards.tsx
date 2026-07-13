@@ -2,6 +2,7 @@ import { Container } from '@/components/elements/container'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { PricingTier } from '@/payload-types'
 
+import { BOOK_DEMO_URL, SIGN_UP_LABEL, SIGN_UP_URL } from '../../_lib/content'
 import type { BillingPeriod } from './billing-toggle'
 
 interface TierCardsProps {
@@ -85,8 +86,8 @@ function DesktopTierCards({
         {tiers.map((tier, idx) => {
           const { display: priceDisplay, suffix: priceSuffix } = formatPrice(tier, billingPeriod)
           const isCustom = tier.price?.period === 'custom'
-          const ctaHref = tier.cta?.href ?? 'https://app.exitwithella.io/sign-up'
-          const ctaLabel = tier.cta?.label ?? 'Get Started'
+          const ctaHref = tier.cta?.href ?? SIGN_UP_URL
+          const ctaLabel = tier.cta?.label ?? SIGN_UP_LABEL
           const isFirst = idx === 0
 
           return (
@@ -136,7 +137,7 @@ function DesktopTierCards({
                 </a>
                 {!isCustom && (
                   <a
-                    href="https://cal.com/team/ella/ella-intro?overlayCalendar=true"
+                    href={BOOK_DEMO_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Get a demo (opens in new tab)"
@@ -210,8 +211,8 @@ function MobileTierCards({
       {tiers.map((tier, idx) => {
         const { display: priceDisplay, suffix: priceSuffix } = formatPrice(tier, billingPeriod)
         const isCustom = tier.price?.period === 'custom'
-        const ctaHref = tier.cta?.href ?? 'https://app.exitwithella.io/sign-up'
-        const ctaLabel = tier.cta?.label ?? 'Get Started'
+        const ctaHref = tier.cta?.href ?? SIGN_UP_URL
+        const ctaLabel = tier.cta?.label ?? SIGN_UP_LABEL
         const isFirst = idx === 0
         const features = tier.features
 
@@ -257,7 +258,7 @@ function MobileTierCards({
                 </a>
                 {!isCustom && (
                   <a
-                    href="https://cal.com/team/ella/ella-intro?overlayCalendar=true"
+                    href={BOOK_DEMO_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Get a demo (opens in new tab)"
