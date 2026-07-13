@@ -9,6 +9,8 @@
     "cf:build": "pnpm run check-migrations && bash scripts/deploy-database-if-main.sh && cross-env REMOTE_BINDINGS=true opennextjs-cloudflare build --env=$CLOUDFLARE_ENV",
     "check-migrations": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/check-migrations.ts",
     "deploy": "pnpm run deploy:database && pnpm run deploy:app",
+    "deploy:staging": "cross-env CLOUDFLARE_ENV=staging pnpm run deploy",
+    "snapshot:staging": "bash scripts/snapshot-prod-to-staging.sh",
     "deploy:app": "cross-env REMOTE_BINDINGS=true opennextjs-cloudflare build --env=$CLOUDFLARE_ENV && opennextjs-cloudflare deploy --env=$CLOUDFLARE_ENV",
     "deploy:database": "cross-env NODE_ENV=production PAYLOAD_SECRET=ignore REMOTE_BINDINGS=true payload migrate && wrangler d1 execute D1 --command 'PRAGMA optimize' --env=$CLOUDFLARE_ENV --remote",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
