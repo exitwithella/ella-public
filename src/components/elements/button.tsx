@@ -1,6 +1,8 @@
 import { clsx } from 'clsx/lite'
 import type { ComponentProps } from 'react'
 
+import { SmartLink } from './smart-link'
+
 const sizes = {
   lg: 'px-4 py-2',
   md: 'px-3 py-1',
@@ -61,7 +63,7 @@ export function ButtonLink({
   size?: keyof typeof sizes
   color?: ButtonColor
 } & Omit<ComponentProps<'a'>, 'href'>) {
-  return <a href={href} className={solidClasses(color, size, className)} {...props} />
+  return <SmartLink href={href} className={solidClasses(color, size, className)} {...props} />
 }
 
 export function SoftButton({
@@ -84,7 +86,7 @@ export function SoftButtonLink({
   href: string
   size?: keyof typeof sizes
 } & Omit<ComponentProps<'a'>, 'href'>) {
-  return <a href={href} className={softClasses(size, className)} {...props} />
+  return <SmartLink href={href} className={softClasses(size, className)} {...props} />
 }
 
 export function PlainButton({
@@ -111,5 +113,5 @@ export function PlainButtonLink({
   size?: keyof typeof sizes
   color?: ButtonColor
 } & Omit<ComponentProps<'a'>, 'href'>) {
-  return <a href={href} className={plainClasses(color, size, className)} {...props} />
+  return <SmartLink href={href} className={plainClasses(color, size, className)} {...props} />
 }

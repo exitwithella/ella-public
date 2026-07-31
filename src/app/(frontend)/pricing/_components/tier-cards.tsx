@@ -1,3 +1,5 @@
+import { clsx } from 'clsx/lite'
+
 import { Container } from '@/components/elements/container'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { PricingTier } from '@/payload-types'
@@ -44,6 +46,10 @@ function formatPrice(
   return { display: `$${dollars}`, suffix: perLabel }
 }
 
+function billingLabelFor(period: BillingPeriod): string {
+  return period === 'year' ? 'annually' : period === 'quarter' ? 'quarterly' : 'monthly'
+}
+
 function CheckIcon() {
   return (
     <svg
@@ -66,6 +72,99 @@ function CheckIcon() {
 }
 
 // ─────────────────────────────────────────────────────────
+// Shared card pieces (desktop + mobile render the same content)
+// ─────────────────────────────────────────────────────────
+
+/** Tier name + tagline + animated price + CTA row. `priceMarginClass`/`keyPrefix` vary by layout. */
+function TierCardHeader({
+  tier,
+  billingPeriod,
+  isFeatured,
+  priceMarginClass,
+  keyPrefix = '',
+}: {
+  tier: PricingTier
+  billingPeriod: BillingPeriod
+  isFeatured: boolean
+  priceMarginClass: string
+  keyPrefix?: string
+}) {
+  const { display: priceDisplay, suffix: priceSuffix } = formatPrice(tier, billingPeriod)
+  const isCustom = tier.price?.period === 'custom'
+  const ctaHref = tier.cta?.href ?? SIGN_UP_URL
+  const ctaLabel = tier.cta?.label ?? SIGN_UP_LABEL
+
+  return (
+    <>
+      <h2 className="font-display text-ash-900 text-xl font-bold tracking-tight">{tier.name}</h2>
+      {tier.tagline && <p className="text-ash-600 mt-1 text-sm">{tier.tagline}</p>}
+
+      <div className={priceMarginClass} aria-live="polite" aria-atomic="true">
+        <div className="flex items-baseline gap-1.5">
+          <span
+            key={`${keyPrefix}${tier.id}-${billingPeriod}`}
+            className={`font-display animate-in fade-in text-4xl font-bold duration-150 ${
+              isCustom ? 'text-goldenrod-700' : 'text-ash-900'
+            }`}
+          >
+            {priceDisplay}
+          </span>
+          {priceSuffix && <span className="text-ash-500 text-base">{priceSuffix}</span>}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <a
+          href={ctaHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${ctaLabel} (opens in new tab)`}
+          className={`focus-visible:outline-moss-700 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
+            isFeatured
+              ? 'bg-moss-700 text-sandstone-50 hover:bg-moss-800'
+              : 'bg-ash-950 text-ash-100 hover:bg-ash-800'
+          }`}
+        >
+          {ctaLabel}
+        </a>
+        {!isCustom && (
+          <a
+            href={BOOK_DEMO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Get a demo (opens in new tab)"
+            className="text-ash-500 hover:text-ash-700 focus-visible:outline-moss-700 inline-flex items-center gap-1 rounded-sm text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            Get a demo <ArrowNarrowRightIcon className="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+        )}
+      </div>
+    </>
+  )
+}
+
+/** Optional features header + checkmark list. Callers guard on a non-empty feature list. */
+function TierFeatureList({ tier }: { tier: PricingTier }) {
+  return (
+    <>
+      {tier.featuresHeader && (
+        <h3 className="font-display text-ash-500 mb-4 text-xs font-semibold tracking-widest uppercase">
+          {tier.featuresHeader}
+        </h3>
+      )}
+      <ul className="space-y-3">
+        {(tier.features ?? []).map((f) => (
+          <li key={f.id} className="flex items-start gap-2.5">
+            <CheckIcon />
+            <span className="text-ash-700 text-sm">{f.feature}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
+// ─────────────────────────────────────────────────────────
 // Desktop: Unified bordered container (Fin-style)
 // ─────────────────────────────────────────────────────────
 
@@ -76,77 +175,32 @@ function DesktopTierCards({
   tiers: PricingTier[]
   billingPeriod: BillingPeriod
 }) {
-  const billingLabel =
-    billingPeriod === 'year' ? 'annually' : billingPeriod === 'quarter' ? 'quarterly' : 'monthly'
+  const billingLabel = billingLabelFor(billingPeriod)
+  const featuredIdx = tiers.findIndex((t) => t.highlighted)
 
   return (
     <div className="mx-auto hidden max-w-5xl md:block">
-      {/* Unified container — solid border on Practitioner, dashed on Enterprise */}
+      {/* Unified container — solid border on the featured tier, dashed on the rest.
+          The `border-l-0` is positional (avoids double borders between grid cells). */}
       <div className="grid grid-cols-2">
         {tiers.map((tier, idx) => {
-          const { display: priceDisplay, suffix: priceSuffix } = formatPrice(tier, billingPeriod)
-          const isCustom = tier.price?.period === 'custom'
-          const ctaHref = tier.cta?.href ?? SIGN_UP_URL
-          const ctaLabel = tier.cta?.label ?? SIGN_UP_LABEL
-          const isFirst = idx === 0
+          const isFeatured = featuredIdx === -1 ? idx === 0 : Boolean(tier.highlighted)
 
           return (
             <div
               key={tier.id}
-              className={`border-ash-200 flex flex-col p-10 ${
-                isFirst ? 'border' : 'border border-l-0 border-dashed'
-              }`}
+              className={clsx(
+                'border-ash-200 flex flex-col border p-10',
+                idx !== 0 && 'border-l-0',
+                !isFeatured && 'border-dashed',
+              )}
             >
-              {/* Tier name */}
-              <h2 className="font-display text-ash-900 text-xl font-bold tracking-tight">
-                {tier.name}
-              </h2>
-
-              {/* Tagline */}
-              {tier.tagline && <p className="text-ash-600 mt-1 text-sm">{tier.tagline}</p>}
-
-              {/* Price */}
-              <div className="mt-8 mb-8" aria-live="polite" aria-atomic="true">
-                <div className="flex items-baseline gap-1.5">
-                  <span
-                    key={`${tier.id}-${billingPeriod}`}
-                    className={`font-display animate-in fade-in text-4xl font-bold duration-150 ${
-                      isCustom ? 'text-goldenrod-700' : 'text-ash-900'
-                    }`}
-                  >
-                    {priceDisplay}
-                  </span>
-                  {priceSuffix && <span className="text-ash-500 text-base">{priceSuffix}</span>}
-                </div>
-              </div>
-
-              {/* CTA row */}
-              <div className="flex items-center gap-3">
-                <a
-                  href={ctaHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${ctaLabel} (opens in new tab)`}
-                  className={`focus-visible:outline-moss-700 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                    isFirst
-                      ? 'bg-moss-700 text-sandstone-50 hover:bg-moss-800'
-                      : 'bg-ash-950 text-ash-100 hover:bg-ash-800'
-                  }`}
-                >
-                  {ctaLabel}
-                </a>
-                {!isCustom && (
-                  <a
-                    href={BOOK_DEMO_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Get a demo (opens in new tab)"
-                    className="text-ash-500 hover:text-ash-700 focus-visible:outline-moss-700 inline-flex items-center gap-1 rounded-sm text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
-                  >
-                    Get a demo <ArrowNarrowRightIcon className="h-3.5 w-3.5" aria-hidden="true" />
-                  </a>
-                )}
-              </div>
+              <TierCardHeader
+                tier={tier}
+                billingPeriod={billingPeriod}
+                isFeatured={isFeatured}
+                priceMarginClass="mt-8 mb-8"
+              />
             </div>
           )
         })}
@@ -157,28 +211,18 @@ function DesktopTierCards({
         {tiers.map((tier, idx) => {
           const features = tier.features
           if (!features || features.length === 0) return <div key={`features-${tier.id}`} />
-          const isFirst = idx === 0
+          const isFeatured = featuredIdx === -1 ? idx === 0 : Boolean(tier.highlighted)
 
           return (
             <div
               key={`features-${tier.id}`}
-              className={`border-ash-200 p-10 ${
-                isFirst ? 'border-r border-b border-l' : 'border-r border-b border-dashed'
-              }`}
-            >
-              {tier.featuresHeader && (
-                <h3 className="font-display text-ash-500 mb-4 text-xs font-semibold tracking-widest uppercase">
-                  {tier.featuresHeader}
-                </h3>
+              className={clsx(
+                'border-ash-200 border-r border-b p-10',
+                idx === 0 && 'border-l',
+                !isFeatured && 'border-dashed',
               )}
-              <ul className="space-y-3">
-                {features.map((f) => (
-                  <li key={f.id} className="flex items-start gap-2.5">
-                    <CheckIcon />
-                    <span className="text-ash-700 text-sm">{f.feature}</span>
-                  </li>
-                ))}
-              </ul>
+            >
+              <TierFeatureList tier={tier} />
             </div>
           )
         })}
@@ -203,89 +247,35 @@ function MobileTierCards({
   tiers: PricingTier[]
   billingPeriod: BillingPeriod
 }) {
-  const billingLabel =
-    billingPeriod === 'year' ? 'annually' : billingPeriod === 'quarter' ? 'quarterly' : 'monthly'
+  const billingLabel = billingLabelFor(billingPeriod)
+  const featuredIdx = tiers.findIndex((t) => t.highlighted)
 
   return (
     <div className="mx-auto max-w-lg space-y-6 md:hidden">
       {tiers.map((tier, idx) => {
-        const { display: priceDisplay, suffix: priceSuffix } = formatPrice(tier, billingPeriod)
-        const isCustom = tier.price?.period === 'custom'
-        const ctaHref = tier.cta?.href ?? SIGN_UP_URL
-        const ctaLabel = tier.cta?.label ?? SIGN_UP_LABEL
-        const isFirst = idx === 0
+        const isFeatured = featuredIdx === -1 ? idx === 0 : Boolean(tier.highlighted)
         const features = tier.features
 
         return (
           <div
             key={tier.id}
-            className={`border-ash-200 ${isFirst ? 'border' : 'border border-dashed'}`}
+            className={clsx('border-ash-200 border', !isFeatured && 'border-dashed')}
           >
             {/* Card content */}
             <div className="p-6">
-              <h2 className="font-display text-ash-900 text-xl font-bold tracking-tight">
-                {tier.name}
-              </h2>
-              {tier.tagline && <p className="text-ash-600 mt-1 text-sm">{tier.tagline}</p>}
-
-              <div className="mt-6 mb-6" aria-live="polite" aria-atomic="true">
-                <div className="flex items-baseline gap-1.5">
-                  <span
-                    key={`mobile-${tier.id}-${billingPeriod}`}
-                    className={`font-display animate-in fade-in text-4xl font-bold duration-150 ${
-                      isCustom ? 'text-goldenrod-700' : 'text-ash-900'
-                    }`}
-                  >
-                    {priceDisplay}
-                  </span>
-                  {priceSuffix && <span className="text-ash-500 text-base">{priceSuffix}</span>}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <a
-                  href={ctaHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${ctaLabel} (opens in new tab)`}
-                  className={`focus-visible:outline-moss-700 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                    isFirst
-                      ? 'bg-moss-700 text-sandstone-50 hover:bg-moss-800'
-                      : 'bg-ash-950 text-ash-100 hover:bg-ash-800'
-                  }`}
-                >
-                  {ctaLabel}
-                </a>
-                {!isCustom && (
-                  <a
-                    href={BOOK_DEMO_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Get a demo (opens in new tab)"
-                    className="text-ash-500 hover:text-ash-700 focus-visible:outline-moss-700 inline-flex items-center gap-1 rounded-sm text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
-                  >
-                    Get a demo <ArrowNarrowRightIcon className="h-3.5 w-3.5" aria-hidden="true" />
-                  </a>
-                )}
-              </div>
+              <TierCardHeader
+                tier={tier}
+                billingPeriod={billingPeriod}
+                isFeatured={isFeatured}
+                priceMarginClass="mt-6 mb-6"
+                keyPrefix="mobile-"
+              />
             </div>
 
             {/* Feature list */}
             {features && features.length > 0 && (
               <div className="border-ash-200 border-t p-6">
-                {tier.featuresHeader && (
-                  <h3 className="font-display text-ash-500 mb-4 text-xs font-semibold tracking-widest uppercase">
-                    {tier.featuresHeader}
-                  </h3>
-                )}
-                <ul className="space-y-3">
-                  {features.map((f) => (
-                    <li key={f.id} className="flex items-start gap-2.5">
-                      <CheckIcon />
-                      <span className="text-ash-700 text-sm">{f.feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <TierFeatureList tier={tier} />
               </div>
             )}
           </div>

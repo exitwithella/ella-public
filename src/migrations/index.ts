@@ -9,6 +9,7 @@ import * as migration_20260711_151324_add_credits_body from './20260711_151324_a
 import * as migration_20260712_180006_mkt_205_dilemma_subtitles_closer from './20260712_180006_mkt_205_dilemma_subtitles_closer';
 import * as migration_20260712_180023_mkt_223_dilemma_typed_arrays from './20260712_180023_mkt_223_dilemma_typed_arrays';
 import * as migration_20260712_212008_mkt_200_vanguard_case_study_slug from './20260712_212008_mkt_200_vanguard_case_study_slug';
+import * as migration_20260713_031311_mkt_213_comparison_n_tier from './20260713_031311_mkt_213_comparison_n_tier';
 
 export const migrations = [
   {
@@ -64,6 +65,11 @@ export const migrations = [
   {
     up: migration_20260712_212008_mkt_200_vanguard_case_study_slug.up,
     down: migration_20260712_212008_mkt_200_vanguard_case_study_slug.down,
-    name: '20260712_212008_mkt_200_vanguard_case_study_slug'
+    name: '20260712_212008_mkt_200_vanguard_case_study_slug',
+  },
+  {
+    up: migration_20260713_031311_mkt_213_comparison_n_tier.up,
+    down: migration_20260713_031311_mkt_213_comparison_n_tier.down,
+    name: '20260713_031311_mkt_213_comparison_n_tier'
   },
 ];

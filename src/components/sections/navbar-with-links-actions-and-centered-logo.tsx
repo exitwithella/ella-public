@@ -3,6 +3,8 @@
 import { clsx } from 'clsx/lite'
 import { type ComponentProps, type ReactNode, useCallback, useRef } from 'react'
 
+import { SmartLink } from '@/components/elements/smart-link'
+
 export function NavbarLink({
   children,
   href,
@@ -10,7 +12,7 @@ export function NavbarLink({
   ...props
 }: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
   return (
-    <a
+    <SmartLink
       href={href}
       className={clsx(
         'group inline-flex items-center justify-between gap-2 text-3xl/10 font-medium text-ash-950 lg:text-sm/7',
@@ -33,7 +35,7 @@ export function NavbarLink({
           <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>
       </span>
-    </a>
+    </SmartLink>
   )
 }
 
@@ -43,7 +45,7 @@ export function NavbarLogo({
   ...props
 }: { href: string } & Omit<ComponentProps<'a'>, 'href'>) {
   return (
-    <a
+    <SmartLink
       href={href}
       aria-label="ELLA home"
       {...props}

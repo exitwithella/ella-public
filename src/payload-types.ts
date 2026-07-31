@@ -5436,20 +5436,20 @@ export interface PricingPage {
                * Feature name shown in the left column
                */
               label: string;
-              practitioner: {
-                indicator: 'check' | 'cross' | 'text';
-                /**
-                 * Shown when indicator is "Text" (e.g. "3", "Custom", "$25K annual min")
-                 */
-                displayText?: string | null;
-              };
-              enterprise: {
-                indicator: 'check' | 'cross' | 'text';
-                /**
-                 * Shown when indicator is "Text" (e.g. "3", "Custom", "$25K annual min")
-                 */
-                displayText?: string | null;
-              };
+              /**
+               * One entry per pricing tier column. Link each to a tier from the pricing-tiers collection.
+               */
+              values?:
+                | {
+                    tier: number | PricingTier;
+                    indicator: 'check' | 'cross' | 'text';
+                    /**
+                     * Shown when indicator is "Text" (e.g. "3", "Custom", "$25K annual min")
+                     */
+                    displayText?: string | null;
+                    id?: string | null;
+                  }[]
+                | null;
               id?: string | null;
             }[]
           | null;
@@ -5727,17 +5727,13 @@ export interface PricingPageSelect<T extends boolean = true> {
           | T
           | {
               label?: T;
-              practitioner?:
+              values?:
                 | T
                 | {
+                    tier?: T;
                     indicator?: T;
                     displayText?: T;
-                  };
-              enterprise?:
-                | T
-                | {
-                    indicator?: T;
-                    displayText?: T;
+                    id?: T;
                   };
               id?: T;
             };

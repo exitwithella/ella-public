@@ -2,6 +2,7 @@ import Image from 'next/image'
 
 import { Container } from '@/components/elements/container'
 import { SectionHeader } from '@/components/elements/section-header'
+import { SmartLink } from '@/components/elements/smart-link'
 import { ThemeSection } from '@/components/elements/theme-section'
 import { PhosphorIcon } from '@/components/icons/PhosphorIcon'
 import type { Media, Page } from '@/payload-types'
@@ -91,12 +92,12 @@ export function CardGridBlock({ block }: CardGridBlockProps) {
 
                   {/* Card link */}
                   {card.link?.href && card.link?.label && (
-                    <a
+                    <SmartLink
                       href={card.link.href}
                       className="text-theme-accent mt-6 inline-flex items-center gap-1 text-sm font-semibold opacity-90 hover:opacity-100"
                     >
                       {card.link.label} <span aria-hidden="true">→</span>
-                    </a>
+                    </SmartLink>
                   )}
                 </div>
               )
