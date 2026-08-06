@@ -209,9 +209,7 @@ export function Hero({ hero }: HeroProps) {
                 type: 'spring',
               }}
             >
-              <Text className="max-w-md text-center text-xl text-pretty">
-                {hero.subheadline}
-              </Text>
+              <Text className="max-w-md text-center text-xl text-pretty">{hero.subheadline}</Text>
             </m.div>
           )}
 
