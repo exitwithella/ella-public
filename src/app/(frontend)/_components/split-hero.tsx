@@ -7,7 +7,16 @@ import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon
 import type { Page } from '@/payload-types'
 
 import { AdaptiveRadiusImage } from './adaptive-radius-image'
-import { CmsImage, HeroHeadline, HeroText } from './hero-shared'
+import {
+  CmsImage,
+  HeroEyebrow,
+  HeroHeadline,
+  HeroHeadlineLines,
+  HeroMicrocopy,
+  HeroText,
+  resolveHeadlineFont,
+  resolveHighlightClass,
+} from './hero-shared'
 
 interface SplitHeroProps {
   hero: Page['hero']
@@ -24,18 +33,6 @@ const OBJECT_POSITION_STYLES: Record<string, React.CSSProperties> = {
   'top right': { objectPosition: 'top right' },
   'bottom left': { objectPosition: 'bottom left' },
   'bottom right': { objectPosition: 'bottom right' },
-}
-
-const FONT_CLASSES: Record<string, string> = {
-  display: 'font-display',
-  sans: 'font-sans',
-  serif: 'font-serif',
-  data: 'font-data',
-}
-
-function resolveHeadlineFont(hero: Page['hero']) {
-  const font = hero.headlineFont ?? 'display'
-  return FONT_CLASSES[font] ?? FONT_CLASSES.display
 }
 
 function resolveVisual(hero: Page['hero']) {
@@ -84,6 +81,7 @@ function SplitOverflow({ hero }: { hero: Page['hero'] }) {
   const hasWallpaper = Boolean(hero.heroWallpaper)
   const wallpaperColor = (hero.heroWallpaperColor ?? 'green') as WallpaperColor
   const fontClass = resolveHeadlineFont(hero)
+  const highlightClass = resolveHighlightClass(hero)
 
   const heroImage = visual?.url && (
     <CmsImage
@@ -114,11 +112,12 @@ function SplitOverflow({ hero }: { hero: Page['hero'] }) {
       <Container>
         <div className="flex gap-x-12 gap-y-12 max-lg:flex-col sm:gap-y-24 lg:min-h-[600px]">
           <div className="flex shrink-0 flex-col items-start gap-6 pt-16 sm:pt-32 lg:basis-md lg:py-40 xl:basis-lg">
+            <HeroEyebrow hero={hero} overlay={hasWallpaper} />
             <HeroHeadline
               fontClass={fontClass}
               color={hasWallpaper ? 'text-white' : 'text-ash-950'}
             >
-              {hero.headline}
+              <HeroHeadlineLines hero={hero} highlightClass={highlightClass} />
             </HeroHeadline>
             {hero.subheadline && (
               <HeroText
@@ -129,6 +128,7 @@ function SplitOverflow({ hero }: { hero: Page['hero'] }) {
               </HeroText>
             )}
             <HeroCtas hero={hero} light={hasWallpaper} />
+            <HeroMicrocopy hero={hero} light={hasWallpaper} />
           </div>
           {imageColumn}
         </div>
@@ -151,9 +151,13 @@ function SplitOverflow({ hero }: { hero: Page['hero'] }) {
       <Container>
         <div className="flex gap-x-12 gap-y-12 max-lg:flex-col lg:min-h-[600px] lg:items-center">
           <div className="flex shrink-0 flex-col items-start gap-6 lg:basis-md xl:basis-lg">
-            <HeroHeadline fontClass={fontClass}>{hero.headline}</HeroHeadline>
+            <HeroEyebrow hero={hero} />
+            <HeroHeadline fontClass={fontClass}>
+              <HeroHeadlineLines hero={hero} highlightClass={highlightClass} />
+            </HeroHeadline>
             {hero.subheadline && <HeroText className="max-w-xl">{hero.subheadline}</HeroText>}
             <HeroCtas hero={hero} />
+            <HeroMicrocopy hero={hero} />
           </div>
           {visual?.url && (
             <div className="lg:pt-4">
@@ -177,14 +181,19 @@ function SplitOverflow({ hero }: { hero: Page['hero'] }) {
 function SplitFull({ hero }: { hero: Page['hero'] }) {
   const { visual, positionStyle } = resolveVisual(hero)
   const fontClass = resolveHeadlineFont(hero)
+  const highlightClass = resolveHighlightClass(hero)
 
   return (
     <section className="lg:grid lg:min-h-[85vh] lg:grid-cols-2">
       {/* Text column */}
       <div className="flex flex-col justify-end gap-6 px-6 py-20 md:px-12 md:py-28 lg:py-36 lg:pr-16 xl:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))]">
-        <HeroHeadline fontClass={fontClass}>{hero.headline}</HeroHeadline>
+        <HeroEyebrow hero={hero} />
+        <HeroHeadline fontClass={fontClass}>
+          <HeroHeadlineLines hero={hero} highlightClass={highlightClass} />
+        </HeroHeadline>
         {hero.subheadline && <HeroText className="max-w-md">{hero.subheadline}</HeroText>}
         <HeroCtas hero={hero} />
+        <HeroMicrocopy hero={hero} />
       </div>
 
       {/* Image column — square with inset border, clips non-square media */}

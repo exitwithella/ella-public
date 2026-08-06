@@ -3,7 +3,16 @@ import type { Page } from '@/payload-types'
 
 import { EllaLogoMark } from '../_assets/logo'
 import { fetchSvgContent } from '../_lib/svg'
-import { CmsImage, HeroHeadline, HeroText } from './hero-shared'
+import {
+  CmsImage,
+  HeroEyebrow,
+  HeroHeadline,
+  HeroHeadlineLines,
+  HeroMicrocopy,
+  HeroText,
+  resolveHeadlineFont,
+  resolveHighlightClass,
+} from './hero-shared'
 
 interface MinimalHeroProps {
   hero: Page['hero']
@@ -18,6 +27,8 @@ export async function MinimalHero({ hero }: MinimalHeroProps) {
   const fitMode = hero.visualFit ?? 'contain'
   const isCropped = fitMode === 'crop' || fitMode === 'square'
   const objectPosition = hero.visualPosition ?? 'center'
+  const fontClass = resolveHeadlineFont(hero)
+  const highlightClass = resolveHighlightClass(hero)
 
   return (
     <section className="relative overflow-hidden py-24 md:py-32">
@@ -30,10 +41,14 @@ export async function MinimalHero({ hero }: MinimalHeroProps) {
         {visual?.url ? (
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
             <div className="flex flex-col justify-center">
-              <HeroHeadline>{hero.headline}</HeroHeadline>
+              <HeroEyebrow hero={hero} />
+              <HeroHeadline fontClass={fontClass} className="mt-6 first:mt-0">
+                <HeroHeadlineLines hero={hero} highlightClass={highlightClass} />
+              </HeroHeadline>
               {hero.subheadline && (
                 <HeroText className="mt-6 max-w-xl">{hero.subheadline}</HeroText>
               )}
+              <HeroMicrocopy hero={hero} className="mt-6" />
             </div>
             <div
               className={
@@ -66,10 +81,14 @@ export async function MinimalHero({ hero }: MinimalHeroProps) {
             </div>
           </div>
         ) : (
-          <>
-            <HeroHeadline className="max-w-3xl">{hero.headline}</HeroHeadline>
+          <div className="flex flex-col items-start">
+            <HeroEyebrow hero={hero} />
+            <HeroHeadline fontClass={fontClass} className="mt-6 max-w-3xl first:mt-0">
+              <HeroHeadlineLines hero={hero} highlightClass={highlightClass} />
+            </HeroHeadline>
             {hero.subheadline && <HeroText className="mt-6 max-w-xl">{hero.subheadline}</HeroText>}
-          </>
+            <HeroMicrocopy hero={hero} />
+          </div>
         )}
       </Container>
     </section>
