@@ -416,6 +416,27 @@ export interface Page {
     width?: string | null;
   };
   hero: {
+    /**
+     * Optional announcement badge (eyebrow) shown above the headline in all hero styles.
+     */
+    announcement?: {
+      /**
+       * Show the announcement badge above the headline.
+       */
+      enabled?: boolean | null;
+      /**
+       * Badge label (e.g. "Why we're building ELLA").
+       */
+      text?: string | null;
+      /**
+       * Where the badge links to.
+       */
+      href?: string | null;
+      /**
+       * Call-to-action text at the end of the badge.
+       */
+      ctaLabel?: string | null;
+    };
     headline: string;
     /**
      * Animation style for the main headline.
@@ -1905,6 +1926,27 @@ export interface Solution {
    */
   isBeachhead?: boolean | null;
   hero: {
+    /**
+     * Optional announcement badge (eyebrow) shown above the headline in all hero styles.
+     */
+    announcement?: {
+      /**
+       * Show the announcement badge above the headline.
+       */
+      enabled?: boolean | null;
+      /**
+       * Badge label (e.g. "Why we're building ELLA").
+       */
+      text?: string | null;
+      /**
+       * Where the badge links to.
+       */
+      href?: string | null;
+      /**
+       * Call-to-action text at the end of the badge.
+       */
+      ctaLabel?: string | null;
+    };
     headline: string;
     /**
      * Animation style for the main headline.
@@ -2408,6 +2450,27 @@ export interface LandingPage {
   campaign?: string | null;
   status?: ('draft' | 'published') | null;
   hero: {
+    /**
+     * Optional announcement badge (eyebrow) shown above the headline in all hero styles.
+     */
+    announcement?: {
+      /**
+       * Show the announcement badge above the headline.
+       */
+      enabled?: boolean | null;
+      /**
+       * Badge label (e.g. "Why we're building ELLA").
+       */
+      text?: string | null;
+      /**
+       * Where the badge links to.
+       */
+      href?: string | null;
+      /**
+       * Call-to-action text at the end of the badge.
+       */
+      ctaLabel?: string | null;
+    };
     headline: string;
     /**
      * Animation style for the main headline.
@@ -3591,6 +3654,14 @@ export interface PagesSelect<T extends boolean = true> {
   hero?:
     | T
     | {
+        announcement?:
+          | T
+          | {
+              enabled?: T;
+              text?: T;
+              href?: T;
+              ctaLabel?: T;
+            };
         headline?: T;
         headlineAnimation?: T;
         headlineLine2?: T;
@@ -4212,6 +4283,14 @@ export interface LandingPagesSelect<T extends boolean = true> {
   hero?:
     | T
     | {
+        announcement?:
+          | T
+          | {
+              enabled?: T;
+              text?: T;
+              href?: T;
+              ctaLabel?: T;
+            };
         headline?: T;
         headlineAnimation?: T;
         headlineLine2?: T;
@@ -4667,6 +4746,14 @@ export interface SolutionsSelect<T extends boolean = true> {
   hero?:
     | T
     | {
+        announcement?:
+          | T
+          | {
+              enabled?: T;
+              text?: T;
+              href?: T;
+              ctaLabel?: T;
+            };
         headline?: T;
         headlineAnimation?: T;
         headlineLine2?: T;
