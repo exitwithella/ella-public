@@ -59,7 +59,7 @@ Two failure modes, hit in order, each with a misleading message:
 1. **Single-file import → `no such table: main.users`.** The export orders some
    child tables/rows before their parents (e.g. `users_sessions`, which has an FK
    to `users`, appears before `users` is created). The dump opens with
-   `PRAGMA defer_foreign_keys=TRUE`, which *should* defer the check — but D1's
+   `PRAGMA defer_foreign_keys=TRUE`, which _should_ defer the check — but D1's
    remote `--file` import commits in **batches**, so the pragma doesn't hold
    across the whole file. The deferred FK check fires while `users` doesn't
    exist yet → "no such table". (The export also prepends `ANALYZE` +
@@ -90,4 +90,4 @@ failed` on import. Reach for `pnpm run snapshot:staging` (or its recipe).
 - `[[0003-seeding-media-needs-local-r2-blobs]]` — the other half of populating a
   non-prod environment (media blobs live in R2, not D1, and need a separate copy).
 - Never delete the local D1 SQLite file to "reset" state — see CLAUDE.md's
-  Database & Migration Rules (this recipe targets *remote* staging D1, not local).
+  Database & Migration Rules (this recipe targets _remote_ staging D1, not local).

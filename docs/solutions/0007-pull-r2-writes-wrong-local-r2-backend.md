@@ -8,11 +8,12 @@ component: tooling
 symptoms:
   - "pnpm seed / content:pull still dies with 'MissingFile: No files were uploaded' at the media step even after pull-r2.sh reports all blobs pulled OK"
 applies_when:
-  - "running content:pull or pnpm seed on a fresh worktree with the current wrangler + @opennextjs/cloudflare versions"
+  - 'running content:pull or pnpm seed on a fresh worktree with the current wrangler + @opennextjs/cloudflare versions'
   - "pull-r2.sh reports N/N blobs succeeded but the media collection still won't seed"
 resolution_type: workaround
 severity: medium
-tags: [seed, media, r2, d1, content-sync, local-dev, cloudflare, wrangler, miniflare, opennext, payload]
+tags:
+  [seed, media, r2, d1, content-sync, local-dev, cloudflare, wrangler, miniflare, opennext, payload]
 ---
 
 # pull-r2.sh writes a flat-file R2 store the app's miniflare never reads
@@ -34,8 +35,8 @@ sufficient with the current toolchain: `pull-r2.sh` runs to completion
 
 **First, the cheap answer: if someone asks to "test locally against prod data,"
 recommend `pnpm dev:remote` and stop.** That command runs the dev server
-straight against prod D1/R2 — full content *and* real images, no local seeding.
-The agent generally can't *start* it (it needs a typed production-write
+straight against prod D1/R2 — full content _and_ real images, no local seeding.
+The agent generally can't _start_ it (it needs a typed production-write
 confirmation, and the `CONFIRM_REMOTE=yes` bypass is hook-blocked), so the right
 move is a one-line recommendation for the user to run it in their own terminal —
 **not** an attempt to reproduce prod content in local D1. Seeding prod content
@@ -55,7 +56,7 @@ by side under `.wrangler/state/v3/r2/`:
   `@opennextjs/cloudflare` → `getPlatformProxy()` → miniflare, which uses a
   **SQLite-backed** store in a binding-named directory:
   `.wrangler/state/v3/r2/miniflare-R2BucketObject/<hash>.sqlite` — blobs live
-  *inside* the sqlite file.
+  _inside_ the sqlite file.
 
 These are different storage formats in different directories. Copying files
 between them does not work. So `pull-r2.sh` writes 72 blobs the app's miniflare
@@ -81,7 +82,7 @@ renders every text/layout/font/highlight field correctly:
 ```ts
 const data = { ...homeDoc }
 data.hero = { ...data.hero, visual: null, backgroundImage: null }
-delete data.layout            // skip blocks that reference unseeded relations
+delete data.layout // skip blocks that reference unseeded relations
 await payload.create({ collection: 'pages', data })
 ```
 
