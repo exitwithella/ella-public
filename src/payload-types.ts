@@ -1056,20 +1056,20 @@ export interface Page {
              */
             microcopy?: string | null;
             /**
-             * Loops mailing lists to add subscribers to. Copy list IDs from Loops → Mailing Lists.
+             * Resend segments to add subscribers to. Copy segment IDs from Resend → Audiences → Segments.
              */
-            loopsListIds?:
+            segmentIds?:
               | {
                   /**
                    * Internal label for your reference
                    */
                   label?: string | null;
-                  listId: string;
+                  segmentId: string;
                   id?: string | null;
                 }[]
               | null;
             /**
-             * Source tag sent to Loops for analytics (e.g. "pricing-page-cta")
+             * Source tag sent to Resend as a contact property (e.g. "pricing-page-cta")
              */
             source?: string | null;
             bgStyle?:
@@ -3005,20 +3005,20 @@ export interface LandingPage {
              */
             microcopy?: string | null;
             /**
-             * Loops mailing lists to add subscribers to. Copy list IDs from Loops → Mailing Lists.
+             * Resend segments to add subscribers to. Copy segment IDs from Resend → Audiences → Segments.
              */
-            loopsListIds?:
+            segmentIds?:
               | {
                   /**
                    * Internal label for your reference
                    */
                   label?: string | null;
-                  listId: string;
+                  segmentId: string;
                   id?: string | null;
                 }[]
               | null;
             /**
-             * Source tag sent to Loops for analytics (e.g. "pricing-page-cta")
+             * Source tag sent to Resend as a contact property (e.g. "pricing-page-cta")
              */
             source?: string | null;
             bgStyle?:
@@ -3952,11 +3952,11 @@ export interface PagesSelect<T extends boolean = true> {
               buttonLabel?: T;
               successMessage?: T;
               microcopy?: T;
-              loopsListIds?:
+              segmentIds?:
                 | T
                 | {
                     label?: T;
-                    listId?: T;
+                    segmentId?: T;
                     id?: T;
                   };
               source?: T;
@@ -4538,11 +4538,11 @@ export interface LandingPagesSelect<T extends boolean = true> {
               buttonLabel?: T;
               successMessage?: T;
               microcopy?: T;
-              loopsListIds?:
+              segmentIds?:
                 | T
                 | {
                     label?: T;
-                    listId?: T;
+                    segmentId?: T;
                     id?: T;
                   };
               source?: T;
@@ -5165,19 +5165,19 @@ export interface SiteSetting {
     [k: string]: unknown;
   } | null;
   /**
-   * Loops configuration for the newsletter CTA in the blog sidebar (copy is hardcoded)
+   * Resend configuration for the newsletter CTA in the blog sidebar (copy is hardcoded)
    */
   blogNewsletter?: {
     /**
-     * Loops mailing lists for blog subscribers. Copy list IDs from Loops → Mailing Lists.
+     * Resend segments for blog subscribers. Copy segment IDs from Resend → Audiences → Segments.
      */
-    loopsListIds?:
+    segmentIds?:
       | {
           /**
            * Internal label for your reference
            */
           label?: string | null;
-          listId: string;
+          segmentId: string;
           id?: string | null;
         }[]
       | null;
@@ -5364,15 +5364,15 @@ export interface Footer {
     placeholder?: string | null;
     buttonLabel?: string | null;
     /**
-     * Loops mailing lists to add footer subscribers to. Copy list IDs from Loops → Mailing Lists.
+     * Resend segments to add footer subscribers to. Copy segment IDs from Resend → Audiences → Segments.
      */
-    loopsListIds?:
+    segmentIds?:
       | {
           /**
            * Internal label for your reference
            */
           label?: string | null;
-          listId: string;
+          segmentId: string;
           id?: string | null;
         }[]
       | null;
@@ -5611,11 +5611,11 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   blogNewsletter?:
     | T
     | {
-        loopsListIds?:
+        segmentIds?:
           | T
           | {
               label?: T;
-              listId?: T;
+              segmentId?: T;
               id?: T;
             };
       };
@@ -5732,11 +5732,11 @@ export interface FooterSelect<T extends boolean = true> {
         subheading?: T;
         placeholder?: T;
         buttonLabel?: T;
-        loopsListIds?:
+        segmentIds?:
           | T
           | {
               label?: T;
-              listId?: T;
+              segmentId?: T;
               id?: T;
             };
       };

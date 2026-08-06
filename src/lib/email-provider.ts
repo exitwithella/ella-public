@@ -10,7 +10,7 @@ const LOOPS_ENDPOINT = 'https://app.loops.so/api/v1/contacts/create'
 
 export interface SubscribeParams {
   email: string
-  listIds?: string[]
+  segmentIds?: string[]
   source?: string
   firstName?: string
   lastName?: string
@@ -40,8 +40,8 @@ export async function subscribe(params: SubscribeParams): Promise<void> {
   }
 
   const mailingLists =
-    params.listIds && params.listIds.length > 0
-      ? Object.fromEntries(params.listIds.map((id) => [id, true]))
+    params.segmentIds && params.segmentIds.length > 0
+      ? Object.fromEntries(params.segmentIds.map((id) => [id, true]))
       : undefined
 
   const body: Record<string, unknown> = {

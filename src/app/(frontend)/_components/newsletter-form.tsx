@@ -7,9 +7,9 @@ import { subscribeAction, type SubscribeState } from '../_actions/subscribe'
 export type NewsletterFormVariant = 'footer' | 'default' | 'sidebar'
 
 interface NewsletterFormProps {
-  /** Loops mailing list IDs the email will be added to. */
-  listIds?: string[] | null
-  /** Source tag sent to Loops for analytics (e.g. "footer", "blog-sidebar"). */
+  /** Resend segment IDs the email will be added to. */
+  segmentIds?: string[] | null
+  /** Source tag sent to Resend for analytics (e.g. "footer", "blog-sidebar"). */
   source?: string
   placeholder?: string
   buttonLabel?: string
@@ -52,7 +52,7 @@ const VARIANTS: Record<
 }
 
 export function NewsletterForm({
-  listIds,
+  segmentIds,
   source,
   placeholder = 'Your email address',
   buttonLabel = 'Subscribe',
@@ -76,12 +76,12 @@ export function NewsletterForm({
     )
   }
 
-  const listIdsValue = listIds && listIds.length > 0 ? listIds.join(',') : ''
+  const segmentIdsValue = segmentIds && segmentIds.length > 0 ? segmentIds.join(',') : ''
 
   return (
     <div>
       <form action={action} className={styles.form} noValidate>
-        <input type="hidden" name="listIds" value={listIdsValue} />
+        <input type="hidden" name="segmentIds" value={segmentIdsValue} />
         {source ? <input type="hidden" name="source" value={source} /> : null}
 
         {/* Honeypot — visually hidden from users, catches bots */}
