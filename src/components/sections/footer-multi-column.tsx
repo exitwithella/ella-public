@@ -86,7 +86,7 @@ export function FooterMultiColumn({
     heading?: string | null
     placeholder?: string | null
     buttonLabel?: string | null
-    loopsListIds?: { listId: string; label?: string | null; id?: string | null }[] | null
+    segmentIds?: { segmentId: string; label?: string | null; id?: string | null }[] | null
   } | null
   columns?:
     | {
@@ -145,7 +145,7 @@ export function FooterMultiColumn({
                   <NewsletterForm
                     variant="footer"
                     source="footer"
-                    listIds={newsletter.loopsListIds?.map((l) => l.listId) ?? null}
+                    segmentIds={newsletter.segmentIds?.map((s) => s.segmentId) ?? null}
                     placeholder={newsletter.placeholder ?? 'Your email address'}
                     buttonLabel={newsletter.buttonLabel ?? 'Subscribe'}
                     successMessage="Thanks — you're subscribed."

@@ -14,9 +14,9 @@ interface NewsletterCaptureBlockProps {
 }
 
 export function NewsletterCaptureBlock({ block }: NewsletterCaptureBlockProps) {
-  const listIds =
-    block.loopsListIds
-      ?.map((l) => l.listId)
+  const segmentIds =
+    block.segmentIds
+      ?.map((s) => s.segmentId)
       .filter((id): id is string => typeof id === 'string' && id.length > 0) ?? []
 
   return (
@@ -37,7 +37,7 @@ export function NewsletterCaptureBlock({ block }: NewsletterCaptureBlockProps) {
             <NewsletterForm
               variant="default"
               source={block.source ?? undefined}
-              listIds={listIds}
+              segmentIds={segmentIds}
               placeholder={block.placeholder ?? 'Your email address'}
               buttonLabel={block.buttonLabel ?? 'Subscribe'}
               successMessage={block.successMessage ?? "You're in. We'll be in touch."}
