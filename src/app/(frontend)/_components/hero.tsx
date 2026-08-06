@@ -18,12 +18,6 @@ import {
   resolveHighlightClass,
 } from './hero-shared'
 
-// Fallback badge for the homepage until the CMS announcement group is populated.
-const FALLBACK_BADGE = {
-  href: '/blog/why-we-re-building-ella',
-  text: "Why we're building ELLA",
-  cta: 'Read more',
-}
 const FALLBACK_IMAGE = {
   src: '/images/ella-dashboard.avif',
   alt: 'ELLA product screenshot',
@@ -126,7 +120,7 @@ export function Hero({ hero }: HeroProps) {
   const highlight = hero.highlightText
   const highlightClass = resolveHighlightClass(hero)
   const fontClass = resolveHeadlineFont(hero)
-  const badge = resolveAnnouncement(hero) ?? FALLBACK_BADGE
+  const badge = resolveAnnouncement(hero)
 
   const primaryHref = hero.primaryCta?.href ?? 'https://app.exitwithella.io/sign-up'
   const primaryLabel = hero.primaryCta?.label ?? 'Get Started'
@@ -146,19 +140,21 @@ export function Hero({ hero }: HeroProps) {
       <section className="pt-24 md:pt-36">
         <Container className="flex flex-col items-center gap-6">
           {/* Announcement Badge */}
-          <m.div
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              damping: 29,
-              delay: 2.7,
-              mass: 8.8,
-              stiffness: 378,
-              type: 'spring',
-            }}
-          >
-            <AnnouncementBadge href={badge.href} text={badge.text} cta={badge.cta} />
-          </m.div>
+          {badge && (
+            <m.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                damping: 29,
+                delay: 2.7,
+                mass: 8.8,
+                stiffness: 378,
+                type: 'spring',
+              }}
+            >
+              <AnnouncementBadge href={badge.href} text={badge.text} cta={badge.cta} />
+            </m.div>
+          )}
 
           {/* Headlines */}
           <h1
