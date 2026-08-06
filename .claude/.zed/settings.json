@@ -1,0 +1,7 @@
+{
+  // Matches `ignorePatterns` in /.oxfmtrc.json — `pnpm format` skips this
+  // directory, so format-on-save must skip it too. (oxfmt does not honor
+  // ignorePatterns when invoked with --stdin-filepath, which is how Zed
+  // calls it, so the exclusion has to be re-stated here.)
+  "format_on_save": "off"
+}
