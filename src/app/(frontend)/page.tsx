@@ -5,6 +5,8 @@ import type { Media } from '@/payload-types'
 import { BlockRenderer } from './_components/block-renderer'
 import { Hero } from './_components/hero'
 import { JsonLd } from './_components/json-ld'
+import { MinimalHero } from './_components/minimal-hero'
+import { SplitHero } from './_components/split-hero'
 import { buildPageMetadata } from './_lib/build-metadata'
 import { getHomepage } from './_lib/get-homepage'
 import { getSiteSettings } from './_lib/get-site-settings'
@@ -37,7 +39,13 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd variant="website" settings={settings} />
-      <Hero hero={page.hero} />
+      {page.hero?.style === 'minimal' ? (
+        <MinimalHero hero={page.hero} />
+      ) : page.hero?.style === 'split' || page.hero?.style === 'split-full' ? (
+        <SplitHero hero={page.hero} variant={page.hero.style} />
+      ) : (
+        <Hero hero={page.hero} />
+      )}
       <div className="bg-sandstone-50 relative z-10">
         {page.layout?.map((block, index) => (
           <div

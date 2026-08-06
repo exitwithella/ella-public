@@ -11,16 +11,15 @@ import { Wallpaper, type WallpaperColor } from '@/components/elements/wallpaper'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Page } from '@/payload-types'
 
-// Maps CMS highlightColor values to Tailwind text classes (full class names required for Tailwind JIT)
-const HIGHLIGHT_COLOR_MAP: Record<string, string> = {
-  goldenrod: 'text-goldenrod-500',
-  moss: 'text-moss-600',
-  coral: 'text-coral-500',
-  ocean: 'text-ocean-600',
-}
+import {
+  renderWithHighlight,
+  resolveAnnouncement,
+  resolveHeadlineFont,
+  resolveHighlightClass,
+} from './hero-shared'
 
-// Hardcoded — tightly coupled to animation timing and unlikely to change via CMS
-const BADGE = {
+// Fallback badge for the homepage until the CMS announcement group is populated.
+const FALLBACK_BADGE = {
   href: '/blog/why-we-re-building-ella',
   text: "Why we're building ELLA",
   cta: 'Read more',
@@ -78,7 +77,17 @@ function AnimatedHeadlineLine({
 }
 
 // Second headline line with blur and fade effect
-function AnimatedSecondLine({ text, delay = 1.25 }: { text: string; delay?: number }) {
+function AnimatedSecondLine({
+  text,
+  delay = 1.25,
+  highlight,
+  highlightClass,
+}: {
+  text: string
+  delay?: number
+  highlight?: string | null
+  highlightClass?: string
+}) {
   return (
     <m.span
       className="block"
@@ -99,7 +108,7 @@ function AnimatedSecondLine({ text, delay = 1.25 }: { text: string; delay?: numb
         type: 'spring',
       }}
     >
-      {text}
+      {renderWithHighlight(text, highlight, highlightClass)}
     </m.span>
   )
 }
@@ -114,8 +123,10 @@ export function Hero({ hero }: HeroProps) {
   const line2 = hero.headlineLine2 ?? null
   const line2Animation = hero.headlineAnimation2 ?? 'blur-fade'
 
-  const highlightClass =
-    HIGHLIGHT_COLOR_MAP[hero.highlightColor ?? 'goldenrod'] ?? 'text-goldenrod-500'
+  const highlight = hero.highlightText
+  const highlightClass = resolveHighlightClass(hero)
+  const fontClass = resolveHeadlineFont(hero)
+  const badge = resolveAnnouncement(hero) ?? FALLBACK_BADGE
 
   const primaryHref = hero.primaryCta?.href ?? 'https://app.exitwithella.io/sign-up'
   const primaryLabel = hero.primaryCta?.label ?? 'Get Started'
@@ -146,26 +157,42 @@ export function Hero({ hero }: HeroProps) {
               type: 'spring',
             }}
           >
-            <AnnouncementBadge href={BADGE.href} text={BADGE.text} cta={BADGE.cta} />
+            <AnnouncementBadge href={badge.href} text={badge.text} cta={badge.cta} />
           </m.div>
 
           {/* Headlines */}
-          <h1 className="font-display text-theme-text flex flex-col items-center text-center text-2xl font-bold text-balance md:text-4xl">
+          <h1
+            className={`${fontClass} text-theme-text flex flex-col items-center text-center text-2xl font-bold text-balance md:text-4xl`}
+          >
             {line1Animation === 'blur-fade' ? (
-              <AnimatedSecondLine text={line1} delay={0} />
+              <AnimatedSecondLine
+                text={line1}
+                delay={0}
+                highlight={highlight}
+                highlightClass={highlightClass}
+              />
             ) : (
               <AnimatedHeadlineLine
                 text={line1}
                 baseDelay={0}
-                highlight={hero.highlightText}
+                highlight={highlight}
                 highlightClass={highlightClass}
               />
             )}
             {line2 &&
               (line2Animation === 'word-by-word' ? (
-                <AnimatedHeadlineLine text={line2} baseDelay={1.25} />
+                <AnimatedHeadlineLine
+                  text={line2}
+                  baseDelay={1.25}
+                  highlight={highlight}
+                  highlightClass={highlightClass}
+                />
               ) : (
-                <AnimatedSecondLine text={line2} />
+                <AnimatedSecondLine
+                  text={line2}
+                  highlight={highlight}
+                  highlightClass={highlightClass}
+                />
               ))}
           </h1>
 
