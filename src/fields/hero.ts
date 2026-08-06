@@ -5,6 +5,49 @@ export const heroField: GroupField = {
   type: 'group',
   fields: [
     {
+      name: 'announcement',
+      type: 'group',
+      admin: {
+        description:
+          'Optional announcement badge (eyebrow) shown above the headline in all hero styles.',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description: 'Show the announcement badge above the headline.',
+          },
+        },
+        {
+          name: 'text',
+          type: 'text',
+          admin: {
+            description: 'Badge label (e.g. "Why we\'re building ELLA").',
+            condition: (_, siblingData) => Boolean(siblingData?.enabled),
+          },
+        },
+        {
+          name: 'href',
+          type: 'text',
+          admin: {
+            description: 'Where the badge links to.',
+            condition: (_, siblingData) => Boolean(siblingData?.enabled),
+          },
+        },
+        {
+          name: 'ctaLabel',
+          type: 'text',
+          defaultValue: 'Learn more',
+          admin: {
+            description: 'Call-to-action text at the end of the badge.',
+            condition: (_, siblingData) => Boolean(siblingData?.enabled),
+          },
+        },
+      ],
+    },
+    {
       name: 'headline',
       type: 'text',
       required: true,
