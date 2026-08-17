@@ -94,15 +94,15 @@ export const SiteSettings: GlobalConfig = {
               type: 'group',
               admin: {
                 description:
-                  'Loops configuration for the newsletter CTA in the blog sidebar (copy is hardcoded)',
+                  'Resend configuration for the newsletter CTA in the blog sidebar (copy is hardcoded)',
               },
               fields: [
                 {
-                  name: 'loopsListIds',
+                  name: 'segmentIds',
                   type: 'array',
                   admin: {
                     description:
-                      'Loops mailing lists for blog subscribers. Copy list IDs from Loops → Mailing Lists.',
+                      'Resend segments for blog subscribers. Copy segment IDs from Resend → Audiences → Segments.',
                   },
                   fields: [
                     {
@@ -111,7 +111,7 @@ export const SiteSettings: GlobalConfig = {
                       admin: { description: 'Internal label for your reference' },
                     },
                     {
-                      name: 'listId',
+                      name: 'segmentId',
                       type: 'text',
                       required: true,
                     },

@@ -25,10 +25,10 @@ export async function subscribeAction(
     return { error: 'Please enter a valid email address.' }
   }
 
-  const listIdsRaw = formData.get('listIds')
-  const listIds =
-    typeof listIdsRaw === 'string' && listIdsRaw.length > 0
-      ? listIdsRaw
+  const segmentIdsRaw = formData.get('segmentIds')
+  const segmentIds =
+    typeof segmentIdsRaw === 'string' && segmentIdsRaw.length > 0
+      ? segmentIdsRaw
           .split(',')
           .map((s) => s.trim())
           .filter(Boolean)
@@ -40,7 +40,7 @@ export async function subscribeAction(
   try {
     await subscribe({
       email: email.trim(),
-      listIds,
+      segmentIds,
       source,
     })
     return { success: true }

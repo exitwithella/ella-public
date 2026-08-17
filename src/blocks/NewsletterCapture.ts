@@ -40,11 +40,11 @@ export const NewsletterCaptureBlock: Block = {
       },
     },
     {
-      name: 'loopsListIds',
+      name: 'segmentIds',
       type: 'array',
       admin: {
         description:
-          'Loops mailing lists to add subscribers to. Copy list IDs from Loops → Mailing Lists.',
+          'Resend segments to add subscribers to. Copy segment IDs from Resend → Audiences → Segments.',
       },
       fields: [
         {
@@ -53,7 +53,7 @@ export const NewsletterCaptureBlock: Block = {
           admin: { description: 'Internal label for your reference' },
         },
         {
-          name: 'listId',
+          name: 'segmentId',
           type: 'text',
           required: true,
         },
@@ -63,7 +63,7 @@ export const NewsletterCaptureBlock: Block = {
       name: 'source',
       type: 'text',
       admin: {
-        description: 'Source tag sent to Loops for analytics (e.g. "pricing-page-cta")',
+        description: 'Source tag sent to Resend as a contact property (e.g. "pricing-page-cta")',
       },
     },
     bgStyleField,
