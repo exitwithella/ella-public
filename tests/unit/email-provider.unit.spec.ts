@@ -94,6 +94,51 @@ describe('email-provider subscribe (Resend)', () => {
     await expect(subscribe({ email: 'advisor@firm.com' })).resolves.toBeUndefined()
   })
 
+  it('retries without properties when Resend rejects an undeclared source property', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        errorResponse(422, 'Invalid properties — the following properties do not exist: source'),
+      )
+      .mockResolvedValueOnce(okResponse())
+    vi.stubGlobal('fetch', fetchMock)
+
+    await subscribe({
+      email: 'advisor@firm.com',
+      segmentIds: ['seg_1'],
+      source: 'footer',
+    })
+
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(lastRequestBody(fetchMock)).toEqual({
+      email: 'advisor@firm.com',
+      segments: [{ id: 'seg_1' }],
+    })
+  })
+
+  it('does not retry a client error that is not about properties', async () => {
+    const fetchMock = vi.fn(async () => errorResponse(422, 'Invalid email address'))
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(subscribe({ email: 'advisor@firm.com', source: 'footer' })).rejects.toBeInstanceOf(
+      EmailProviderError,
+    )
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('throws when the property-fallback retry also fails', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(errorResponse(422, 'property source does not exist'))
+      .mockResolvedValueOnce(errorResponse(500, 'boom'))
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(subscribe({ email: 'advisor@firm.com', source: 'footer' })).rejects.toMatchObject({
+      name: 'EmailProviderError',
+      status: 500,
+    })
+  })
+
   it('throws EmailProviderError with the status on other failures', async () => {
     vi.stubGlobal(
       'fetch',
