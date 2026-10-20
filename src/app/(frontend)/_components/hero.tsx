@@ -124,9 +124,8 @@ export function Hero({ hero }: HeroProps) {
 
   const primaryHref = hero.primaryCta?.href ?? 'https://app.exitwithella.io/sign-up'
   const primaryLabel = hero.primaryCta?.label ?? 'Get Started'
-  const secondaryHref =
-    hero.secondaryCta?.href ?? 'https://cal.com/team/ella/ella-intro?overlayCalendar=true'
-  const secondaryLabel = hero.secondaryCta?.label ?? 'Book a Demo'
+  const secondaryHref = hero.secondaryCta?.href
+  const secondaryLabel = hero.secondaryCta?.label
 
   // Resolve CMS visual — depth:2 populates it as a Media object
   const visualMedia = hero.visual && typeof hero.visual === 'object' ? hero.visual : null
@@ -230,15 +229,17 @@ export function Hero({ hero }: HeroProps) {
             >
               {primaryLabel}
             </ButtonLink>
-            <PlainButtonLink
-              href={secondaryHref}
-              size="lg"
-              target="_blank"
-              rel="noopener"
-              className="w-full sm:w-auto"
-            >
-              {secondaryLabel} <ArrowNarrowRightIcon aria-hidden="true" />
-            </PlainButtonLink>
+            {secondaryHref && secondaryLabel && (
+              <PlainButtonLink
+                href={secondaryHref}
+                size="lg"
+                target="_blank"
+                rel="noopener"
+                className="w-full sm:w-auto"
+              >
+                {secondaryLabel} <ArrowNarrowRightIcon aria-hidden="true" />
+              </PlainButtonLink>
+            )}
           </m.div>
 
           {hero.microcopy && (
