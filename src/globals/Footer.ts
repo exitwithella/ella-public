@@ -130,11 +130,11 @@ export const Footer: GlobalConfig = {
           defaultValue: 'Subscribe',
         },
         {
-          name: 'loopsListIds',
+          name: 'segmentIds',
           type: 'array',
           admin: {
             description:
-              'Loops mailing lists to add footer subscribers to. Copy list IDs from Loops → Mailing Lists.',
+              'Resend segments to add footer subscribers to. Copy segment IDs from Resend → Audiences → Segments.',
           },
           fields: [
             {
@@ -143,7 +143,7 @@ export const Footer: GlobalConfig = {
               admin: { description: 'Internal label for your reference' },
             },
             {
-              name: 'listId',
+              name: 'segmentId',
               type: 'text',
               required: true,
             },

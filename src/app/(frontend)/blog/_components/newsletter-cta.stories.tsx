@@ -11,7 +11,7 @@ type Story = StoryObj
 export const Default: Story = {
   render: () => (
     <div className="max-w-md p-6">
-      <NewsletterCTAView listIds={['storybook-demo-list']} />
+      <NewsletterCTAView segmentIds={['storybook-demo-segment']} />
     </div>
   ),
 }

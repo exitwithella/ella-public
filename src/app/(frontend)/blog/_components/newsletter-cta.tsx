@@ -3,10 +3,10 @@ import { NewsletterCTAView } from './newsletter-cta-view'
 
 export async function NewsletterCTA() {
   const settings = await getSiteSettings()
-  const listIds =
-    settings.blogNewsletter?.loopsListIds
-      ?.map((l) => l.listId)
+  const segmentIds =
+    settings.blogNewsletter?.segmentIds
+      ?.map((s) => s.segmentId)
       .filter((id): id is string => typeof id === 'string' && id.length > 0) ?? []
 
-  return <NewsletterCTAView listIds={listIds} />
+  return <NewsletterCTAView segmentIds={segmentIds} />
 }

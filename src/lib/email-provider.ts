@@ -1,16 +1,18 @@
 /**
- * Email provider abstraction — currently Loops.so.
+ * Email provider abstraction — currently Resend.
  *
  * To switch providers, replace the implementation of `subscribe()` below.
  * The Server Action and client components depend only on this module's
- * public interface (not on Loops-specific types).
+ * public interface (not on Resend-specific types).
+ *
+ * Reuses RESEND_API_KEY (the same key Payload uses for transactional email).
  */
 
-const LOOPS_ENDPOINT = 'https://app.loops.so/api/v1/contacts/create'
+const RESEND_CONTACTS_ENDPOINT = 'https://api.resend.com/contacts'
 
 export interface SubscribeParams {
   email: string
-  listIds?: string[]
+  segmentIds?: string[]
   source?: string
   firstName?: string
   lastName?: string
@@ -26,33 +28,29 @@ export class EmailProviderError extends Error {
   }
 }
 
+interface ContactBody {
+  email: string
+  first_name?: string
+  last_name?: string
+  properties?: { source: string }
+  segments?: { id: string }[]
+}
+
+function isExistingContact(status: number, errorBody: string): boolean {
+  return status === 409 || /already exists/i.test(errorBody)
+}
+
 /**
- * Subscribe an email to Loops with optional mailing list membership.
- *
- * - Uses Loops' create-or-update semantics (409 "exists" is treated as success).
- * - `listIds` are Loops mailing list IDs — each will be set to `true` in the contact's mailingLists.
- * - `source` is surfaced in Loops for analytics (e.g. "footer", "blog-sidebar").
+ * Resend rejects the whole contact create when `properties` names a key that
+ * has not been defined on the account. Signup should still succeed in that
+ * window; segment membership does not depend on the property.
  */
-export async function subscribe(params: SubscribeParams): Promise<void> {
-  const apiKey = process.env.LOOPS_API_KEY
-  if (!apiKey) {
-    throw new EmailProviderError('LOOPS_API_KEY is not configured')
-  }
+function isUndeclaredProperty(status: number, errorBody: string): boolean {
+  return status >= 400 && status < 500 && /propert/i.test(errorBody)
+}
 
-  const mailingLists =
-    params.listIds && params.listIds.length > 0
-      ? Object.fromEntries(params.listIds.map((id) => [id, true]))
-      : undefined
-
-  const body: Record<string, unknown> = {
-    email: params.email,
-  }
-  if (params.source) body.source = params.source
-  if (params.firstName) body.firstName = params.firstName
-  if (params.lastName) body.lastName = params.lastName
-  if (mailingLists) body.mailingLists = mailingLists
-
-  const res = await fetch(LOOPS_ENDPOINT, {
+async function postContact(apiKey: string, body: ContactBody): Promise<Response> {
+  return fetch(RESEND_CONTACTS_ENDPOINT, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${apiKey}`,
@@ -60,16 +58,54 @@ export async function subscribe(params: SubscribeParams): Promise<void> {
     },
     body: JSON.stringify(body),
   })
+}
 
+/**
+ * Subscribe an email as a Resend contact, optionally adding it to segments.
+ *
+ * - `segmentIds` are Resend segment IDs — the contact is added to each.
+ * - `source` is stored as a Resend contact property for analytics
+ *   (e.g. "footer", "blog-sidebar"). The property must exist in the Resend
+ *   account. Until it does, the create is retried without `properties` so
+ *   the signup and any segment membership still succeed.
+ * - Idempotent: an already-existing contact is treated as success. Like the
+ *   previous Loops implementation, this does NOT re-sync segment membership
+ *   for an existing contact (that would require a contacts.update call); for
+ *   v1 this is fine.
+ */
+export async function subscribe(params: SubscribeParams): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    throw new EmailProviderError('RESEND_API_KEY is not configured')
+  }
+
+  const body: ContactBody = {
+    email: params.email,
+  }
+  if (params.firstName) body.first_name = params.firstName
+  if (params.lastName) body.last_name = params.lastName
+  if (params.source) body.properties = { source: params.source }
+  if (params.segmentIds && params.segmentIds.length > 0) {
+    body.segments = params.segmentIds.map((id) => ({ id }))
+  }
+
+  let res = await postContact(apiKey, body)
   if (res.ok) return
 
-  // 409 = contact already exists. Treat as success — we still want to update their list membership.
-  // For true "already on list" behavior, we'd call /contacts/update. For v1 this is fine.
-  if (res.status === 409) return
+  let errorBody = await res.text().catch(() => '')
+  if (isExistingContact(res.status, errorBody)) return
 
-  const errorBody = await res.text().catch(() => '')
+  if (body.properties && isUndeclaredProperty(res.status, errorBody)) {
+    const withoutProperties: ContactBody = { ...body }
+    delete withoutProperties.properties
+    res = await postContact(apiKey, withoutProperties)
+    if (res.ok) return
+    errorBody = await res.text().catch(() => '')
+    if (isExistingContact(res.status, errorBody)) return
+  }
+
   throw new EmailProviderError(
-    `Loops API error ${res.status}: ${errorBody || res.statusText}`,
+    `Resend API error ${res.status}: ${errorBody || res.statusText}`,
     res.status,
   )
 }
