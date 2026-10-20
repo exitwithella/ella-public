@@ -1134,3 +1134,12 @@ For deeper exploration of specific topics, refer to the context files located in
 - GitHub: https://github.com/payloadcms/payload
 - Examples: https://github.com/payloadcms/payload/tree/main/examples
 - Templates: https://github.com/payloadcms/payload/tree/main/templates
+
+## Cursor Cloud specific instructions
+
+Local `pnpm dev` uses Wrangler miniflare for D1 and R2. Leave `REMOTE_BINDINGS` unset. Cloudflare login is not required to boot the site, log into Payload admin, or write non-upload collections.
+
+- Create `.env` from `.env.example` when it is missing. `PAYLOAD_SECRET` can be any random hex string; `SITE_URL=http://localhost:3000`. `RESEND_API_KEY`, `LOOPS_API_KEY`, and Clerk keys are optional. Without Resend, Payload writes email to the console.
+- Dev server: `pnpm dev --hostname 0.0.0.0 --port 3000`. The first request compiles and opens local D1 (often 20s+). `/` returns 200 with a "Homepage not found" fallback until a homepage document exists. `/admin` is Payload's own login. The first admin user is `POST /api/users/first-register`.
+- Do not run `pnpm seed` or `pnpm content:pull` on a fresh checkout. Media seeding needs the R2 blobs first, and pulling them needs Cloudflare auth. See `docs/solutions/0003-seeding-media-needs-local-r2-blobs.md`. Never delete the local D1 file under `.wrangler/`.
+- Checks that pass without Cloudflare: `pnpm lint`, `pnpm format:check`, `pnpm type-check`, `pnpm test:unit`, and `pnpm build` (needs `PAYLOAD_SECRET` in `.env`). `pnpm test:int` needs the local D1 binding and is not what CI runs.
