@@ -189,13 +189,13 @@ describe('pageToMarkdown', () => {
     expect(result).toContain('2. **Configure** — Set your preferences')
   })
 
-  it('skips formEmbed blocks', () => {
+  it('skips form-embed blocks', () => {
     const page = {
       title: 'Page',
       hero: { headline: 'Page' },
       layout: [
         {
-          blockType: 'formEmbed' as const,
+          blockType: 'form-embed' as const,
           embedType: 'typeform',
           formId: 'abc123',
         },

@@ -57,7 +57,7 @@ const UNRENDERED_BLOCKS = new Set([
   'solutions-selector',
   'faq-accordion',
   'pricing-journey',
-  'formEmbed',
+  'form-embed',
 ])
 
 describe('BlockRenderer registry completeness', () => {
