@@ -6,9 +6,9 @@ module: email-provider
 problem_type: integration_issue
 component: email_processing
 symptoms:
-  - "Before the retry, subscribe() threw EmailProviderError when the first Resend response was a 4xx whose body mentioned an undeclared properties key"
-  - "That thrown create did not send a follow-up, so segments on the same body were not submitted"
-  - "A response that was neither 409 nor an already-exists body was a hard error, including the undeclared-property 4xx"
+  - 'Before the retry, subscribe() threw EmailProviderError when the first Resend response was a 4xx whose body mentioned an undeclared properties key'
+  - 'That thrown create did not send a follow-up, so segments on the same body were not submitted'
+  - 'A response that was neither 409 nor an already-exists body was a hard error, including the undeclared-property 4xx'
 root_cause: wrong_api
 resolution_type: code_fix
 severity: high
