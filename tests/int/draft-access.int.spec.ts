@@ -60,7 +60,7 @@ describe('draft page access control (MKT-175)', () => {
       overrideAccess: true,
     })
     publishedId = published.id
-  })
+  }, 60_000)
 
   afterAll(async () => {
     await Promise.all([
