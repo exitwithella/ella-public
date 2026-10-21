@@ -6,6 +6,9 @@ import { Heading } from '@/components/elements/heading'
 import { ThemeSection } from '@/components/elements/theme-section'
 import type { Page, Testimonial } from '@/payload-types'
 
+import { BlockMediaFrame } from './block-media'
+import { BLOCK_MEDIA_SIZES } from './resolve-media'
+
 type FeatureDeepDiveData = Extract<
   NonNullable<Page['layout']>[number],
   { blockType: 'feature-deep-dive' }
@@ -73,14 +76,13 @@ export function FeatureDeepDiveBlock({ block }: FeatureDeepDiveBlockProps) {
                     )}
                   </div>
 
-                  {/* Visual side — placeholder when no image */}
                   <div className="flex-1">
-                    <div
-                      className="bg-theme-surface flex aspect-video items-center justify-center rounded-sm"
-                      aria-hidden="true"
-                    >
-                      <span className="text-theme-text-muted text-sm">Product visual</span>
-                    </div>
+                    <BlockMediaFrame
+                      media={section.visual}
+                      alt={section.visualAlt}
+                      sizes={BLOCK_MEDIA_SIZES.half}
+                      fallback="Product visual"
+                    />
                   </div>
                 </div>
               )

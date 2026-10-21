@@ -1,7 +1,11 @@
+import Image from 'next/image'
+
 import { Container } from '@/components/elements/container'
 import { SectionHeader } from '@/components/elements/section-header'
 import { ThemeSection } from '@/components/elements/theme-section'
 import type { Page, Solution, Testimonial } from '@/payload-types'
+
+import { resolveMedia } from './resolve-media'
 
 type TestimonialBlockData =
   | Extract<NonNullable<Page['layout']>[number], { blockType: 'testimonial-block' }>
@@ -43,14 +47,25 @@ function SingleTestimonial({ testimonial }: { testimonial: Testimonial }) {
 }
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+  const photo = resolveMedia(testimonial.photo)
+
   return (
     <div className="border-ash-200 bg-sandstone-50 rounded-sm border p-8">
       <blockquote>
         <p className="text-ash-700 text-base/relaxed">{testimonial.quote}</p>
       </blockquote>
       <footer className="mt-6 flex items-center gap-3">
-        {/* Photo placeholder — will render actual image when media is populated */}
-        <div className="bg-ash-200 size-10 shrink-0 rounded-full" aria-hidden="true" />
+        {photo ? (
+          <div className="relative size-10 shrink-0 overflow-hidden rounded-full">
+            <Image
+              src={photo.url}
+              alt={photo.alt || testimonial.name}
+              fill
+              className="object-cover"
+              sizes="40px"
+            />
+          </div>
+        ) : null}
         <div>
           <p className="text-ash-900 text-sm font-semibold">{testimonial.name}</p>
           {(testimonial.title || testimonial.company) && (
