@@ -155,11 +155,10 @@ export default buildConfig({
   ],
   globals: [SiteSettings, Navigation, Footer, PricingPage, ScriptInjection],
   // `push: false` against remote bindings — prod/preview schema is managed by
-  // migrations, never by pushDevSchema. Without this, non-production build
-  // subprocesses (e.g. the generate-redirects prebuild, which runs under tsx
-  // with NODE_ENV unset) would run a destructive drizzle push against the
-  // remote D1 and hang on its interactive DATA-LOSS prompt. Local dev keeps
-  // push enabled so schema changes apply without a manual migration.
+  // migrations, never by pushDevSchema. Without this, cf:build's
+  // generate-redirects step (tsx, NODE_ENV unset, REMOTE_BINDINGS=true) would
+  // drizzle-push the remote D1 and hang on its interactive DATA-LOSS prompt.
+  // Local dev keeps push enabled so schema changes apply without a manual migration.
   db: sqliteD1Adapter({ binding: cloudflare.env.D1, push: !useRemoteBindings }),
   editor: lexicalEditor(),
   plugins: [

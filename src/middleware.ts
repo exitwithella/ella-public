@@ -1,15 +1,18 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-// Middleware purpose, now that Clerk is disabled: only handle the /md
-// content-negotiation block. Payload's admin UI handles unauthenticated
-// users itself (it renders the login screen), so we don't need to gate
-// /admin here — and doing so previously caused a redirect loop because
-// PAYLOAD_SECRET wasn't reliably available in the middleware context.
+import rules from '@/generated/redirects.json'
+import { findRedirect, redirectLocation, type RedirectRule } from '@/lib/redirect-rules'
+
+const redirectRules = rules as RedirectRule[]
+
+// Middleware handles two things: legacy redirects from the generated rule
+// list (no D1 on the request), and the /md content-negotiation block.
+// Payload's admin UI handles unauthenticated users itself, so /admin is
+// excluded from the matcher rather than redirected here.
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
-  // /md routes: block direct access, allow requests via Accept header rewrite
   if (pathname.startsWith('/md/') || pathname === '/md') {
     const accept = req.headers.get('accept') ?? ''
     if (!accept.includes('text/markdown')) {
@@ -18,9 +21,17 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
+  const match = findRedirect(redirectRules, pathname, req.headers.get('host') ?? '')
+  if (match) {
+    const location = redirectLocation(match, req.url)
+    if (location) return NextResponse.redirect(location, match.status)
+  }
+
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/md', '/md/:path*'],
+  matcher: [
+    '/((?!_next/|api(?:/|$)|admin(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|css|js|map|txt|xml|woff2?)$).*)',
+  ],
 }
