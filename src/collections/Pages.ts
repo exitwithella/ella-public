@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import { publishedOrAuthed } from '../access/publishedOrAuthed'
 import {
   AdvisorPersonasBlock,
@@ -34,6 +35,7 @@ import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/reval
 export const Pages: CollectionConfig = {
   access: {
     read: publishedOrAuthed,
+    readVersions: authenticated,
   },
   hooks: {
     afterChange: [

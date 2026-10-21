@@ -1,11 +1,13 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import { FAQ_CATEGORY_OPTIONS } from '../fields/options'
 import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const FAQItems: CollectionConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   hooks: {
     // Embedded via FAQAccordion into pages, and (showOnPricing) into the

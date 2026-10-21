@@ -60,11 +60,61 @@ export type SupportedTimezones =
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
   | 'Pacific/Fiji';
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LexicalNodes_C158EECA".
+ */
+export type LexicalNodes_C158EECA =
+  | SerializedTextNode
+  | SerializedTabNode
+  | SerializedLineBreakNode
+  | SerializedParagraphNode<LexicalNodes_C158EECA>
+  | SerializedHorizontalRuleNode
+  | SerializedUploadNode<'media'>
+  | SerializedQuoteNode<LexicalNodes_C158EECA>
+  | SerializedRelationshipNode<
+      | 'users'
+      | 'posts'
+      | 'pages'
+      | 'landing-pages'
+      | 'categories'
+      | 'disciplines'
+      | 'team-members'
+      | 'testimonials'
+      | 'partners'
+      | 'faq-items'
+      | 'pricing-tiers'
+      | 'tools'
+      | 'redirects'
+      | 'solutions'
+      | 'case-studies'
+      | 'vanguard-events'
+      | 'payload-kv'
+      | 'payload-locked-documents'
+      | 'payload-preferences'
+      | 'payload-migrations'
+    >
+  | SerializedAutoLinkNode<LexicalNodes_C158EECA, LexicalLinkFields>
+  | SerializedLinkNode<LexicalNodes_C158EECA, LexicalLinkFields>
+  | SerializedListNode<LexicalNodes_C158EECA>
+  | SerializedListItemNode<LexicalNodes_C158EECA>
+  | SerializedHeadingNode<LexicalNodes_C158EECA>;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LexicalNodes_3DE324E4".
+ */
+export type LexicalNodes_3DE324E4 =
+  | SerializedTextNode
+  | SerializedTabNode
+  | SerializedLineBreakNode
+  | SerializedParagraphNode<LexicalNodes_3DE324E4>
+  | SerializedListNode<LexicalNodes_3DE324E4>
+  | SerializedListItemNode<LexicalNodes_3DE324E4>
+  | SerializedHeadingNode<LexicalNodes_3DE324E4, 'h2' | 'h3' | 'h4'>;
 
 export interface Config {
   auth: {
     users: UserAuthOperations;
-    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations;
   };
   blocks: {};
   collections: {
@@ -85,11 +135,11 @@ export interface Config {
     solutions: Solution;
     'case-studies': CaseStudy;
     'vanguard-events': VanguardEvent;
-    'payload-mcp-api-keys': PayloadMcpApiKey;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+    'payload-llm-instructions': PayloadLlmInstruction;
   };
   collectionsJoins: {};
   collectionsSelect: {
@@ -110,11 +160,11 @@ export interface Config {
     solutions: SolutionsSelect<false> | SolutionsSelect<true>;
     'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
     'vanguard-events': VanguardEventsSelect<false> | VanguardEventsSelect<true>;
-    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    'payload-llm-instructions': PayloadLlmInstructionsSelect<false> | PayloadLlmInstructionsSelect<true>;
   };
   db: {
     defaultIDType: number;
@@ -136,33 +186,19 @@ export interface Config {
   };
   locale: null;
   widgets: {
+    welcome: WelcomeWidget;
     collections: CollectionsWidget;
+    'collection-query': CollectionQueryWidget;
+    activity: ActivityWidget;
+    'upload-dropzone': UploadDropzoneWidget;
   };
-  user: User | PayloadMcpApiKey;
+  user: User;
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
-  forgotPassword: {
-    email: string;
-    password: string;
-  };
-  login: {
-    email: string;
-    password: string;
-  };
-  registerFirstUser: {
-    email: string;
-    password: string;
-  };
-  unlock: {
-    email: string;
-    password: string;
-  };
-}
-export interface PayloadMcpApiKeyAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -187,13 +223,25 @@ export interface PayloadMcpApiKeyAuthOperations {
 export interface User {
   id: number;
   clerkId?: string | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
+  apiKey?: string | null;
+  apiKeyLast4?: string | null;
+  apiKeyIndex?: string | null;
   email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -219,6 +267,16 @@ export interface Media {
    */
   credit?: string | null;
   category?: ('product' | 'portrait' | 'logo' | 'icon' | 'illustration' | 'background' | 'document' | 'other') | null;
+  prefix?: string | null;
+  _objectKey?: string | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -228,6 +286,16 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+  original?: {
+    filename?: string | null;
+    url?: string | null;
+    mimeType?: string | null;
+    filesize?: number | null;
+    width?: number | null;
+    height?: number | null;
+    prefix?: string | null;
+    _objectKey?: string | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -263,21 +331,7 @@ export interface Post {
    * Show newsletter signup CTA at the end of this post
    */
   showNewsletterCTA?: boolean | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  content?: LexicalRichText<LexicalNodes_C158EECA> | null;
   meta?: {
     /**
      * Overrides page title in search results and browser tabs. 50–60 chars ideal.
@@ -292,6 +346,14 @@ export interface Post {
      */
     image?: (number | null) | Media;
   };
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -308,21 +370,7 @@ export interface TeamMember {
    */
   role?: string | null;
   photo?: (number | null) | Media;
-  bio?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  bio?: LexicalRichText<LexicalNodes_C158EECA> | null;
   /**
    * Check to allow this team member to be assigned as a blog post author
    */
@@ -330,6 +378,14 @@ export interface TeamMember {
   linkedIn?: string | null;
   twitter?: string | null;
   sortOrder?: number | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -354,6 +410,14 @@ export interface Category {
    * Lower numbers appear first
    */
   sortOrder?: number | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -373,6 +437,14 @@ export interface Discipline {
    * Lower numbers appear first
    */
   sortOrder?: number | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -506,1332 +578,29 @@ export interface Page {
   };
   layout?:
     | (
-        | {
-            /**
-             * Default = standard layout. Split Heading = heading on left, body on right in a two-column grid.
-             */
-            layout?: ('default' | 'split-heading') | null;
-            /**
-             * Small eyebrow label above the heading (optional)
-             */
-            sectionLabel?: string | null;
-            heading?: string | null;
-            body?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            media?: (number | null) | Media;
-            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
-            link?: {
-              label?: string | null;
-              href?: string | null;
-              style?: ('button' | 'link') | null;
-            };
-            /**
-             * Small badge/tag to display near the heading
-             */
-            badge?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content-section';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            variant?: ('feature' | 'icon' | 'minimal') | null;
-            columns?: ('2' | '3' | '4') | null;
-            cards?:
-              | {
-                  heading: string;
-                  body?: string | null;
-                  /**
-                   * Phosphor icon for this card. Overrides the uploaded icon image when set.
-                   */
-                  iconName?: string | null;
-                  /**
-                   * Fallback icon image (used if no Phosphor icon is selected above).
-                   */
-                  icon?: (number | null) | Media;
-                  link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
-                  /**
-                   * ID of a section further down the page to link to (without #)
-                   */
-                  anchorTarget?: string | null;
-                  /**
-                   * Short capability bullets shown below the card description
-                   */
-                  capabilities?:
-                    | {
-                        text: string;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'card-grid';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            layout?: ('single' | 'grid' | 'carousel') | null;
-            testimonials?: (number | Testimonial)[] | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'testimonial-block';
-          }
-        | {
-            headline?: string | null;
-            body?: string | null;
-            primaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            secondaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            /**
-             * Small text below CTAs (e.g. "No credit card required")
-             */
-            closingLine?: string | null;
-            /**
-             * Trust signal near CTA (e.g. "Join 200+ advisors")
-             */
-            microcopy?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            /**
-             * Optional full-width background image. Content overlays on top with a scrim for readability.
-             */
-            coverImage?: {
-              /**
-               * Lifestyle or background image. Displayed as object-fit: cover.
-               */
-              image?: (number | null) | Media;
-              /**
-               * Minimum height of the section when a cover image is active.
-               */
-              minHeight?: ('sm' | 'md' | 'lg') | null;
-              /**
-               * Vertical focal point of the image.
-               */
-              objectPosition?: ('top' | 'center' | 'bottom') | null;
-              /**
-               * Darkness of the scrim overlay for text readability.
-               */
-              overlayOpacity?: ('40' | '60' | '80') | null;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta-section';
-          }
-        | {
-            variant?: ('logos' | 'stats' | 'combined' | 'text') | null;
-            /**
-             * Centered text statement. Shown when variant is "Text statement".
-             */
-            statement?: string | null;
-            /**
-             * Small label above logos (e.g. "Trusted by advisors certified through")
-             */
-            label?: string | null;
-            partners?: (number | Partner)[] | null;
-            /**
-             * Shown in "stats" and "combined" variants
-             */
-            stats?:
-              | {
-                  /**
-                   * e.g. "200+"
-                   */
-                  value: string;
-                  /**
-                   * e.g. "advisors onboarded"
-                   */
-                  label: string;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'credibility-strip';
-          }
-        | {
-            /**
-             * HTML id attribute for anchor links (e.g. "coverage")
-             */
-            sectionId?: string | null;
-            sectionLabel?: string | null;
-            /**
-             * Alternating text+visual rows
-             */
-            sections?:
-              | {
-                  heading: string;
-                  body?: {
-                    root: {
-                      type: string;
-                      children: {
-                        type: any;
-                        version: number;
-                        [k: string]: unknown;
-                      }[];
-                      direction: ('ltr' | 'rtl') | null;
-                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                      indent: number;
-                      version: number;
-                    };
-                    [k: string]: unknown;
-                  } | null;
-                  visual?: (number | null) | Media;
-                  visualAlt?: string | null;
-                  /**
-                   * Optional embedded testimonial
-                   */
-                  testimonial?: (number | null) | Testimonial;
-                  link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'feature-deep-dive';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            /**
-             * 3 columns: Old Way / Patchwork / With ELLA
-             */
-            columns?:
-              | {
-                  heading: string;
-                  subheading?: string | null;
-                  /**
-                   * Visually emphasize this column (the "With ELLA" column)
-                   */
-                  highlighted?: boolean | null;
-                  id?: string | null;
-                }[]
-              | null;
-            rows?:
-              | {
-                  /**
-                   * Row label (the feature or criterion)
-                   */
-                  label: string;
-                  /**
-                   * One value per column (in order)
-                   */
-                  values?:
-                    | {
-                        text?: string | null;
-                        indicator?: ('text' | 'check' | 'cross' | 'partial') | null;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'comparison-table';
-          }
-        | {
-            /**
-             * Wrap words in *asterisks* to render them in italic.
-             */
-            heading?: string | null;
-            intro?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            /**
-             * Optional CTA button displayed below the intro text.
-             */
-            link?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            /**
-             * Items displayed in a 2-column grid to the right of the heading.
-             */
-            sections?:
-              | {
-                  title: string;
-                  /**
-                   * Short description (1-2 sentences).
-                   */
-                  body?: string | null;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Decorative SVG pattern displayed as the section background.
-             */
-            patternSvg?: (number | null) | Media;
-            /**
-             * CSS color for the SVG pattern fill (e.g. "var(--color-moss-300)", "#5A6B4A"). Leave blank to use the theme border color.
-             */
-            patternColor?: string | null;
-            /**
-             * CSS color for the section/pattern background (e.g. "var(--color-sandstone-100)"). Leave blank to use the theme background.
-             */
-            backgroundColor?: string | null;
-            /**
-             * CSS color for the content panel (e.g. "var(--color-sandstone-50)"). Leave blank to use the theme background.
-             */
-            contentBackgroundColor?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'trust-security';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            steps?:
-              | {
-                  heading: string;
-                  body?: string | null;
-                  /**
-                   * Screenshot or illustration for this step
-                   */
-                  image?: (number | null) | Media;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'numbered-steps';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            solutions?: (number | Solution)[] | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'solutions-selector';
-          }
-        | {
-            heading?: string | null;
-            /**
-             * Only show FAQs from this category (leave blank for all)
-             */
-            filterByCategory?:
-              | ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security')
-              | null;
-            /**
-             * Manually select FAQ items (overrides category filter)
-             */
-            items?: (number | FaqItem)[] | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'faq-accordion';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            /**
-             * Select pricing tiers in display order. Leave empty to show all tiers automatically.
-             */
-            tiers?: (number | PricingTier)[] | null;
-            /**
-             * Show monthly/annual billing toggle
-             */
-            showToggle?: boolean | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'pricing-journey';
-          }
-        | {
-            heading?: string | null;
-            subheading?: string | null;
-            placeholder?: string | null;
-            buttonLabel?: string | null;
-            successMessage?: string | null;
-            /**
-             * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
-             */
-            microcopy?: string | null;
-            /**
-             * Resend segments to add subscribers to. Copy segment IDs from Resend → Audiences → Segments.
-             */
-            segmentIds?:
-              | {
-                  /**
-                   * Internal label for your reference
-                   */
-                  label?: string | null;
-                  segmentId: string;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Source tag sent to Resend as a contact property (e.g. "pricing-page-cta")
-             */
-            source?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'newsletter-capture';
-          }
-        | {
-            embedType?: ('typeform' | 'loops' | 'custom') | null;
-            formId?: string | null;
-            embedCode?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'form-embed';
-          }
-        | {
-            /**
-             * Eyebrow label above heading, e.g. "The ELLA Difference"
-             */
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            /**
-             * The "before" state — life without ELLA
-             */
-            before?: {
-              /**
-               * Tab/panel label
-               */
-              label?: string | null;
-              image?: (number | null) | Media;
-              caption?: string | null;
-              /**
-               * Pain points / friction items
-               */
-              points?:
-                | {
-                    text: string;
-                    id?: string | null;
-                  }[]
-                | null;
-            };
-            /**
-             * The "after" state — life with ELLA
-             */
-            after?: {
-              /**
-               * Tab/panel label
-               */
-              label?: string | null;
-              image?: (number | null) | Media;
-              caption?: string | null;
-              /**
-               * Benefits / improvements
-               */
-              points?:
-                | {
-                    text: string;
-                    id?: string | null;
-                  }[]
-                | null;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'before-after-panel';
-          }
-        | {
-            /**
-             * Optional eyebrow label above the heading.
-             */
-            label?: string | null;
-            /**
-             * Section headline.
-             */
-            heading?: string | null;
-            /**
-             * Font style for the heading.
-             */
-            headingStyle?: ('display' | 'serif') | null;
-            /**
-             * Body = standard DM Sans body text. Feature = larger serif text.
-             */
-            bodyStyle?: ('body' | 'feature') | null;
-            /**
-             * Body copy — 2–4 paragraphs.
-             */
-            body?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            /**
-             * Stacked blockquotes. Rendered in Instrument Serif.
-             */
-            quotes?:
-              | {
-                  text: string;
-                  /**
-                   * e.g. "Advisor, on what they need from technology"
-                   */
-                  attribution?: string | null;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Standalone closing line after the quotes. DM Sans medium weight.
-             */
-            closer?: string | null;
-            /**
-             * Optional trailing link below the content.
-             */
-            link?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            /**
-             * Optional full-width background image. Content overlays on top with a scrim for readability.
-             */
-            coverImage?: {
-              /**
-               * Lifestyle or background image. Displayed as object-fit: cover.
-               */
-              image?: (number | null) | Media;
-              /**
-               * Minimum height of the section when a cover image is active.
-               */
-              minHeight?: ('sm' | 'md' | 'lg') | null;
-              /**
-               * Vertical focal point of the image.
-               */
-              objectPosition?: ('top' | 'center' | 'bottom') | null;
-              /**
-               * Darkness of the scrim overlay for text readability.
-               */
-              overlayOpacity?: ('40' | '60' | '80') | null;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'bridge-section';
-          }
-        | {
-            /**
-             * Optional eyebrow label above the heading
-             */
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            /**
-             * 2–4 feature tiers. Each item drives one scroll panel.
-             */
-            items?:
-              | {
-                  title: string;
-                  description?: string | null;
-                  screenshot: number | Media;
-                  /**
-                   * Contain: image shown in full. Crop: image fills the frame and may clip. Square: forced 1:1 with cropping.
-                   */
-                  screenshotFit?: ('contain' | 'crop' | 'square') | null;
-                  /**
-                   * Focal point for cropping. Only applies when fit is Crop or Square.
-                   */
-                  screenshotPosition?:
-                    | (
-                        | 'center'
-                        | 'top'
-                        | 'bottom'
-                        | 'left'
-                        | 'right'
-                        | 'top left'
-                        | 'top right'
-                        | 'bottom left'
-                        | 'bottom right'
-                      )
-                    | null;
-                  /**
-                   * Short capability labels shown as pill badges (max 3)
-                   */
-                  badges?:
-                    | {
-                        text: string;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Show the bottom border line on this section.
-             */
-            showBottomBorder?: boolean | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'product-features';
-          }
-        | {
-            /**
-             * Eyebrow text above the heading, e.g. "The Problem"
-             */
-            label?: string | null;
-            /**
-             * Section headline. Rendered in Instrument Serif.
-             */
-            heading: string;
-            /**
-             * Body copy — each paragraph becomes a separate animated content block.
-             */
-            body?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            /**
-             * Blockquotes rendered in Instrument Serif.
-             */
-            quotes?:
-              | {
-                  text: string;
-                  /**
-                   * e.g. "Exit planning advisor, 20+ years experience"
-                   */
-                  attribution?: string | null;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Standalone closing line after the content blocks.
-             */
-            closer?: string | null;
-            /**
-             * Left-wall "Growing Pressure" labels. Shown on desktop walls and mobile inline callouts.
-             */
-            pressureItems?:
-              | {
-                  text: string;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Right-wall "Eroding Advantage" labels. Shown on desktop walls and mobile inline callouts.
-             */
-            erosionItems?:
-              | {
-                  text: string;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'squeeze-section';
-          }
-        | {
-            /**
-             * Eyebrow text above the heading, e.g. "The Advisor's Dilemma"
-             */
-            label?: string | null;
-            /**
-             * Main heading, e.g. "Rigid or improvised."
-             */
-            heading: string;
-            /**
-             * Secondary heading line rendered in a lighter color, e.g. "Those aren't the only options."
-             */
-            headingAccent?: string | null;
-            /**
-             * Intro paragraph below the heading.
-             */
-            body?: string | null;
-            /**
-             * First line of the transition copy between the visualization and table, e.g. "What if your tools were built for advisory work —"
-             */
-            transitionLine1?: string | null;
-            /**
-             * Second line of the transition copy (rendered in moss/green), e.g. "and adapted to your methodology, not the other way around?"
-             */
-            transitionLine2?: string | null;
-            /**
-             * Italic subtitles under the four comparison-table column headers (desktop layout). Leave empty to use built-in defaults.
-             */
-            columnSubtitles?: {
-              /**
-               * "The Old Way" subtitle, e.g. "Manual, memory-based"
-               */
-              old?: string | null;
-              /**
-               * "The Rigid Platform" subtitle, e.g. "Their process, not yours"
-               */
-              rigid?: string | null;
-              /**
-               * "Consumer AI" subtitle, e.g. "Powerful, unprotected"
-               */
-              patch?: string | null;
-              /**
-               * "With ELLA" subtitle, e.g. "Your methodology, systematized"
-               */
-              ella?: string | null;
-            };
-            /**
-             * Final line below the table once every row resolves, e.g. "Hours to the first real conversation. Not weeks."
-             */
-            closer?: string | null;
-            /**
-             * Comparison table rows. Leave empty to use built-in defaults.
-             */
-            tableData?:
-              | {
-                  dim: string;
-                  old: string;
-                  rigid: string;
-                  patch: string;
-                  ella: string;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Rigid platform steps. Leave empty to use built-in defaults.
-             */
-            steps?:
-              | {
-                  label: string;
-                  sub: string;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'dilemma-section';
-          }
-        | {
-            /**
-             * Eyebrow label above the heading (e.g. "Built for your practice")
-             */
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            /**
-             * Full-height image for the left column. Use a portrait-oriented photo.
-             */
-            image: number | Media;
-            /**
-             * Optional quote overlaid on the lower portion of the image with a dark gradient. Leave all fields empty to show the image clean.
-             */
-            imageQuote?: {
-              /**
-               * Small label above the quote (e.g. "From the field")
-               */
-              label?: string | null;
-              /**
-               * The quote text
-               */
-              text?: string | null;
-              /**
-               * Attribution line (e.g. "CEPA, 12 years in practice")
-               */
-              attribution?: string | null;
-            };
-            /**
-             * Advisor persona cards. Each card describes a type of advisor and their ELLA outcome.
-             */
-            personas?:
-              | {
-                  /**
-                   * Short uppercase category label shown in the header bar (e.g. "GROWING PRACTICES", "DEAL WORK"). Optional.
-                   */
-                  label?: string | null;
-                  /**
-                   * The persona identifier (e.g. "The CEPA with 40 clients and one associate")
-                   */
-                  title: string;
-                  /**
-                   * The pain or context paragraph for this advisor type
-                   */
-                  description: string;
-                  /**
-                   * The "With ELLA:" resolution — what changes for this advisor
-                   */
-                  withElla: string;
-                  /**
-                   * Phosphor icon for this card. Overrides the uploaded icon image when set.
-                   */
-                  iconName?: string | null;
-                  /**
-                   * Fallback icon image (used if no Phosphor icon is selected above). SVG recommended.
-                   */
-                  icon?: (number | null) | Media;
-                  /**
-                   * Icon background tint color. Defaults to forest green.
-                   */
-                  accentColor?: ('forest' | 'moss' | 'goldenrod' | 'ocean' | 'coral' | 'emerald') | null;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'advisor-personas';
-          }
-        | {
-            /**
-             * Floating title displayed above the bordered container.
-             */
-            heading?: string | null;
-            /**
-             * Short paragraph below the heading, inside the container.
-             */
-            description?: string | null;
-            items?:
-              | {
-                  title: string;
-                  description: string;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'values-grid';
-          }
-        | {
-            /**
-             * HTML id for anchor links (e.g. "portfolio-analytics")
-             */
-            sectionId?: string | null;
-            /**
-             * Layout for the header area. Text-only spans full width. Split layouts pair text with a hero image.
-             */
-            headerLayout?: ('text-only' | 'text-left' | 'text-left-even' | 'image-left' | 'eyebrow-left') | null;
-            /**
-             * Text alignment within the text column (text-only layout)
-             */
-            textAlign?: ('left' | 'center' | 'right') | null;
-            /**
-             * Eyebrow label above the heading (e.g. "Portfolio Analytics")
-             */
-            sectionLabel?: string | null;
-            heading?: string | null;
-            /**
-             * Font family for the heading.
-             */
-            headingFont?: ('display' | 'serif') | null;
-            /**
-             * Visual size of the heading. Does not change the HTML tag (always h2).
-             */
-            headingSize?: ('default' | 'large' | 'small') | null;
-            /**
-             * Supporting paragraph text below the heading.
-             */
-            body?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            /**
-             * Optional CTA button or text link below the body.
-             */
-            link?: {
-              label?: string | null;
-              href?: string | null;
-              style?: ('button' | 'link') | null;
-            };
-            /**
-             * Large hero screenshot for the split header layout.
-             */
-            headerImage?: (number | null) | Media;
-            /**
-             * How the header image is sized within its container.
-             */
-            headerImageFit?: ('cover' | 'contain' | 'square') | null;
-            /**
-             * Optional accordion details below the body text (split layouts only).
-             */
-            accordionItems?:
-              | {
-                  question: string;
-                  answer?: {
-                    root: {
-                      type: string;
-                      children: {
-                        type: any;
-                        version: number;
-                        [k: string]: unknown;
-                      }[];
-                      direction: ('ltr' | 'rtl') | null;
-                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                      indent: number;
-                      version: number;
-                    };
-                    [k: string]: unknown;
-                  } | null;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Number of gallery columns on desktop.
-             */
-            galleryColumns?: ('3' | '4') | null;
-            /**
-             * Aspect ratio for gallery item images.
-             */
-            galleryAspect?: ('landscape' | 'portrait' | 'square') | null;
-            /**
-             * Alignment of gallery items within the grid. "Right" leaves empty columns on the left when there are fewer items than columns.
-             */
-            galleryAlign?: ('left' | 'end') | null;
-            /**
-             * Border radius on gallery card images.
-             */
-            galleryImageRadius?: ('rounded' | 'sharp') | null;
-            /**
-             * Gallery container width. "Wide" uses a 1680px max-width with minimal padding.
-             */
-            galleryWidth?: ('default' | 'wide') | null;
-            /**
-             * Match the header width to the wide gallery container instead of the default container.
-             */
-            wideHeader?: boolean | null;
-            /**
-             * Gallery items. Each has a static image and an optional animated GIF that plays on hover.
-             */
-            galleryItems?:
-              | {
-                  /**
-                   * The default still image (PNG, JPG, or WebP).
-                   */
-                  staticImage: number | Media;
-                  /**
-                   * Optional animated version (GIF or WebM) shown on hover.
-                   */
-                  animatedImage?: (number | null) | Media;
-                  /**
-                   * Short caption underneath the image.
-                   */
-                  caption?: string | null;
-                  /**
-                   * Smaller description line below the caption.
-                   */
-                  subcaption?: string | null;
-                  /**
-                   * Per-card background override. Accepts any CSS variable (e.g. "var(--color-goldenrod-200)") or raw CSS color. Leave empty to inherit the section theme.
-                   */
-                  bgColor?: string | null;
-                  /**
-                   * Add padding around the image so the background color shows as a frame. Only visible when a background color is set.
-                   */
-                  frameImage?: boolean | null;
-                  /**
-                   * ID of a section to scroll to when this card is clicked (without #). Makes the card a link.
-                   */
-                  anchorTarget?: string | null;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Vertical padding for this section. "Extra" adds generous 160px top/bottom.
-             */
-            sectionPadding?: ('default' | 'extra') | null;
-            /**
-             * CSS color override for the section background (e.g. "var(--color-sandstone-200)"). Overrides bgStyle when set.
-             */
-            bgColorOverride?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'feature-showcase';
-          }
-        | {
-            /**
-             * HTML id for anchor links (e.g. "anatomy-of-a-prompt")
-             */
-            sectionId?: string | null;
-            /**
-             * Eyebrow label above the heading (e.g. "ANATOMY OF A PROMPT")
-             */
-            sectionLabel?: string | null;
-            /**
-             * Section headline, rendered in Termina.
-             */
-            heading?: string | null;
-            /**
-             * Optional supporting text, right-aligned on desktop (e.g. "A Sensemaking response, annotated to show where each conclusion originates.")
-             */
-            description?: string | null;
-            /**
-             * The advisor's question displayed in italic serif at the top of the response card.
-             */
-            promptText?: string | null;
-            /**
-             * Label in the response header bar (e.g. "RISK BREAKDOWN").
-             */
-            responseLabel?: string | null;
-            /**
-             * Right-side metadata in the response header (e.g. "5 sources referenced").
-             */
-            responseMetadata?: string | null;
-            /**
-             * Each item is a finding (shown in the central card) paired with its source annotation (shown in the margin). Items auto-alternate between left and right margins.
-             */
-            items?:
-              | {
-                  /**
-                   * Finding heading shown in the response card.
-                   */
-                  heading: string;
-                  /**
-                   * Finding body text.
-                   */
-                  body: string;
-                  /**
-                   * Short label for the margin annotation (e.g. "Fact Finding", "Uploaded Documents").
-                   */
-                  annotationLabel: string;
-                  /**
-                   * Longer explanation for the annotation source.
-                   */
-                  annotationDetail?: string | null;
-                  /**
-                   * Accent color for the connector line, dot, and annotation highlight.
-                   */
-                  color: 'moss' | 'goldenrod';
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Footer left text (e.g. "One question. Five conclusions. Six months of structured engagement data.")
-             */
-            footerLeft?: string | null;
-            /**
-             * Footer right text (e.g. "Sensemaking"), rendered in italic.
-             */
-            footerRight?: string | null;
-            /**
-             * CSS color override for the section background (e.g. "var(--color-sandstone-200)"). Overrides bgStyle when set.
-             */
-            bgColorOverride?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'prompt-anatomy';
-          }
+        | ContentSection
+        | CardGrid
+        | TestimonialBlock
+        | CtaSection
+        | CredibilityStrip
+        | FeatureDeepDive
+        | ComparisonTable
+        | TrustSecurity
+        | NumberedSteps
+        | SolutionsSelector
+        | FaqAccordion
+        | PricingJourney
+        | NewsletterCapture
+        | FormEmbed
+        | BeforeAfterPanel
+        | BridgeSection
+        | ProductFeatures
+        | SqueezeSection
+        | DilemmaSection
+        | AdvisorPersonas
+        | ValuesGrid
+        | FeatureShowcase
+        | PromptAnatomy
       )[]
     | null;
   meta?: {
@@ -1848,8 +617,147 @@ export interface Page {
      */
     image?: (number | null) | Media;
   };
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentSection".
+ */
+export interface ContentSection {
+  /**
+   * Default = standard layout. Split Heading = heading on left, body on right in a two-column grid.
+   */
+  layout?: ('default' | 'split-heading') | null;
+  /**
+   * Small eyebrow label above the heading (optional)
+   */
+  sectionLabel?: string | null;
+  heading?: string | null;
+  body?: LexicalRichText<LexicalNodes_C158EECA> | null;
+  media?: (number | null) | Media;
+  mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
+  link?: {
+    label?: string | null;
+    href?: string | null;
+    style?: ('button' | 'link') | null;
+  };
+  /**
+   * Small badge/tag to display near the heading
+   */
+  badge?: string | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content-section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardGrid".
+ */
+export interface CardGrid {
+  sectionLabel?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  variant?: ('feature' | 'icon' | 'minimal') | null;
+  columns?: ('2' | '3' | '4') | null;
+  cards?:
+    | {
+        heading: string;
+        body?: string | null;
+        /**
+         * Phosphor icon for this card. Overrides the uploaded icon image when set.
+         */
+        iconName?: string | null;
+        /**
+         * Fallback icon image (used if no Phosphor icon is selected above).
+         */
+        icon?: (number | null) | Media;
+        link?: {
+          label?: string | null;
+          href?: string | null;
+        };
+        /**
+         * ID of a section further down the page to link to (without #)
+         */
+        anchorTarget?: string | null;
+        /**
+         * Short capability bullets shown below the card description
+         */
+        capabilities?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'card-grid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlock".
+ */
+export interface TestimonialBlock {
+  sectionLabel?: string | null;
+  heading?: string | null;
+  layout?: ('single' | 'grid' | 'carousel') | null;
+  testimonials?: (number | Testimonial)[] | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonial-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1889,8 +797,127 @@ export interface Testimonial {
    * Tag by discipline to allow targeted display
    */
   disciplines?: (number | Discipline)[] | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaSection".
+ */
+export interface CtaSection {
+  headline?: string | null;
+  body?: string | null;
+  primaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  secondaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Small text below CTAs (e.g. "No credit card required")
+   */
+  closingLine?: string | null;
+  /**
+   * Trust signal near CTA (e.g. "Join 200+ advisors")
+   */
+  microcopy?: string | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  /**
+   * Optional full-width background image. Content overlays on top with a scrim for readability.
+   */
+  coverImage?: {
+    /**
+     * Lifestyle or background image. Displayed as object-fit: cover.
+     */
+    image?: (number | null) | Media;
+    /**
+     * Minimum height of the section when a cover image is active.
+     */
+    minHeight?: ('sm' | 'md' | 'lg') | null;
+    /**
+     * Vertical focal point of the image.
+     */
+    objectPosition?: ('top' | 'center' | 'bottom') | null;
+    /**
+     * Darkness of the scrim overlay for text readability.
+     */
+    overlayOpacity?: ('40' | '60' | '80') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta-section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CredibilityStrip".
+ */
+export interface CredibilityStrip {
+  variant?: ('logos' | 'stats' | 'combined' | 'text') | null;
+  /**
+   * Centered text statement. Shown when variant is "Text statement".
+   */
+  statement?: string | null;
+  /**
+   * Small label above logos (e.g. "Trusted by advisors certified through")
+   */
+  label?: string | null;
+  partners?: (number | Partner)[] | null;
+  /**
+   * Shown in "stats" and "combined" variants
+   */
+  stats?:
+    | {
+        /**
+         * e.g. "200+"
+         */
+        value: string;
+        /**
+         * e.g. "advisors onboarded"
+         */
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'credibility-strip';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1904,8 +931,251 @@ export interface Partner {
   url?: string | null;
   showOnHomepage?: boolean | null;
   sortOrder?: number | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureDeepDive".
+ */
+export interface FeatureDeepDive {
+  /**
+   * HTML id attribute for anchor links (e.g. "coverage")
+   */
+  sectionId?: string | null;
+  sectionLabel?: string | null;
+  /**
+   * Alternating text+visual rows
+   */
+  sections?:
+    | {
+        heading: string;
+        body?: LexicalRichText<LexicalNodes_C158EECA> | null;
+        visual?: (number | null) | Media;
+        visualAlt?: string | null;
+        /**
+         * Optional embedded testimonial
+         */
+        testimonial?: (number | null) | Testimonial;
+        link?: {
+          label?: string | null;
+          href?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'feature-deep-dive';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparisonTable".
+ */
+export interface ComparisonTable {
+  sectionLabel?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  /**
+   * 3 columns: Old Way / Patchwork / With ELLA
+   */
+  columns?:
+    | {
+        heading: string;
+        subheading?: string | null;
+        /**
+         * Visually emphasize this column (the "With ELLA" column)
+         */
+        highlighted?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  rows?:
+    | {
+        /**
+         * Row label (the feature or criterion)
+         */
+        label: string;
+        /**
+         * One value per column (in order)
+         */
+        values?:
+          | {
+              text?: string | null;
+              indicator?: ('text' | 'check' | 'cross' | 'partial') | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comparison-table';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrustSecurity".
+ */
+export interface TrustSecurity {
+  /**
+   * Wrap words in *asterisks* to render them in italic.
+   */
+  heading?: string | null;
+  intro?: LexicalRichText<LexicalNodes_C158EECA> | null;
+  /**
+   * Optional CTA button displayed below the intro text.
+   */
+  link?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Items displayed in a 2-column grid to the right of the heading.
+   */
+  sections?:
+    | {
+        title: string;
+        /**
+         * Short description (1-2 sentences).
+         */
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Decorative SVG pattern displayed as the section background.
+   */
+  patternSvg?: (number | null) | Media;
+  /**
+   * CSS color for the SVG pattern fill (e.g. "var(--color-moss-300)", "#5A6B4A"). Leave blank to use the theme border color.
+   */
+  patternColor?: string | null;
+  /**
+   * CSS color for the section/pattern background (e.g. "var(--color-sandstone-100)"). Leave blank to use the theme background.
+   */
+  backgroundColor?: string | null;
+  /**
+   * CSS color for the content panel (e.g. "var(--color-sandstone-50)"). Leave blank to use the theme background.
+   */
+  contentBackgroundColor?: string | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'trust-security';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NumberedSteps".
+ */
+export interface NumberedSteps {
+  sectionLabel?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  steps?:
+    | {
+        heading: string;
+        body?: string | null;
+        /**
+         * Screenshot or illustration for this step
+         */
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'numbered-steps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SolutionsSelector".
+ */
+export interface SolutionsSelector {
+  sectionLabel?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  solutions?: (number | Solution)[] | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'solutions-selector';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2015,298 +1285,7 @@ export interface Solution {
     heroWallpaperColor?: ('green' | 'blue' | 'purple' | 'brown' | 'sandstone' | 'ash') | null;
   };
   layout?:
-    | (
-        | {
-            /**
-             * Default = standard layout. Split Heading = heading on left, body on right in a two-column grid.
-             */
-            layout?: ('default' | 'split-heading') | null;
-            /**
-             * Small eyebrow label above the heading (optional)
-             */
-            sectionLabel?: string | null;
-            heading?: string | null;
-            body?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            media?: (number | null) | Media;
-            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
-            link?: {
-              label?: string | null;
-              href?: string | null;
-              style?: ('button' | 'link') | null;
-            };
-            /**
-             * Small badge/tag to display near the heading
-             */
-            badge?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content-section';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            variant?: ('feature' | 'icon' | 'minimal') | null;
-            columns?: ('2' | '3' | '4') | null;
-            cards?:
-              | {
-                  heading: string;
-                  body?: string | null;
-                  /**
-                   * Phosphor icon for this card. Overrides the uploaded icon image when set.
-                   */
-                  iconName?: string | null;
-                  /**
-                   * Fallback icon image (used if no Phosphor icon is selected above).
-                   */
-                  icon?: (number | null) | Media;
-                  link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
-                  /**
-                   * ID of a section further down the page to link to (without #)
-                   */
-                  anchorTarget?: string | null;
-                  /**
-                   * Short capability bullets shown below the card description
-                   */
-                  capabilities?:
-                    | {
-                        text: string;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'card-grid';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            layout?: ('single' | 'grid' | 'carousel') | null;
-            testimonials?: (number | Testimonial)[] | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'testimonial-block';
-          }
-        | {
-            headline?: string | null;
-            body?: string | null;
-            primaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            secondaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            /**
-             * Small text below CTAs (e.g. "No credit card required")
-             */
-            closingLine?: string | null;
-            /**
-             * Trust signal near CTA (e.g. "Join 200+ advisors")
-             */
-            microcopy?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            /**
-             * Optional full-width background image. Content overlays on top with a scrim for readability.
-             */
-            coverImage?: {
-              /**
-               * Lifestyle or background image. Displayed as object-fit: cover.
-               */
-              image?: (number | null) | Media;
-              /**
-               * Minimum height of the section when a cover image is active.
-               */
-              minHeight?: ('sm' | 'md' | 'lg') | null;
-              /**
-               * Vertical focal point of the image.
-               */
-              objectPosition?: ('top' | 'center' | 'bottom') | null;
-              /**
-               * Darkness of the scrim overlay for text readability.
-               */
-              overlayOpacity?: ('40' | '60' | '80') | null;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta-section';
-          }
-        | {
-            /**
-             * HTML id attribute for anchor links (e.g. "coverage")
-             */
-            sectionId?: string | null;
-            sectionLabel?: string | null;
-            /**
-             * Alternating text+visual rows
-             */
-            sections?:
-              | {
-                  heading: string;
-                  body?: {
-                    root: {
-                      type: string;
-                      children: {
-                        type: any;
-                        version: number;
-                        [k: string]: unknown;
-                      }[];
-                      direction: ('ltr' | 'rtl') | null;
-                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                      indent: number;
-                      version: number;
-                    };
-                    [k: string]: unknown;
-                  } | null;
-                  visual?: (number | null) | Media;
-                  visualAlt?: string | null;
-                  /**
-                   * Optional embedded testimonial
-                   */
-                  testimonial?: (number | null) | Testimonial;
-                  link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'feature-deep-dive';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            steps?:
-              | {
-                  heading: string;
-                  body?: string | null;
-                  /**
-                   * Screenshot or illustration for this step
-                   */
-                  image?: (number | null) | Media;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'numbered-steps';
-          }
-        | {
-            embedType?: ('typeform' | 'loops' | 'custom') | null;
-            formId?: string | null;
-            embedCode?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'form-embed';
-          }
-      )[]
+    | (ContentSection | CardGrid | TestimonialBlock | CtaSection | FeatureDeepDive | NumberedSteps | FormEmbed)[]
     | null;
   meta?: {
     /**
@@ -2322,8 +1301,60 @@ export interface Solution {
      */
     image?: (number | null) | Media;
   };
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormEmbed".
+ */
+export interface FormEmbed {
+  embedType?: ('typeform' | 'loops' | 'custom') | null;
+  formId?: string | null;
+  embedCode?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'form-embed';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqAccordion".
+ */
+export interface FaqAccordion {
+  heading?: string | null;
+  /**
+   * Only show FAQs from this category (leave blank for all)
+   */
+  filterByCategory?: ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security') | null;
+  /**
+   * Manually select FAQ items (overrides category filter)
+   */
+  items?: (number | FaqItem)[] | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq-accordion';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2332,29 +1363,57 @@ export interface Solution {
 export interface FaqItem {
   id: number;
   question: string;
-  answer: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  answer: LexicalRichText<LexicalNodes_C158EECA>;
   category?: ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security') | null;
   /**
    * Include in the FAQ section on the Pricing page
    */
   showOnPricing?: boolean | null;
   sortOrder?: number | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingJourney".
+ */
+export interface PricingJourney {
+  sectionLabel?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  /**
+   * Select pricing tiers in display order. Leave empty to show all tiers automatically.
+   */
+  tiers?: (number | PricingTier)[] | null;
+  /**
+   * Show monthly/annual billing toggle
+   */
+  showToggle?: boolean | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricing-journey';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2433,8 +1492,769 @@ export interface PricingTier {
    */
   highlighted?: boolean | null;
   sortOrder?: number | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterCapture".
+ */
+export interface NewsletterCapture {
+  heading?: string | null;
+  subheading?: string | null;
+  placeholder?: string | null;
+  buttonLabel?: string | null;
+  successMessage?: string | null;
+  /**
+   * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
+   */
+  microcopy?: string | null;
+  /**
+   * Resend segments to add subscribers to. Copy segment IDs from Resend → Audiences → Segments.
+   */
+  segmentIds?:
+    | {
+        /**
+         * Internal label for your reference
+         */
+        label?: string | null;
+        segmentId: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Source tag sent to Resend as a contact property (e.g. "pricing-page-cta")
+   */
+  source?: string | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsletter-capture';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BeforeAfterPanel".
+ */
+export interface BeforeAfterPanel {
+  /**
+   * Eyebrow label above heading, e.g. "The ELLA Difference"
+   */
+  sectionLabel?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  /**
+   * The "before" state — life without ELLA
+   */
+  before?: {
+    /**
+     * Tab/panel label
+     */
+    label?: string | null;
+    image?: (number | null) | Media;
+    caption?: string | null;
+    /**
+     * Pain points / friction items
+     */
+    points?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * The "after" state — life with ELLA
+   */
+  after?: {
+    /**
+     * Tab/panel label
+     */
+    label?: string | null;
+    image?: (number | null) | Media;
+    caption?: string | null;
+    /**
+     * Benefits / improvements
+     */
+    points?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'before-after-panel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BridgeSection".
+ */
+export interface BridgeSection {
+  /**
+   * Optional eyebrow label above the heading.
+   */
+  label?: string | null;
+  /**
+   * Section headline.
+   */
+  heading?: string | null;
+  /**
+   * Font style for the heading.
+   */
+  headingStyle?: ('display' | 'serif') | null;
+  /**
+   * Body = standard DM Sans body text. Feature = larger serif text.
+   */
+  bodyStyle?: ('body' | 'feature') | null;
+  /**
+   * Body copy — 2–4 paragraphs.
+   */
+  body?: LexicalRichText<LexicalNodes_C158EECA> | null;
+  /**
+   * Stacked blockquotes. Rendered in Instrument Serif.
+   */
+  quotes?:
+    | {
+        text: string;
+        /**
+         * e.g. "Advisor, on what they need from technology"
+         */
+        attribution?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Standalone closing line after the quotes. DM Sans medium weight.
+   */
+  closer?: string | null;
+  /**
+   * Optional trailing link below the content.
+   */
+  link?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  /**
+   * Optional full-width background image. Content overlays on top with a scrim for readability.
+   */
+  coverImage?: {
+    /**
+     * Lifestyle or background image. Displayed as object-fit: cover.
+     */
+    image?: (number | null) | Media;
+    /**
+     * Minimum height of the section when a cover image is active.
+     */
+    minHeight?: ('sm' | 'md' | 'lg') | null;
+    /**
+     * Vertical focal point of the image.
+     */
+    objectPosition?: ('top' | 'center' | 'bottom') | null;
+    /**
+     * Darkness of the scrim overlay for text readability.
+     */
+    overlayOpacity?: ('40' | '60' | '80') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bridge-section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductFeatures".
+ */
+export interface ProductFeatures {
+  /**
+   * Optional eyebrow label above the heading
+   */
+  sectionLabel?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  /**
+   * 2–4 feature tiers. Each item drives one scroll panel.
+   */
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        screenshot: number | Media;
+        /**
+         * Contain: image shown in full. Crop: image fills the frame and may clip. Square: forced 1:1 with cropping.
+         */
+        screenshotFit?: ('contain' | 'crop' | 'square') | null;
+        /**
+         * Focal point for cropping. Only applies when fit is Crop or Square.
+         */
+        screenshotPosition?:
+          | ('center' | 'top' | 'bottom' | 'left' | 'right' | 'top left' | 'top right' | 'bottom left' | 'bottom right')
+          | null;
+        /**
+         * Short capability labels shown as pill badges (max 3)
+         */
+        badges?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Show the bottom border line on this section.
+   */
+  showBottomBorder?: boolean | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'product-features';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SqueezeSection".
+ */
+export interface SqueezeSection {
+  /**
+   * Eyebrow text above the heading, e.g. "The Problem"
+   */
+  label?: string | null;
+  /**
+   * Section headline. Rendered in Instrument Serif.
+   */
+  heading: string;
+  /**
+   * Body copy — each paragraph becomes a separate animated content block.
+   */
+  body?: LexicalRichText<LexicalNodes_C158EECA> | null;
+  /**
+   * Blockquotes rendered in Instrument Serif.
+   */
+  quotes?:
+    | {
+        text: string;
+        /**
+         * e.g. "Exit planning advisor, 20+ years experience"
+         */
+        attribution?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Standalone closing line after the content blocks.
+   */
+  closer?: string | null;
+  /**
+   * Left-wall "Growing Pressure" labels. Shown on desktop walls and mobile inline callouts.
+   */
+  pressureItems?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Right-wall "Eroding Advantage" labels. Shown on desktop walls and mobile inline callouts.
+   */
+  erosionItems?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'squeeze-section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DilemmaSection".
+ */
+export interface DilemmaSection {
+  /**
+   * Eyebrow text above the heading, e.g. "The Advisor's Dilemma"
+   */
+  label?: string | null;
+  /**
+   * Main heading, e.g. "Rigid or improvised."
+   */
+  heading: string;
+  /**
+   * Secondary heading line rendered in a lighter color, e.g. "Those aren't the only options."
+   */
+  headingAccent?: string | null;
+  /**
+   * Intro paragraph below the heading.
+   */
+  body?: string | null;
+  /**
+   * First line of the transition copy between the visualization and table, e.g. "What if your tools were built for advisory work —"
+   */
+  transitionLine1?: string | null;
+  /**
+   * Second line of the transition copy (rendered in moss/green), e.g. "and adapted to your methodology, not the other way around?"
+   */
+  transitionLine2?: string | null;
+  /**
+   * Italic subtitles under the four comparison-table column headers (desktop layout). Leave empty to use built-in defaults.
+   */
+  columnSubtitles?: {
+    /**
+     * "The Old Way" subtitle, e.g. "Manual, memory-based"
+     */
+    old?: string | null;
+    /**
+     * "The Rigid Platform" subtitle, e.g. "Their process, not yours"
+     */
+    rigid?: string | null;
+    /**
+     * "Consumer AI" subtitle, e.g. "Powerful, unprotected"
+     */
+    patch?: string | null;
+    /**
+     * "With ELLA" subtitle, e.g. "Your methodology, systematized"
+     */
+    ella?: string | null;
+  };
+  /**
+   * Final line below the table once every row resolves, e.g. "Hours to the first real conversation. Not weeks."
+   */
+  closer?: string | null;
+  /**
+   * Comparison table rows. Leave empty to use built-in defaults.
+   */
+  tableData?:
+    | {
+        dim: string;
+        old: string;
+        rigid: string;
+        patch: string;
+        ella: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Rigid platform steps. Leave empty to use built-in defaults.
+   */
+  steps?:
+    | {
+        label: string;
+        sub: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'dilemma-section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AdvisorPersonas".
+ */
+export interface AdvisorPersonas {
+  /**
+   * Eyebrow label above the heading (e.g. "Built for your practice")
+   */
+  sectionLabel?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  /**
+   * Full-height image for the left column. Use a portrait-oriented photo.
+   */
+  image: number | Media;
+  /**
+   * Optional quote overlaid on the lower portion of the image with a dark gradient. Leave all fields empty to show the image clean.
+   */
+  imageQuote?: {
+    /**
+     * Small label above the quote (e.g. "From the field")
+     */
+    label?: string | null;
+    /**
+     * The quote text
+     */
+    text?: string | null;
+    /**
+     * Attribution line (e.g. "CEPA, 12 years in practice")
+     */
+    attribution?: string | null;
+  };
+  /**
+   * Advisor persona cards. Each card describes a type of advisor and their ELLA outcome.
+   */
+  personas?:
+    | {
+        /**
+         * Short uppercase category label shown in the header bar (e.g. "GROWING PRACTICES", "DEAL WORK"). Optional.
+         */
+        label?: string | null;
+        /**
+         * The persona identifier (e.g. "The CEPA with 40 clients and one associate")
+         */
+        title: string;
+        /**
+         * The pain or context paragraph for this advisor type
+         */
+        description: string;
+        /**
+         * The "With ELLA:" resolution — what changes for this advisor
+         */
+        withElla: string;
+        /**
+         * Phosphor icon for this card. Overrides the uploaded icon image when set.
+         */
+        iconName?: string | null;
+        /**
+         * Fallback icon image (used if no Phosphor icon is selected above). SVG recommended.
+         */
+        icon?: (number | null) | Media;
+        /**
+         * Icon background tint color. Defaults to forest green.
+         */
+        accentColor?: ('forest' | 'moss' | 'goldenrod' | 'ocean' | 'coral' | 'emerald') | null;
+        id?: string | null;
+      }[]
+    | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'advisor-personas';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ValuesGrid".
+ */
+export interface ValuesGrid {
+  /**
+   * Floating title displayed above the bordered container.
+   */
+  heading?: string | null;
+  /**
+   * Short paragraph below the heading, inside the container.
+   */
+  description?: string | null;
+  items?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'values-grid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureShowcase".
+ */
+export interface FeatureShowcase {
+  /**
+   * HTML id for anchor links (e.g. "portfolio-analytics")
+   */
+  sectionId?: string | null;
+  /**
+   * Layout for the header area. Text-only spans full width. Split layouts pair text with a hero image.
+   */
+  headerLayout?: ('text-only' | 'text-left' | 'text-left-even' | 'image-left' | 'eyebrow-left') | null;
+  /**
+   * Text alignment within the text column (text-only layout)
+   */
+  textAlign?: ('left' | 'center' | 'right') | null;
+  /**
+   * Eyebrow label above the heading (e.g. "Portfolio Analytics")
+   */
+  sectionLabel?: string | null;
+  heading?: string | null;
+  /**
+   * Font family for the heading.
+   */
+  headingFont?: ('display' | 'serif') | null;
+  /**
+   * Visual size of the heading. Does not change the HTML tag (always h2).
+   */
+  headingSize?: ('default' | 'large' | 'small') | null;
+  /**
+   * Supporting paragraph text below the heading.
+   */
+  body?: LexicalRichText<LexicalNodes_C158EECA> | null;
+  /**
+   * Optional CTA button or text link below the body.
+   */
+  link?: {
+    label?: string | null;
+    href?: string | null;
+    style?: ('button' | 'link') | null;
+  };
+  /**
+   * Large hero screenshot for the split header layout.
+   */
+  headerImage?: (number | null) | Media;
+  /**
+   * How the header image is sized within its container.
+   */
+  headerImageFit?: ('cover' | 'contain' | 'square') | null;
+  /**
+   * Optional accordion details below the body text (split layouts only).
+   */
+  accordionItems?:
+    | {
+        question: string;
+        answer?: LexicalRichText<LexicalNodes_C158EECA> | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Number of gallery columns on desktop.
+   */
+  galleryColumns?: ('3' | '4') | null;
+  /**
+   * Aspect ratio for gallery item images.
+   */
+  galleryAspect?: ('landscape' | 'portrait' | 'square') | null;
+  /**
+   * Alignment of gallery items within the grid. "Right" leaves empty columns on the left when there are fewer items than columns.
+   */
+  galleryAlign?: ('left' | 'end') | null;
+  /**
+   * Border radius on gallery card images.
+   */
+  galleryImageRadius?: ('rounded' | 'sharp') | null;
+  /**
+   * Gallery container width. "Wide" uses a 1680px max-width with minimal padding.
+   */
+  galleryWidth?: ('default' | 'wide') | null;
+  /**
+   * Match the header width to the wide gallery container instead of the default container.
+   */
+  wideHeader?: boolean | null;
+  /**
+   * Gallery items. Each has a static image and an optional animated GIF that plays on hover.
+   */
+  galleryItems?:
+    | {
+        /**
+         * The default still image (PNG, JPG, or WebP).
+         */
+        staticImage: number | Media;
+        /**
+         * Optional animated version (GIF or WebM) shown on hover.
+         */
+        animatedImage?: (number | null) | Media;
+        /**
+         * Short caption underneath the image.
+         */
+        caption?: string | null;
+        /**
+         * Smaller description line below the caption.
+         */
+        subcaption?: string | null;
+        /**
+         * Per-card background override. Accepts any CSS variable (e.g. "var(--color-goldenrod-200)") or raw CSS color. Leave empty to inherit the section theme.
+         */
+        bgColor?: string | null;
+        /**
+         * Add padding around the image so the background color shows as a frame. Only visible when a background color is set.
+         */
+        frameImage?: boolean | null;
+        /**
+         * ID of a section to scroll to when this card is clicked (without #). Makes the card a link.
+         */
+        anchorTarget?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Vertical padding for this section. "Extra" adds generous 160px top/bottom.
+   */
+  sectionPadding?: ('default' | 'extra') | null;
+  /**
+   * CSS color override for the section background (e.g. "var(--color-sandstone-200)"). Overrides bgStyle when set.
+   */
+  bgColorOverride?: string | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'feature-showcase';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromptAnatomy".
+ */
+export interface PromptAnatomy {
+  /**
+   * HTML id for anchor links (e.g. "anatomy-of-a-prompt")
+   */
+  sectionId?: string | null;
+  /**
+   * Eyebrow label above the heading (e.g. "ANATOMY OF A PROMPT")
+   */
+  sectionLabel?: string | null;
+  /**
+   * Section headline, rendered in Termina.
+   */
+  heading?: string | null;
+  /**
+   * Optional supporting text, right-aligned on desktop (e.g. "A Sensemaking response, annotated to show where each conclusion originates.")
+   */
+  description?: string | null;
+  /**
+   * The advisor's question displayed in italic serif at the top of the response card.
+   */
+  promptText?: string | null;
+  /**
+   * Label in the response header bar (e.g. "RISK BREAKDOWN").
+   */
+  responseLabel?: string | null;
+  /**
+   * Right-side metadata in the response header (e.g. "5 sources referenced").
+   */
+  responseMetadata?: string | null;
+  /**
+   * Each item is a finding (shown in the central card) paired with its source annotation (shown in the margin). Items auto-alternate between left and right margins.
+   */
+  items?:
+    | {
+        /**
+         * Finding heading shown in the response card.
+         */
+        heading: string;
+        /**
+         * Finding body text.
+         */
+        body: string;
+        /**
+         * Short label for the margin annotation (e.g. "Fact Finding", "Uploaded Documents").
+         */
+        annotationLabel: string;
+        /**
+         * Longer explanation for the annotation source.
+         */
+        annotationDetail?: string | null;
+        /**
+         * Accent color for the connector line, dot, and annotation highlight.
+         */
+        color: 'moss' | 'goldenrod';
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Footer left text (e.g. "One question. Five conclusions. Six months of structured engagement data.")
+   */
+  footerLeft?: string | null;
+  /**
+   * Footer right text (e.g. "Sensemaking"), rendered in italic.
+   */
+  footerRight?: string | null;
+  /**
+   * CSS color override for the section background (e.g. "var(--color-sandstone-200)"). Overrides bgStyle when set.
+   */
+  bgColorOverride?: string | null;
+  bgStyle?:
+    | (
+        | 'sandstone'
+        | 'white'
+        | 'mint'
+        | 'goldenrod'
+        | 'forest'
+        | 'tannery'
+        | 'leather'
+        | 'ocean'
+        | 'ash'
+        | 'brand-black'
+      )
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'prompt-anatomy';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2540,513 +2360,18 @@ export interface LandingPage {
   };
   layout?:
     | (
-        | {
-            /**
-             * Default = standard layout. Split Heading = heading on left, body on right in a two-column grid.
-             */
-            layout?: ('default' | 'split-heading') | null;
-            /**
-             * Small eyebrow label above the heading (optional)
-             */
-            sectionLabel?: string | null;
-            heading?: string | null;
-            body?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            media?: (number | null) | Media;
-            mediaPosition?: ('right' | 'left' | 'top' | 'none') | null;
-            link?: {
-              label?: string | null;
-              href?: string | null;
-              style?: ('button' | 'link') | null;
-            };
-            /**
-             * Small badge/tag to display near the heading
-             */
-            badge?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content-section';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            variant?: ('feature' | 'icon' | 'minimal') | null;
-            columns?: ('2' | '3' | '4') | null;
-            cards?:
-              | {
-                  heading: string;
-                  body?: string | null;
-                  /**
-                   * Phosphor icon for this card. Overrides the uploaded icon image when set.
-                   */
-                  iconName?: string | null;
-                  /**
-                   * Fallback icon image (used if no Phosphor icon is selected above).
-                   */
-                  icon?: (number | null) | Media;
-                  link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
-                  /**
-                   * ID of a section further down the page to link to (without #)
-                   */
-                  anchorTarget?: string | null;
-                  /**
-                   * Short capability bullets shown below the card description
-                   */
-                  capabilities?:
-                    | {
-                        text: string;
-                        id?: string | null;
-                      }[]
-                    | null;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'card-grid';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            layout?: ('single' | 'grid' | 'carousel') | null;
-            testimonials?: (number | Testimonial)[] | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'testimonial-block';
-          }
-        | {
-            headline?: string | null;
-            body?: string | null;
-            primaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            secondaryCta?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            /**
-             * Small text below CTAs (e.g. "No credit card required")
-             */
-            closingLine?: string | null;
-            /**
-             * Trust signal near CTA (e.g. "Join 200+ advisors")
-             */
-            microcopy?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            /**
-             * Optional full-width background image. Content overlays on top with a scrim for readability.
-             */
-            coverImage?: {
-              /**
-               * Lifestyle or background image. Displayed as object-fit: cover.
-               */
-              image?: (number | null) | Media;
-              /**
-               * Minimum height of the section when a cover image is active.
-               */
-              minHeight?: ('sm' | 'md' | 'lg') | null;
-              /**
-               * Vertical focal point of the image.
-               */
-              objectPosition?: ('top' | 'center' | 'bottom') | null;
-              /**
-               * Darkness of the scrim overlay for text readability.
-               */
-              overlayOpacity?: ('40' | '60' | '80') | null;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta-section';
-          }
-        | {
-            variant?: ('logos' | 'stats' | 'combined' | 'text') | null;
-            /**
-             * Centered text statement. Shown when variant is "Text statement".
-             */
-            statement?: string | null;
-            /**
-             * Small label above logos (e.g. "Trusted by advisors certified through")
-             */
-            label?: string | null;
-            partners?: (number | Partner)[] | null;
-            /**
-             * Shown in "stats" and "combined" variants
-             */
-            stats?:
-              | {
-                  /**
-                   * e.g. "200+"
-                   */
-                  value: string;
-                  /**
-                   * e.g. "advisors onboarded"
-                   */
-                  label: string;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'credibility-strip';
-          }
-        | {
-            /**
-             * HTML id attribute for anchor links (e.g. "coverage")
-             */
-            sectionId?: string | null;
-            sectionLabel?: string | null;
-            /**
-             * Alternating text+visual rows
-             */
-            sections?:
-              | {
-                  heading: string;
-                  body?: {
-                    root: {
-                      type: string;
-                      children: {
-                        type: any;
-                        version: number;
-                        [k: string]: unknown;
-                      }[];
-                      direction: ('ltr' | 'rtl') | null;
-                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                      indent: number;
-                      version: number;
-                    };
-                    [k: string]: unknown;
-                  } | null;
-                  visual?: (number | null) | Media;
-                  visualAlt?: string | null;
-                  /**
-                   * Optional embedded testimonial
-                   */
-                  testimonial?: (number | null) | Testimonial;
-                  link?: {
-                    label?: string | null;
-                    href?: string | null;
-                  };
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'feature-deep-dive';
-          }
-        | {
-            /**
-             * Wrap words in *asterisks* to render them in italic.
-             */
-            heading?: string | null;
-            intro?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            /**
-             * Optional CTA button displayed below the intro text.
-             */
-            link?: {
-              label?: string | null;
-              href?: string | null;
-            };
-            /**
-             * Items displayed in a 2-column grid to the right of the heading.
-             */
-            sections?:
-              | {
-                  title: string;
-                  /**
-                   * Short description (1-2 sentences).
-                   */
-                  body?: string | null;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Decorative SVG pattern displayed as the section background.
-             */
-            patternSvg?: (number | null) | Media;
-            /**
-             * CSS color for the SVG pattern fill (e.g. "var(--color-moss-300)", "#5A6B4A"). Leave blank to use the theme border color.
-             */
-            patternColor?: string | null;
-            /**
-             * CSS color for the section/pattern background (e.g. "var(--color-sandstone-100)"). Leave blank to use the theme background.
-             */
-            backgroundColor?: string | null;
-            /**
-             * CSS color for the content panel (e.g. "var(--color-sandstone-50)"). Leave blank to use the theme background.
-             */
-            contentBackgroundColor?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'trust-security';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            steps?:
-              | {
-                  heading: string;
-                  body?: string | null;
-                  /**
-                   * Screenshot or illustration for this step
-                   */
-                  image?: (number | null) | Media;
-                  id?: string | null;
-                }[]
-              | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'numbered-steps';
-          }
-        | {
-            sectionLabel?: string | null;
-            heading?: string | null;
-            subheading?: string | null;
-            solutions?: (number | Solution)[] | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'solutions-selector';
-          }
-        | {
-            heading?: string | null;
-            /**
-             * Only show FAQs from this category (leave blank for all)
-             */
-            filterByCategory?:
-              | ('general' | 'pricing' | 'platform' | 'exit-planning' | 'onboarding' | 'security')
-              | null;
-            /**
-             * Manually select FAQ items (overrides category filter)
-             */
-            items?: (number | FaqItem)[] | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'faq-accordion';
-          }
-        | {
-            heading?: string | null;
-            subheading?: string | null;
-            placeholder?: string | null;
-            buttonLabel?: string | null;
-            successMessage?: string | null;
-            /**
-             * Small trust text below form (e.g. "No spam. Unsubscribe anytime.")
-             */
-            microcopy?: string | null;
-            /**
-             * Resend segments to add subscribers to. Copy segment IDs from Resend → Audiences → Segments.
-             */
-            segmentIds?:
-              | {
-                  /**
-                   * Internal label for your reference
-                   */
-                  label?: string | null;
-                  segmentId: string;
-                  id?: string | null;
-                }[]
-              | null;
-            /**
-             * Source tag sent to Resend as a contact property (e.g. "pricing-page-cta")
-             */
-            source?: string | null;
-            bgStyle?:
-              | (
-                  | 'sandstone'
-                  | 'white'
-                  | 'mint'
-                  | 'goldenrod'
-                  | 'forest'
-                  | 'tannery'
-                  | 'leather'
-                  | 'ocean'
-                  | 'ash'
-                  | 'brand-black'
-                )
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'newsletter-capture';
-          }
-        | {
-            embedType?: ('typeform' | 'loops' | 'custom') | null;
-            formId?: string | null;
-            embedCode?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'form-embed';
-          }
+        | ContentSection
+        | CardGrid
+        | TestimonialBlock
+        | CtaSection
+        | CredibilityStrip
+        | FeatureDeepDive
+        | TrustSecurity
+        | NumberedSteps
+        | SolutionsSelector
+        | FaqAccordion
+        | NewsletterCapture
+        | FormEmbed
       )[]
     | null;
   meta?: {
@@ -3063,6 +2388,14 @@ export interface LandingPage {
      */
     image?: (number | null) | Media;
   };
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3093,6 +2426,14 @@ export interface Tool {
    * Fallback icon image (used if no Phosphor icon is selected above).
    */
   icon?: (number | null) | Media;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3116,6 +2457,14 @@ export interface Redirect {
    */
   sourceDomain?: ('withella' | 'exitwithella') | null;
   active?: boolean | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3144,21 +2493,7 @@ export interface CaseStudy {
   /**
    * Full case study narrative
    */
-  body?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  body?: LexicalRichText<LexicalNodes_C158EECA> | null;
   /**
    * Anonymous client descriptor — no identifying information
    */
@@ -3198,6 +2533,14 @@ export interface CaseStudy {
    */
   approved?: boolean | null;
   coverImage?: (number | null) | Media;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3239,179 +2582,16 @@ export interface VanguardEvent {
    * Restrict registration to Vanguard tier members
    */
   vanguardOnly?: boolean | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * API keys control which collections, resources, tools, and prompts MCP clients can access
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-mcp-api-keys".
- */
-export interface PayloadMcpApiKey {
-  id: number;
-  /**
-   * The user that the API key is associated with.
-   */
-  user: number | User;
-  /**
-   * A useful label for the API key.
-   */
-  label?: string | null;
-  /**
-   * The purpose of the API key.
-   */
-  description?: string | null;
-  posts?: {
-    /**
-     * Allow clients to find posts.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create posts.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update posts.
-     */
-    update?: boolean | null;
-    /**
-     * Allow clients to delete posts.
-     */
-    delete?: boolean | null;
-  };
-  pages?: {
-    /**
-     * Allow clients to find pages.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create pages.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update pages.
-     */
-    update?: boolean | null;
-    /**
-     * Allow clients to delete pages.
-     */
-    delete?: boolean | null;
-  };
-  landingPages?: {
-    /**
-     * Allow clients to find landing-pages.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create landing-pages.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update landing-pages.
-     */
-    update?: boolean | null;
-    /**
-     * Allow clients to delete landing-pages.
-     */
-    delete?: boolean | null;
-  };
-  teamMembers?: {
-    /**
-     * Allow clients to find team-members.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create team-members.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update team-members.
-     */
-    update?: boolean | null;
-    /**
-     * Allow clients to delete team-members.
-     */
-    delete?: boolean | null;
-  };
-  categories?: {
-    /**
-     * Allow clients to find categories.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create categories.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update categories.
-     */
-    update?: boolean | null;
-    /**
-     * Allow clients to delete categories.
-     */
-    delete?: boolean | null;
-  };
-  solutions?: {
-    /**
-     * Allow clients to find solutions.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create solutions.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update solutions.
-     */
-    update?: boolean | null;
-    /**
-     * Allow clients to delete solutions.
-     */
-    delete?: boolean | null;
-  };
-  testimonials?: {
-    /**
-     * Allow clients to find testimonials.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create testimonials.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update testimonials.
-     */
-    update?: boolean | null;
-    /**
-     * Allow clients to delete testimonials.
-     */
-    delete?: boolean | null;
-  };
-  pricingTiers?: {
-    /**
-     * Allow clients to find pricing-tiers.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create pricing-tiers.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update pricing-tiers.
-     */
-    update?: boolean | null;
-    /**
-     * Allow clients to delete pricing-tiers.
-     */
-    delete?: boolean | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-  enableAPIKey?: boolean | null;
-  apiKey?: string | null;
-  apiKeyIndex?: string | null;
-  collection: 'payload-mcp-api-keys';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3504,21 +2684,12 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'vanguard-events';
         value: number | VanguardEvent;
-      } | null)
-    | ({
-        relationTo: 'payload-mcp-api-keys';
-        value: number | PayloadMcpApiKey;
       } | null);
   globalSlug?: string | null;
-  user:
-    | {
-        relationTo: 'users';
-        value: number | User;
-      }
-    | {
-        relationTo: 'payload-mcp-api-keys';
-        value: number | PayloadMcpApiKey;
-      };
+  user: {
+    relationTo: 'users';
+    value: number | User;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -3528,15 +2699,10 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user:
-    | {
-        relationTo: 'users';
-        value: number | User;
-      }
-    | {
-        relationTo: 'payload-mcp-api-keys';
-        value: number | PayloadMcpApiKey;
-      };
+  user: {
+    relationTo: 'users';
+    value: number | User;
+  };
   key?: string | null;
   value?:
     | {
@@ -3563,17 +2729,45 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-llm-instructions".
+ */
+export interface PayloadLlmInstruction {
+  id: string;
+  entitySlug: string;
+  title?: string | null;
+  entityType: 'collection' | 'global';
+  additionalInstructions?: LexicalRichText<LexicalNodes_3DE324E4> | null;
+  systemInstructions?: LexicalRichText<LexicalNodes_3DE324E4> | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
   clerkId?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
+  apiKey?: T;
+  apiKeyLast4?: T;
+  apiKeyIndex?: T;
   email?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -3593,6 +2787,10 @@ export interface MediaSelect<T extends boolean = true> {
   caption?: T;
   credit?: T;
   category?: T;
+  prefix?: T;
+  _objectKey?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -3602,6 +2800,18 @@ export interface MediaSelect<T extends boolean = true> {
   filesize?: T;
   width?: T;
   height?: T;
+  original?:
+    | T
+    | {
+        filename?: T;
+        url?: T;
+        mimeType?: T;
+        filesize?: T;
+        width?: T;
+        height?: T;
+        prefix?: T;
+        _objectKey?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3629,6 +2839,8 @@ export interface PostsSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4268,6 +3480,8 @@ export interface PagesSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4567,6 +3781,8 @@ export interface LandingPagesSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4581,6 +3797,8 @@ export interface CategoriesSelect<T extends boolean = true> {
   description?: T;
   pathPrefix?: T;
   sortOrder?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4593,6 +3811,8 @@ export interface DisciplinesSelect<T extends boolean = true> {
   slug?: T;
   description?: T;
   sortOrder?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4610,6 +3830,8 @@ export interface TeamMembersSelect<T extends boolean = true> {
   linkedIn?: T;
   twitter?: T;
   sortOrder?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4631,6 +3853,8 @@ export interface TestimonialsSelect<T extends boolean = true> {
       };
   approved?: T;
   disciplines?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4645,6 +3869,8 @@ export interface PartnersSelect<T extends boolean = true> {
   url?: T;
   showOnHomepage?: T;
   sortOrder?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4658,6 +3884,8 @@ export interface FaqItemsSelect<T extends boolean = true> {
   category?: T;
   showOnPricing?: T;
   sortOrder?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4699,6 +3927,8 @@ export interface PricingTiersSelect<T extends boolean = true> {
       };
   highlighted?: T;
   sortOrder?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4716,6 +3946,8 @@ export interface ToolsSelect<T extends boolean = true> {
   status?: T;
   iconName?: T;
   icon?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4729,6 +3961,8 @@ export interface RedirectsSelect<T extends boolean = true> {
   type?: T;
   sourceDomain?: T;
   active?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4944,6 +4178,8 @@ export interface SolutionsSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4974,6 +4210,8 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   featured?: T;
   approved?: T;
   coverImage?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4998,86 +4236,10 @@ export interface VanguardEventsSelect<T extends boolean = true> {
   capacity?: T;
   status?: T;
   vanguardOnly?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-mcp-api-keys_select".
- */
-export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
-  user?: T;
-  label?: T;
-  description?: T;
-  posts?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
-  pages?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
-  landingPages?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
-  teamMembers?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
-  categories?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
-  solutions?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
-  testimonials?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
-  pricingTiers?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-        delete?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  enableAPIKey?: T;
-  apiKey?: T;
-  apiKeyIndex?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5121,6 +4283,22 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-llm-instructions_select".
+ */
+export interface PayloadLlmInstructionsSelect<T extends boolean = true> {
+  id?: T;
+  entitySlug?: T;
+  title?: T;
+  entityType?: T;
+  additionalInstructions?: T;
+  systemInstructions?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
  */
 export interface SiteSetting {
@@ -5149,21 +4327,7 @@ export interface SiteSetting {
   /**
    * Credits & attribution. One source, two renderings: the HTML page at /credits (clickable links) and plaintext at /humans.txt. Keep required attributions (e.g. Logo.dev, licensed fonts) as real links.
    */
-  creditsBody?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  creditsBody?: LexicalRichText<LexicalNodes_C158EECA> | null;
   /**
    * Resend configuration for the newsletter CTA in the blog sidebar (copy is hardcoded)
    */
@@ -5233,6 +4397,14 @@ export interface SiteSetting {
         }[]
       | null;
   };
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5280,6 +4452,14 @@ export interface Navigation {
     label?: string | null;
     href?: string | null;
   };
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5462,6 +4642,14 @@ export interface Footer {
      */
     embedHtml?: string | null;
   };
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5557,6 +4745,14 @@ export interface PricingPage {
    * Small text below the CTA buttons
    */
   closerFootnote?: string | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5583,6 +4779,14 @@ export interface ScriptInjection {
         id?: string | null;
       }[]
     | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: number | User;
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5649,6 +4853,8 @@ export interface SiteSettingsSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -5693,6 +4899,8 @@ export interface NavigationSelect<T extends boolean = true> {
         label?: T;
         href?: T;
       };
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -5778,6 +4986,8 @@ export interface FooterSelect<T extends boolean = true> {
         enabled?: T;
         embedHtml?: T;
       };
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -5845,6 +5055,8 @@ export interface PricingPageSelect<T extends boolean = true> {
         href?: T;
       };
   closerFootnote?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -5863,9 +5075,21 @@ export interface ScriptInjectionSelect<T extends boolean = true> {
         code?: T;
         id?: T;
       };
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "welcome_widget".
+ */
+export interface WelcomeWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5879,10 +5103,232 @@ export interface CollectionsWidget {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collection-query_widget".
+ */
+export interface CollectionQueryWidget {
+  data?: {
+    title?: string | null;
+    relatedCollection:
+      | 'users'
+      | 'media'
+      | 'posts'
+      | 'pages'
+      | 'landing-pages'
+      | 'categories'
+      | 'disciplines'
+      | 'team-members'
+      | 'testimonials'
+      | 'partners'
+      | 'faq-items'
+      | 'pricing-tiers'
+      | 'tools'
+      | 'redirects'
+      | 'solutions'
+      | 'case-studies'
+      | 'vanguard-events';
+    where?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    sortField?: string | null;
+    sortDirection?: ('asc' | 'desc') | null;
+    limit?: number | null;
+  };
+  width: 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activity_widget".
+ */
+export interface ActivityWidget {
+  data?: {
+    excludedCollections?:
+      | (
+          | 'users'
+          | 'media'
+          | 'posts'
+          | 'pages'
+          | 'landing-pages'
+          | 'categories'
+          | 'disciplines'
+          | 'team-members'
+          | 'testimonials'
+          | 'partners'
+          | 'faq-items'
+          | 'pricing-tiers'
+          | 'tools'
+          | 'redirects'
+          | 'solutions'
+          | 'case-studies'
+          | 'vanguard-events'
+        )[]
+      | null;
+  };
+  width: 'small' | 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "upload-dropzone_widget".
+ */
+export interface UploadDropzoneWidget {
+  data?: {
+    excludedCollections?: 'media'[] | null;
+  };
+  width: 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
   [k: string]: unknown;
+}
+
+/** @internal Core Lexical types — see @payloadcms/richtext-lexical. */
+export type LexicalElementFormat = 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+export type LexicalElementDirection = ('ltr' | 'rtl') | null;
+
+export interface SerializedLexicalElementBase<TChildren> {
+  children: TChildren[];
+  direction: LexicalElementDirection;
+  format: LexicalElementFormat;
+  indent: number;
+  textFormat?: number;
+  textStyle?: string;
+  /** @deprecated Ignored when loading. Typed as required only to match Lexical's types: rich text sent through the API, CLI or MCP may not contain it. */
+  version: number;
+}
+
+export type LexicalTextMode = 'normal' | 'token' | 'segmented';
+
+export interface SerializedTextNode {
+  type: 'text';
+  detail: number;
+  format: number;
+  mode: LexicalTextMode;
+  style: string;
+  text: string;
+  /** @deprecated Ignored when loading. Typed as required only to match Lexical's types: rich text sent through the API, CLI or MCP may not contain it. */
+  version: number;
+}
+
+export interface SerializedTabNode {
+  type: 'tab';
+  detail: number;
+  format: number;
+  mode: LexicalTextMode;
+  style: string;
+  text: string;
+  /** @deprecated Ignored when loading. Typed as required only to match Lexical's types: rich text sent through the API, CLI or MCP may not contain it. */
+  version: number;
+}
+
+export interface SerializedLineBreakNode {
+  type: 'linebreak';
+  /** @deprecated Ignored when loading. Typed as required only to match Lexical's types: rich text sent through the API, CLI or MCP may not contain it. */
+  version: number;
+}
+
+export interface SerializedParagraphNode<TChildren> extends SerializedLexicalElementBase<TChildren> {
+  type: 'paragraph';
+  textFormat: number;
+  textStyle: string;
+}
+
+export interface SerializedHorizontalRuleNode {
+  type: 'horizontalrule';
+  /** @deprecated Ignored when loading. Typed as required only to match Lexical's types: rich text sent through the API, CLI or MCP may not contain it. */
+  version: number;
+}
+
+export type SerializedUploadNode<TSlugs extends keyof Config['collections'], TFields = { [k: string]: unknown }> = {
+  type: 'upload';
+  format: LexicalElementFormat;
+  id: string;
+  /** @deprecated Ignored when loading. Typed as required only to match Lexical's types: rich text sent through the API, CLI or MCP may not contain it. */
+  version: number;
+  fields: TFields;
+} & {
+  [TSlug in TSlugs]: {
+    relationTo: TSlug;
+    value: Config['collections'][TSlug]['id'] | Config['collections'][TSlug];
+  };
+}[TSlugs];
+
+export interface SerializedQuoteNode<TChildren> extends SerializedLexicalElementBase<TChildren> {
+  type: 'quote';
+}
+
+export type SerializedRelationshipNode<TSlugs extends keyof Config['collections']> = {
+  type: 'relationship';
+  format: LexicalElementFormat;
+  /** @deprecated Ignored when loading. Typed as required only to match Lexical's types: rich text sent through the API, CLI or MCP may not contain it. */
+  version: number;
+} & {
+  [TSlug in TSlugs]: {
+    relationTo: TSlug;
+    value: Config['collections'][TSlug]['id'] | Config['collections'][TSlug];
+  };
+}[TSlugs];
+
+export interface LexicalLinkFields {
+  [k: string]: unknown;
+  doc?: {
+    relationTo: string;
+    value: Config['db']['defaultIDType'] | { [k: string]: unknown; id: Config['db']['defaultIDType'] };
+  } | null;
+  linkType: 'custom' | 'internal';
+  newTab: boolean;
+  url?: string;
+}
+export interface SerializedLinkNode<TChildren, TFields = LexicalLinkFields> extends SerializedLexicalElementBase<TChildren> {
+  type: 'link';
+  fields: TFields;
+  id?: string;
+}
+export interface SerializedAutoLinkNode<TChildren, TFields = LexicalLinkFields> extends SerializedLexicalElementBase<TChildren> {
+  type: 'autolink';
+  fields: TFields;
+}
+
+export interface SerializedListNode<TChildren> extends SerializedLexicalElementBase<TChildren> {
+  type: 'list';
+  checked?: boolean;
+  listType: 'number' | 'bullet' | 'check';
+  start: number;
+  tag: 'ul' | 'ol';
+}
+
+export interface SerializedListItemNode<TChildren> extends SerializedLexicalElementBase<TChildren> {
+  type: 'listitem';
+  checked?: boolean;
+  value: number;
+}
+
+export interface SerializedHeadingNode<
+  TChildren,
+  TTag extends 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
+> extends SerializedLexicalElementBase<TChildren> {
+  type: 'heading';
+  tag: TTag;
+}
+
+/** Shape of a Lexical `richText` field. */
+export interface LexicalRichText<TNode> {
+  root: {
+    children: TNode[];
+    direction: LexicalElementDirection;
+    format: LexicalElementFormat;
+    indent: number;
+    type: 'root';
+    /** @deprecated Ignored when loading. Typed as required only to match Lexical's types: rich text sent through the API, CLI or MCP may not contain it. */
+    version: number;
+  };
 }
 
 

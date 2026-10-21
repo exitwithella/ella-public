@@ -1,7 +1,7 @@
 'use client'
 
 import { SignInButton, useAuth } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@payloadcms/ui'
 import type { CSSProperties } from 'react'
 import { useEffect } from 'react'
 
@@ -17,11 +17,11 @@ const dividerRowStyle: CSSProperties = {
 const dividerLineStyle: CSSProperties = {
   flex: 1,
   height: '1px',
-  background: 'var(--theme-elevation-150, #ddd)',
+  background: 'var(--color-border)',
 }
 
 const dividerTextStyle: CSSProperties = {
-  color: 'var(--theme-elevation-500, #888)',
+  color: 'var(--color-text-tertiary)',
   fontSize: '0.875rem',
 }
 
@@ -30,10 +30,10 @@ const buttonStyle: CSSProperties = {
   padding: '0.75rem 1.5rem',
   fontSize: '0.9375rem',
   fontWeight: 500,
-  border: '1px solid var(--theme-elevation-150, #ddd)',
+  border: '1px solid var(--color-border)',
   borderRadius: '4px',
-  background: 'var(--theme-bg, #fff)',
-  color: 'var(--theme-text, #333)',
+  background: 'var(--color-bg)',
+  color: 'var(--color-text)',
   cursor: 'pointer',
   display: 'flex',
   alignItems: 'center',

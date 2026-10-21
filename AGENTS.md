@@ -153,10 +153,9 @@ slugField({ fieldToUse: 'title' })
 ### 1. Local API Access Control (MOST IMPORTANT)
 
 ```typescript
-// ❌ SECURITY BUG: Access control bypassed
+// ❌ BROKEN trusted call: v4 enforces access, so this hides rows from anonymous server code
 await payload.find({
   collection: 'posts',
-  user: someUser, // Ignored! Operation runs with ADMIN privileges
 })
 
 // ✅ SECURE: Enforces user permissions
@@ -169,11 +168,11 @@ await payload.find({
 // ✅ Administrative operation (intentional bypass)
 await payload.find({
   collection: 'posts',
-  // No user, overrideAccess defaults to true
+  overrideAccess: true, // REQUIRED; the default is now false
 })
 ```
 
-**Rule**: When passing `user` to Local API, ALWAYS set `overrideAccess: false`
+**Rule**: When passing `user` to Local API, ALWAYS set `overrideAccess: false`. Trusted server work must pass `overrideAccess: true`.
 
 ### 2. Transaction Safety in Hooks
 
@@ -980,7 +979,7 @@ export const myPlugin =
 
 ### Security
 
-1. Always set `overrideAccess: false` when passing `user` to Local API
+1. Always set `overrideAccess: false` when passing `user` to Local API, and `overrideAccess: true` for trusted server work (the default is `false`)
 2. Field-level access only returns boolean (no query constraints)
 3. Default to restrictive access, gradually add permissions
 4. Never trust client-provided data
@@ -1020,7 +1019,7 @@ export const myPlugin =
 
 ## Common Gotchas
 
-1. **Local API Default**: Access control bypassed unless `overrideAccess: false`
+1. **Local API Default**: Access control is enforced unless `overrideAccess: true`
 2. **Transaction Safety**: Missing `req` in nested operations breaks atomicity
 3. **Hook Loops**: Operations in hooks can trigger the same hooks
 4. **Field Access**: Cannot use query constraints, only boolean
@@ -1134,3 +1133,13 @@ For deeper exploration of specific topics, refer to the context files located in
 - GitHub: https://github.com/payloadcms/payload
 - Examples: https://github.com/payloadcms/payload/tree/main/examples
 - Templates: https://github.com/payloadcms/payload/tree/main/templates
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

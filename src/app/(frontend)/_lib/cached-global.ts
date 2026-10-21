@@ -25,7 +25,7 @@ export function cachedGlobal<T>(
   return unstable_cache(
     async (): Promise<T> => {
       const payload = await getPayload({ config })
-      return payload.findGlobal({ slug, depth }) as Promise<T>
+      return payload.findGlobal({ slug, depth, overrideAccess: true }) as Promise<T>
     },
     [slug],
     { revalidate, tags },

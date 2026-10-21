@@ -15,7 +15,7 @@ export function createIndexNowHook(
     const key = process.env.INDEXNOW_API_KEY
     if (!key) return doc
 
-    const settings = await req.payload.findGlobal({ slug: 'site-settings' })
+    const settings = await req.payload.findGlobal({ slug: 'site-settings', overrideAccess: true })
     if (!settings.indexNow?.enabled) return doc
 
     const path = getPath(doc)

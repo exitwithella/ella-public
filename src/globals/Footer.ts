@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import { bgStyleField } from '../fields/bgStyle'
 import { linkFields } from '../fields/link'
 import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
@@ -7,6 +8,7 @@ import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
 export const Footer: GlobalConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   hooks: {
     afterChange: [createGlobalRevalidateHook('footer')],

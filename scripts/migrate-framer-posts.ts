@@ -319,10 +319,15 @@ async function main() {
       collection: 'categories',
       where: { slug: { equals: cat.slug } },
       limit: 1,
+      overrideAccess: true,
     })
     if (existing.docs.length === 0) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const created = await payload.create({ collection: 'categories', data: cat as any })
+      const created = await payload.create({
+        collection: 'categories',
+        data: cat as any,
+        overrideAccess: true,
+      })
       categoryIdMap[cat.slug] = created.id
       console.log(`✓ Category: ${cat.title}`)
     } else {
@@ -332,7 +337,11 @@ async function main() {
   }
 
   // Also index existing categories
-  const existing = await payload.find({ collection: 'categories', limit: 100 })
+  const existing = await payload.find({
+    collection: 'categories',
+    limit: 100,
+    overrideAccess: true,
+  })
   for (const cat of existing.docs) {
     if (!categoryIdMap[cat.slug]) {
       categoryIdMap[cat.slug] = cat.id
@@ -348,6 +357,7 @@ async function main() {
       collection: 'posts',
       where: { slug: { equals: post.slug } },
       limit: 1,
+      overrideAccess: true,
     })
 
     if (check.docs.length > 0) {
@@ -387,7 +397,7 @@ async function main() {
     }
 
     try {
-      await payload.create({ collection: 'posts', data })
+      await payload.create({ collection: 'posts', data, overrideAccess: true })
       console.log(`✓ Post: ${post.title} [${data.tier}]`)
     } catch (err) {
       console.error(`✗ Failed: ${post.title}`)

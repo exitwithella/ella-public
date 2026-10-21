@@ -9,35 +9,36 @@ These are the three most critical security patterns that MUST be followed in eve
 
 ## 1. Local API Access Control (MOST IMPORTANT)
 
-**By default, Local API operations bypass ALL access control**, even when passing a user.
+**By default, Local API operations enforce access control** (`overrideAccess: false` since Payload 4). A call with no user is treated as anonymous.
 
 ```typescript
-// ❌ SECURITY BUG: Passes user but ignores their permissions
+// ❌ SECURITY BUG on Payload 3, and a broken trusted call on Payload 4:
+// v4 enforces access, so this returns nothing unless the caller is allowed.
 await payload.find({
   collection: 'posts',
-  user: someUser, // Access control is BYPASSED!
+  user: someUser, // Permissions are enforced. overrideAccess stays false.
 })
 
-// ✅ SECURE: Actually enforces the user's permissions
+// ✅ SECURE: Operating on behalf of a user
 await payload.find({
   collection: 'posts',
   user: someUser,
-  overrideAccess: false, // REQUIRED for access control
+  overrideAccess: false, // REQUIRED whenever a user is passed
 })
 
 // ✅ Administrative operation (intentional bypass)
 await payload.find({
   collection: 'posts',
-  // No user, overrideAccess defaults to true
+  overrideAccess: true, // REQUIRED for trusted server work with no user
 })
 ```
 
 **When to use each:**
 
-- `overrideAccess: true` (default) - Server-side operations you trust (cron jobs, system tasks)
-- `overrideAccess: false` - When operating on behalf of a user (API routes, webhooks)
+- `overrideAccess: false` (default) - When operating on behalf of a user (API routes, webhooks)
+- `overrideAccess: true` - Server-side operations you trust (cron jobs, system tasks, seed scripts)
 
-**Rule**: When passing `user` to Local API, ALWAYS set `overrideAccess: false`
+**Rule**: When passing `user` to Local API, ALWAYS set `overrideAccess: false`. Trusted server work that has no user must pass `overrideAccess: true`.
 
 ## 2. Transaction Safety in Hooks
 

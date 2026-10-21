@@ -1,7 +1,9 @@
 import config from '@payload-config'
-import type { Payload, TypedUser } from 'payload'
+import type { Payload } from 'payload'
 import { getPayload } from 'payload'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+
+import type { User } from '@/payload-types'
 
 /**
  * MKT-175 — draft content must not leak through the public REST surface.
@@ -18,7 +20,7 @@ const draftSlug = `mkt175-draft-${stamp}`
 const publishedSlug = `mkt175-published-${stamp}`
 
 let payload: Payload
-let user: TypedUser
+let user: User
 let draftId: number | string
 let publishedId: number | string
 
@@ -26,13 +28,14 @@ describe('draft page access control (MKT-175)', () => {
   beforeAll(async () => {
     payload = await getPayload({ config: await config })
 
-    user = (await payload.create({
+    user = await payload.create({
       collection: 'users',
       data: {
         email: `mkt175-${stamp}@example.com`,
         password: 'test-password-1234',
       },
-    })) as unknown as TypedUser
+      overrideAccess: true,
+    })
 
     const draft = await payload.create({
       collection: 'pages',
@@ -42,6 +45,7 @@ describe('draft page access control (MKT-175)', () => {
         status: 'draft',
         hero: { headline: 'Draft' },
       },
+      overrideAccess: true,
     })
     draftId = draft.id
 
@@ -53,15 +57,16 @@ describe('draft page access control (MKT-175)', () => {
         status: 'published',
         hero: { headline: 'Published' },
       },
+      overrideAccess: true,
     })
     publishedId = published.id
-  })
+  }, 60_000)
 
   afterAll(async () => {
     await Promise.all([
-      draftId && payload.delete({ collection: 'pages', id: draftId }),
-      publishedId && payload.delete({ collection: 'pages', id: publishedId }),
-      user?.id && payload.delete({ collection: 'users', id: user.id }),
+      draftId && payload.delete({ collection: 'pages', id: draftId, overrideAccess: true }),
+      publishedId && payload.delete({ collection: 'pages', id: publishedId, overrideAccess: true }),
+      user?.id && payload.delete({ collection: 'users', id: user.id, overrideAccess: true }),
     ])
   })
 

@@ -3,6 +3,7 @@ import type { GlobalConfig } from 'payload'
 import { ctaField } from '@/fields/cta'
 import { iconField } from '@/fields/icon'
 
+import { authenticated } from '../access/authenticated'
 import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
 
 const indicatorOptions = [
@@ -19,6 +20,16 @@ const tierColumnFields = () => [
     required: true,
     defaultValue: 'check',
     admin: { width: '50%' },
+    // Version snapshots nest this select under
+    // `_pricing_page_v_version_categories_rows_{practitioner,enterprise}`,
+    // which pushes the generated enum name past Postgres's 63-character
+    // identifier limit. Keep the existing name wherever it already fits.
+    enumName: ({ tableName }: { tableName?: string }) => {
+      const generated = `enum_${tableName}_indicator`
+      if (generated.length <= 63) return generated
+      const side = tableName?.includes('enterprise') ? 'ent' : 'prac'
+      return `enum_ppv_rows_${side}_ind`
+    },
   },
   {
     name: 'displayText',
@@ -35,6 +46,7 @@ const tierColumnFields = () => [
 export const PricingPage: GlobalConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   hooks: {
     afterChange: [createGlobalRevalidateHook('pricing')],

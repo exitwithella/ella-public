@@ -68,6 +68,7 @@ async function upsertDoc(
     where: { [uniqueField]: { equals: uniqueValue } },
     limit: 1,
     depth: 0,
+    overrideAccess: true,
   })
 
   const data = stripAutoFields(doc) as any
@@ -78,6 +79,7 @@ async function upsertDoc(
       collection,
       id: existingDoc.id,
       data,
+      overrideAccess: true,
     })
     return { id: existingDoc.id, created: false }
   }
@@ -85,6 +87,7 @@ async function upsertDoc(
   const created = await payload.create({
     collection,
     data,
+    overrideAccess: true,
   })
   return { id: (created as any).id, created: true }
 }
@@ -258,6 +261,7 @@ async function seed() {
           collection: 'posts',
           id: newId,
           data: { relatedPosts: remapped } as any,
+          overrideAccess: true,
         })
       }
     }
@@ -298,6 +302,7 @@ async function seed() {
       await payload.updateGlobal({
         slug: slug as GlobalSlug,
         data: cleaned as any,
+        overrideAccess: true,
       })
       console.log(`  ✓ ${slug}`)
     } else {

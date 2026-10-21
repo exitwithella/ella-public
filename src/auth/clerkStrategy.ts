@@ -40,6 +40,9 @@ export const clerkStrategy: AuthStrategy = {
         where: { clerkId: { equals: decoded.sub } },
         limit: 1,
         depth: 0,
+        // Runs before a user exists on the request. The v4 default enforces
+        // access, which would hide every user from this lookup.
+        overrideAccess: true,
       })
 
       if (!docs.length) {

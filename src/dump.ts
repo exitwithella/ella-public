@@ -62,6 +62,7 @@ async function fetchAll(
       page,
       sort: sort ?? 'id',
       pagination: true,
+      overrideAccess: true,
     })
     allDocs.push(...(result.docs as unknown as Record<string, unknown>[]))
     hasMore = result.hasNextPage
@@ -140,6 +141,7 @@ async function dump() {
     const data = await payload.findGlobal({
       slug: slug as GlobalSlug,
       depth: 0,
+      overrideAccess: true,
     })
     const cleaned = stripInternals(data as unknown as Record<string, unknown>)
     writeJSON(`${slug}.json`, cleaned)

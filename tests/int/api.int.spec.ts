@@ -14,6 +14,7 @@ describe('aPI', () => {
   it('fetches users', async () => {
     const users = await payload.find({
       collection: 'users',
+      overrideAccess: true,
     })
     expect(users).toBeDefined()
   })

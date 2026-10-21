@@ -24,6 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     depth: 0,
     limit: 200,
     where: { status: { equals: 'published' } },
+    overrideAccess: true,
   })
 
   const pageEntries: MetadataRoute.Sitemap = pages.docs
@@ -41,6 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     depth: 0,
     limit: 200,
     where: { status: { equals: 'published' } },
+    overrideAccess: true,
   })
 
   const solutionEntries: MetadataRoute.Sitemap = solutions.docs.map((solution) => ({
@@ -57,6 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     limit: 500,
     sort: '-publishedDate',
     where: { status: { equals: 'published' } },
+    overrideAccess: true,
   })
 
   const postEntries: MetadataRoute.Sitemap = (posts.docs as Post[]).map((post) => {

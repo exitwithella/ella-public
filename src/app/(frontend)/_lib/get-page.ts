@@ -24,6 +24,7 @@ export const getPageBySlug = unstable_cache(
         slug: { equals: slug },
         status: { equals: 'published' },
       },
+      overrideAccess: true,
     })
 
     return (result.docs[0] ?? null) as Page | null

@@ -32,6 +32,7 @@ async function generateRedirects() {
       legacySlug: { exists: true },
       status: { equals: 'published' },
     },
+    overrideAccess: true,
   })
 
   for (const post of postsResult.docs) {
@@ -47,6 +48,7 @@ async function generateRedirects() {
   const redirectsResult = await payload.find({
     collection: 'redirects',
     limit: 500,
+    overrideAccess: true,
   })
 
   for (const redirect of redirectsResult.docs) {
