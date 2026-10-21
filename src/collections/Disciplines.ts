@@ -1,8 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
+
 export const Disciplines: CollectionConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   admin: {
     defaultColumns: ['name', 'slug', 'sortOrder'],

@@ -1,8 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
+
 export const VanguardEvents: CollectionConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   admin: {
     defaultColumns: ['title', 'date', 'status', 'capacity'],

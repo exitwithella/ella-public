@@ -203,7 +203,7 @@ export const Posts: CollectionConfig = {
 
 ## Important Notes
 
-1. **Local API Default**: Access control is **skipped by default** in Local API (`overrideAccess: true`). When passing a `user` parameter, you must set `overrideAccess: false`:
+1. **Local API Default**: Access control is **enforced by default** in Local API (`overrideAccess: false` since Payload 4). Trusted server work must pass `overrideAccess: true`. When passing a `user` parameter, you must set `overrideAccess: false`:
 
 ```typescript
 // ❌ WRONG: Passes user but bypasses access control

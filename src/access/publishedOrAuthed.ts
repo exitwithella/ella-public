@@ -9,9 +9,10 @@ import type { Access } from 'payload'
  * - Unauthenticated requests (the public REST API) are constrained to
  *   `status: published`, so drafts never leak through `/api/{collection}`.
  *
- * Note: the frontend fetches content via the Local API with the default
- * `overrideAccess: true`, which bypasses this entirely — those queries filter
- * on `status` explicitly. This guard only governs the public REST surface.
+ * Note: the frontend fetches content via the Local API with an explicit
+ * `overrideAccess: true` (the v4 default is `false`), which bypasses this
+ * entirely — those queries filter on `status` explicitly. This guard only
+ * governs the public REST surface.
  */
 export const publishedOrAuthed: Access = ({ req: { user } }) => {
   if (user) return true

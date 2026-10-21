@@ -76,6 +76,7 @@ export async function POST(request: Request) {
           or: [{ clerkId: { equals: clerkId } }, { email: { equals: email } }],
         },
         limit: 1,
+        overrideAccess: true,
       })
 
       if (existing.docs.length > 0) {
@@ -83,6 +84,7 @@ export async function POST(request: Request) {
           collection: 'users',
           id: existing.docs[0].id,
           data: { clerkId, email },
+          overrideAccess: true,
         })
         console.log(
           JSON.stringify({
@@ -102,6 +104,7 @@ export async function POST(request: Request) {
         const newUser = await payload.create({
           collection: 'users',
           data: { email, clerkId, password },
+          overrideAccess: true,
         })
         console.log(
           JSON.stringify({
@@ -120,11 +123,13 @@ export async function POST(request: Request) {
         collection: 'users',
         where: { clerkId: { equals: clerkId } },
         limit: 1,
+        overrideAccess: true,
       })
       if (existing.docs.length > 0) {
         await payload.delete({
           collection: 'users',
           id: existing.docs[0].id,
+          overrideAccess: true,
         })
         console.log(
           JSON.stringify({

@@ -43,10 +43,9 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          # Node 22 is required because test:smoke (and test:e2e) use
-          # --no-experimental-strip-types, which was added in Node 22.7. Local
-          # dev runs Node 22.16; CI was on Node 20 and crashed on startup.
-          node-version: 22
+          # Payload 4 requires Node >=24.15. test:smoke still passes
+          # --no-experimental-strip-types, which Node 24 accepts.
+          node-version: 24
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile

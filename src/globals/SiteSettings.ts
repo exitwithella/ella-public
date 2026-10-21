@@ -1,11 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import { ctaField } from '../fields/cta'
 import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
 
 export const SiteSettings: GlobalConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   hooks: {
     afterChange: [createGlobalRevalidateHook('site-settings')],

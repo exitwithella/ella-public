@@ -1,10 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const TeamMembers: CollectionConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   hooks: {
     // Embedded as post authors, and surfaced on team/about pages.

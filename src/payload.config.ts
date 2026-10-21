@@ -99,7 +99,36 @@ function createConsoleLogger(): PayloadLogger {
   return logger as unknown as PayloadLogger
 }
 
+const mcpCollectionOff = {
+  count: false,
+  countVersions: false,
+  create: false,
+  delete: false,
+  duplicate: false,
+  find: false,
+  findDistinct: false,
+  findVersionByID: false,
+  findVersions: false,
+  getCollectionSchema: false,
+  getUploadInstructions: false,
+  restoreVersion: false,
+  update: false,
+} as const
+
+const mcpGlobalOff = {
+  countGlobalVersions: false,
+  find: false,
+  findGlobalVersionByID: false,
+  findGlobalVersions: false,
+  getGlobalSchema: false,
+  restoreGlobalVersion: false,
+  update: false,
+} as const
+
 export default buildConfig({
+  // Omitted `depth` is 1 in v4. Public fetches that leave it unset still
+  // populate nested relationships the way they did on 3.x.
+  defaultDepth: 2,
   serverURL: siteURL,
   admin: {
     user: Users.slug,
@@ -163,36 +192,24 @@ export default buildConfig({
   db: sqliteD1Adapter({ binding: cloudflare.env.D1, push: !useRemoteBindings }),
   editor: lexicalEditor(),
   plugins: [
-    r2Storage({
-      bucket: cloudflare.env.R2,
-      collections: { media: true },
-    }),
     mcpPlugin({
       collections: {
-        posts: {
-          enabled: true,
-        },
-        pages: {
-          enabled: true,
-        },
-        'landing-pages': {
-          enabled: true,
-        },
-        'team-members': {
-          enabled: true,
-        },
-        categories: {
-          enabled: true,
-        },
-        solutions: {
-          enabled: true,
-        },
-        testimonials: {
-          enabled: true,
-        },
-        'pricing-tiers': {
-          enabled: true,
-        },
+        users: { tools: mcpCollectionOff },
+        media: { tools: mcpCollectionOff },
+        disciplines: { tools: mcpCollectionOff },
+        partners: { tools: mcpCollectionOff },
+        'faq-items': { tools: mcpCollectionOff },
+        tools: { tools: mcpCollectionOff },
+        redirects: { tools: mcpCollectionOff },
+        'case-studies': { tools: mcpCollectionOff },
+        'vanguard-events': { tools: mcpCollectionOff },
+      },
+      globals: {
+        'site-settings': { tools: mcpGlobalOff },
+        navigation: { tools: mcpGlobalOff },
+        footer: { tools: mcpGlobalOff },
+        'pricing-page': { tools: mcpGlobalOff },
+        'script-injection': { tools: mcpGlobalOff },
       },
     }),
   ],
@@ -200,6 +217,12 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  storage: [
+    r2Storage({
+      bucket: cloudflare.env.R2,
+      collections: { media: true },
+    }),
+  ],
 })
 
 // Adapted from https://github.com/opennextjs/opennextjs-cloudflare/blob/d00b3a13e42e65aad76fba41774815726422cc39/packages/cloudflare/src/api/cloudflare-context.ts#L328C36-L328C46

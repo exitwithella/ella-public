@@ -1,8 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
+
 export const CaseStudies: CollectionConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   admin: {
     defaultColumns: ['title', 'discipline', 'featured', 'approved'],

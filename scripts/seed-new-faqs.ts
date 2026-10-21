@@ -142,6 +142,7 @@ async function main() {
       collection: 'faq-items',
       where: { question: { equals: faq.question } },
       limit: 1,
+      overrideAccess: true,
     })
 
     if (existing.docs.length > 0) {
@@ -149,7 +150,7 @@ async function main() {
       continue
     }
 
-    await payload.create({ collection: 'faq-items', data: faq as any })
+    await payload.create({ collection: 'faq-items', data: faq as any, overrideAccess: true })
     console.log(`✓ Created: ${faq.question.slice(0, 60)}`)
   }
 

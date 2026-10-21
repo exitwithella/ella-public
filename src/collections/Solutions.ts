@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import {
   CardGridBlock,
   ContentSectionBlock,
@@ -17,6 +18,7 @@ import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/reval
 export const Solutions: CollectionConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   hooks: {
     afterChange: [

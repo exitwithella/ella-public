@@ -1,10 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const Testimonials: CollectionConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   hooks: {
     // Embedded via TestimonialBlock / FeatureDeepDive into pages and solutions.

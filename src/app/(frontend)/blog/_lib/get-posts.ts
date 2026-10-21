@@ -37,6 +37,7 @@ export const getPublishedPosts = unstable_cache(
       limit: options.limit ?? 200,
       page: options.page ?? 1,
       where,
+      overrideAccess: true,
     })
 
     return result.docs as Post[]
@@ -57,6 +58,7 @@ export const getPostBySlug = unstable_cache(
         slug: { equals: slug },
         status: { equals: 'published' },
       },
+      overrideAccess: true,
     })
 
     return (result.docs[0] ?? null) as Post | null
@@ -86,6 +88,7 @@ export const getAllPostSlugs = unstable_cache(
       depth: 2,
       limit: 500,
       where: { status: { equals: 'published' } },
+      overrideAccess: true,
     })
 
     const paths: string[][] = []

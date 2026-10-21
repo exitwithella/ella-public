@@ -1,11 +1,13 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import { ctaField } from '../fields/cta'
 import { createDeleteRevalidateHook, createRevalidateHook } from '../hooks/revalidate-cache'
 
 export const PricingTiers: CollectionConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   hooks: {
     afterChange: [createRevalidateHook('pricing')],

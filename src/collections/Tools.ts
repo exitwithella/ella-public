@@ -1,10 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import { iconField } from '../fields/icon'
 
 export const Tools: CollectionConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   admin: {
     defaultColumns: ['title', 'status', 'pricingTier'],

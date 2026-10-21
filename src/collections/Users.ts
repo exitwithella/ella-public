@@ -8,6 +8,9 @@ export const Users: CollectionConfig = {
   },
   auth: {
     strategies: [clerkStrategy],
+    // MCP authenticates with a user API key. The v3 payload-mcp-api-keys
+    // collection is gone; keys are recreated in admin after deploy.
+    useAPIKey: true,
   },
   fields: [
     {

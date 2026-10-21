@@ -12,6 +12,7 @@ export const getAllCategories = unstable_cache(
       collection: 'categories',
       sort: 'sortOrder',
       limit: 100,
+      overrideAccess: true,
     })
 
     return result.docs as Category[]
@@ -28,6 +29,7 @@ export const getCategoryByPrefix = unstable_cache(
       collection: 'categories',
       limit: 1,
       where: { pathPrefix: { equals: prefix } },
+      overrideAccess: true,
     })
 
     return (result.docs[0] ?? null) as Category | null
@@ -44,6 +46,7 @@ export const getCategoryBySlug = unstable_cache(
       collection: 'categories',
       limit: 1,
       where: { slug: { equals: slug } },
+      overrideAccess: true,
     })
 
     return (result.docs[0] ?? null) as Category | null

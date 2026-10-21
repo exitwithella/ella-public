@@ -1,13 +1,14 @@
 'use client'
 
 import { FieldLabel, useField } from '@payloadcms/ui'
-import type { TextFieldClientComponent } from 'payload'
+import type { TextFieldClientProps } from 'payload'
 import type { ComponentType } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import type React from 'react'
 
 import manifest from './icon-manifest.json'
 
-import './IconPickerField.scss'
+import './IconPickerField.css'
 
 interface IconEntry {
   name: string
@@ -69,7 +70,7 @@ function IconGrid({
   )
 }
 
-const IconPickerField: TextFieldClientComponent = ({ field, path: pathFromProps }) => {
+const IconPickerField: React.FC<TextFieldClientProps> = ({ field, path: pathFromProps }) => {
   const path = pathFromProps ?? field.name
   const { value, setValue, showError } = useField<string>({ path })
 

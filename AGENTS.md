@@ -153,10 +153,9 @@ slugField({ fieldToUse: 'title' })
 ### 1. Local API Access Control (MOST IMPORTANT)
 
 ```typescript
-// ❌ SECURITY BUG: Access control bypassed
+// ❌ BROKEN trusted call: v4 enforces access, so this hides rows from anonymous server code
 await payload.find({
   collection: 'posts',
-  user: someUser, // Ignored! Operation runs with ADMIN privileges
 })
 
 // ✅ SECURE: Enforces user permissions
@@ -169,11 +168,11 @@ await payload.find({
 // ✅ Administrative operation (intentional bypass)
 await payload.find({
   collection: 'posts',
-  // No user, overrideAccess defaults to true
+  overrideAccess: true, // REQUIRED; the default is now false
 })
 ```
 
-**Rule**: When passing `user` to Local API, ALWAYS set `overrideAccess: false`
+**Rule**: When passing `user` to Local API, ALWAYS set `overrideAccess: false`. Trusted server work must pass `overrideAccess: true`.
 
 ### 2. Transaction Safety in Hooks
 
@@ -980,7 +979,7 @@ export const myPlugin =
 
 ### Security
 
-1. Always set `overrideAccess: false` when passing `user` to Local API
+1. Always set `overrideAccess: false` when passing `user` to Local API, and `overrideAccess: true` for trusted server work (the default is `false`)
 2. Field-level access only returns boolean (no query constraints)
 3. Default to restrictive access, gradually add permissions
 4. Never trust client-provided data
@@ -1020,7 +1019,7 @@ export const myPlugin =
 
 ## Common Gotchas
 
-1. **Local API Default**: Access control bypassed unless `overrideAccess: false`
+1. **Local API Default**: Access control is enforced unless `overrideAccess: true`
 2. **Transaction Safety**: Missing `req` in nested operations breaks atomicity
 3. **Hook Loops**: Operations in hooks can trigger the same hooks
 4. **Field Access**: Cannot use query constraints, only boolean

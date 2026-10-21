@@ -1,10 +1,12 @@
 import type { GlobalConfig } from 'payload'
 
+import { authenticated } from '../access/authenticated'
 import { createGlobalRevalidateHook } from '../hooks/revalidate-cache'
 
 export const ScriptInjection: GlobalConfig = {
   access: {
     read: () => true,
+    readVersions: authenticated,
   },
   hooks: {
     afterChange: [createGlobalRevalidateHook('script-injection')],

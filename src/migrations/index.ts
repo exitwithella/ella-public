@@ -11,6 +11,7 @@ import * as migration_20260712_180023_mkt_223_dilemma_typed_arrays from './20260
 import * as migration_20260712_212008_mkt_200_vanguard_case_study_slug from './20260712_212008_mkt_200_vanguard_case_study_slug';
 import * as migration_20260806_015813_add_hero_announcement from './20260806_015813_add_hero_announcement';
 import * as migration_20261020_050631_newsletter_segment_ids from './20261020_050631_newsletter_segment_ids';
+import * as migration_20261021_040825_payload_v4 from './20261021_040825_payload_v4';
 
 export const migrations = [
   {
@@ -76,6 +77,11 @@ export const migrations = [
   {
     up: migration_20261020_050631_newsletter_segment_ids.up,
     down: migration_20261020_050631_newsletter_segment_ids.down,
-    name: '20261020_050631_newsletter_segment_ids'
+    name: '20261020_050631_newsletter_segment_ids',
+  },
+  {
+    up: migration_20261021_040825_payload_v4.up,
+    down: migration_20261021_040825_payload_v4.down,
+    name: '20261021_040825_payload_v4'
   },
 ];

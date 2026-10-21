@@ -25,6 +25,7 @@ export const getPricingData = unstable_cache(
         collection: 'pricing-tiers',
         sort: 'sortOrder',
         limit: 10,
+        overrideAccess: true,
       }),
       payload.find({
         collection: 'faq-items',
@@ -33,8 +34,9 @@ export const getPricingData = unstable_cache(
         },
         sort: 'sortOrder',
         limit: 20,
+        overrideAccess: true,
       }),
-      payload.findGlobal({ slug: 'pricing-page' }),
+      payload.findGlobal({ slug: 'pricing-page', overrideAccess: true }),
     ])
 
     return {
