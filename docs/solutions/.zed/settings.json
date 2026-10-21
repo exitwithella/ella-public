@@ -1,0 +1,8 @@
+{
+  // Matches `ignorePatterns` in /.oxfmtrc.json — `pnpm format` skips solution
+  // docs, so format-on-save must skip them too. oxfmt rewrites YAML quotes and
+  // can turn identifiers like snake_case into broken emphasis. It also does
+  // not honor ignorePatterns when invoked with --stdin-filepath, which is how
+  // Zed calls it, so the exclusion has to be re-stated here.
+  "format_on_save": "off"
+}
