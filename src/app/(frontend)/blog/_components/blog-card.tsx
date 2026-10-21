@@ -46,7 +46,7 @@ function AuthorByline({
   const photo = a?.photo && typeof a.photo === 'object' ? (a.photo as Media) : null
 
   return (
-    <div className="text-ash-1000 flex items-center gap-3">
+    <div className="text-ash-700 flex items-center gap-3">
       {a && !compact && (
         <div className="bg-ash-200 relative size-10 shrink-0 overflow-hidden rounded-full">
           {photo?.url ? (

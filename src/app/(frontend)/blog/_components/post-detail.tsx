@@ -78,11 +78,11 @@ export function PostDetail({ post }: PostDetailProps) {
                 <p className="text-ash-800 text-sm font-semibold">
                   {author.name}
                   {author.role && (
-                    <span className="text-ash-1000 font-normal"> · {author.role}</span>
+                    <span className="text-ash-700 font-normal"> · {author.role}</span>
                   )}
                 </p>
               )}
-              <p className="text-ash-1000 mt-0.5 text-sm">
+              <p className="text-ash-700 mt-0.5 text-sm">
                 {formatPublishedDate(post.publishedDate)} · {readingTime} min read
               </p>
             </div>

@@ -33,7 +33,7 @@ function SingleTestimonial({ testimonial }: { testimonial: Testimonial }) {
       <footer className="mt-6">
         <p className="text-ash-900 text-sm font-semibold">{testimonial.name}</p>
         {(testimonial.title || testimonial.company) && (
-          <p className="text-ash-1000 mt-1 text-sm">
+          <p className="text-ash-700 mt-1 text-sm">
             {[testimonial.title, testimonial.company].filter(Boolean).join(', ')}
           </p>
         )}
@@ -54,7 +54,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
         <div>
           <p className="text-ash-900 text-sm font-semibold">{testimonial.name}</p>
           {(testimonial.title || testimonial.company) && (
-            <p className="text-ash-1000 text-xs">
+            <p className="text-ash-700 text-xs">
               {[testimonial.title, testimonial.company].filter(Boolean).join(', ')}
             </p>
           )}

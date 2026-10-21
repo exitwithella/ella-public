@@ -57,7 +57,7 @@ export function SolutionHero({ hero, title }: SolutionHeroProps) {
       <Container>
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="mb-8">
-          <ol className="text-ash-1000 flex items-center gap-2 text-sm">
+          <ol className="text-ash-700 flex items-center gap-2 text-sm">
             <li>
               <Link href="/solutions" className="hover:text-ash-700 transition-colors">
                 Solutions

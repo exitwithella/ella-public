@@ -126,7 +126,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               ))}
             </div>
           ) : (
-            <p className="text-ash-1000 py-12 text-center text-base">
+            <p className="text-ash-700 py-12 text-center text-base">
               No posts yet in this category.
             </p>
           )}

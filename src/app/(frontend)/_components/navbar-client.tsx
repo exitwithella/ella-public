@@ -81,7 +81,7 @@ function DropdownPanel({
               {item.label}
             </span>
             {item.description && (
-              <span className="text-ash-1000 text-xs/relaxed">{item.description}</span>
+              <span className="text-ash-700 text-xs/relaxed">{item.description}</span>
             )}
           </a>
         ))}
@@ -203,7 +203,7 @@ function MobileNavItem({ link, onNavigate }: { link: NavLink; onNavigate: () => 
                 {item.label}
               </span>
               {item.description && (
-                <span className="text-ash-1000 mt-0.5 block text-sm">{item.description}</span>
+                <span className="text-ash-700 mt-0.5 block text-sm">{item.description}</span>
               )}
             </a>
           ))}
