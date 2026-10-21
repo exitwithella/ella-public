@@ -6,7 +6,7 @@ module: cms
 problem_type: developer_experience
 component: payload
 symptoms:
-  - "unsure whether renaming a Payload block slug needs a D1 data migration for persisted layout JSON"
+  - 'unsure whether renaming a Payload block slug needs a D1 data migration for persisted layout JSON'
 applies_when:
   - 'renaming a Payload block slug whose old and new forms snake_case to the same identifier (e.g. formEmbed → form-embed)'
   - 'deciding whether persisted page/layout rows need a data migration after a slug rename'
@@ -50,7 +50,7 @@ Verify empirically with the project's drift check — it is the arbiter:
 pnpm check-migrations   # expect: "Schema in sync — no new migration needed."
 ```
 
-Remember the non-DB consumers that the rename *does* touch (the compiler and
+Remember the non-DB consumers that the rename does touch (the compiler and
 grep find these):
 
 - Regenerate types: `NODE_OPTIONS=--no-deprecation npx payload generate:types`
@@ -71,10 +71,10 @@ pointless (and risk-adding) `UPDATE` migration. Checking the table-name
 derivation + `check-migrations` first turns a "needs a careful data migration"
 task into a three-line code change verified in seconds.
 
-The corollary bounds it: a rename where the snake_case form **does** change
-(e.g. `formEmbed` → `embedded-form` ⇒ `form_embed` → `embedded_form`) *would*
+The corollary bounds it: a rename where the `snake_case` form changes
+(e.g. `formEmbed` → `embedded-form` ⇒ `form_embed` → `embedded_form`) would
 rename the tables and require a real migration (and data move). The
-schema-neutral shortcut only applies when the snake_case identifier is stable.
+schema-neutral shortcut only applies when the `snake_case` identifier is stable.
 
 ## When to Apply
 
