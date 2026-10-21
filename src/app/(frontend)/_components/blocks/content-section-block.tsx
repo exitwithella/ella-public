@@ -8,7 +8,9 @@ import { isDarkTheme, ThemeSection } from '@/components/elements/theme-section'
 import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon'
 import type { Page, Solution } from '@/payload-types'
 
+import { BlockMediaFrame } from './block-media'
 import { SplitHeadingLayout } from './content-section-split-heading'
+import { BLOCK_MEDIA_SIZES } from './resolve-media'
 
 type ContentSectionData =
   | Extract<NonNullable<Page['layout']>[number], { blockType: 'content-section' }>
@@ -40,11 +42,13 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
         {/* Section label */}
         {block.sectionLabel && <Eyebrow className="mb-4">{block.sectionLabel}</Eyebrow>}
 
-        {/* Full-width media above */}
         {hasMedia && mediaPos === 'top' && (
-          <div className="bg-theme-surface mb-10 flex aspect-video items-center justify-center rounded-sm">
-            <span className="text-theme-text-muted text-sm">Visual</span>
-          </div>
+          <BlockMediaFrame
+            media={block.media}
+            sizes={BLOCK_MEDIA_SIZES.full}
+            fallback="Visual"
+            className="mb-10"
+          />
         )}
 
         {/* Content layout */}
@@ -83,12 +87,13 @@ export function ContentSectionBlock({ block }: ContentSectionBlockProps) {
             )}
           </div>
 
-          {/* Media column (two-column mode) */}
           {isTwoColumn && (
             <div className="flex-1">
-              <div className="bg-theme-surface flex aspect-video items-center justify-center rounded-sm">
-                <span className="text-theme-text-muted text-sm">Visual</span>
-              </div>
+              <BlockMediaFrame
+                media={block.media}
+                sizes={BLOCK_MEDIA_SIZES.half}
+                fallback="Visual"
+              />
             </div>
           )}
         </div>
