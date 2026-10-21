@@ -30,7 +30,7 @@ export function Pagination({ currentPage, totalPages, basePath, categorySlug }: 
         </Link>
       )}
 
-      <span className="text-ash-1000 text-sm" aria-live="polite" aria-atomic="true">
+      <span className="text-ash-700 text-sm" aria-live="polite" aria-atomic="true">
         Page {currentPage} of {totalPages}
       </span>
 

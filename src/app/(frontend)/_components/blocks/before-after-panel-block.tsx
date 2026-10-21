@@ -32,7 +32,7 @@ export function BeforeAfterPanelBlock({ block }: BeforeAfterPanelBlockProps) {
           <div className="border-ash-200 bg-ash-100/60 rounded-sm border p-8">
             <div className="mb-6 flex items-center gap-2">
               <span className="bg-ash-300 inline-block h-2 w-2 rounded-full" aria-hidden="true" />
-              <h3 className="font-display text-ash-1000 text-sm font-semibold tracking-wider uppercase">
+              <h3 className="font-display text-ash-900 text-sm font-semibold tracking-wider uppercase">
                 {beforeLabel}
               </h3>
             </div>

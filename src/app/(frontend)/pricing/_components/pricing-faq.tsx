@@ -67,8 +67,8 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
                       <summary className="text-ash-900 focus-visible:outline-moss-700 flex w-full cursor-pointer list-none items-start justify-between gap-6 rounded-sm py-5 text-left text-base/7 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
                         {faq.question}
                         <span className="relative h-lh w-[13px] shrink-0" aria-hidden="true">
-                          <PlusIcon className="text-ash-1000 absolute inset-0 h-lh group-open:opacity-0" />
-                          <MinusIcon className="text-ash-1000 absolute inset-0 h-lh opacity-0 group-open:opacity-100" />
+                          <PlusIcon className="text-ash-900 absolute inset-0 h-lh group-open:opacity-0" />
+                          <MinusIcon className="text-ash-900 absolute inset-0 h-lh opacity-0 group-open:opacity-100" />
                         </span>
                       </summary>
                       <div className="text-ash-700 -mt-2 pr-10 pb-5">
@@ -86,7 +86,7 @@ export function PricingFAQ({ faqs }: PricingFAQProps) {
 
           {/* Still have questions? */}
           <div className="mt-10 text-center">
-            <p className="text-ash-1000 text-sm">
+            <p className="text-ash-700 text-sm">
               Still have questions?{' '}
               <a
                 href="https://cal.com/team/ella/ella-intro?overlayCalendar=true"

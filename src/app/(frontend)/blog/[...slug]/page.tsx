@@ -124,7 +124,7 @@ export default async function SlugPage({ params, searchParams }: SlugPageProps) 
                   ))}
                 </div>
               ) : (
-                <p className="text-ash-1000 py-12 text-center">No posts in this category yet.</p>
+                <p className="text-ash-700 py-12 text-center">No posts in this category yet.</p>
               )}
 
               {totalPages > 1 && (

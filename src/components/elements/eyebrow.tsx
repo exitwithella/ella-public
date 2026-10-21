@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react'
 const colorClass = {
   auto: 'text-theme-accent',
   moss: 'text-moss-600',
-  ash: 'text-ash-1000',
+  ash: 'text-ash-900',
   light: 'text-ash-100',
   'ash-dark': 'text-ash-700',
 } as const
