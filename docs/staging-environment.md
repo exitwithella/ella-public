@@ -19,8 +19,11 @@ apply and exercise a migration end-to-end without touching production.
 
 We deliberately do **not** set a Workers Builds "non-production branch deploy
 command". That keeps existing **per-branch preview URLs unchanged**. Staging is
-deployed **by hand** when you need it. (The tradeoff: previews still hit prod D1
-and still break on schema changes — that's what staging is for.)
+deployed **by hand** when you need it. Preview URLs still bind to prod D1, so a
+schema change 500s at runtime until the migration runs on main — that's what
+staging is for. `scripts/cf-build.sh` compiles the branch against local D1 when
+those migrations are still pending, so Workers Builds can finish instead of
+dying on the missing tables. That SSG output does not include production content.
 
 ## Resources (created once)
 
